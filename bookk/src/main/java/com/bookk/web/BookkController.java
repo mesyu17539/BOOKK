@@ -22,9 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class BookkController extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(BookkController.class);
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -38,6 +35,4 @@ public class BookkController extends HttpServlet {
 		
 		return "bookk";
 	}
-	
-
 }

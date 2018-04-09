@@ -3,5 +3,25 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookk.web.mapper.Mapper">
-    
+    <resultMap type="java.util.HashMap" id="map">
+		<id property="id" column="MEM_ID"/>
+		<result property="pass" column="pass"/>
+		<result property="name" column="name"/>
+		<result property="ssn" column="ssn"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="profile" column="profile"/>
+		<result property="addr" column="address"/>
+	</resultMap>
+	<insert id="addMember" parameterType="hashMap">
+    INSERT INTO
+     MEMBER(MEM_ID,MEMSTATUS,PASS,NAME,EMAIL,PHONE,SSN,ADDRESS)
+     VALUES('${id}',1,'${pass}','${name}','${email}','${phone}','${ssn}',${address})
+    </insert>
+    <select id="selectMemberById" resultMap="map" parameterType="hashMap">
+    SELECT *
+    FROM MEMBER
+    WHERE
+	${colum} LIKE #{data}
+    </select>
 </mapper>
