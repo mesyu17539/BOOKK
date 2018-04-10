@@ -10,4 +10,5 @@ public interface Mapper {
 	    public int selectCount();
 	    public int addMember(HashMap<?, ?> param);
 	    public Object selectMemberById(HashMap<?, ?> param);
+	    public Object selectById(HashMap<?, ?> param);
 }

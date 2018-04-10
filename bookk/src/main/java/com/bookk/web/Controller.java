@@ -31,23 +31,25 @@ public class Controller extends HttpServlet {
 		case "member":
 			System.out.println("mem");
 			param.put("colum", "MEM_ID");
+			param.put("type", param.get("type"));
 			o= new IGetService() {
 				
 				@Override
 				public Object execute(HashMap<?, ?> param) {
 					// TODO Auto-generated method stub
-					return mapper.selectMemberById(param);
+					return mapper.selectById(param);
 				}
 			}.execute(param);
 			break;
 		case "admin":
 			System.out.println("adm");
-			param.put("colum", "adm_id");
+			param.put("colum", "ADM_ID");
+			param.put("type", param.get("type"));
 //			o=  new ISerachService() {
 //				@Override
 //				public Object excute(HashMap<?, ?> param) {
 //					// TODO Auto-generated method stub
-//					return mapper.searchAll(param);
+//					return mapper.selectById(param);
 //				}
 //			}.excute(param);
 			break;
