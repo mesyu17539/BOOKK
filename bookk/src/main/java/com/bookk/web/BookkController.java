@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class BookkController extends HttpServlet {
+public class BookkController{
 	private static final Logger logger = LoggerFactory.getLogger(BookkController.class);
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)

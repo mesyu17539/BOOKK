@@ -5,19 +5,19 @@
 <mapper namespace="com.bookk.web.mapper.Mapper">
     <resultMap type="java.util.HashMap" id="map">
 		<result property="id" column="MEM_ID"/>
-		<result property="pass" column="PASS"/>
+		<result property="pass" column="MEM_PASS"/>
 		<result property="memstatus" column="MEMSTATUS"/>
-		<result property="name" column="NAME"/>
-		<result property="ssn" column="SSN"/>
-		<result property="phone" column="PHONE"/>
-		<result property="email" column="EMAIL"/>
-		<result property="addr" column="ADDRESS"/>
+		<result property="name" column="MEM_NAME"/>
+		<result property="ssn" column="MEM_SSN"/>
+		<result property="phone" column="MEM_PHONE"/>
+		<result property="email" column="MEM_EMAIL"/>
+		<result property="addr" column="MEM_ADDRESS"/>
 		<result property="id" column="ADM_ID"/>
 		<result property="pass" column="ADM_PASS"/>
 	</resultMap>
 	<insert id="addMember" parameterType="hashMap">
     INSERT INTO
-     MEMBER(MEM_ID,PASS,NAME,EMAIL,PHONE,SSN,ADDRESS)
+     MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS)
      VALUES('${id}','${pass}','${name}','${email}','${phone}','${ssn}',${address})
     </insert>
     <select id="selectMemberById" resultMap="map" parameterType="hashMap">
@@ -30,6 +30,6 @@
     SELECT *
     FROM ${type}
     WHERE
-	${colum} LIKE #{data}
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2}
     </select>
 </mapper>

@@ -1,27 +1,3 @@
-var createLogin=x=>{
-	return '<form action="/login" method="post" class="auth-form" id="login" style="z-index: 10001; display: block;">'
-	+'    <h2 class="text-center">로그인</h2>'
-	+'    <div class="form-group">'
-	+'        <label for="comment">아이디</label>'
-	+'        <input type="text" name="id" id="login-id" class="border-input" autofocus="autofocus"><br/>'
-	+'        <label for="comment">비밀번호</label>'
-	+'        <input type="password" name="password" id="login-password" class="border-input"><br/>'
-	+'        <div class="wrap-check">'
-	+'            <input type="checkbox" id="save_session" name="save_session" value="1" class="hidden">'
-	+'            <label class="check" for="save_session"></label>'
-	+'            <label for="save_session">로그인 상태 유지</label>'
-	+'        </div>'
-	+'    </div>'
-	+'    <div class="wrap-btn">'
-	+'        <button class="btn gray close">닫기</button>'
-	+'    </div>'
-	+'    <div class="form-group auth-help">'
-	+'        <div class="clearfix">'
-	+'            <a href="/findid" class="find-user pull-right">아이디/비밀번호 찾기</a>'
-	+'        </div>'
-	+'    </div>'
-	+'  </form>'
-}
 var createSelect=x=>{
 	return '<select id="'+x+'"></select>'
 }

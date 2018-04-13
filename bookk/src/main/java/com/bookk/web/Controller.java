@@ -18,19 +18,21 @@ import com.bookk.web.service.IPostService;
 
 
 @RestController
-public class Controller extends HttpServlet {
+public class Controller{
 	private static final Logger logger=LoggerFactory.getLogger(Controller.class);
 	@Autowired Mapper mapper;
 	
 	@RequestMapping(value="/{type}/login")
 	public Object login(@RequestBody HashMap<String, String> param){
 		logger.info("welcom {}","login ");
-		param.put("data", param.get("id"));
+		param.put("data1", param.get("id"));
+		param.put("data2", param.get("pass"));
 		Object o=null;
 		switch (param.get("type")) {
 		case "member":
 			System.out.println("mem");
-			param.put("colum", "MEM_ID");
+			param.put("colum1", "MEM_ID");
+			param.put("colum2", "MEM_PASS");
 			param.put("type", param.get("type"));
 			o= new IGetService() {
 				
@@ -43,7 +45,8 @@ public class Controller extends HttpServlet {
 			break;
 		case "admin":
 			System.out.println("adm");
-			param.put("colum", "ADM_ID");
+			param.put("colum1", "ADM_ID");
+			param.put("colum2", "ADM_PASS");
 			param.put("type", param.get("type"));
 //			o=  new ISerachService() {
 //				@Override
