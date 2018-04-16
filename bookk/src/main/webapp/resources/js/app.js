@@ -79,6 +79,7 @@ app.member=(()=>{
 		$('#div-adminipage-menu')
 		.html('<ul id="mypage-header" class="list-inline"></ul>');
 		
+		
 		$(createLI({id:'li-mypage',clazz:''}))
 		.append('<img src="http://www.bookk.co.kr/img/settings/index01.jpg">')
 		.appendTo('#mypage-header');
