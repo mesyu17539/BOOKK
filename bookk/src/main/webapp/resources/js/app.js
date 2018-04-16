@@ -79,24 +79,27 @@ app.member=(()=>{
 		$('#div-adminipage-menu')
 		.html('<ul id="mypage-header" class="list-inline"></ul>');
 		
-		$('<li></li>')
+		$(createLI({id:'li-mypage',clazz:''}))
 		.append('<img src="http://www.bookk.co.kr/img/settings/index01.jpg">')
 		.appendTo('#mypage-header');
-		$('<li></li>')
+		$(createLI({id:'',clazz:''}))
 		.append('<img src="http://www.bookk.co.kr/img/settings/index02.jpg">')
 		.appendTo('#mypage-header');
-		$('<li></li>')
+		$(createLI({id:'li-delivery',clazz:''}))
 		.append('<img src="http://www.bookk.co.kr/img/settings/index03.jpg">')
 		.appendTo('#mypage-header');
-		$('<li></li>')
+		$(createLI({id:'',clazz:''}))
 		.append('<img src="http://www.bookk.co.kr/img/settings/index04.jpg">')
+		.appendTo('#mypage-header');
+		$(createLI({id:'',clazz:''}))
+		.append('<img src="http://www.bookk.co.kr/img/settings/index05.jpg">')
 		.appendTo('#mypage-header');
 	}
 	var mypage=()=>{
 		$('#div-adminipage-submenu')
 		.html('<ul id="mypage-submenu" class="list-inline"></ul>');
 		
-		$('<li></li>')
+		$('<li>내용물</li>')
 		.append('<img src="http://www.bookk.co.kr/img/settings/index01.jpg">')
 		.appendTo('#mypage-submenu');
 	}
