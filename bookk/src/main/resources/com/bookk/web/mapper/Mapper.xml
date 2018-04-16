@@ -14,7 +14,20 @@
 		<result property="addr" column="MEM_ADDRESS"/>
 		<result property="id" column="ADM_ID"/>
 		<result property="pass" column="ADM_PASS"/>
+		<result property="bID" column="board_id"/>
+		<result property="createDate" column="create_date"/>
+		<result property="title" column="co_title"/>
+		<result property="contents" column="contents"/>
+		<result property="notify" column="notify"/>
+		<result property="viewNum" column="view_num"/>
+		<result property="memID" column="mem_id"/>
 	</resultMap>
+	<!-- MALL -->
+	<select id="mallCartCount" resultType="map" parameterType="hashMap">
+	SELECT COUNT(*) AS count FROM CARTBASKET
+	</select>
+	<select id="mallCartList" resultMap="map" parameterType="hashMap"></select>
+	<!-- MEMBER -->
 	<insert id="addMember" parameterType="hashMap">
     INSERT INTO
      MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS)
@@ -31,5 +44,19 @@
     FROM ${type}
     WHERE
 	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2}
+    </select>
+    <!-- board -->
+    <select id="boardList" resultMap="map" parameterType="hashMap">
+     select A2.* from(
+        select @rank:=@rank+1 rank, A.* 
+            from(select 
+                    *
+                        from board 
+                            order by board_id desc
+               ) A,(SELECT @rank := 0) R) A2
+                where rank between #{page.startRow} and #{page.endRow}
+    </select>
+    <select id="selectBoardCount" resultType="int" parameterType="hashMap">
+    SELECT COUNT(*) FROM board
     </select>
 </mapper>

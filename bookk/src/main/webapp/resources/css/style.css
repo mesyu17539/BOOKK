@@ -1,2 +1,136 @@
 @charset "UTF-8";
 .header .auth-form {display:none;position:absolute;top:35px;left: 0;right: 0;margin-left: auto;margin-right: auto;width: 300px;padding:12px 19px;background-color:#fff;border:1px solid #969696;z-index:10;}
+
+/* CSS board */
+.pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+/* CSS 장바구니 #div-monitor Start */
+.wrap-root{
+	border-bottom: 1px solid #eaeaea;
+}
+.cart-div{
+	width: 1000px; margin: 0 auto; 
+}
+.table-cart {
+	width: 100%;
+	margin-top: 45px;
+	
+}
+.table-cart th{
+	
+	font-weight: normal;
+	font-size: 16px;
+	border-top: 2px solid #bbbbbb;
+	border-bottom: 2px solid #bbbbbb;
+	height: 60px;
+	
+}
+/* CSS 장바구니 #div-monitor End */
+.header .division{
+	border: 1px solid #eee;
+}
+.dropbtn {
+   background-color: #10b5cf;
+   color: white;
+   padding: 16px;
+   font-size: 16px;
+   border: none;
+}
+
+.dropdown {
+   position: relative;
+   display: inline-block;
+}
+#ul-body-category {background-color: green; color:white;}
+.li-body-category {color :white;}
+.a-body-category {color:white;}
+.dropdown-content {
+   display: none;
+   position: absolute;
+   background-color: #f1f1f1;
+   min-width: 160px;
+   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   z-index: 1;
+}
+
+.dropdown-content a {
+   color: black;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd}
+
+.dropdown:hover .dropdown-content {
+   display: block;
+}
+
+.dropdown:hover .dropbtn {
+   background-color: #10b5cf;
+}
+body {margin: 0 auto;}
+a {background: transparent;}
+img {border: 0;cursor: pointer;}
+a {color: black;text-decoration: none;cursor: pointer;}
+ul, ol, li {list-style: none;}
+/* 카테고리 바 */
+.category-bar {height: 42px;background: black;}
+.container {width: 1000px;margin: 0 auto;position: relative;}
+.store-gnb ul {margin: 0;padding: 0;list-style: none;color: white;font-size: 15px;}
+.store-gnb>ul>li {float: left;display: block;height: 42px;}
+.store-gnb>ul>li>a {display: inline-block;color: white;padding: 12px 20px;}
+.store-gnb>ul>li:hover {background-color: #808080;}
+.store-gnb>ul>li.all-menu>a {padding: 13px 14px 17px 15px;height: 12px;line-height: 17px;background: black;}
+.store-gnb>ul>li.all-menu:hover .store-lnb {display: block;}
+.store-gnb>ul>li>a>.caret {margin-left: 80px;}
+.store-gnb>ul>li>a>.genre-list {position: relative;display: inline-block;padding: 0;width: 20px;height: 15px;top: 2px;margin-right: 9px;}
+.caret {display: inline-block;width: 0;height: 0;margin-left: 2px;vertical-align: middle;border-top: 4px solid;border-right: 4px solid transparent;border-left: 4px solid transparent;}
+.store-lnb {display: none;position: absolute;top: 40px;left: 0;z-index: 10;border: 2px solid black;height: 432px;background-color: white;}
+.store-lnb>ul {position: relative;width: 180px;padding-right: 180px;}
+.store-lnb>ul>li {text-align: left;}
+.store-lnb>ul>li a {display: block;padding: 9px 20px;}
+.store-lnb>ul>li a:hover {box-shadow: 400px 0 0 0 rgb(128, 128, 128) inset;cursor: pointer;}
+.store-lnb>ul>li>a {font-weight: bold;font-size: 14px;}
+.store-lnb>ul>li.active>a {text-decoration: none;background: white;color: black;}
+.store-lnb>ul>li .caret {display: none;position: absolute;top: 16px;right: 10px;}
+.store-lnb>ul>li.active .caret {display: block;}
+.store-lnb>ul>li>ul {position: absolute;width: 180px;top: 0;right: 0;height: 432px;background: #f8f8f8;border-left: 1px solid black;}
+.store-lnb>ul>li.active>ul {z-index: 2;overflow-y: auto;display: block;}
+.store-lnb>ul>li>ul>li>a {font-size: 13px;}
+.img-advertise .main-advertise {overflow: hidden;max-height: 545px;border-bottom: 1px solid white;position: relative;}
+#img-advertise #main-img-btn-clearfix {max-width : 1000px;height: 45px;margin: 0 auto;border-left: 1px solid white;}
+/* 봄 여름 가을 겨울 버튼 */
+#img-advertise #main-img-btn-clearfix li {float: left;width: 25%;height: 45px;margin: 0;background: black;border-right: 1px solid white;border-radius: 0;box-sizing: border-box;}
+#img-advertise #main-img-btn-clearfix button {color : white;display: block;position: relative;width: 100%;height: 45px;line-height: 45px;padding: 0 35px;text-align: center;text-indent: 0;font-size: 15px;outline: 0;font-weight: bold;} 
+#img-advertise #main-img-btn-clearfix button:hover {color: #808080;border-bottom: 2px solid white;border-top:  2px solid white;border-left: 2px solid white;border-right: 2px solid white;}
+/* 메인페이지 더보기 */
+.widget-header .more {float: right;margin-top: 6px;font-size: 11px;color: black;font-weight: bold;}
+.widget-header .more:hover {color: #0080ff;}
+/* 부크크 차트  */
+.pull-left {float: left;margin-right: 4px;}
+.pull-right {float: right;margin-right: 4px;}
+/* 텍스트 글 */
+.text-center {text-align: center !important;}
+.text-left {text-align: left !important;}
+.text-right {text-align: right;}
+/* 버튼 */
+.btn {display: inline-block;border-radius: 3px;padding: 9px 10px 11px;background: none;border: 0;border: 1px solid transparent;font-size: 12px;letter-spacing: -1px;cursor: pointer;}
+a.btn:hover {text-decoration: none;}
+/* 책 */
+.book-cover img {width: 104px;height: 154px;margin-top: 4px;}
+/* 장르, 더보기 */
+.widget-header {height: 24px;padding: 12px 1px;border-bottom: 1px solid black;}
+.widget-header h3, .widget-title {float: left;margin: 0 30px 0 0;font-size: 16px;}
+/* 메인페이지 중간부분 이미지 배너 */
+.section-ad {padding: 20px 0 20px;overflow: hidden;}
+.ad-item {float: left;width: 320px;height: 100px;margin-right: 12px;}
+.section-ad .ad-item:hover a img {border: 2px solid blue;}
+/* 이주의 책, 부크크 차트 */
+.nav {list-style: none;margin: 0;padding: 0;}
+.nav-tabs-vertical {float: left;width: 70px;text-align: center;}
+.nav-tabs-vertical li a {display: block;height: 67px;line-height: 67px;}
+.nav-tabs-vertical li.active a:hover {text-decoration: none;color: #0000ff;border-bottom: 2px solid blue;}
+.nav-tabs-vertical li.active a {background-color: black;color: white;cursor: pointer;font-weight: bold;}
+.section-ranking {overflow: hidden;}
+.section-ranking .widget {width: 480px;}
+.section-ranking .widget-content {height: 202px;border-bottom: 1px solid black;}
