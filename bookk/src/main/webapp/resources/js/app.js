@@ -12,14 +12,15 @@ app.nav=(()=>{
 	var onCreate=()=>{
 		$wrapper =$('#wrapper');
 		image=$.image();
+		context = $.context();
 		view=$.javascript()+'/view.js';
 		setContentView();
 	};
 	var setContentView=()=>{
 		$.getScript(view,()=>{
-			$wrapper.html(createDiv({id:'div-header',clazz:'header text-center'}))
-			.append(createDiv({id:'div-body',clazz:'container text-center'}))
-			.append(createDiv({id:'div-footer',clazz:'container text-center'}));
+			$wrapper.html(createDiv({id:'div-header',clazz:'text-center'}))
+			.append(createDiv({id:'div-body',clazz:'text-center'}))
+			.append(createDiv({id:'div-footer',clazz:'text-center'}));
 			
 
 			$(createDiv({
@@ -36,6 +37,7 @@ app.nav=(()=>{
 			.appendTo('#div-header-pageMenu')
 			.on('click',e=>{
 				e.preventDefault();
+				document.getElementById('wizcss').href=(context+'/resources/css/style.css');
 				$('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
 				$.getScript($.javascript()+'/book.js',()=>{
 					book.main.onCreate();
@@ -45,6 +47,7 @@ app.nav=(()=>{
 			.appendTo('#div-header-pageMenu')
 			.on('click',e=>{
 				e.preventDefault();
+				document.getElementById('wizcss').href=('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
 				$('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
 				$.getScript($.javascript()+'/bulletin.js',()=>{
 					bulletin.board.onCreate();
