@@ -1,4 +1,4 @@
-package com.bookk.web;
+package com.bookk.web.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +40,6 @@ public class Controller{
 			param.put("colum2", "MEM_PASS");
 			param.put("type", param.get("type"));
 			o= new IGetService() {
-				
 				@Override
 				public Object execute(HashMap<?, ?> param) {
 					// TODO Auto-generated method stub
