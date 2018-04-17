@@ -1,4 +1,4 @@
-package com.bookk.web;
+package com.bookk.web.controller;
 
 import java.util.HashMap;
 import java.util.Map;
