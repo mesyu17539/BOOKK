@@ -110,6 +110,7 @@ user.member=(x=>{
 						$(createATag({id:'a-cart',val:'장바구니'})).appendTo('#div-member-bar')
 						.on('click',e=>{
 							e.preventDefault();
+							document.getElementById('wizcss').href=(context+'/resources/css/style.css');
 							$.getScript($.javascript()+'/book.js',()=>{
 								book.main.onCreate();	  
 								$.getScript($.javascript()+'/shop.js',()=>{
@@ -122,6 +123,7 @@ user.member=(x=>{
 						.appendTo('#div-header')
 						.on('click',e=>{
 							e.preventDefault();
+							document.getElementById('wizcss').href=(context+'/resources/css/style.css');
 							$.getScript($.javascript()+'/book.js',()=>{
 								book.main.onCreate();	   			
 								$.getScript($.javascript()+'/user.js',()=>{
