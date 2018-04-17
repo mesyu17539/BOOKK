@@ -112,8 +112,8 @@ user.member=(x=>{
 							e.preventDefault();
 							$.getScript($.javascript()+'/book.js',()=>{
 								book.main.onCreate();	  
-								$.getScript($.javascript()+'/mall.js',()=>{
-									mall.mall.cart({view:view,context:context});
+								$.getScript($.javascript()+'/shop.js',()=>{
+									shop.mall.cart({view:view,context:context});
 								});
 							});
 						});

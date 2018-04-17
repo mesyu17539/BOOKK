@@ -1,6 +1,6 @@
-var board = board || {};
+var bulletin = bulletin || {};
 
-board.board=(x=>{
+bulletin.board=(x=>{
 	var context,view;
 	var onCreate=()=>{
 		view = $.javascript()+'/view.js';
@@ -38,12 +38,12 @@ board.board=(x=>{
 			.attr('style','height: 200px; max-width:100%;')
 			// board
 			$(createDiv({id:'col-5',clazz:'col-sm-2'})).appendTo('#row-div').attr('style','border:2px solid blue;padding: 1px');
-			$(createImage({id:'board-img',src:'https://goo.gl/yJAV6B',clazz:'boo'})).appendTo('#col-5')
+			$(createImage({id:'board-img',src:'https://bit.ly/2vkHU4L',clazz:'boo'})).appendTo('#col-5')
 			.attr('style','height: 200px; max-width:100%;')
 								   .hover(()=>{
-									   $('.boo').attr('src','https://files.slack.com/files-pri/T8NV14PJB-FA38T2JBD/image.png');
+									   $('.boo').attr('src','https://bit.ly/2qF90hc');
 								   }, ()=>{
-									   $('.boo').attr('src','https://goo.gl/yJAV6B');
+									   $('.boo').attr('src','https://bit.ly/2qF90hc');
 								   })
 								   .on('click',()=>{
 										boards();
@@ -119,7 +119,7 @@ board.board=(x=>{
 			$(createATag({id:'1-left-atag',val:'자유게시판'})).appendTo('#1-left-li')
 				.attr('style','padding:10px 50px 10px 50px;')
 				.on('click',()=>{
-					board.jau.onCreate();
+					bulletin.jau.onCreate();
 				});
 			$(createLI({id:'2-left-li',clazz:''})).appendTo('#left-ul')
 				.attr('style',' height: 60px; line-height: 60px; border: 1px solid green; text-align: center; margin-top: -1px; ');;
@@ -133,14 +133,14 @@ board.board=(x=>{
 		
 			// 오른쪽 상세내용
 			$(createDiv({id:'new-right-side',clazz:''})).appendTo('#borders-h');
-			board.jau.onCreate();
+			bulletin.jau.onCreate();
 		});
 		
 	}			
 		
 	return{onCreate:onCreate,boards:boards};
 })();
-board.jau=(()=>{
+bulletin.jau=(()=>{
 	var $wrapper,context,view;
 	var onCreate=()=>{
 		$wrapper = $('#wrapper');
@@ -209,7 +209,7 @@ board.jau=(()=>{
 				if(d.page.preBlock){
 					t+=$(createLI({id:'li-pre-page',clazz:''})).appendTo('#ul-page');
 					t+=$(createATag({id:'a-pre-page',val:''})).appendTo('#li-pre-page')
-					.attr('onClick','board.jau.articles('+(d.page.prev)+'); return false;');									
+					.attr('onClick','bulletin.jau.articles('+(d.page.prev)+'); return false;');									
 					t+=$(createSpanJW({id:'',clazz:'glyphicon glyphicon-hand-left',val:''})).appendTo('#a-pre-page');
 				}
 				for(var i=d.page.pageStart; i<=d.page.pageEnd; i++){
@@ -221,13 +221,13 @@ board.jau=(()=>{
 					}else{
 						t+= $(createLI({id:'li-page-'+i,clazz:''})).appendTo('#ul-page');
 						t+=$(createATag({id:'a-else-pageNum',val:i})).appendTo('#li-page-'+i)			
-						.attr('onClick','board.jau.articles('+i+'); return false;');
+						.attr('onClick','bulletin.jau.articles('+i+'); return false;');
 					}
 				}
 				if(d.page.nextBlock){
 					t+=$(createLI({id:'li-next-page',clazz:''})).appendTo('#ul-page');
 					t+=$(createATag({id:'a-next-page',val:''})).appendTo('#li-next-page')
-					.attr('onClick','board.jau.articles('+(d.page.next)+'); return false;');		
+					.attr('onClick','bulletin.jau.articles('+(d.page.next)+'); return false;');		
 					t+=$(createSpanJW({id:'',clazz:'glyphicon glyphicon-hand-right',val:''})).appendTo('#a-next-page');
 				};
 			});
@@ -277,7 +277,7 @@ board.jau=(()=>{
 			$(createButton({id:'',clazz:'btn',val:'목록'})).appendTo('#articles-button')
 			.attr('style','float:left; width:50px; height:30px; background-color:white; border : 1px solid gray; text-align: center')
 			.on('click',()=>{
-				board.jau.onCreate();
+				bulletin.jau.onCreate();
 		
 			});
 			$(createButton({id:'',clazz:'btn-danger',val:'등록하기'})).appendTo('#articles-button')

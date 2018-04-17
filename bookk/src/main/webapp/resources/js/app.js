@@ -46,8 +46,8 @@ app.nav=(()=>{
 			.on('click',e=>{
 				e.preventDefault();
 				$('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
-				$.getScript($.javascript()+'/board.js',()=>{
-					board.board.onCreate();
+				$.getScript($.javascript()+'/bulletin.js',()=>{
+					bulletin.board.onCreate();
 				})
 			});
 			
@@ -89,7 +89,7 @@ app.nav=(()=>{
 					})
 				});
 	   		$.getScript($.javascript()+'/book.js',()=>{
-	   			book.main.onCreate();	   			
+	   			book.main.onCreate(); 			
 	   		});
 		});
 	}

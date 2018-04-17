@@ -1,5 +1,5 @@
-var mall=mall || {};
-mall.mall = {cart:x=>{
+var shop=shop || {};
+shop.mall = {cart:x=>{
 	$.getScript(x.view,()=>{
 		$('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
 		$('#div-content').html(createDiv({id:'div-wrap-root',clazz:'wrap-root'}));
