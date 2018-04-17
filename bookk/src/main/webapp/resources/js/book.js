@@ -15,10 +15,7 @@ book.main=(()=>{
 		 };
 	var bookContent=()=>{
 		// 광고 이미지
-		 $(createDiv({
-			 id : 'div-advertise',
-			 clazz : ''
-		 })).appendTo('#bookk-store');
+		 
 		 $(createDiv({
 			 id : 'img-advertise',
 			 clazz : 'img-advertise'
@@ -30,7 +27,7 @@ book.main=(()=>{
 		 $(createUL({
 			 id : 'wrap-main-advertise',
 			 clazz : ''
-		 })).appendTo('#main-advertise').attr('style','padding:0px; margin-top:1px;');
+		 })).appendTo('#main-advertise').attr('style','padding:0px; margin-top:0px;');
 		 $(createLI({
 			 id : 'main-img-advertise',
 			 clazz : ''
@@ -495,7 +492,128 @@ book.main=(()=>{
 			 clazz : 'book-meta'
 		 })).appendTo('#div-book-item-3');
 		 
+		//경영/경제/자기계발
+		 $(createDiv({
+			 id : 'div-book-header-4',
+			 clazz : 'widget-header'
+		 })).appendTo('#div-section-category-1');
+		 $(createHTag({
+			 size : '3',
+			 clazz : 'widget-title',
+			 val : '경영/경제/자기계발'
+		 })).appendTo('#div-book-header-4');
+		 $(createATag({
+			 val : '더보기'
+		 })).appendTo('#div-book-header-4')
+		 .attr('class','more');
+		 $(createDiv({
+			 id : 'div-category-list',
+			 clazz : 'widget-content book-list clearfix'
+		 })).appendTo('#div-section-category');
+		 $(createDiv({
+			 id : 'div-book-item-4',
+			 clazz : 'book-item'
+		 })).appendTo('#div-category-list');
+		 $(createATag({
+			 id : 'a-book-item-4',
+			 val : ''
+		 })).appendTo('#div-book-item-4');
+		 $(createDiv({
+			 id : 'div-book-cover-4',
+			 clazz : 'book-cover'
+		 })).appendTo('#a-book-item-4');
+		 $(createDiv({
+			 clazz : 'book-deco'
+		 })).appendTo('#div-book-cover-4');
+		 $(createDiv({
+			 clazz : 'book-title'
+		 })).appendTo('#a-book-item-4');
+		 $(createDiv({
+			 id : 'div-book-meta-4',
+			 clazz : 'book-meta'
+		 })).appendTo('#div-book-item-4');
 		 
+		//인문사회
+		 $(createDiv({
+			 id : 'div-book-header-5',
+			 clazz : 'widget-header'
+		 })).appendTo('#div-section-category-1');
+		 $(createHTag({
+			 size : '3',
+			 clazz : 'widget-title',
+			 val : '인문사회'
+		 })).appendTo('#div-book-header-5');
+		 $(createATag({
+			 val : '더보기'
+		 })).appendTo('#div-book-header-5')
+		 .attr('class','more');
+		 $(createDiv({
+			 id : 'div-category-list',
+			 clazz : 'widget-content book-list clearfix'
+		 })).appendTo('#div-section-category');
+		 $(createDiv({
+			 id : 'div-book-item-5',
+			 clazz : 'book-item'
+		 })).appendTo('#div-category-list');
+		 $(createATag({
+			 id : 'a-book-item-5',
+			 val : ''
+		 })).appendTo('#div-book-item-5');
+		 $(createDiv({
+			 id : 'div-book-cover-5',
+			 clazz : 'book-cover'
+		 })).appendTo('#a-book-item-5');
+		 $(createDiv({
+			 clazz : 'book-deco'
+		 })).appendTo('#div-book-cover-5');
+		 $(createDiv({
+			 clazz : 'book-title'
+		 })).appendTo('#a-book-item-5');
+		 $(createDiv({
+			 id : 'div-book-meta-5',
+			 clazz : 'book-meta'
+		 })).appendTo('#div-book-item-5');
+		 
+		//기타
+		 $(createDiv({
+			 id : 'div-book-header-6',
+			 clazz : 'widget-header'
+		 })).appendTo('#div-section-category-1');
+		 $(createHTag({
+			 size : '3',
+			 clazz : 'widget-title',
+			 val : '기타'
+		 })).appendTo('#div-book-header-6');
+		 $(createATag({
+			 val : '더보기'
+		 })).appendTo('#div-book-header-6')
+		 .attr('class','more');
+		 $(createDiv({
+			 id : 'div-category-list',
+			 clazz : 'widget-content book-list clearfix'
+		 })).appendTo('#div-section-category');
+		 $(createDiv({
+			 id : 'div-book-item-6',
+			 clazz : 'book-item'
+		 })).appendTo('#div-category-list');
+		 $(createATag({
+			 id : 'a-book-item-6',
+			 val : ''
+		 })).appendTo('#div-book-item-6');
+		 $(createDiv({
+			 id : 'div-book-cover-6',
+			 clazz : 'book-cover'
+		 })).appendTo('#a-book-item-6');
+		 $(createDiv({
+			 clazz : 'book-deco'
+		 })).appendTo('#div-book-cover-6');
+		 $(createDiv({
+			 clazz : 'book-title'
+		 })).appendTo('#a-book-item-6');
+		 $(createDiv({
+			 id : 'div-book-meta-6',
+			 clazz : 'book-meta'
+		 })).appendTo('#div-book-item-6');
 	}
 		// 책 네비
 	 var bookNav=()=>{
@@ -553,7 +671,7 @@ book.main=(()=>{
 		 })).appendTo('#store-lnb');
 		 // 전체메뉴 시 에세이
 		 $(createATag({
-			 id : '',
+			 id : 'doo-category-1',
 			 clazz : '',
 			 val : '시·에세이'
 		 })).appendTo('#active')
@@ -568,37 +686,39 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-1');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-1',
 				 clazz : '',
 				 val : '시집'
 			 })).appendTo('#smallgenre-category-1-1')
 			 .click(()=>{
-				 alert('시집 클릭(시집 책리스트로 이동)');
-				 list();
+				 var x = $('#ca-1').text();
+				 list(x);
 			 });
 			 $(createLI({
 				 id : 'smallgenre-category-1-2',
 				 clazz : ''
 			 })).appendTo('#active-1');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-2',
 				 clazz : '',
 				 val : '에세이'
 			 })).appendTo('#smallgenre-category-1-2')
 			 .click(()=>{
-				 alert('에세이 클릭(에세이 책리스트로 이동)');
+				 var x = $('#ca-2').text();
+				 list(x);
 			 });
 			 $(createLI({
 				 id : 'smallgenre-category-1-3',
 				 clazz : ''
 			 })).appendTo('#active-1');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-3',
 				 clazz : '',
 				 val : '기타도서'
 			 })).appendTo('#smallgenre-category-1-3')
 			 .click(()=>{
-				 alert('기타도서 클릭(기타도서 책리스트로 이동)');
+				 var x = $('#ca-3').text();
+				 list(x);
 			 });
 		 });
 		 // 전체메뉴 소설
@@ -618,12 +738,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-2');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-4',
 				 clazz : '',
 				 val : '일반'
 			 })).appendTo('#smallgenre-category-2-1')
 			 .click(()=>{
-				 alert('일반 클릭');
+				 var x = $('#ca-4').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -631,12 +752,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-2');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-5',
 				 clazz : '',
 				 val : '로맨스'
 			 })).appendTo('#smallgenre-category-2-2')
 			 .click(()=>{
-				 alert('로맨스 클릭');
+				 var x = $('#ca-5').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -644,12 +766,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-2');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-6',
 				 clazz : '',
 				 val : '판타지'
 			 })).appendTo('#smallgenre-category-2-3')
 			 .click(()=>{
-				 alert('판타지 클릭');
+				 var x = $('#ca-6').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -657,12 +780,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-2');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-7',
 				 clazz : '',
 				 val : 'BL'
 			 })).appendTo('#smallgenre-category-2-4')
 			 .click(()=>{
-				 alert('BL 클릭');
+				 var x = $('#ca-7').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -670,12 +794,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-2');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-8',
 				 clazz : '',
 				 val : '무협'
 			 })).appendTo('#smallgenre-category-2-5')
 			 .click(()=>{
-				 alert('무협 클릭');
+				 var x = $('#ca-8').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -683,12 +808,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-2');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-9',
 				 clazz : '',
 				 val : '추리/스릴러/미스터리'
 			 })).appendTo('#smallgenre-category-2-6')
 			 .click(()=>{
-				 alert('추리/스릴러/미스터리 클릭');
+				 var x = $('#ca-9').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -696,12 +822,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-2');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-10',
 				 clazz : '',
 				 val : '기타'
 			 })).appendTo('#smallgenre-category-2-7')
 			 .click(()=>{
-				 alert('기타 클릭');
+				 var x = $('#ca-10').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -709,12 +836,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-2');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-11',
 				 clazz : '',
 				 val : 'SF소설'
 			 })).appendTo('#smallgenre-category-2-8')
 			 .click(()=>{
-				 alert('SF소설 클릭');
+				 var x = $('#ca-11').text();
+				 list(x);
 			 });
 		 });
 		 // 전체메뉴 전기/회고록
@@ -735,12 +863,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-3');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-12',
 				 clazz : '',
 				 val : '자서전'
 			 })).appendTo('#smallgenre-category-3-1')
 			 .click(()=>{
-				 alert('자서전 클릭');
+				 var x = $('#ca-12').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -748,12 +877,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-3');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-13',
 				 clazz : '',
 				 val : '기타'
 			 })).appendTo('#smallgenre-category-3-2')
 			 .click(()=>{
-				 alert('기타 클릭');
+				 var x = $('#ca-13').text();
+				 list(x);
 			 });
 		 });
 		 // 전체메뉴 경영/경제/자기계발
@@ -774,12 +904,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-4');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-14',
 				 clazz : '',
 				 val : '경영'
 			 })).appendTo('#smallgenre-category-4-1')
 			 .click(()=>{
-				 alert('경영 클릭');
+				 var x = $('#ca-14').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -787,12 +918,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-4');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-15',
 				 clazz : '',
 				 val : '경제'
 			 })).appendTo('#smallgenre-category-4-2')
 			 .click(()=>{
-				 alert('경제 클릭');
+				 var x = $('#ca-15').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -800,12 +932,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-4');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-16',
 				 clazz : '',
 				 val : '기타'
 			 })).appendTo('#smallgenre-category-4-3')
 			 .click(()=>{
-				 alert('기타 클릭');
+				 var x = $('#ca-16').text();
+				 list(x);
 			 });
 		 });
 		 // 전체메뉴 인문사회
@@ -826,12 +959,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-5');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-17',
 				 clazz : '',
 				 val : '인문'
 			 })).appendTo('#smallgenre-category-5-1')
 			 .click(()=>{
-				 alert('인문 클릭');
+				 var x = $('#ca-17').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -839,12 +973,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-5');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-18',
 				 clazz : '',
 				 val : '정치/사회'
 			 })).appendTo('#smallgenre-category-5-2')
 			 .click(()=>{
-				 alert('정치/사회 클릭');
+				 var x = $('#ca-18').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -852,12 +987,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-5');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-19',
 				 clazz : '',
 				 val : '역사'
 			 })).appendTo('#smallgenre-category-5-3')
 			 .click(()=>{
-				 alert('역사 클릭');
+				 var x = $('#ca-19').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -865,12 +1001,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-5');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-20',
 				 clazz : '',
 				 val : '종교'
 			 })).appendTo('#smallgenre-category-5-4')
 			 .click(()=>{
-				 alert('종교 클릭');
+				 var x = $('#ca-20').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -878,12 +1015,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-5');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-21',
 				 clazz : '',
 				 val : '예술/문화/기타'
 			 })).appendTo('#smallgenre-category-5-5')
 			 .click(()=>{
-				 alert('예술/문화/기타 클릭');
+				 var x = $('#ca-21').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -891,12 +1029,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-5');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-22',
 				 clazz : '',
 				 val : 'SF 장르'
 			 })).appendTo('#smallgenre-category-5-6')
 			 .click(()=>{
-				 alert('SF 장르 클릭');
+				 var x = $('#ca-22').text();
+				 list(x);
 			 });
 		 });
 		 // 전체메뉴 기타
@@ -917,12 +1056,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-6');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-23',
 				 clazz : '',
 				 val : '과학'
 			 })).appendTo('#smallgenre-category-6-1')
 			 .click(()=>{
-				 alert('인문 클릭');
+				 var x = $('#ca-23').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -930,12 +1070,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-6');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-24',
 				 clazz : '',
 				 val : '어린이/청소년'
-			 })).appendTo('#li-smallgenre-category-6-2')
+			 })).appendTo('#smallgenre-category-6-2')
 			 .click(()=>{
-				 alert('어린이/청소년 클릭');
+				 var x = $('#ca-24').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -943,12 +1084,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-6');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-25',
 				 clazz : '',
 				 val : '진학/진로'
 			 })).appendTo('#smallgenre-category-6-3')
 			 .click(()=>{
-				 alert('진학/진로 클릭');
+				 var x = $('#ca-25').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -956,12 +1098,13 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-6');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-26',
 				 clazz : '',
 				 val : '여행'
 			 })).appendTo('#smallgenre-category-6-4')
 			 .click(()=>{
-				 alert('여행 클릭');
+				 var x = $('#ca-26').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
@@ -969,25 +1112,27 @@ book.main=(()=>{
 				 clazz : ''
 			 })).appendTo('#active-6');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-27',
 				 clazz : '',
 				 val : '가정/생활'
 			 })).appendTo('#smallgenre-category-6-5')
 			 .click(()=>{
-				 alert('가정/생활 클릭');
+				 var x = $('#ca-27').text();
+				 list(x);
 			 });
 			 
 			 $(createLI({
 				 id : 'smallgenre-category-6-6',
 				 clazz : ''
-			 })).appendTo('#active-26');
+			 })).appendTo('#active-6');
 			 $(createATag({
-				 id : '',
+				 id : 'ca-28',
 				 clazz : '',
 				 val : '교재/참고서'
 			 })).appendTo('#smallgenre-category-6-6')
 			 .click(()=>{
-				 alert('교재/참고서 장르 클릭');
+				 var x = $('#ca-28').text();
+				 list(x);
 			 });
 		 });
 		 
@@ -1068,12 +1213,52 @@ book.main=(()=>{
 		 .click(()=>{
 			 alert('기타 소설!!');
 		 });
+		 $(createDiv({
+			 id : 'div-advertise',
+			 clazz : ''
+		 })).appendTo('#bookk-store');
 	 }
 	 // 책 리스트 페이지로 넘어감
-	 var list=()=>{
+	 var list=x=>{
 		 $.getScript(view,()=>{
-			 $('#div-advertise').empty();
-			 $('#div-advertise').html('zz');
+			 alert('넘어온값'+x);
+			 $('#div-advertise').remove();
+			 $('#div-list-container').empty();
+			 $(createDiv({
+				 id : 'div-list-container',
+				 clazz : 'category nav-container'
+			 })).appendTo('#bookk-store');
+			 $(createDiv({
+				 id : 'sidebar',
+				 clazz : 'sidebar'
+			 })).appendTo('#div-list-container');
+			 $(createDiv({
+				 id : 'main'
+			 })).appendTo('#div-list-container');
+			 $(createDiv({
+				 id : 'list-header',
+				 clazz : 'col-sm-12'
+			 })).appendTo('#main');
+			 $('#list-header').html((DcreateHTag({
+				 size : '2',
+				 val : x,
+				 clazz : 'col-sm-10'
+			 })));
+			 $(createDiv({
+				 id : 'location',
+				 clazz : 'col-sm-2'
+			 })).appendTo('#list-header');
+			 $('#location').html((createATag({
+				 id : 'a-a',
+				val : '서점 >' 
+			 })));
+			 $(createATag({
+				 id : 'a-a-a',
+				 val : '시·에세이 >'
+			 })).appendTo('#a-a');
+			 $(createATag({
+				 val : x
+			 })).appendTo('#a-a-a');
 		 });
 	 };
 	 return{onCreate:onCreate}
