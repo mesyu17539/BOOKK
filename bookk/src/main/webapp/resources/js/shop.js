@@ -87,9 +87,10 @@ shop.mall = {cart:x=>{
 				type:'checkbox'})+'제주도 및 도서산간지역(+2,500원)'}));
 		$('#input-checkbox-1').attr('value','2500');
 		$('#span-td-1').text('2500');
+		$('#span-td-2').text(($('#span-td-0').text())*1+($('#span-td-1').text())*1);
 		$('input[id=input-checkbox-0]').click(()=>{
 			if ($('input[id=input-checkbox-0]').is(':checked')) {
-				alert('체크되네?');
+				
 				$('input[id=input-checkbox-1]').removeAttr('disabled');
 				$('#span-td-1').text('2500');
 				$('input[id=input-checkbox-0]').attr('value','2500');
@@ -97,7 +98,7 @@ shop.mall = {cart:x=>{
 				
 				
 			} else {
-				alert('체크안되네?');
+				
 				$('#span-td-1').text('0');
 				$('input[id=input-checkbox-1]').prop('checked',false);
 				$('input[id=input-checkbox-1]').attr('disabled','disabled');
@@ -106,22 +107,27 @@ shop.mall = {cart:x=>{
 		});
 		$('input[id=input-checkbox-1]').click(()=>{
 			if ($('input[id=input-checkbox-1]').is(':checked')) {
-				alert('체크되네?');
+				
 				$('input[id=input-checkbox-1]').removeAttr('disabled');
 				$('input[id=input-checkbox-1]').attr('value','2500');
 				$('#span-td-1').text(($('input[id=input-checkbox-0]').val())*1+($('input[id=input-checkbox-1]').val())*1);
 				$('#span-td-2').text(($('#span-td-0').text())*1+($('#span-td-1').text())*1);
 				
 			}else{
-				alert('체크안되네?');
+				
 				$('#span-td-1').text(parseInt($('input[id=input-checkbox-0]').val()));
 				$('#span-td-2').text(($('#span-td-0').text())*1+($('#span-td-1').text())*1);
 			}
 		});
-		
-				
+		$(createDiv({id:'div-btn-wrapper',clazz:''})).appendTo('#div-content');
+		$('#div-btn-wrapper').append(createButton({id:'btn-cart-payment',clazz:'btn',val:'결제하기'}))
+		$('#btn-cart-payment').attr('style','background:#ce6a52;color:#fff; width:250px');
+		$('#div-btn-wrapper').attr('style','text-align:center; margin:20px');
 			
-	
+		
+		
+		
+		
 		//디스에이블 체크박스
 		/*if ($('input[name=sampleCheckbox]').is(":checked")) {
 		    $('input[name=sampleHidden]').val('Y');
@@ -129,4 +135,7 @@ shop.mall = {cart:x=>{
 		    $('input[name=sampleHidden]').val('N');
 		}*/
 	});
+	sell:x=>{
+		
+	}
 }}
