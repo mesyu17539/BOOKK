@@ -17,9 +17,9 @@ app.nav=(()=>{
 	};
 	var setContentView=()=>{
 		$.getScript(view,()=>{
-			$wrapper.html(createDiv({id:'div-header',clazz:'header text-center'}))
-			.append(createDiv({id:'div-body',clazz:'container text-center'}))
-			.append(createDiv({id:'div-footer',clazz:'container text-center'}));
+			$wrapper.html(createDiv({id:'div-header',clazz:''}))
+			.append(createDiv({id:'div-body',clazz:''}))
+			.append(createDiv({id:'div-footer',clazz:''}));
 			
 
 			$(createDiv({

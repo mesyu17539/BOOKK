@@ -44,12 +44,20 @@ var createTDJW=x=>{
     return td;
 }
 //추가 만호
-var createListTr=x=>{
+var createMultiDiv=x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<div id ="'+x.id+'-'+i+'"></div>'
+	});
+	return temp;
+}
+var createViewTr=x=>{
 	var tmep ='';
 	
 	$.each(x.trNum,(i,j)=>{
+		
 		temp +='<tr id="tr-'+x.id+'-'+j+'" class="'+x.clazz+'">'
-		+createListTd({
+		+createViewTd({
 			tdNum:x.tdNum,
 			tdClazz:x.tdClazz,
 			id:x.id
@@ -58,7 +66,7 @@ var createListTr=x=>{
 	});
 	return temp;
 }
-var createListTd=x=>{
+var createViewTd=x=>{
 	
 	var temp ='';
 	$.each(x.tdNum,(i,j)=>{
@@ -66,32 +74,24 @@ var createListTd=x=>{
 	});
 	return temp;
 }
-var createListTh=x=>{
-	
-	var temp ='';
-	$.each(x.tdNum,(i,j)=>{
-		temp +='<th id ="td-'+x.id+'-'+j+'" class ="'+x.tdClazz+'"></th>'
+var createMultiTr=x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<tr id ="'+x.id+'-'+i+'"></tr>'
+	});
+	return temp;
+}
+var createMultiTd=x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<td id ="'+x.id+'-'+i+'"></td>'
 	});
 	return temp;
 }
 var createMultiTh = x=>{
 	var temp ='';
 	$.each(x.arr,(i,j)=>{
-		temp+='<th id="th-'+i+'" class="'+x.clazz+'"></th>'
-	});
-	return temp;
-}
-var createMultiTd = x=>{
-	var temp ='';
-	$.each(x.arr,(i,j)=>{
-		temp+='<td id="td-'+i+'" class="'+x.clazz+'"></td>'
-	});
-	return temp;
-}
-var createMultiTr = x=>{
-	var temp ='';
-	$.each(x.arr,(i,j)=>{
-		temp+='<tr id="tr-'+i+'" class="'+x.clazz+'"></tr>'
+		temp+='<th id="'+x.id+'-'+i+'" class="'+x.clazz+'"></th>'
 	});
 	return temp;
 }
