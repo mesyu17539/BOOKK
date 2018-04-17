@@ -11,7 +11,7 @@ bulletin.board=(x=>{
 		$.getScript(view,()=>{
 			// Border Main Button
 			$('#div-body').html($(createDiv({id:'jw-div',clazz:'container'})).attr('style','border:1px solid gray;padding:0px; '));
-			
+				
 			$(createDiv({id:'row-div',clazz:''})).appendTo('#jw-div')
 			.attr('style',' border:1px solid red; ');
 		/*
