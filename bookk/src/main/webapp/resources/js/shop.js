@@ -112,7 +112,7 @@ shop.mall = {cart:x=>{
 				$('input[id=input-checkbox-1]').attr('value','2500');
 				$('#span-td-1').text(($('input[id=input-checkbox-0]').val())*1+($('input[id=input-checkbox-1]').val())*1);
 				$('#span-td-2').text(($('#span-td-0').text())*1+($('#span-td-1').text())*1);
-				
+				 
 			}else{
 				
 				$('#span-td-1').text(parseInt($('input[id=input-checkbox-0]').val()));
