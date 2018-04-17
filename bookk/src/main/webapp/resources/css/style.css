@@ -1,10 +1,10 @@
 @charset "UTF-8";
 .header .auth-form {display:none;position:absolute;top:35px;left: 0;right: 0;margin-left: auto;margin-right: auto;width: 300px;padding:12px 19px;background-color:#fff;border:1px solid #969696;z-index:10;}
-
+a {cursor:pointer;}
 /* CSS board */
 .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
 /* CSS 장바구니 #div-monitor Start */
-.wrap-root{
+ .wrap-root{
 	border-bottom: 1px solid #eaeaea;
 }
 .cart-div{
@@ -24,7 +24,7 @@
 	height: 60px;
 	
 }
-/* CSS 장바구니 #div-monitor End */
+CSS 장바구니 #div-monitor End
 .header .division{
 	border: 1px solid #eee;
 }
@@ -73,7 +73,7 @@ a {background: transparent;}
 img {border: 0;cursor: pointer;}
 a {color: black;text-decoration: none;cursor: pointer;}
 ul, ol, li {list-style: none;}
-/* 카테고리 바 */
+카테고리 바
 .category-bar {height: 42px;background: black;}
 .container {width: 1000px;margin: 0 auto;position: relative;}
 .store-gnb ul {margin: 0;padding: 0;list-style: none;color: white;font-size: 15px;}
@@ -99,33 +99,33 @@ ul, ol, li {list-style: none;}
 .store-lnb>ul>li>ul>li>a {font-size: 13px;}
 .img-advertise .main-advertise {overflow: hidden;max-height: 545px;border-bottom: 1px solid white;position: relative;}
 #img-advertise #main-img-btn-clearfix {max-width : 1000px;height: 45px;margin: 0 auto;border-left: 1px solid white;}
-/* 봄 여름 가을 겨울 버튼 */
+봄 여름 가을 겨울 버튼
 #img-advertise #main-img-btn-clearfix li {float: left;width: 25%;height: 45px;margin: 0;background: black;border-right: 1px solid white;border-radius: 0;box-sizing: border-box;}
 #img-advertise #main-img-btn-clearfix button {color : white;display: block;position: relative;width: 100%;height: 45px;line-height: 45px;padding: 0 35px;text-align: center;text-indent: 0;font-size: 15px;outline: 0;font-weight: bold;} 
 #img-advertise #main-img-btn-clearfix button:hover {color: #808080;border-bottom: 2px solid white;border-top:  2px solid white;border-left: 2px solid white;border-right: 2px solid white;}
-/* 메인페이지 더보기 */
+메인페이지 더보기
 .widget-header .more {float: right;margin-top: 6px;font-size: 11px;color: black;font-weight: bold;}
 .widget-header .more:hover {color: #0080ff;}
-/* 부크크 차트  */
+부크크 차트 
 .pull-left {float: left;margin-right: 4px;}
 .pull-right {float: right;margin-right: 4px;}
-/* 텍스트 글 */
+텍스트 글
 .text-center {text-align: center !important;}
 .text-left {text-align: left !important;}
 .text-right {text-align: right;}
-/* 버튼 */
+버튼
 .btn {display: inline-block;border-radius: 3px;padding: 9px 10px 11px;background: none;border: 0;border: 1px solid transparent;font-size: 12px;letter-spacing: -1px;cursor: pointer;}
 a.btn:hover {text-decoration: none;}
-/* 책 */
+책
 .book-cover img {width: 104px;height: 154px;margin-top: 4px;}
-/* 장르, 더보기 */
+장르, 더보기
 .widget-header {height: 24px;padding: 12px 1px;border-bottom: 1px solid black;}
 .widget-header h3, .widget-title {float: left;margin: 0 30px 0 0;font-size: 16px;}
-/* 메인페이지 중간부분 이미지 배너 */
+메인페이지 중간부분 이미지 배너
 .section-ad {padding: 20px 0 20px;overflow: hidden;}
 .ad-item {float: left;width: 320px;height: 100px;margin-right: 12px;}
 .section-ad .ad-item:hover a img {border: 2px solid blue;}
-/* 이주의 책, 부크크 차트 */
+이주의 책, 부크크 차트
 .nav {list-style: none;margin: 0;padding: 0;}
 .nav-tabs-vertical {float: left;width: 70px;text-align: center;}
 .nav-tabs-vertical li a {display: block;height: 67px;line-height: 67px;}
@@ -133,4 +133,4 @@ a.btn:hover {text-decoration: none;}
 .nav-tabs-vertical li.active a {background-color: black;color: white;cursor: pointer;font-weight: bold;}
 .section-ranking {overflow: hidden;}
 .section-ranking .widget {width: 480px;}
-.section-ranking .widget-content {height: 202px;border-bottom: 1px solid black;}
+.section-ranking .widget-content {height: 202px;border-bottom: 1px solid black;} 
