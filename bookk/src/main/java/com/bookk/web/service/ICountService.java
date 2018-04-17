@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ICountService {
-	public int execute(HashMap<?, ?> param); //aaa
+	public int execute(HashMap<?, ?> param); //aa
 }
