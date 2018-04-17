@@ -79,7 +79,7 @@ book.main=(()=>{
 			 $(createImg({
 				 alt : '',
 				 src : 'http://kinimage.naver.net/20170816_266/1502847836577fOR57_JPEG/1502847836389.jpg'
-			 })).appendTo('#a-img-1').attr('style','height: 450px; width:1360px;')
+			 })).appendTo('#a-img-1').attr('style','height: 450px; width:100%;')
 			 .click(()=>{
 				 alert('봄 클릭');
 			 });
@@ -112,7 +112,7 @@ book.main=(()=>{
 			 $(createImg({
 				 alt : '',
 				 src : 'http://cafefiles.naver.net/20120815_51/wltn3743_1344961625040n8zgh_JPEG/32.jpeg'
-			 })).appendTo('#a-img-2').attr('style','height: 450px; width:1360px;')
+			 })).appendTo('#a-img-2').attr('style','height: 450px; width:100%;')
 			 .click(()=>{
 				 alert('여름 클릭');
 			 });
@@ -145,7 +145,7 @@ book.main=(()=>{
 			 $(createImg({
 				 alt : '',
 				 src : 'http://cafefiles.naver.net/20141024_221/duran011_1414101447080RxsoJ_JPEG/PicSpeed%2B-2071079421.jpg'
-			 })).appendTo('#a-img-3').attr('style','height: 450px; width:1360px;')
+			 })).appendTo('#a-img-3').attr('style','height: 450px; width:100%;')
 			 .click(()=>{
 				 alert('가을 클릭');
 			 });
@@ -179,7 +179,7 @@ book.main=(()=>{
 			 $(createImg({
 				 alt : '',
 				 src : 'http://post.phinf.naver.net/MjAxNjEyMjhfMjUz/MDAxNDgyODkzMTQ5NTg3.huKPPgR7H7zTAqQGfv5cKJ_lfzHWBu6K-CDBVYGgE94g.GrchDz4KjXlABiHi_HUFDBYanYGJLXobf_iHr75HgZAg.JPEG/Iaj1bpuo8oXHpdZizTkVN7g_HF7E.jpg'
-			 })).appendTo('#a-img-4').attr('style','height: 450px; width:1360px;')
+			 })).appendTo('#a-img-4').attr('style','height: 450px; width:100%;')
 			 .click(()=>{
 				 alert('겨울 클릭');
 			 });
@@ -187,7 +187,7 @@ book.main=(()=>{
 		 
 		 $(createDiv({
 			 id : 'div-container-2',
-			 clazz : 'container'
+			 clazz : 'nav-container'
 		 })).appendTo('#div-advertise');
 		 $(createDiv({
 			 id : 'div-section-ad',
@@ -419,19 +419,20 @@ book.main=(()=>{
 			 val : '우병국'
 		 })).appendTo('#div-book-meta-1');
 	}
-// 책 네비
+		// 책 네비
 	 var bookNav=()=>{
 		 $('#div-body').html(createDiv({
 			 id : 'bookk-store',
 			 clazz : ''
-		 }));// 맨위 상단 카테고리 바
+		 }));
+		 // 맨위 상단 카테고리 바
 		 $(createDiv({
 			 id : 'category-bar',
 			 clazz : 'category-bar'
 		 })).appendTo('#bookk-store');
 		 $(createDiv({
 			 id : 'category-bar-container',
-			 clazz : 'container'
+			 clazz : 'nav-container'
 		 })).appendTo('#category-bar');
 		 // 전체분야
 		 $(createDiv({

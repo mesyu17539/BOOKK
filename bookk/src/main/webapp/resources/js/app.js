@@ -12,14 +12,15 @@ app.nav=(()=>{
 	var onCreate=()=>{
 		$wrapper =$('#wrapper');
 		image=$.image();
+		context = $.context();
 		view=$.javascript()+'/view.js';
 		setContentView();
 	};
 	var setContentView=()=>{
 		$.getScript(view,()=>{
-			$wrapper.html(createDiv({id:'div-header',clazz:'header text-center'}))
-			.append(createDiv({id:'div-body',clazz:'container text-center'}))
-			.append(createDiv({id:'div-footer',clazz:'container text-center'}));
+			$wrapper.html(createDiv({id:'div-header',clazz:''}))
+			.append(createDiv({id:'div-body',clazz:''}))
+			.append(createDiv({id:'div-footer',clazz:''}));
 			
 
 			$(createDiv({
@@ -33,23 +34,25 @@ app.nav=(()=>{
 			
 //			서점 게시판
 			$(createButton({id:'',type:'',clazz:'btn mint long',val:'서점'}))
-			.appendTo('#div-header-pageMenu')
-			.on('click',e=>{
-				e.preventDefault();
-				$('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
-				$.getScript($.javascript()+'/book.js',()=>{
-					book.main.onCreate();
-				})
-			});
-			$(createButton({id:'',type:'',clazz:'btn mint long',val:'게시판'}))
-			.appendTo('#div-header-pageMenu')
-			.on('click',e=>{
-				e.preventDefault();
-				$('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
-				$.getScript($.javascript()+'/bulletin.js',()=>{
-					bulletin.board.onCreate();
-				})
-			});
+            .appendTo('#div-header-pageMenu')
+            .on('click',e=>{
+                e.preventDefault();
+                document.getElementById('wizcss').href=(context+'/resources/css/style.css');
+                $('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
+                $.getScript($.javascript()+'/book.js',()=>{
+                    book.main.onCreate();
+                })
+            });
+            $(createButton({id:'',type:'',clazz:'btn mint long',val:'게시판'}))
+            .appendTo('#div-header-pageMenu')
+            .on('click',e=>{
+                e.preventDefault();
+                document.getElementById('wizcss').href=('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+                $('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
+                $.getScript($.javascript()+'/bulletin.js',()=>{
+                    bulletin.board.onCreate();
+                })
+            });
 			
 //			로그인 회원가입
 			$(createDiv({
