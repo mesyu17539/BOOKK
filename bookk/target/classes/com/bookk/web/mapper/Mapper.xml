@@ -107,4 +107,21 @@
     <select id="searchAll" resultMap="map" parameterType="hashMap">
      	select * from board where ${type} like '%${data}%'
      </select>
+     <select id="searchCount" resultType="int" parameterType="hashMap">
+     	select count(*) from board where ${type} like '%${data}%'
+     </select>
+     <select id="searchList" resultMap="map" parameterType="hashMap">
+         select A2.* from(
+        select @rank:=@rank+1 rank, A.* 
+            from(select 
+                    *
+                        from board 
+                            order by board_id desc
+               ) A,(SELECT @rank := 0) R) A2
+              where rank between #{page.startRow} and #{page.endRow}
+     </select>
+         <select id="articleDetail" resultMap="map" parameterType="hashMap">
+     	select * from board where board_id like #{x}
+     </select>
+     
 </mapper>
