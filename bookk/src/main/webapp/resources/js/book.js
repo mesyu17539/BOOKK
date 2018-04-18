@@ -671,7 +671,7 @@ book.main=(()=>{
 		 })).appendTo('#store-lnb');
 		 // 전체메뉴 시 에세이
 		 $(createATag({
-			 id : 'doo-category-1',
+			 id : 'large-category-1',
 			 clazz : '',
 			 val : '시·에세이'
 		 })).appendTo('#active')
@@ -691,7 +691,7 @@ book.main=(()=>{
 				 val : '시집'
 			 })).appendTo('#smallgenre-category-1-1')
 			 .click(()=>{
-				 var x = $('#ca-1').text();
+				 var x = {small:$('#ca-1').text(), large:$('#large-category-1').text()};
 				 list(x);
 			 });
 			 $(createLI({
@@ -704,7 +704,7 @@ book.main=(()=>{
 				 val : '에세이'
 			 })).appendTo('#smallgenre-category-1-2')
 			 .click(()=>{
-				 var x = $('#ca-2').text();
+				 var x = {small:$('#ca-2').text(), large:$('#large-category-1').text()};
 				 list(x);
 			 });
 			 $(createLI({
@@ -717,13 +717,13 @@ book.main=(()=>{
 				 val : '기타도서'
 			 })).appendTo('#smallgenre-category-1-3')
 			 .click(()=>{
-				 var x = $('#ca-3').text();
+				 var x = {small:$('#ca-3').text(), large:$('#large-category-1').text()};
 				 list(x);
 			 });
 		 });
 		 // 전체메뉴 소설
 		 $(createATag({
-			 id : '',
+			 id : 'large-category-2',
 			 clazz : '',
 			 val : '소설'
 		 })).appendTo('#active')
@@ -743,7 +743,7 @@ book.main=(()=>{
 				 val : '일반'
 			 })).appendTo('#smallgenre-category-2-1')
 			 .click(()=>{
-				 var x = $('#ca-4').text();
+				 var x = {small:$('#ca-4').text(), large:$('#large-category-2').text()};
 				 list(x);
 			 });
 			 
@@ -757,7 +757,7 @@ book.main=(()=>{
 				 val : '로맨스'
 			 })).appendTo('#smallgenre-category-2-2')
 			 .click(()=>{
-				 var x = $('#ca-5').text();
+				 var x = {small:$('#ca-5').text(), large:$('#large-category-2').text()};
 				 list(x);
 			 });
 			 
@@ -771,7 +771,7 @@ book.main=(()=>{
 				 val : '판타지'
 			 })).appendTo('#smallgenre-category-2-3')
 			 .click(()=>{
-				 var x = $('#ca-6').text();
+				 var x = {small:$('#ca-6').text(), large:$('#large-category-2').text()};
 				 list(x);
 			 });
 			 
@@ -785,7 +785,7 @@ book.main=(()=>{
 				 val : 'BL'
 			 })).appendTo('#smallgenre-category-2-4')
 			 .click(()=>{
-				 var x = $('#ca-7').text();
+				 var x = {small:$('#ca-7').text(), large:$('#large-category-2').text()};
 				 list(x);
 			 });
 			 
@@ -799,7 +799,7 @@ book.main=(()=>{
 				 val : '무협'
 			 })).appendTo('#smallgenre-category-2-5')
 			 .click(()=>{
-				 var x = $('#ca-8').text();
+				 var x = {small:$('#ca-8').text(), large:$('#large-category-2').text()};
 				 list(x);
 			 });
 			 
@@ -813,7 +813,7 @@ book.main=(()=>{
 				 val : '추리/스릴러/미스터리'
 			 })).appendTo('#smallgenre-category-2-6')
 			 .click(()=>{
-				 var x = $('#ca-9').text();
+				 var x = {small:$('#ca-9').text(), large:$('#large-category-2').text()};
 				 list(x);
 			 });
 			 
@@ -827,7 +827,7 @@ book.main=(()=>{
 				 val : '기타'
 			 })).appendTo('#smallgenre-category-2-7')
 			 .click(()=>{
-				 var x = $('#ca-10').text();
+				 var x = {small:$('#ca-10').text(), large:$('#large-category-2').text()};
 				 list(x);
 			 });
 			 
@@ -841,13 +841,13 @@ book.main=(()=>{
 				 val : 'SF소설'
 			 })).appendTo('#smallgenre-category-2-8')
 			 .click(()=>{
-				 var x = $('#ca-11').text();
+				 var x = {small:$('#ca-11').text(), large:$('#large-category-2').text()};
 				 list(x);
 			 });
 		 });
 		 // 전체메뉴 전기/회고록
 		 $(createATag({
-			 id : '',
+			 id : 'large-category-3',
 			 clazz : '',
 			 val : '전기/회고록'
 		 })).appendTo('#active')
@@ -868,7 +868,7 @@ book.main=(()=>{
 				 val : '자서전'
 			 })).appendTo('#smallgenre-category-3-1')
 			 .click(()=>{
-				 var x = $('#ca-12').text();
+				 var x = {small:$('#ca-12').text(), large:$('#large-category-3').text()};
 				 list(x);
 			 });
 			 
@@ -882,13 +882,13 @@ book.main=(()=>{
 				 val : '기타'
 			 })).appendTo('#smallgenre-category-3-2')
 			 .click(()=>{
-				 var x = $('#ca-13').text();
+				 var x = {small:$('#ca-13').text(), large:$('#large-category-3').text()};
 				 list(x);
 			 });
 		 });
 		 // 전체메뉴 경영/경제/자기계발
 		 $(createATag({
-			 id : '',
+			 id : 'large-category-4',
 			 clazz : '',
 			 val : '경영/경제/자기계발'
 		 })).appendTo('#active')
@@ -909,7 +909,7 @@ book.main=(()=>{
 				 val : '경영'
 			 })).appendTo('#smallgenre-category-4-1')
 			 .click(()=>{
-				 var x = $('#ca-14').text();
+				 var x = {small:$('#ca-14').text(), large:$('#large-category-4').text()};
 				 list(x);
 			 });
 			 
@@ -923,7 +923,7 @@ book.main=(()=>{
 				 val : '경제'
 			 })).appendTo('#smallgenre-category-4-2')
 			 .click(()=>{
-				 var x = $('#ca-15').text();
+				 var x = {small:$('#ca-15').text(), large:$('#large-category-4').text()};
 				 list(x);
 			 });
 			 
@@ -937,13 +937,13 @@ book.main=(()=>{
 				 val : '기타'
 			 })).appendTo('#smallgenre-category-4-3')
 			 .click(()=>{
-				 var x = $('#ca-16').text();
+				 var x = {small:$('#ca-16').text(), large:$('#large-category-4').text()};
 				 list(x);
 			 });
 		 });
 		 // 전체메뉴 인문사회
 		 $(createATag({
-			 id : '',
+			 id : 'large-category-5',
 			 clazz : '',
 			 val : '인문사회'
 		 })).appendTo('#active')
@@ -964,7 +964,7 @@ book.main=(()=>{
 				 val : '인문'
 			 })).appendTo('#smallgenre-category-5-1')
 			 .click(()=>{
-				 var x = $('#ca-17').text();
+				 var x = {small:$('#ca-17').text(), large:$('#large-category-5').text()};
 				 list(x);
 			 });
 			 
@@ -978,7 +978,7 @@ book.main=(()=>{
 				 val : '정치/사회'
 			 })).appendTo('#smallgenre-category-5-2')
 			 .click(()=>{
-				 var x = $('#ca-18').text();
+				 var x = {small:$('#ca-18').text(), large:$('#large-category-5').text()};
 				 list(x);
 			 });
 			 
@@ -992,7 +992,7 @@ book.main=(()=>{
 				 val : '역사'
 			 })).appendTo('#smallgenre-category-5-3')
 			 .click(()=>{
-				 var x = $('#ca-19').text();
+				 var x = {small:$('#ca-19').text(), large:$('#large-category-5').text()};
 				 list(x);
 			 });
 			 
@@ -1006,7 +1006,7 @@ book.main=(()=>{
 				 val : '종교'
 			 })).appendTo('#smallgenre-category-5-4')
 			 .click(()=>{
-				 var x = $('#ca-20').text();
+				 var x = {small:$('#ca-20').text(), large:$('#large-category-5').text()};
 				 list(x);
 			 });
 			 
@@ -1020,7 +1020,7 @@ book.main=(()=>{
 				 val : '예술/문화/기타'
 			 })).appendTo('#smallgenre-category-5-5')
 			 .click(()=>{
-				 var x = $('#ca-21').text();
+				 var x = {small:$('#ca-21').text(), large:$('#large-category-5').text()};
 				 list(x);
 			 });
 			 
@@ -1034,13 +1034,13 @@ book.main=(()=>{
 				 val : 'SF 장르'
 			 })).appendTo('#smallgenre-category-5-6')
 			 .click(()=>{
-				 var x = $('#ca-22').text();
+				 var x = {small:$('#ca-22').text(), large:$('#large-category-5').text()};
 				 list(x);
 			 });
 		 });
 		 // 전체메뉴 기타
 		 $(createATag({
-			 id : '',
+			 id : 'large-category-6',
 			 clazz : '',
 			 val : '기타'
 		 })).appendTo('#active')
@@ -1061,7 +1061,7 @@ book.main=(()=>{
 				 val : '과학'
 			 })).appendTo('#smallgenre-category-6-1')
 			 .click(()=>{
-				 var x = $('#ca-23').text();
+				 var x = {small:$('#ca-23').text(), large:$('#large-category-6').text()};
 				 list(x);
 			 });
 			 
@@ -1075,7 +1075,7 @@ book.main=(()=>{
 				 val : '어린이/청소년'
 			 })).appendTo('#smallgenre-category-6-2')
 			 .click(()=>{
-				 var x = $('#ca-24').text();
+				 var x = {small:$('#ca-24').text(), large:$('#large-category-6').text()};
 				 list(x);
 			 });
 			 
@@ -1089,7 +1089,7 @@ book.main=(()=>{
 				 val : '진학/진로'
 			 })).appendTo('#smallgenre-category-6-3')
 			 .click(()=>{
-				 var x = $('#ca-25').text();
+				 var x = {small:$('#ca-25').text(), large:$('#large-category-6').text()};
 				 list(x);
 			 });
 			 
@@ -1103,7 +1103,7 @@ book.main=(()=>{
 				 val : '여행'
 			 })).appendTo('#smallgenre-category-6-4')
 			 .click(()=>{
-				 var x = $('#ca-26').text();
+				 var x = {small:$('#ca-26').text(), large:$('#large-category-6').text()};
 				 list(x);
 			 });
 			 
@@ -1117,7 +1117,7 @@ book.main=(()=>{
 				 val : '가정/생활'
 			 })).appendTo('#smallgenre-category-6-5')
 			 .click(()=>{
-				 var x = $('#ca-27').text();
+				 var x = {small:$('#ca-27').text(), large:$('#large-category-6').text()};
 				 list(x);
 			 });
 			 
@@ -1131,7 +1131,7 @@ book.main=(()=>{
 				 val : '교재/참고서'
 			 })).appendTo('#smallgenre-category-6-6')
 			 .click(()=>{
-				 var x = $('#ca-28').text();
+				 var x = {small:$('#ca-28').text(), large:$('#large-category-6').text()};
 				 list(x);
 			 });
 		 });
@@ -1146,7 +1146,8 @@ book.main=(()=>{
 			 val : '시·에세이'
 		 })).appendTo('#store-category-1')
 		 .click(()=>{
-			 alert('클릭 에세이!!');
+			 var x = {large:$('#store-category-1').text()};
+			 list(x);
 		 });
 		 
 		 $(createLI({
@@ -1159,7 +1160,8 @@ book.main=(()=>{
 			 val : '소설'
 		 })).appendTo('#store-category-2')
 		 .click(()=>{
-			 alert('클릭 소설!!');
+			 var x = {large:$('#store-category-2').text()};
+			 list(x);
 		 });
 		 
 		 $(createLI({
@@ -1172,7 +1174,8 @@ book.main=(()=>{
 			 val : '전기/회고록'
 		 })).appendTo('#store-category-3')
 		 .click(()=>{
-			 alert('전기/회고록 !!');
+			 var x = {large:$('#store-category-3').text()};
+			 list(x);
 		 });
 		 
 		 $(createLI({
@@ -1185,7 +1188,8 @@ book.main=(()=>{
 			 val : '인문사회'
 		 })).appendTo('#store-category-4')
 		 .click(()=>{
-			 alert(' 인문사회!!');
+			 var x = {large:$('#store-category-4').text()};
+			 list(x);
 		 });
 		 
 		 $(createLI({
@@ -1198,7 +1202,8 @@ book.main=(()=>{
 			 val : '경영/경제/자기계발'
 		 })).appendTo('#store-category-5')
 		 .click(()=>{
-			 alert('경영/경제/자기계발!!');
+			 var x = {large:$('#store-category-5').text()};
+			 list(x);
 		 });
 		 
 		 $(createLI({
@@ -1211,7 +1216,8 @@ book.main=(()=>{
 			 val : '기타'
 		 })).appendTo('#store-category-6')
 		 .click(()=>{
-			 alert('기타 소설!!');
+			 var x = {large:$('#store-category-6').text()};
+			 list(x);
 		 });
 		 $(createDiv({
 			 id : 'div-advertise',
@@ -1221,9 +1227,8 @@ book.main=(()=>{
 	 // 책 리스트 페이지로 넘어감
 	 var list=x=>{
 		 $.getScript(view,()=>{
-			 alert('넘어온값'+x);
 			 $('#div-advertise').remove();
-			 $('#div-list-container').empty();
+			 $('#div-list-container').remove();
 			 $(createDiv({
 				 id : 'div-list-container',
 				 clazz : 'category nav-container'
@@ -1239,26 +1244,81 @@ book.main=(()=>{
 				 id : 'list-header',
 				 clazz : 'col-sm-12'
 			 })).appendTo('#main');
-			 $('#list-header').html((DcreateHTag({
-				 size : '2',
-				 val : x,
-				 clazz : 'col-sm-10'
-			 })));
+			 if(x.small==null){
+				 $('#list-header').html((DcreateHTag({
+					 size : '2',
+					 val : x.large,
+					 clazz : 'col-sm-10'
+				 })));
+			 }else{
+				 $('#list-header').html((DcreateHTag({
+					 size : '2',
+					 val : x.small,
+					 clazz : 'col-sm-10'
+				 })));
+			 }
 			 $(createDiv({
 				 id : 'location',
 				 clazz : 'col-sm-2'
 			 })).appendTo('#list-header');
 			 $('#location').html((createATag({
-				 id : 'a-a',
+				 id : 'a-main-move',
 				val : '서점 >' 
 			 })));
 			 $(createATag({
-				 id : 'a-a-a',
-				 val : '시·에세이 >'
-			 })).appendTo('#a-a');
+				 id : 'a-largegenre-move',
+				 val : x.large
+			 })).appendTo('#location');
+			 if(x.small == null){
+			 }else{
+				 $(createATag({
+					 val : ' > '+x.small
+				 })).appendTo('#location');
+			 }
+			 
+			 //책 리스트
+			 $(createDiv({
+				 id : 'list-content'
+			 })).appendTo('#main');
+			 $(createDiv({
+				 id : 'list-content-header'
+			 })).appendTo('#list-content');
+			 if(x.small == null){
+				 $(createHTag({
+					 size : '4',
+					 val : x.large
+				 })).appendTo('#list-content-header');
+			 }else{
+				 $(createHTag({
+					 size : '4',
+					 val : x.small
+				 })).appendTo('#list-content-header');
+			 }
+			 $(createP({
+				 val : '   - count 권의 책이 검색 되었습니다.'
+			 })).appendTo('#list-content-header');
+			 $(createDiv({
+				 id : 'btn-group-sub-nav'
+			 })).appendTo('#list-content-header');
+			 $(createDiv({
+				 id : 'btn-group-sub-nav-1'
+			 })).appendTo('#btn-group-sub-nav');
 			 $(createATag({
-				 val : x
-			 })).appendTo('#a-a-a');
+				 id : 'a-group-sub-nav-new',
+				 val : '최신순'
+			 })).appendTo('#btn-group-sub-nav-1').attr('class','active')
+			 .click(()=>{
+				 $('#a-group-sub-nav-name').removeAttr('class');
+				 $('#a-group-sub-nav-new').attr('class','active');
+			 });
+			 $(createATag({
+				 id : 'a-group-sub-nav-name',
+				 val : '제목순'
+			 })).appendTo('#btn-group-sub-nav-1')
+			 .click(()=>{
+				 $('#a-group-sub-nav-new').removeAttr('class');
+				 $('#a-group-sub-nav-name').attr('class','active');
+			 });
 		 });
 	 };
 	 return{onCreate:onCreate}
