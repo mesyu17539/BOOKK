@@ -195,11 +195,9 @@ bulletin.jau=(()=>{
 							//검색결과
 							
 							// 검색~!
-					if(data==null&&data==""){
-						$(createP('검색결과가 없습니다.')).appendTo('#div-page');
-					}else{
+			
 						postList({d:data,view:view});
-					}
+					
 							
 						},
 						error : function(x,s,m){alert(m); alert(x);alert(s);}
