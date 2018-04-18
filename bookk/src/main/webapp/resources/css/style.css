@@ -4,7 +4,7 @@ a {cursor:pointer;}
 /* CSS board */
 .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
 
-/* CSS 장바구니 #div-monitor Start */
+/* CSS 장바구니 #div-monitor Start*/
  .wrap-root{
 	border-bottom: 1px solid #eaeaea;
 }
