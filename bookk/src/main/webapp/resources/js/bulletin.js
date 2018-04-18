@@ -54,21 +54,28 @@ bulletin.board=(x=>{
 			$(createOL({id:'ol-data',clazz:'carousel-indicators'})).appendTo('#myCarousel');
 			$(createLI({id:'1-li',clazz:'board-li active'}))
 				.attr('data-target','#myCarousel')
-				.attr('data-slide-to','0').appendTo('#ol-data');		
+				.attr('data-slide-to','0')
+				.attr('style','height:20px; width:20px;')
+				.appendTo('#ol-data');		
 			$(createLI({id:'2-li',clazz:'board-li'}))
 				.attr('data-target','#myCarousel')
+				.attr('style','height:20px; width:20px;')
 				.attr('data-slide-to','1').appendTo('#ol-data');
 			$(createLI({id:'3-li',clazz:'board-li'}))
 				.attr('data-target','#myCarousel')
+				.attr('style','height:20px; width:20px;')
 				.attr('data-slide-to','2').appendTo('#ol-data');
 			$(createLI({id:'4-li',clazz:'board-li'}))
 				.attr('data-target','#myCarousel')
+				.attr('style','height:20px; width:20px;')
 				.attr('data-slide-to','3').appendTo('#ol-data');
 			$(createLI({id:'5-li',clazz:'board-li'}))
 				.attr('data-target','#myCarousel')
+				.attr('style','height:20px; width:20px;')
 				.attr('data-slide-to','4').appendTo('#ol-data');
 			$(createLI({id:'6-li',clazz:'board-li'}))
 				.attr('data-target','#myCarousel')
+				.attr('style','height:20px; width:20px;')
 				.attr('data-slide-to','5').appendTo('#ol-data');
 			// list-box
 			$(createDiv({id:'inner-box',clazz:'carousel-inner'}))
@@ -313,28 +320,33 @@ bulletin.jau=(()=>{
 	};
 	var articleDetail =x=>{
 		// 상세게시판
-		$.getScript(view,()=>{
-		$('#right-side').html($(createDiv({id:'articleDetail-main',clazz:''})))
-		.attr('style',' border: 1px solid red;padding:10px; border:1px solid red; margin-bottom: 30px; ');
-		$(createDiv({id:'articleDetail-title',clazz:'col-sm-3'})).appendTo('#articleDetail-main').attr('style','padding:10px;');
-		$(createHTag({size:'4',val:'자유게시판'})).appendTo('#articleDetail-title')
-		.attr('style','border-left:5px solid #10b5cf; font-size:24px; padding-left:10px;');
-		$(createDiv({id:'',clazz:'col-sm-7'})).appendTo('#articleDetail-main')
-		$(createDiv({id:'articleDetail-list',clazz:'col-sm-2'})).appendTo('#articleDetail-main').attr('style','padding:10px; margin-top:9px;');
-		$(createButton({id:'',clazz:'btn btn-primary',val:'목록'}))
-		.appendTo('#articleDetail-list').attr('type','button').attr('style','float:right')
-		.on('click',()=>{
-			bulletin.jau.onCreate();
+		$.getJSON(context+'/articleDetail/'+x, d=>{
+			$.getScript(view,()=>{
+				$('#right-side').html($(createDiv({id:'articleDetail-main',clazz:''})))
+				.attr('style',' border: 1px solid red;padding:10px; border:1px solid red; margin-bottom: 30px; ');
+				$(createDiv({id:'articleDetail-title',clazz:'col-sm-3'})).appendTo('#articleDetail-main').attr('style','padding:10px;');
+				$(createHTag({size:'4',val:'자유게시판'})).appendTo('#articleDetail-title')
+				.attr('style','border-left:5px solid #10b5cf; font-size:24px; padding-left:10px;');
+				$(createDiv({id:'',clazz:'col-sm-7'})).appendTo('#articleDetail-main')
+				$(createDiv({id:'articleDetail-list',clazz:'col-sm-2'})).appendTo('#articleDetail-main').attr('style','padding:10px; margin-top:9px;');
+				$(createButton({id:'',clazz:'btn btn-primary',val:'목록'}))
+				.appendTo('#articleDetail-list').attr('type','button').attr('style','float:right')
+				.on('click',()=>{
+					bulletin.jau.onCreate();
+
+				});
+				$('#div-articles').html($(createDiv({id:'detail-post-title',clazz:''})))
+				.attr('style','border: 1px solid gray; height:50%; padding:0px;')
+				;
+				$(createDiv({id:'detail-post-title-a',clazz:''}))
+				.attr('style','border-top: 5px solid #adcfdf;  height:50px;border-bottom: 1px dotted #c6c6c6; ')
+				.appendTo('#detail-post-title');
+				$(createDiv({id:'detail-post-content',clazz:''})).appendTo('#detail-post-title');
+				$(createHTag({size:'1',val:d})).appendTo('#detail-post-content');
+				});	
 		});
-		$('#div-articles').html($(createDiv({id:'detail-post-title',clazz:''})))
-		.attr('style','border: 1px solid gray; height:50%; padding:0px;')
-		;
-		$(createDiv({id:'detail-post-title-a',clazz:''}))
-		.attr('style','border-top: 5px solid #adcfdf;  height:50px;border-bottom: 1px dotted #c6c6c6; ')
-		.appendTo('#detail-post-title');
-		$(createDiv({id:'detail-post-content',clazz:''})).appendTo('#detail-post-title');
-		$(createHTag({size:'1',val:x})).appendTo('#detail-post-content');
-		});
+		
+
 	}
 		return{onCreate:onCreate,articles:articles,articleWriting:articleWriting,articleDetail:articleDetail};
 })();

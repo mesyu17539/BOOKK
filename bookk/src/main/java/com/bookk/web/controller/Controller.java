@@ -173,7 +173,7 @@ public class Controller{
 		Map<String, Object> map = new HashMap<>();
 		Object o = null;
 		param.get("data");
-		System.out.println(search+"씨발설치");
+		System.out.println(search+"search");
 		System.out.println(param.get("data")+"씨발 데이터");
 		switch (param.get("type")) {
 		case "co_title":
@@ -212,11 +212,31 @@ public class Controller{
 			}.execute(param);
 			break;
 		}
-		System.out.println(o+"씨발 오브젝트");
 		map.put("o", o);
-		System.out.println(o+"씨발 오브젝트");
 		
 		return map;
-
+	}
+	// 상세게시판
+	@RequestMapping("/articleDetail/{x}")
+	public Map<?,?> articleDetail(
+			@PathVariable("x") String x,
+			@RequestBody HashMap<String, Object> param
+		){
+		Map<String, Object> map = new HashMap<>();
+		Object o = null;
+	  o = new IGetService() {
+			
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.articleDetail(param);
+			}
+		}.execute(param);
+		map.put("o", o);
+		System.out.println(o + " 1");
+		System.out.println(x + " 2");
+		System.out.println(map + " 3");
+		return map;
+		
 	}
 }

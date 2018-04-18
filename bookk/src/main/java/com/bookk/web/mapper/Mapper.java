@@ -17,7 +17,7 @@ public interface Mapper {
 		public void updateBoard();
 		public void deleteBoard();
 		public List<?> boardList(HashMap<?, ?> param);
-		public void selectBoard(HashMap<?, ?> param);
+		public Object articleDetail(HashMap<?, ?> param);
 		public int selectBoardCount(HashMap<?, ?> param);
 		public List<?> searchAll(HashMap<?, ?> param);
 		public List<?> searchWriterTitle(HashMap<?, ?> param);

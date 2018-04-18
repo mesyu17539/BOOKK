@@ -62,4 +62,8 @@
          <select id="searchAll" resultMap="map" parameterType="hashMap">
      	select * from board where ${type} like '%${data}%'
      </select>
+         <select id="articleDetail" resultMap="map" parameterType="hashMap">
+     	select * from board where board_id like #{x}
+     </select>
+     
 </mapper>
