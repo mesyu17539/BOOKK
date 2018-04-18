@@ -193,6 +193,8 @@ bulletin.jau=(()=>{
 						success: function(data){
 							console.log(data);							
 							//검색결과
+							
+							// 검색~!
 					if(data==null&&data==""){
 						$(createP('검색결과가 없습니다.')).appendTo('#div-page');
 					}else{
