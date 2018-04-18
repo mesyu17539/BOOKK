@@ -41,7 +41,6 @@ public class Controller{
 			param.put("colum2", "MEM_PASS");
 			param.put("type", param.get("type"));
 			o= new IGetService() {
-				
 				@Override
 				public Object execute(HashMap<?, ?> param) {
 					// TODO Auto-generated method stub
@@ -106,7 +105,7 @@ public class Controller{
 			@PathVariable("userid")String userid,
 			@RequestBody HashMap<String, String> param) {
 				Map<String,Object> map = new HashMap<>();
-				logger.info("넘어온 ID값은?{}",param.get("userid"));
+				logger.info("넘어온 ID값은? {}",param.get("userid"));
 		return new IGetService() {
 			
 			@Override
@@ -167,19 +166,56 @@ public class Controller{
 		  
 	  }
 	
-	@RequestMapping("/searchArticle/{search}")
+	@RequestMapping("/searchArticle/{select}")
 	public Map<?, ?> search(
-			@PathVariable("search") String search,
-			@RequestBody HashMap<String, String> param) {
+		 @PathVariable String select,
+		 @RequestBody HashMap<String, String> param) {
 		Map<String, Object> map = new HashMap<>();
 		Object o = null;
+		System.out.println(param.get("type"));
+		System.out.println(param.get("data"));
 		param.get("data");
-		System.out.println(search+"설치");
-		System.out.println(param.get("data")+" 데이터");
+		/*
+		 * 
+		 * 
+		 * 
+		 * 
+		  
+		  */
+		page.setTotalCount( new ICountService() {
+			
+			@Override
+			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.searchCount(param);
+			}
+		}.execute(param));
+	 	page.setPageSize(Integer.parseInt("3"));
+	 	page.setBlockSize(Integer.parseInt("3"));
+	 	page.setPageNum(Integer.parseInt("1"));
+	 	page = (Page) adapter.attr(page);
+	 	map.put("page", page);	
+	 	
+	 	
+	 	map.put("list", new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+			return mapper.searchList(param);
+			}
+		}.execute(param));
+		/*
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * */
+		System.out.println("type :  "+param.get("type"));
 		switch (param.get("type")) {
 		case "co_title":
-			System.out.println("title");
-				o = new ISearchService() {
+
+			o = new ISearchService() {
 					
 					@Override
 					public Object execute(HashMap<?, ?> param) {
@@ -213,11 +249,33 @@ public class Controller{
 			}.execute(param);
 			break;
 		}
-		System.out.println(o+" 오브젝트");
 		map.put("o", o);
-		System.out.println(o+" 오브젝트");
+		System.out.println("넘어온 값 : "+o);
+		System.out.println("map :" + map);
+		return map;
+	}
+	
+	
+	// 상세게시판
+	@RequestMapping("/articleDetail/{x}")
+	public Map<?,?> articleDetail(
+			@PathVariable("x") String x			
+		){
+	
+		Map<String, Object> map = new HashMap<>();
+		map.put("x", x);
+		Object o = null;
+		o = new IGetService() {
+			
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.articleDetail(param);
+			}
+		}.execute((HashMap<?, ?>) map);
+		map.put("o", o);
 		
 		return map;
-
+		
 	}
 }

@@ -28,7 +28,9 @@ var createTHJW=x=>{
             th +='</tr>'
         return th;
 }
-
+var createP=x=>{
+	return '<p>'+x+'</p>'
+}
 var createTDJW=x=>{
 	var td ='';
 	var w =0;
