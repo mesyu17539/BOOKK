@@ -125,7 +125,6 @@ public class Controller{
 			@RequestBody HashMap<String, String> param) {
 		Map<String,Object> map = new HashMap<>();
 		Object o = new IGetService() {
-			
 			@Override
 			public Object execute(HashMap<?, ?> map) {
 				// TODO Auto-generated method stub

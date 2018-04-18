@@ -171,3 +171,6 @@ var createSpan=x=>{
 var createHTag=x=>{
 	return '<h'+x.size+'>'+x.val+'</h'+x.size+'>';
 }
+var DcreateHTag=x=>{
+	return '<h'+x.size+' class="'+x.clazz+'">'+x.val+'</h'+x.size+'>';
+}
