@@ -105,7 +105,7 @@ public class Controller{
 			@PathVariable("userid")String userid,
 			@RequestBody HashMap<String, String> param) {
 				Map<String,Object> map = new HashMap<>();
-				logger.info("넘어온 ID값은? {}",param.get("userid"));
+				logger.info("넘어온 ID값은?  {}",param.get("userid"));
 		return new IGetService() {
 			
 			@Override
