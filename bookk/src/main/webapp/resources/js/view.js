@@ -173,3 +173,6 @@ var createHTag=x=>{
 var DcreateHTag=x=>{
 	return '<h'+x.size+' class="'+x.clazz+'">'+x.val+'</h'+x.size+'>';
 }
+var createP=x=>{
+	return '<p>'+x.val+'</p>'
+}

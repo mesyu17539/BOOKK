@@ -69,12 +69,23 @@ a.btn:hover {text-decoration: none;}
 #bookk-store .category .nav-container {position: relative; top: -1px;}
 .sidebar { position: absolute; top: 0; left: 0; width:150px; padding: 25px 0;}
 .category .sidebar {width: 177px; padding-top: 0;}
-#main {min-height: 700px; padding: 0 0 80px 40px; border-left: 1px solid black;}
+#main {min-height: 700px; padding: 1 0 80px 40px; border-left: 1px solid black;}
 .category #main {width: 740px; margin-left: 176px;}
 .category #main #list-header {position: relative; padding-top: 0px;}
 #list-header {padding: 22px 0 0; overflow: hidden;}
 .category #main #list-header #location {position: absolute; height:50px; right: 0; bottom: 2px; color: black; width: 250px;}
 .category #main #list-header #location a {color : black; font-weight:bold; font-size: 12px;}
+.category #main #list-header #location a:hover {color: blue;}
+.category #main #list-content #list-content-header {margin-top: 25px;}
+#list-content-header {margin: 50px 0 12px;}
+.category #main #list-content #list-content-header h4 {color : blue; float: left; margin: 0; font-size: 14px; line-height: 20px; letter-spacing: -2px;}
+.category #main #list-content #list-content-header p {line-height: 20px;}
+#list-content-header p {float: left; margin: 2px 0 0 10px; font-size: 12px; color: black;}
+#btn-group-sub-nav {top: 0px;}
+#btn-group-sub-nav-1 {display: table; float: right;}
+.category #main #list-content #list-content-header #btn-group-sub-nav a {border-left: none; float: left; font-size: 12px; padding: 0 5px;}
+#btn-group-sub-nav a.active {font-weight: bold;}
+#btn-group-sub-nav a:hover {border-bottom: 1px solid black;}
 
 
 //
