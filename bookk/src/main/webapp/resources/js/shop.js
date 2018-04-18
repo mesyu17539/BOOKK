@@ -121,7 +121,10 @@ shop.mall = {cart:x=>{
 		});
 		$(createDiv({id:'div-btn-wrapper',clazz:''})).appendTo('#div-content');
 		$('#div-btn-wrapper').append(createButton({id:'btn-cart-payment',clazz:'btn',val:'결제하기'}))
-		$('#btn-cart-payment').attr('style','background:#ce6a52;color:#fff; width:250px');
+		$('#btn-cart-payment').attr('style','background:#ce6a52;color:#fff; width:250px').click(()=>{
+			
+			shop.mall.sell({view:x.view,context:x.context,val:'02 주문/결제 '});
+		})
 		$('#div-btn-wrapper').attr('style','text-align:center; margin:20px');
 			
 		
@@ -135,7 +138,33 @@ shop.mall = {cart:x=>{
 		    $('input[name=sampleHidden]').val('N');
 		}*/
 	});
-	sell:x=>{
-		
-	}
-}}
+	
+	
+},
+sell:x=>{
+	$.getScript(x.view,()=>{
+		$('div[id=div-content]').html(createMultiDiv({
+			id:'div-sell',
+			clazz:'',
+			arr:['','','']}));
+		$('#div-sell-0').text('구매확인').attr('style','font-size:30px; margin-top:20px');
+		$('#div-sell-1').attr('style','float:right;font-size:20px').append(createMultiSpan({id:'span-root',arr:['','','']}))
+		var k =['01 장바구니 ','02 주문/결제 ','03 결제완료'];
+		for(var i=0;i<=2;i++){
+			$('#span-root-'+i+'').text(k[i]);
+			if(x.val===$('#span-root-'+i+'').text()){
+				$('#span-root-'+i+'').attr('style','color:#ce6a52')
+			}else{
+				$('#span-root-'+i+'').attr('style','color:gray')
+			}
+			};	
+			$('#div-sell-2').append(createMultiDiv({id:'div-sell-2',arr:['']}))
+			$('#div-sell-2-0').append(createTable({id:'table-cart',clazz:''}))
+			$('#table-cart').append(createTr({id:'tr-head'}));
+			$('#tr-head').append(createMultiTh({arr:['',''],id:''}))
+			
+	});
+	
+	
+}
+}

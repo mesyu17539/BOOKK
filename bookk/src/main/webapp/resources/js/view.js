@@ -44,6 +44,13 @@ var createTDJW=x=>{
     return td;
 }
 //추가 만호
+var createMultiSpan=x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<span id ="'+x.id+'-'+i+'"></span>'
+	});
+	return temp;
+}
 var createMultiDiv=x=>{
 	var temp = '';
 	$.each(x.arr,(i,j)=>{
