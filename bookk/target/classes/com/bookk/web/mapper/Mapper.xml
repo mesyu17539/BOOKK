@@ -59,4 +59,7 @@
     <select id="selectBoardCount" resultType="int" parameterType="hashMap">
     SELECT COUNT(*) FROM board
     </select>
+         <select id="searchAll" resultMap="map" parameterType="hashMap">
+     	select * from board where ${type} like '%${data}%'
+     </select>
 </mapper>
