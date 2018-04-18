@@ -210,7 +210,6 @@ public class Controller{
 		 * 
 		 * 
 		 * 
-		 * 
 		 * */
 		System.out.println("type :  "+param.get("type"));
 		switch (param.get("type")) {
