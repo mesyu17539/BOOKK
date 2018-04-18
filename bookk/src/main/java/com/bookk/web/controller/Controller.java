@@ -166,19 +166,56 @@ public class Controller{
 		  
 	  }
 	
-	@RequestMapping("/searchArticle/{search}")
+	@RequestMapping("/searchArticle/{select}")
 	public Map<?, ?> search(
-			@PathVariable("search") String search,
-			@RequestBody HashMap<String, String> param) {
+		 @PathVariable String select,
+		 @RequestBody HashMap<String, String> param) {
 		Map<String, Object> map = new HashMap<>();
 		Object o = null;
+		System.out.println(param.get("type"));
+		System.out.println(param.get("data"));
 		param.get("data");
-		System.out.println(search+"search");
-		System.out.println(param.get("data")+"씨발 데이터");
+		/*
+		 * 
+		 * 
+		 * 
+		 * 
+		  
+		  */
+		page.setTotalCount( new ICountService() {
+			
+			@Override
+			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.searchCount(param);
+			}
+		}.execute(param));
+	 	page.setPageSize(Integer.parseInt("3"));
+	 	page.setBlockSize(Integer.parseInt("3"));
+	 	page.setPageNum(Integer.parseInt("1"));
+	 	page = (Page) adapter.attr(page);
+	 	map.put("page", page);	
+	 	
+	 	
+	 	map.put("list", new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+			return mapper.searchList(param);
+			}
+		}.execute(param));
+		/*
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * */
+		System.out.println("type :  "+param.get("type"));
 		switch (param.get("type")) {
 		case "co_title":
-			System.out.println("title");
-				o = new ISearchService() {
+
+			o = new ISearchService() {
 					
 					@Override
 					public Object execute(HashMap<?, ?> param) {
@@ -213,29 +250,31 @@ public class Controller{
 			break;
 		}
 		map.put("o", o);
-		
+		System.out.println("넘어온 값 : "+o);
+		System.out.println("map :" + map);
 		return map;
 	}
+	
+	
 	// 상세게시판
 	@RequestMapping("/articleDetail/{x}")
 	public Map<?,?> articleDetail(
-			@PathVariable("x") String x,
-			@RequestBody HashMap<String, Object> param
+			@PathVariable("x") String x			
 		){
+	
 		Map<String, Object> map = new HashMap<>();
+		map.put("x", x);
 		Object o = null;
-	  o = new IGetService() {
+		o = new IGetService() {
 			
 			@Override
 			public Object execute(HashMap<?, ?> param) {
 				// TODO Auto-generated method stub
 				return mapper.articleDetail(param);
 			}
-		}.execute(param);
+		}.execute((HashMap<?, ?>) map);
 		map.put("o", o);
-		System.out.println(o + " 1");
-		System.out.println(x + " 2");
-		System.out.println(map + " 3");
+		
 		return map;
 		
 	}

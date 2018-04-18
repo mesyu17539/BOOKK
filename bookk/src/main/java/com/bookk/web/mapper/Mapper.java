@@ -19,6 +19,8 @@ public interface Mapper {
 		public List<?> boardList(HashMap<?, ?> param);
 		public Object articleDetail(HashMap<?, ?> param);
 		public int selectBoardCount(HashMap<?, ?> param);
+		public int searchCount(HashMap<?, ?> map);
+		public List<?> searchList(HashMap<?, ?> map);
 		public List<?> searchAll(HashMap<?, ?> param);
 		public List<?> searchWriterTitle(HashMap<?, ?> param);
 		public List<?> searchTitle(HashMap<?, ?> param);
