@@ -64,7 +64,83 @@ a.btn:hover {text-decoration: none;}
 .section-ranking {overflow: hidden;}
 .section-ranking .widget {width: 480px;}
 .section-ranking .widget-content {height: 202px;border-bottom: 1px solid black;}
-
+/* CSS 장바구니 #div-monitor Start */
+.table-cart-price{
+	width: 100%; margin-top: 70px;
+}
+.table-cart-price td{
+	text-align:center;
+	border-bottom: 2px solid #eee;
+	width: 33.33%;
+	font-size: 16px;
+	height: 120px;
+}
+.table-cart-price th{
+	text-align:center;
+	width:33.33%;
+	font-weight: normal;
+	font-size: 16px;
+	border-top: 2px solid #bbbbbb;
+	border-bottom: 2px solid #bbbbbb;
+	height: 60px;
+}
+#div-cart-footer-content-left{
+	float:left;
+	position: relative; margin-top: 4px;
+	padding-left: 20px; color: #ce6a52;
+}
+#div-cart-footer-content-right{
+	margin-right: 4px; float: right;
+}
+.wrap-root{
+	border-bottom: 1px solid #eaeaea;
+}
+.cart-div{
+	width: 1000px; margin: 0 auto; 
+}
+.table-cart {
+	width: 100%;
+	margin-top: 45px;
+	
+}
+.table-cart th{
+	text-align:center;
+	font-weight: normal;
+	font-size: 16px;
+	border-top: 2px solid #bbbbbb;
+	border-bottom: 2px solid #bbbbbb;
+	height: 60px;
+	
+}
+.table-buyer-info{
+	width:100%;
+	border-top: 1px solid #aaa;
+}
+.table-buyer-info td{
+	height: 50px;
+	border-bottom: 1px solid #eee;
+}
+.table-buyer-info td input{
+	margin-left: 15px; 
+	width: 170px;
+	height: 60%;
+	
+}
+.table-buyer-info .left-td{
+	text-align:center;
+	background-color: #f8f8f8;
+	width: 100px;
+	font-size: 14px;
+	
+}
+.table-buyer-info .left-td-2{
+	text-align:center;
+	background-color: #f8f8f8;
+	width: 150px;
+	font-size: 14px;
+	
+}
+/* CSS 장바구니 #div-monitor End */
 /* 책 리스트 사이드바 */
 #bookk-store .category .nav-container {position: relative; top: -1px;}
 .sidebar { position: absolute; top: 0; left: 0; width:150px; padding: 25px 0;}
