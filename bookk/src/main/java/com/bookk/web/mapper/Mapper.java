@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface Mapper {
 	    public int selectCount();
 	    public int addMember(HashMap<?, ?> param);
+	    public int addAddress(HashMap<?, ?> param);
 	    public Object selectMemberById(HashMap<?, ?> param);
 	    public Object selectById(HashMap<?, ?> param);
 		public HashMap<?, ?> mallCartCount(HashMap<?, ?> map);
