@@ -109,7 +109,7 @@
      </select>
      <select id="searchCount" resultType="int" parameterType="hashMap">
      	select count(*) from board where ${type} like '%${data}%'
-     </select>
+     </select> 
      <select id="searchList" resultMap="map" parameterType="hashMap">
          select A2.* from(
         select @rank:=@rank+1 rank, A.* 
