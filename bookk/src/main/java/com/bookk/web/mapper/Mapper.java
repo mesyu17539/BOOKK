@@ -19,7 +19,7 @@ public interface Mapper {
 		public List<?> boardList(HashMap<?, ?> param);
 		public void selectBoard(HashMap<?, ?> param);
 		public int selectBoardCount(HashMap<?, ?> param);
-		public List<?> searchWriter(HashMap<?, ?> param);
+		public List<?> searchAll(HashMap<?, ?> param);
 		public List<?> searchWriterTitle(HashMap<?, ?> param);
 		public List<?> searchTitle(HashMap<?, ?> param);
 		public List<?> pageList(HashMap<?, ?> param);

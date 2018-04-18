@@ -12,13 +12,13 @@ var createImage=x=>{
 	return '<img id="'+x.id+'" src="'+x.src+'" class="'+x.clazz+'"/>';
 }
 var createTRJW =x=>{
-    var q =0;
-    var tr = '';
-    $.each(x.list, (i,j)=>{
-        tr+='<tr id="jw_'+(q++)+'" class ="'+x.clazz+'">'
-        +createTDJW(j)+'</tr>';
-    });
-    return tr;
+	var q =0;
+	var tr = '';
+	$.each(x.list, (i,j)=>{
+		tr+='<tr id="jw_'+(q++)+'" class ="'+x.clazz+'">'
+		+createTDJW({j:j,q:q})+'</tr>';
+	});
+	return tr;
 }
 var createTHJW=x=>{
     var th ='<tr>'
@@ -28,20 +28,21 @@ var createTHJW=x=>{
             th +='</tr>'
         return th;
 }
+
 var createTDJW=x=>{
-    var td ='';
-    var w =0;
-    td +='<td id="td_'+w+'" class = "'+'_'+(w++)+'">'
-    +x.bID+'</td>';
-    td +='<td id="td_'+w+'" class = "'+'_'+(w++)+'" >'
-    +x.title+'</td>';
-    td +='<td id="td_'+w+'" class = "'+'_'+(w++)+'" >'
-    +x.memID+'</td>';
-    td +='<td id="td_'+w+'" class = "'+'_'+(w++)+'">'
-    +x.viewNum+'</td>';
-    td +='<td id="td_'+w+'" class = "'+'_'+(w++)+'">'
-    +x.createDate+'</td>';
-    return td;
+	var td ='';
+	var w =0;
+	td +='<td id="td_'+x.q+'_'+w+'" class = "'+'_'+(w++)+'">'
+	+x.j.bID+'</td>';
+	td +='<td id="td_'+x.q+'_'+w+'" class = "'+'_'+w+'" ><a id="a_'+x.q+'_'+(w++)+'">'
+	+x.j.title+'</a></td>';
+	td +='<td id="td_'+x.q+'_'+w+'" class = "'+'_'+(w++)+'" >'
+	+x.j.memID+'</td>';
+	td +='<td id="td_'+x.q+'_'+w+'" class = "'+'_'+(w++)+'">'
+	+x.j.viewNum+'</td>';
+	td +='<td id="td_'+x.q+'_'+w+'" class = "'+'_'+(w++)+'">'
+	+x.j.createDate+'</td>';
+	return td;
 }
 //추가 만호
 var createMultiDiv=x=>{

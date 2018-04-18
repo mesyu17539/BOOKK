@@ -1,8 +1,31 @@
 @charset "UTF-8";
 .header .auth-form {display:none;position:absolute;top:35px;left: 0;right: 0;margin-left: auto;margin-right: auto;width: 300px;padding:12px 19px;background-color:#fff;border:1px solid #969696;z-index:10;}
-
+a {cursor:pointer;}
 /* CSS board */
 .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+
+/* CSS 장바구니 #div-monitor Start */
+ .wrap-root{
+	border-bottom: 1px solid #eaeaea;
+}
+.cart-div{
+	width: 1000px; margin: 0 auto; 
+}
+.table-cart {
+	width: 100%;
+	margin-top: 45px;
+	
+}
+.table-cart th{
+	
+	font-weight: normal;
+	font-size: 16px;
+	border-top: 2px solid #bbbbbb;
+	border-bottom: 2px solid #bbbbbb;
+	height: 60px;
+	
+}
+/* CSS 장바구니 #div-monitor End */
 .header .division{
 	border: 1px solid #eee;
 }
@@ -140,24 +163,3 @@ a.btn:hover {text-decoration: none;}
 #div-cart-footer-content-right{
 	margin-right: 4px; float: right;
 }
-.wrap-root{
-	border-bottom: 1px solid #eaeaea;
-}
-.cart-div{
-	width: 1000px; margin: 0 auto; 
-}
-.table-cart {
-	width: 100%;
-	margin-top: 45px;
-	
-}
-.table-cart th{
-	
-	font-weight: normal;
-	font-size: 16px;
-	border-top: 2px solid #bbbbbb;
-	border-bottom: 2px solid #bbbbbb;
-	height: 60px;
-	
-}
-/* CSS 장바구니 #div-monitor End */

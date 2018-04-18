@@ -18,6 +18,7 @@ import com.bookk.web.mapper.Mapper;
 import com.bookk.web.service.ICountService;
 import com.bookk.web.service.IGetService;
 import com.bookk.web.service.IPostService;
+import com.bookk.web.service.ISearchService;
 
 
 @RestController
@@ -165,4 +166,58 @@ public class Controller{
 				return map;
 		  
 	  }
+	
+	@RequestMapping("/searchArticle/{search}")
+	public Map<?, ?> search(
+			@PathVariable("search") String search,
+			@RequestBody HashMap<String, String> param) {
+		Map<String, Object> map = new HashMap<>();
+		Object o = null;
+		param.get("data");
+		System.out.println(search+"설치");
+		System.out.println(param.get("data")+" 데이터");
+		switch (param.get("type")) {
+		case "co_title":
+			System.out.println("title");
+				o = new ISearchService() {
+					
+					@Override
+					public Object execute(HashMap<?, ?> param) {
+						// TODO Auto-generated method stub
+						return mapper.searchAll(param);
+					}
+				}.execute(param);
+			break;
+			
+		case "titleContent":
+			System.out.println("titleContent");
+			o = new ISearchService() {
+				
+				@Override
+				public Object execute(HashMap<?, ?> param) {
+					// TODO Auto-generated method stub
+					return mapper.searchAll(param);
+				}
+			}.execute(param);
+			break;
+			
+		case "content":
+			System.out.println("content");
+			o = new ISearchService() {
+				
+				@Override
+				public Object execute(HashMap<?, ?> param) {
+					// TODO Auto-generated method stub
+					return mapper.searchAll(param);
+				}
+			}.execute(param);
+			break;
+		}
+		System.out.println(o+" 오브젝트");
+		map.put("o", o);
+		System.out.println(o+" 오브젝트");
+		
+		return map;
+
+	}
 }
