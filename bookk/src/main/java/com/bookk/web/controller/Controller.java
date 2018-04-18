@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,8 +78,9 @@ public class Controller{
 			System.out.println("mem");
 			param.put("colum", "id");
 			map.put("success", new IPostService() {
-				@Override
+				@Override @Transactional
 				public int execute(HashMap<?, ?> param) {
+					mapper.addAddress(param);
 					return mapper.addMember(param);
 				}
 			}.execute(param));
@@ -122,7 +124,6 @@ public class Controller{
 			@RequestBody HashMap<String, String> param) {
 		Map<String,Object> map = new HashMap<>();
 		Object o = new IGetService() {
-			
 			@Override
 			public Object execute(HashMap<?, ?> map) {
 				// TODO Auto-generated method stub
@@ -205,7 +206,6 @@ public class Controller{
 			}
 		}.execute(param));
 		/*
-		 * 
 		 * 
 		 * 
 		 * 

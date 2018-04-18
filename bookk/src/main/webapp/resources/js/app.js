@@ -12,7 +12,7 @@ app.nav=(()=>{
 	var onCreate=()=>{
 		$wrapper =$('#wrapper');
 		image=$.image();
-	    context = $.context();
+		context = $.context();
 		view=$.javascript()+'/view.js';
 		setContentView();
 	};
@@ -34,7 +34,7 @@ app.nav=(()=>{
 			
 //			서점 게시판
 			$(createButton({id:'',type:'',clazz:'btn mint long',val:'서점'}))
-            .appendTo('#div-header-pageMenu')
+			.appendTo('#div-header-pageMenu')
             .on('click',e=>{
                 e.preventDefault();
                 document.getElementById('wizcss').href=(context+'/resources/css/style.css');
