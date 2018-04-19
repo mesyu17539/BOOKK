@@ -361,7 +361,7 @@ bulletin.jau=(()=>{
 				$(createDiv({id:'detail-post-title-c',clazz:'col-sm-3'})).appendTo('#detail-post-title-head').attr('style','margin-top:5px;');
 				$(createSpanJW({id:'',clazz:'',val:d.o.createDate})).appendTo('#detail-post-title-c').attr('style','font-size:20px;');
 				$(createDiv({id:'detail-post-content',clazz:'col-sm-12'})).appendTo('#detail-post-title').attr('style','padding:20px;');
-				$(createP(d.o.contents)).appendTo('#detail-post-content').attr('style','font-size:20px;');
+				$(createP({val:d.o.contents})).appendTo('#detail-post-content').attr('style','font-size:20px;');
 				});	
 		});
 		
