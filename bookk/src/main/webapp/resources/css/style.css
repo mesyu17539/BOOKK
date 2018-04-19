@@ -121,7 +121,16 @@ ul, ol, li {list-style: none;}
 .btn {display: inline-block;border-radius: 3px;padding: 9px 10px 11px;background: none;border: 0;border: 1px solid transparent;font-size: 12px;letter-spacing: -1px;cursor: pointer;}
 a.btn:hover {text-decoration: none;}
 /* 책 */
+.widget-content {overflow: hidden;}
+.book-list {margin-right: -20px;}
+.book-list .book-item {width:1000px;margin: 25px 20px 0 0;height: 240px;}
+.book-item .book-cover {margin-bottom: 8px;}
+.book-cover {position: relative;width: 104px;height: 158px;}
+.book-deco {position: absolute;left: 0;top: 0; display: block;width: 104px;height: 158px;}
 .book-cover img {width: 104px;height: 154px;margin-top: 4px;}
+.a-book-cover {float: left;width: 16.6%;}
+.book-item .book-title {font-weight: bold;font-size: 10px;}
+.book-item .book-author {margin-top: 4px;font-size: 10px;color: blue;}
 /* 장르, 더보기 */
 .widget-header {height: 24px;padding: 12px 1px;border-bottom: 1px solid black;}
 .widget-header h3, .widget-title {float: left;margin: 0 30px 0 0;font-size: 16px;}

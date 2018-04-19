@@ -120,8 +120,15 @@
                ) A,(SELECT @rank := 0) R) A2
               where rank between #{page.startRow} and #{page.endRow}
      </select>
-         <select id="articleDetail" resultMap="map" parameterType="hashMap">
+     <select id="articleDetail" resultMap="map" parameterType="hashMap">
      	select * from board where board_id like #{x}
      </select>
-     
+     <!-- book -->
+     <select id="largeGenre" resultMap="map">
+     	select DISTINCT largeGenre from genre
+     </select>
+     <select id="bookGenreDate" resultMap="map" parameterType="hashMap">
+     	SELECT b.*, (select i.imageRoute from image i where b.imageName like i.imageName) as imageRoute 
+		FROM book b where b.genreNum in (select DISTINCT  g.genreNum from genre g where g.largeGenre like #{genre}) 
+     </select>
 </mapper>

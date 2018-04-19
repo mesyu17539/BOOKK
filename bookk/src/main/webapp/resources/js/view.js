@@ -135,6 +135,9 @@ var createOption=x=>{
 var createDiv=x=>{
 	return '<div id="'+x.id+'" class="'+x.clazz+'"></div>'
 }
+var createDivVal=x=>{
+	return '<div id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</div>'
+}
 var createForm=x=>{
 	return '<form id="'+x.id+'" class="'+x.clazz+'"></form>'
 }

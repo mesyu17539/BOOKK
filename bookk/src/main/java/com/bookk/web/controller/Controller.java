@@ -278,4 +278,20 @@ public class Controller{
 		return map;
 		
 	}
+	// book
+	@RequestMapping("/bookMain")
+	public Map<?,?> bookMain(){
+		Map<String, Object> map = new HashMap<>();
+		map.put("genre","시/에세이");
+		map.put("genreL", new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.bookGenreDate(param);
+			}
+		}.execute((HashMap<?, ?>) map));
+		System.out.println(map.get("genreL"));
+		return map;
+		
+	}
 }

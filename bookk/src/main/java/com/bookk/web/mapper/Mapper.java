@@ -26,4 +26,6 @@ public interface Mapper {
 		public List<?> searchWriterTitle(HashMap<?, ?> param);
 		public List<?> searchTitle(HashMap<?, ?> param);
 		public List<?> pageList(HashMap<?, ?> param);
+		public List<?> bookGenreDate(HashMap<?, ?> param);
+		public HashMap<?, ?> largeGenre();
 }

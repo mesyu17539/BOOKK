@@ -14,8 +14,11 @@ book.main=(()=>{
 			 });
 		 };
 	var bookContent=()=>{
-		// 광고 이미지
-		 
+		//메인 페이지
+		
+		//DB 연결
+		$.getJSON(context+'/bookMain', d=>{alert(d.genreL[0].imageRoute);
+			
 		 $(createDiv({
 			 id : 'img-advertise',
 			 clazz : 'img-advertise'
@@ -240,6 +243,7 @@ book.main=(()=>{
 		 .click(()=>{
 			 alert('3번 클릭');
 		 });
+		 //랭킹
 		 $(createDiv({
 			 id : 'div-section-ranking',
 			 clazz : 'section-ranking'
@@ -362,35 +366,43 @@ book.main=(()=>{
 		 });
 		 
 		 //시 에세이
+		 $(createDiv({id:'div-section-category',clazz:'section-category'})).appendTo('#div-container-2');
+		 $(createDiv({id:'div-section-category-1'})).appendTo('#div-section-category');
+		 var temp = ['시·에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타']
+		 for(var i= 0; i<6; i++){
+			 $(createDiv({id:'div-book-header-'+i+'',clazz:'widget-header'})).appendTo('#div-section-category-1');
+			 $(createHTag({size:'3',clazz:'widget-title',val:temp[i]})).appendTo('#div-book-header-'+i+'');
+			 $(createATag({val:'더보기'})).appendTo('#div-book-header-'+i+'').attr('class','more');
+			 $(createDiv({id:'div-category-list-'+i+'',clazz:'widget-content book-list clearfix'})).appendTo('#div-section-category-1');
+			 $(createDiv({id:'div-book-item-'+i+'',clazz:'book-item'})).appendTo('#div-category-list-'+i+'');
+			 $(createATag({id:'a-book-item-0-'+i+'',val:''})).appendTo('#div-book-item-0').attr('class','a-book-cover');
+			 $(createATag({id:'a-book-item-1-'+i+'',val:''})).appendTo('#div-book-item-1').attr('class','a-book-cover');
+			 $(createATag({id:'a-book-item-2-'+i+'',val:''})).appendTo('#div-book-item-2').attr('class','a-book-cover');
+			 $(createATag({id:'a-book-item-3-'+i+'',val:''})).appendTo('#div-book-item-3').attr('class','a-book-cover');
+			 $(createATag({id:'a-book-item-4-'+i+'',val:''})).appendTo('#div-book-item-4').attr('class','a-book-cover');
+			 $(createATag({id:'a-book-item-5-'+i+'',val:''})).appendTo('#div-book-item-5').attr('class','a-book-cover');
+			 $(createDiv({id:'div-book-cover-0-'+i+'',clazz:'book-cover'})).appendTo('#a-book-item-0-'+i+'');
+			 $(createDiv({id:'div-book-cover-1-'+i+'',clazz:'book-cover'})).appendTo('#a-book-item-1-'+i+'');
+			 $(createDiv({id:'div-book-cover-2-'+i+'',clazz:'book-cover'})).appendTo('#a-book-item-2-'+i+'');
+			 $(createDiv({id:'div-book-cover-3-'+i+'',clazz:'book-cover'})).appendTo('#a-book-item-3-'+i+'');
+			 $(createDiv({id:'div-book-cover-4-'+i+'',clazz:'book-cover'})).appendTo('#a-book-item-4-'+i+'');
+			 $(createDiv({id:'div-book-cover-5-'+i+'',clazz:'book-cover'})).appendTo('#a-book-item-5-'+i+'');
+			 $(createImg({src:d.genreL[i].imageRoute})).appendTo('#div-book-cover-0-'+i+'');
+			 $(createDiv({clazz:'book-deco'})).appendTo('#div-book-cover-0-'+i+'');
+			 $(createDivVal({clazz:'book-title',val:d.genreL[i].bookName})).appendTo('#a-book-item-0-'+i+'');
+			 $(createDivVal({clazz:'book-author',val:d.genreL[i].writter})).appendTo('#a-book-item-0-'+i+'');
+			 
+		 }
+		 
+		 /*$(createDiv({
+			 clazz : 'book-title'
+		 })).appendTo('#a-book-item-1');
 		 $(createDiv({
-			 id : 'div-section-category',
-			 clazz : 'section-category'
-		 })).appendTo('#div-container-2');
-		 $(createDiv({
-			 id : 'div-section-category-1'
-		 })).appendTo('#div-section-category');
-		 $(createDiv({
-			 id : 'div-book-header-1',
-			 clazz : 'widget-header'
-		 })).appendTo('#div-section-category-1');
-		 $(createHTag({
-			 size : '3',
-			 clazz : 'widget-title',
-			 val : '시·에세이'
-		 })).appendTo('#div-book-header-1');
-		 $(createATag({
-			 val : '더보기'
-		 })).appendTo('#div-book-header-1')
-		 .attr('class','more');
-		 $(createDiv({
-			 id : 'div-category-list',
-			 clazz : 'widget-content book-list clearfix'
-		 })).appendTo('#div-section-category-1');
-		 $(createDiv({
-			 id : 'div-book-item-1',
-			 clazz : 'book-item'
-		 })).appendTo('#div-category-list');
-		 $(createATag({
+			 id : 'div-book-meta-1',
+			 clazz : 'book-meta'
+		 })).appendTo('#div-book-item-1');*/
+		 
+		 /*$(createATag({
 			 id : 'a-book-item-1',
 			 val : ''
 		 })).appendTo('#div-book-item-1');
@@ -398,6 +410,12 @@ book.main=(()=>{
 			 id : 'div-book-cover-1',
 			 clazz : 'book-cover'
 		 })).appendTo('#a-book-item-1');
+		 $(createImg({
+			 id:'',alt:'',src:d.genreL[0].imageRoute,clazz:''
+		 })).appendTo('#div-book-cover-1');
+		 $(createImg({
+			 id:'',alt:'',src:d.genreL[1].imageRoute,clazz:''
+		 })).appendTo('#div-book-cover-1');
 		 $(createDiv({
 			 clazz : 'book-deco'
 		 })).appendTo('#div-book-cover-1');
@@ -407,213 +425,8 @@ book.main=(()=>{
 		 $(createDiv({
 			 id : 'div-book-meta-1',
 			 clazz : 'book-meta'
-		 })).appendTo('#div-book-item-1');
-		 
-		 //소설 
-		 $(createDiv({
-			 id : 'div-book-header-2',
-			 clazz : 'widget-header'
-		 })).appendTo('#div-section-category-1');
-		 $(createHTag({
-			 size : '3',
-			 clazz : 'widget-title',
-			 val : '소설'
-		 })).appendTo('#div-book-header-2');
-		 $(createATag({
-			 val : '더보기'
-		 })).appendTo('#div-book-header-2')
-		 .attr('class','more');
-		 $(createDiv({
-			 id : 'div-category-list',
-			 clazz : 'widget-content book-list clearfix'
-		 })).appendTo('#div-section-category');
-		 $(createDiv({
-			 id : 'div-book-item-2',
-			 clazz : 'book-item'
-		 })).appendTo('#div-category-list');
-		 $(createATag({
-			 id : 'a-book-item-2',
-			 val : ''
-		 })).appendTo('#div-book-item-2');
-		 $(createDiv({
-			 id : 'div-book-cover-2',
-			 clazz : 'book-cover'
-		 })).appendTo('#a-book-item-2');
-		 $(createDiv({
-			 clazz : 'book-deco'
-		 })).appendTo('#div-book-cover-2');
-		 $(createDiv({
-			 clazz : 'book-title'
-		 })).appendTo('#a-book-item-2');
-		 $(createDiv({
-			 id : 'div-book-meta-2',
-			 clazz : 'book-meta'
-		 })).appendTo('#div-book-item-2');
-		 
-		 
-		 //전기/회고록
-		 $(createDiv({
-			 id : 'div-book-header-3',
-			 clazz : 'widget-header'
-		 })).appendTo('#div-section-category-1');
-		 $(createHTag({
-			 size : '3',
-			 clazz : 'widget-title',
-			 val : '전기/회고록'
-		 })).appendTo('#div-book-header-3');
-		 $(createATag({
-			 val : '더보기'
-		 })).appendTo('#div-book-header-3')
-		 .attr('class','more');
-		 $(createDiv({
-			 id : 'div-category-list',
-			 clazz : 'widget-content book-list clearfix'
-		 })).appendTo('#div-section-category');
-		 $(createDiv({
-			 id : 'div-book-item-3',
-			 clazz : 'book-item'
-		 })).appendTo('#div-category-list');
-		 $(createATag({
-			 id : 'a-book-item-3',
-			 val : ''
-		 })).appendTo('#div-book-item-3');
-		 $(createDiv({
-			 id : 'div-book-cover-3',
-			 clazz : 'book-cover'
-		 })).appendTo('#a-book-item-3');
-		 $(createDiv({
-			 clazz : 'book-deco'
-		 })).appendTo('#div-book-cover-3');
-		 $(createDiv({
-			 clazz : 'book-title'
-		 })).appendTo('#a-book-item-3');
-		 $(createDiv({
-			 id : 'div-book-meta-3',
-			 clazz : 'book-meta'
-		 })).appendTo('#div-book-item-3');
-		 
-		//경영/경제/자기계발
-		 $(createDiv({
-			 id : 'div-book-header-4',
-			 clazz : 'widget-header'
-		 })).appendTo('#div-section-category-1');
-		 $(createHTag({
-			 size : '3',
-			 clazz : 'widget-title',
-			 val : '경영/경제/자기계발'
-		 })).appendTo('#div-book-header-4');
-		 $(createATag({
-			 val : '더보기'
-		 })).appendTo('#div-book-header-4')
-		 .attr('class','more');
-		 $(createDiv({
-			 id : 'div-category-list',
-			 clazz : 'widget-content book-list clearfix'
-		 })).appendTo('#div-section-category');
-		 $(createDiv({
-			 id : 'div-book-item-4',
-			 clazz : 'book-item'
-		 })).appendTo('#div-category-list');
-		 $(createATag({
-			 id : 'a-book-item-4',
-			 val : ''
-		 })).appendTo('#div-book-item-4');
-		 $(createDiv({
-			 id : 'div-book-cover-4',
-			 clazz : 'book-cover'
-		 })).appendTo('#a-book-item-4');
-		 $(createDiv({
-			 clazz : 'book-deco'
-		 })).appendTo('#div-book-cover-4');
-		 $(createDiv({
-			 clazz : 'book-title'
-		 })).appendTo('#a-book-item-4');
-		 $(createDiv({
-			 id : 'div-book-meta-4',
-			 clazz : 'book-meta'
-		 })).appendTo('#div-book-item-4');
-		 
-		//인문사회
-		 $(createDiv({
-			 id : 'div-book-header-5',
-			 clazz : 'widget-header'
-		 })).appendTo('#div-section-category-1');
-		 $(createHTag({
-			 size : '3',
-			 clazz : 'widget-title',
-			 val : '인문사회'
-		 })).appendTo('#div-book-header-5');
-		 $(createATag({
-			 val : '더보기'
-		 })).appendTo('#div-book-header-5')
-		 .attr('class','more');
-		 $(createDiv({
-			 id : 'div-category-list',
-			 clazz : 'widget-content book-list clearfix'
-		 })).appendTo('#div-section-category');
-		 $(createDiv({
-			 id : 'div-book-item-5',
-			 clazz : 'book-item'
-		 })).appendTo('#div-category-list');
-		 $(createATag({
-			 id : 'a-book-item-5',
-			 val : ''
-		 })).appendTo('#div-book-item-5');
-		 $(createDiv({
-			 id : 'div-book-cover-5',
-			 clazz : 'book-cover'
-		 })).appendTo('#a-book-item-5');
-		 $(createDiv({
-			 clazz : 'book-deco'
-		 })).appendTo('#div-book-cover-5');
-		 $(createDiv({
-			 clazz : 'book-title'
-		 })).appendTo('#a-book-item-5');
-		 $(createDiv({
-			 id : 'div-book-meta-5',
-			 clazz : 'book-meta'
-		 })).appendTo('#div-book-item-5');
-		 
-		//기타
-		 $(createDiv({
-			 id : 'div-book-header-6',
-			 clazz : 'widget-header'
-		 })).appendTo('#div-section-category-1');
-		 $(createHTag({
-			 size : '3',
-			 clazz : 'widget-title',
-			 val : '기타'
-		 })).appendTo('#div-book-header-6');
-		 $(createATag({
-			 val : '더보기'
-		 })).appendTo('#div-book-header-6')
-		 .attr('class','more');
-		 $(createDiv({
-			 id : 'div-category-list',
-			 clazz : 'widget-content book-list clearfix'
-		 })).appendTo('#div-section-category');
-		 $(createDiv({
-			 id : 'div-book-item-6',
-			 clazz : 'book-item'
-		 })).appendTo('#div-category-list');
-		 $(createATag({
-			 id : 'a-book-item-6',
-			 val : ''
-		 })).appendTo('#div-book-item-6');
-		 $(createDiv({
-			 id : 'div-book-cover-6',
-			 clazz : 'book-cover'
-		 })).appendTo('#a-book-item-6');
-		 $(createDiv({
-			 clazz : 'book-deco'
-		 })).appendTo('#div-book-cover-6');
-		 $(createDiv({
-			 clazz : 'book-title'
-		 })).appendTo('#a-book-item-6');
-		 $(createDiv({
-			 id : 'div-book-meta-6',
-			 clazz : 'book-meta'
-		 })).appendTo('#div-book-item-6');
+		 })).appendTo('#div-book-item-1');*/
+		});
 	}
 		// 책 네비
 	 var bookNav=()=>{
@@ -1216,8 +1029,7 @@ book.main=(()=>{
 			 val : '기타'
 		 })).appendTo('#store-category-6')
 		 .click(()=>{
-			 var x = {large:$('#store-category-6').text()};
-			 list(x);
+			 list({large:$('#store-category-6').text()});
 		 });
 		 $(createDiv({
 			 id : 'div-advertise',
@@ -1242,6 +1054,13 @@ book.main=(()=>{
 			 $(createDiv({
 				 id : 'sidebar-lnb'
 			 })).appendTo('#sidebar');
+			 temp = ['시·에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타']
+			 for(var i = 0; i<=5; i++){
+				 $(createUL({id : 'sidebar-lnb-category-'+i+''})).appendTo('#sidebar-lnb');
+				 $(createLI({id : 'depth-'+i+'',clazz : 'depth1'})).appendTo('#sidebar-lnb-category-'+i+'');
+				 $(createSpan({id : 'span-circle',clazz : 'circle'})).appendTo('#depth-'+i+'');
+				 $(createATag({val : temp[i],id : 'btn-parent'})).appendTo('#depth1')
+			 }
 			 $(createUL({
 				 id : 'sidebar-lnb-category-1'
 			 })).appendTo('#sidebar-lnb');
