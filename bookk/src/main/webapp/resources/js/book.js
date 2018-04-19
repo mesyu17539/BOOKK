@@ -385,7 +385,7 @@ book.main=(()=>{
 		 $(createDiv({
 			 id : 'div-category-list',
 			 clazz : 'widget-content book-list clearfix'
-		 })).appendTo('#div-section-category');
+		 })).appendTo('#div-section-category-1');
 		 $(createDiv({
 			 id : 'div-book-item-1',
 			 clazz : 'book-item'
