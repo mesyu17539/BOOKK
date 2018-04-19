@@ -29,6 +29,24 @@ public class Controller{
 	@Autowired PageAdapter adapter;
 	@Autowired Page page;
 	
+	
+	
+	//장만호 영역 start
+	@RequestMapping(value="/cartlist/{userid}",
+			method=RequestMethod.POST,consumes="application/json")
+	public Object cartList(@RequestBody HashMap<String, String> param) {
+		System.out.println(param.get("userid"));
+		return new IGetService() {
+			
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.mallCartList(param);
+			}
+		}.execute(param) ;
+		
+	}
+	//장만호 영역 end
 	@RequestMapping(value="/{type}/login")
 	public Object login(@RequestBody HashMap<String, String> param){
 		logger.info("welcom {}","login ");
@@ -106,7 +124,7 @@ public class Controller{
 	public Object cartCount(
 			@PathVariable("userid")String userid,
 			@RequestBody HashMap<String, String> param) {
-				Map<String,Object> map = new HashMap<>();
+				
 				logger.info("넘어온 ID값은? {}",param.get("userid"));
 		return new IGetService() {
 			

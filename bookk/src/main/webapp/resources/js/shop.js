@@ -1,4 +1,30 @@
 var shop=shop || {};
+
+/*	var exed = x=>{
+		// iframe을 넣은 element를 안보이게 한다.
+    	element_wrap.style.display = 'none';
+	};
+*/
+/*shop.ajax = {aj:()=>{
+		$.ajax({
+					url:x.context+'/cartlist/'+id.userid+'',
+					method:'POST',
+					data:JSON.stringify({
+						userid:id.userid}),
+					dataType:'json',
+					contentType:'application/json',
+					success:x=>{
+						console.log(x,'1');
+						alert(x[5].imageName+'김정워이씨발');
+						x=j
+					
+					},
+					error:(x,h,m)=>{
+						
+					}
+				});
+				
+}}*/
 shop.mall = {cart:x=>{
 	$.getScript(x.view,()=>{
 		$('#div-advertise').html(createDiv({id:'div-content',clazz:''}));
@@ -10,31 +36,70 @@ shop.mall = {cart:x=>{
 			$('#div-content').append(createDiv({id:'div-cart-title',clazz:''}))
 			$('#div-content').append(createDiv({id:'div-cart-content',clazz:''}))
 			$('#div-content').attr('style','width:1000px; margin: 0 auto');
-			$.ajax({
+			/*$.ajax({
 			url:x.context+'/cartcount/userid',
 			method:'POST',
 			data:JSON.stringify({userid:'장만호'}),
 			dataType:'json',
 			contentType:'application/json',
-			success:x=>{
+			success:x=>{*/
+			var id ={userid:'ju'}
+					$.ajax({
+					url:x.context+'/cartlist/'+id.userid+'',
+					method:'POST',
+					data:JSON.stringify({
+						userid:id.userid}),
+					dataType:'json',
+					contentType:'application/json',
+					success:y=>{
+						console.log(y,'1');
+						console.log(Object.keys(y[0]).length,'1');
+						$('#div-cart-title').html(createHTag({size:'2',val:'장바구니 '+Object.keys(y).length+'건'}))
+							$('#div-cart-title').attr('style','border-bottom:2px solid black; text-align: center')
+							$(createTable({id:'table-cart',clazz:'table-cart'})).appendTo('#div-cart-content')
+							$(createTr({id:'tr-head'})).appendTo('#table-cart')
+							$(createMultiTh({arr:['1','2','3','4'],clazz:'',id:'th'})).appendTo('#tr-head')
+							$('#th-0').html(createInput({id:'ip-check-all',clazz:'',type:'checkbox'}))
+							$('#th-1').text('상품정보')
+							$('#th-2').text('상품금액')
+							$('#th-3').text('삭제')
+							$(createMultiTr({id:'tr-cart-list',arr:makeCount(Object.keys(y).length)}))
+							.appendTo('#table-cart');
+						for(var i =0; i<=5;i++){
+							$('#tr-cart-list-'+i+'').append(createMultiTd({id:'td-tr'+i+'-cart-list',arr:makeCount(Object.keys(y[0]).length-3)}))
+							for(var j=1;j<=4;j++){
+								$('#td-tr'+i+'-cart-list-'+j+'').attr('text',y[i].imageName);
+								$('#td-tr'+i+'-cart-list-'+j+'').text(y[i].writter);
+								$('#td-tr'+i+'-cart-list-'+j+'').text(y[i].amount);
+								$('#td-tr'+i+'-cart-list-'+j+'').text(y[i].price);
+							}
+						}
+						
+						$('#td-tr0-cart-list-1').text(y[0].imageName);
+						$('#td-tr0-cart-list-2').text(y[0].writter);
+						$('#td-tr0-cart-list-3').text(y[0].amount);
+						$('#td-tr0-cart-list-4').text(y[0].price);
+						
+						
+					
+					},
+					error:(y,h,m)=>{
+						
+					}
+				});
+				
+				
 				
 
-				$('#div-cart-title').html(createHTag({size:'2',val:'장바구니'+x.count+'건'}))
-				$('#div-cart-title').attr('style','border-bottom:2px solid black; text-align: center')
-				$(createTable({id:'table-cart',clazz:'table-cart'})).appendTo('#div-cart-content')
-				$(createTr({id:'tr-head'})).appendTo('#table-cart')
-				$(createMultiTh({arr:['1','2','3','4'],clazz:'',id:'th'})).appendTo('#tr-head')
-				$('#th-0').html(createInput({id:'ip-check-all',clazz:'',type:'checkbox'}))
-				$('#th-1').text('상품정보')
-				$('#th-2').text('상품금액')
-				$('#th-3').text('삭제')
+				
+			
 			
 				
-			},
+			/*},
 			error : (x,h,m)=>{
 				alert('검색 실패 x='+x+', h='+h+', m='+m);
 			}
-			});
+			});*/
 		$('#div-content').append(createDiv({id:'div-cart-footer',clazz:''}))
 		$(createDiv({id:'div-cart-footer-content',clazz:''})).appendTo('#div-cart-footer')
 		.attr('style','padding-top: 20px');
@@ -164,7 +229,7 @@ sell:x=>{
 			}
 			};	
 			//div 추가하는 곳
-			$('#div-sell-2').append(createMultiDiv({id:'div-sell-2',arr:['','','','','','']}))
+			$('#div-sell-2').append(createMultiDiv({id:'div-sell-2',arr:['','','','','','','','','']}))
 			$('#div-sell-2-0').append(createTable({id:'table-cart',clazz:'table-cart'}))
 			$('#table-cart').append(createTr({id:'tr-head'}));
 			$('#tr-head').append(createMultiTh({arr:['',''],id:'th'}))
@@ -207,8 +272,31 @@ sell:x=>{
 				$('#tr-recipient-info-'+i+'').append(createMultiTd({id:'td-tr'+i+'-recipient-info',arr:['','']}));
 				$('#td-tr'+i+'-recipient-info-0').attr('class','left-td-2').text(recipient[i]);
 			}
-			$('#td-tr0-recipient-ifo-1').append(createInput({id:'input-recipient-info-0',type:'text',clazz:''}));
-			$('#td-tr1-recipient-ifo-1').append(createInput({id:'input-recipient-info-1',type:'text',clazz:''}));
+			$('#td-tr0-recipient-info-1').append(createInput({id:'input-recipient-info-0',type:'text',clazz:''}));
+			$('#td-tr1-recipient-info-1').append(createInput({id:'input-recipient-info-1',type:'text',clazz:''}));
+			$('#tr-recipient-info-2').attr('style','height:200px').append(createTd({id:'td-tr2-recipient-info-2',clazz:''}));
+			$('#td-tr3-recipient-info-1').append(textarea('textarea-tr3-td1-requierment'));
+			$('#div-sell-2-6').text('결제 정보').attr('style','margin:20px;font-size:20px');
+			$('#div-sell-2-7').append(createTable({id:'table-payment-info',clazz:'table-buyer-info'}));
+			$('#table-payment-info').append(createTr({id:'tr-payment-info'}));
+			$('#tr-payment-info').append(createMultiTd({
+				id:'td-tr-payment-info',
+				arr:['','']}))
+			$('#td-tr-payment-info-0').attr('class','left-td').text('결제 방법 *');
+			$('#td-tr-payment-info-1').append(createSelect('select-payment'))
+			$('#select-payment').append(multiOption({id:'',
+				arr:['신용카드 결제','실시간 은행계좌이체','무통장 입금(가상계좌)']}))
+				.attr('style','width:170px;height:60%;margin-left:15px')
+			
+			$(createButton({id:'btn-payment',clazz:'btn',val:'결제하기'})).appendTo('#div-sell-2-8')
+			.attr('style','background-color:#c33e38;color:#fff;border-color:#c33e38')
+			$('#div-sell-2-8').attr('style','text-align:center;margin-top:20px');
+				
+		    
+		    
+			
+			
+			
 			
 	});
 	

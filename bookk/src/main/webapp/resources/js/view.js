@@ -116,6 +116,21 @@ var createMultiLi = x=>{
 	})
 	return temp;
 }
+var multiOption = x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<option id="'+x.id+'">'+j+'</option>'
+	});
+	return temp;
+}
+var makeCount = x=>{
+	var a= new Array();
+	for(var i =1;i<=x;i++){
+		a.push(i);
+	}
+	return a;
+}
+
 // 기본
 var createFont=x=>{
     return '<font>'+x.val+'</font>';

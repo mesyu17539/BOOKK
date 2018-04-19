@@ -66,7 +66,7 @@
 	<select id="mallCartCount" resultType="map" parameterType="hashMap">
 	SELECT COUNT(*) AS count FROM CARTBASKET
 	</select>
-	<select id="mallCartList" resultMap="map" parameterType="hashMap"></select>
+	
 	<!-- MEMBER -->
 	<insert id="addMember" parameterType="hashMap">
     INSERT INTO
@@ -123,5 +123,9 @@
          <select id="articleDetail" resultMap="map" parameterType="hashMap">
      	select * from board where board_id like #{x}
      </select>
-     
+     <!-- 장만호 영역  start-->
+     <select  id="mallCartList" resultMap="map" parameterType="hashMap">
+     select * from shop s where s.mem_id like #{userid};
+     </select>
+     <!-- 장만호 영역  end -->
 </mapper>

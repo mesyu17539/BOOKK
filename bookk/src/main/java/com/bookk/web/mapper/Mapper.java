@@ -13,7 +13,7 @@ public interface Mapper {
 	    public Object selectMemberById(HashMap<?, ?> param);
 	    public Object selectById(HashMap<?, ?> param);
 		public HashMap<?, ?> mallCartCount(HashMap<?, ?> map);
-		public HashMap<?,?> mallCartList(HashMap<?, ?> map);
+		public List<?> mallCartList(HashMap<?, ?> param);
 		public void insertBoard();
 		public void updateBoard();
 		public void deleteBoard();

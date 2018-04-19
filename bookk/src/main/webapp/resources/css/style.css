@@ -16,6 +16,7 @@ a {cursor:pointer;}
 .table-cart {
 	width: 100%;
 	margin-top: 45px;
+	border-collapse: collapse;
 	
 }
 .table-cart th{
@@ -141,6 +142,7 @@ a.btn:hover {text-decoration: none;}
 /* CSS 장바구니 #div-monitor Start */
 .table-cart-price{
 	width: 100%; margin-top: 70px;
+	border-collapse: collapse;
 }
 .table-cart-price td{
 	text-align:center;
@@ -189,6 +191,7 @@ a.btn:hover {text-decoration: none;}
 .table-buyer-info{
 	width:100%;
 	border-top: 1px solid #aaa;
+	border-collapse: collapse;
 }
 .table-buyer-info td{
 	height: 50px;
@@ -197,7 +200,7 @@ a.btn:hover {text-decoration: none;}
 .table-buyer-info td input{
 	margin-left: 15px; 
 	width: 170px;
-	height: 60%;
+	height: 28.19px;
 	
 }
 .table-buyer-info .left-td{
