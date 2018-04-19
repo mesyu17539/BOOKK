@@ -1226,6 +1226,7 @@ book.main=(()=>{
 	 }
 	 // 책 리스트 페이지로 넘어감
 	 var list=x=>{
+		 alert('대분류 : '+x.large + '소분류 : '+x.small);
 		 $.getScript(view,()=>{
 			 $('#div-advertise').remove();
 			 $('#div-list-container').remove();
@@ -1233,10 +1234,60 @@ book.main=(()=>{
 				 id : 'div-list-container',
 				 clazz : 'category nav-container'
 			 })).appendTo('#bookk-store');
+			 //리스트 사이드 바
 			 $(createDiv({
 				 id : 'sidebar',
 				 clazz : 'sidebar'
 			 })).appendTo('#div-list-container');
+			 $(createDiv({
+				 id : 'sidebar-lnb'
+			 })).appendTo('#sidebar');
+			 $(createUL({
+				 id : 'sidebar-lnb-category-1'
+			 })).appendTo('#sidebar-lnb');
+			 $(createLI({
+				 id : 'depth1',
+				 clazz : 'depth1'
+			 })).appendTo('#sidebar-lnb-category-1');
+			 $(createSpan({
+				 id : 'span-circle',
+				 clazz : 'circle'
+			 })).appendTo('#depth1');
+			 $(createATag({
+				 val : '시·에세이',
+				 id : 'btn-parent'
+			 })).appendTo('#depth1')
+			 .click(()=>{
+				 $('#sidebar-lnb-category-1').empty();
+				 $(createLI({
+					 id : 'depth1',
+					 clazz : 'active'
+				 })).appendTo('#sidebar-lnb-category-1');
+				 $(createSpan({
+					 id : 'span-circle',
+					 clazz : 'ic-horizontal'
+				 })).appendTo('#depth1');
+				 $(createATag({
+					 val : '시·에세이',
+					 id : 'btn-parent'
+				 })).appendTo('#depth1')
+				 .click(()=>{
+					 $('#sidebar-lnb-category-1').empty();
+					 list(x);
+				 });
+				 $(createUL({
+					 id : 'ul-lnb'
+				 })).appendTo('#depth1');
+				 temp = ['시집','에세이','기타도서']
+				 for(var i = 0; i<=2; i++){
+					 $(createLI({id:'li-lnb-'+i+''})).appendTo('#ul-lnb');
+					 $(createATag({id:'a-lnb-'+i+'',val:temp[i]})).appendTo('#li-lnb-'+i+'')
+					 .attr('onclick','book.main.list({large:"시·에세이",small:$("#a-lnb-'+i+'").text()})'); 
+				 }
+			 });
+			 
+			 
+			 // 리스트 메인
 			 $(createDiv({
 				 id : 'main'
 			 })).appendTo('#div-list-container');
@@ -1321,5 +1372,5 @@ book.main=(()=>{
 			 });
 		 });
 	 };
-	 return{onCreate:onCreate}
+	 return{onCreate:onCreate,list:list}
 })();
