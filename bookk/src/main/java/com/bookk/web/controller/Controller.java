@@ -20,6 +20,7 @@ import com.bookk.web.service.ICountService;
 import com.bookk.web.service.IGetService;
 import com.bookk.web.service.IPostService;
 import com.bookk.web.service.ISearchService;
+import com.bookk.web.service.IUpdateService;
 
 
 @RestController
@@ -167,14 +168,17 @@ public class Controller{
 		  
 	  }
 	
-	@RequestMapping("/searchArticle/{select}")
+	@RequestMapping("/searchArticle/{select}/{pageNum}")
 	public Map<?, ?> search(
 		 @PathVariable String select,
+		 @PathVariable String pageNum,
 		 @RequestBody HashMap<String, String> param) {
 		Map<String, Object> map = new HashMap<>();
 		Object o = null;
-		System.out.println(param.get("type"));
-		System.out.println(param.get("data"));
+		System.out.println("select :"+select);
+		System.out.println("pageNum :"+pageNum );
+		System.out.println("타입 : " +param.get("type"));
+		System.out.println("검색명 : "+param.get("data"));
 		param.get("data");
 		/*
 		 * 
@@ -183,6 +187,7 @@ public class Controller{
 		 * 
 		  
 		  */
+		
 		page.setTotalCount( new ICountService() {
 			
 			@Override
@@ -191,12 +196,19 @@ public class Controller{
 				return mapper.searchCount(param);
 			}
 		}.execute(param));
-	 	page.setPageSize(Integer.parseInt("3"));
-	 	page.setBlockSize(Integer.parseInt("3"));
-	 	page.setPageNum(Integer.parseInt("1"));
+	 	page.setPageNum(Integer.parseInt(pageNum));
+	 	System.out.println("페이지 넘버요  : "+page.getPageNum());
+	 	page.setPageSize(3); //게시글
+	 	page.setBlockSize(3); // 3까지 페이지넘버
+	
 	 	page = (Page) adapter.attr(page);
+	 	
+	  
+	 		
+	 	
 	 	map.put("page", page);	
 	 	
+	
 	 	
 	 	map.put("list", new IGetService() {
 			@Override
@@ -274,6 +286,26 @@ public class Controller{
 			}
 		}.execute((HashMap<?, ?>) map);
 		map.put("o", o);
+		
+		return map;
+		
+	}
+	@RequestMapping("/articleW")
+	public Map<?,?> articleWriting(
+			 @RequestBody HashMap<String, String> param){
+		Map<String, Object> map = new HashMap<>();
+		
+	 System.out.println("이거탑니까 지금 ? ");
+	 System.out.println(param+"탑니까 지금 ? ");
+	 map.put("insertA", new IPostService() {
+			
+			@Override
+			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.insertBoard(param);
+			}
+		}.execute(param));
+		System.out.println("담긴값 : "+ map );
 		
 		return map;
 		

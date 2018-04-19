@@ -27,7 +27,6 @@
 		<result property="createDate" column="create_date"/>
 		<result property="title" column="co_title"/>
 		<result property="contents" column="contents"/>
-		<result property="notify" column="notify"/>
 		<result property="viewNum" column="view_num"/>
 	<!-- 몰 -->
 		<result property="orderNum" column="order_num"/>
@@ -123,5 +122,9 @@
          <select id="articleDetail" resultMap="map" parameterType="hashMap">
      	select * from board where board_id like #{x}
      </select>
+     <insert id="insertBoard" parameterType="hashMap">
+     	insert into board(co_title,contents,notify,view_num,mem_id)values(#{title},#{contents},'1','210','DY')
+     </insert>
+     
      
 </mapper>
