@@ -4,23 +4,63 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookk.web.mapper.Mapper">
     <resultMap type="java.util.HashMap" id="map">
-		<result property="id" column="MEM_ID"/>
-		<result property="pass" column="MEM_PASS"/>
-		<result property="memstatus" column="MEMSTATUS"/>
-		<result property="name" column="MEM_NAME"/>
-		<result property="ssn" column="MEM_SSN"/>
-		<result property="phone" column="MEM_PHONE"/>
-		<result property="email" column="MEM_EMAIL"/>
-		<result property="addr" column="MEM_ADDRESS"/>
-		<result property="id" column="ADM_ID"/>
-		<result property="pass" column="ADM_PASS"/>
+    <!-- 회원 -->
+		<result property="memID" column="MEM_ID"/>
+		<result property="memPass" column="MEM_PASS"/>
+		<result property="memStatus" column="MEMSTATUS"/>
+		<result property="memName" column="MEM_NAME"/>
+		<result property="memSsn" column="MEM_SSN"/>
+		<result property="memPhone" column="MEM_PHONE"/>
+		<result property="memEmail" column="MEM_EMAIL"/>
+		<result property="memAddr" column="MEM_ADDRESS"/>
+	<!-- 주소 -->
+		<result property="addrAddress" column="ADDR_ADDRESS"/>
+		<result property="addrPostCode" column="ADDR_POSTCODEADDRESS"/>
+		<result property="addrRoad" column="ADDR_ROADADDRESS"/>
+		<result property="addrJibun" column="ADDR_JIBUNADDRESS"/>
+		<result property="addrDetailAddr" column="ADDR_DETAILADDRESS"/>
+		
+		<result property="admId" column="ADM_ID"/>
+		<result property="admPass" column="ADM_PASS"/>
+	<!-- 게시판 -->
 		<result property="bID" column="board_id"/>
 		<result property="createDate" column="create_date"/>
 		<result property="title" column="co_title"/>
 		<result property="contents" column="contents"/>
 		<result property="notify" column="notify"/>
 		<result property="viewNum" column="view_num"/>
-		<result property="memID" column="mem_id"/>
+	<!-- 몰 -->
+		<result property="orderNum" column="order_num"/>
+		
+		<result property="cartNum" column="cart_num"/>
+		<result property="reservDate" column="reserv_date"/>
+		<result property="amount" column="amount"/>
+		
+		<result property="sbid" column="sbid"/>
+		<result property="salesamount" column="salesamount"/>
+		<result property="salesdate" column="salesdate"/>
+		<result property="recipient" column="recipient"/>
+		<result property="phonenum" column="phonenum"/>
+		<result property="sellAddress" column="sell_ADDRESS"/>
+	<!-- 북 -->
+		<result property="genreNum" column="genreNum"/>
+		<result property="largeGenre" column="largeGenre"/>
+		<result property="smallGenre" column="smallGenre"/>
+		
+		<result property="bookNum" column="bookNum"/>
+		<result property="bookName" column="bookName"/>
+		<result property="writter" column="writter"/>
+		<result property="publisher" column="publisher"/>
+		<result property="publishingDate" column="publishingDate"/>
+		<result property="price" column="price"/>
+		
+		<result property="imageName" column="imageName"/>
+		<result property="imageRoute" column="imageRoute"/>
+		
+		
+		<result property="evaluid" column="evaluid"/>
+		<result property="evalulike" column="evalulike"/>
+		
 	</resultMap>
 	<!-- MALL -->
 	<select id="mallCartCount" resultType="map" parameterType="hashMap">
@@ -30,8 +70,13 @@
 	<!-- MEMBER -->
 	<insert id="addMember" parameterType="hashMap">
     INSERT INTO
-     MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS)
-     VALUES('${id}','${pass}','${name}','${email}','${phone}','${ssn}',${address})
+    MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS)
+    VALUES('${id}','${pass}','${name}','${email}','${phone}','${ssn}',(SELECT MAX(ADDR_ADDRESS) FROM address))
+    </insert>
+	<insert id="addAddress" parameterType="hashMap">
+    INSERT INTO
+    ADDRESS(ADDR_POSTCODEADDRESS,ADDR_ROADADDRESS,ADDR_JIBUNADDRESS,ADDR_DETAILADDRESS)
+    VALUES('${postDetail}','${roadAddress}','${jibunAddress}','${detailAddress}')
     </insert>
     <select id="selectMemberById" resultMap="map" parameterType="hashMap">
     SELECT *
@@ -59,4 +104,24 @@
     <select id="selectBoardCount" resultType="int" parameterType="hashMap">
     SELECT COUNT(*) FROM board
     </select>
+    <select id="searchAll" resultMap="map" parameterType="hashMap">
+     	select * from board where ${type} like '%${data}%'
+     </select>
+     <select id="searchCount" resultType="int" parameterType="hashMap">
+     	select count(*) from board where ${type} like '%${data}%'
+     </select> 
+     <select id="searchList" resultMap="map" parameterType="hashMap">
+         select A2.* from(
+        select @rank:=@rank+1 rank, A.* 
+            from(select 
+                    *
+                        from board 
+                            order by board_id desc
+               ) A,(SELECT @rank := 0) R) A2
+              where rank between #{page.startRow} and #{page.endRow}
+     </select>
+         <select id="articleDetail" resultMap="map" parameterType="hashMap">
+     	select * from board where board_id like #{x}
+     </select>
+     
 </mapper>
