@@ -12,13 +12,13 @@ var createImage=x=>{
 	return '<img id="'+x.id+'" src="'+x.src+'" class="'+x.clazz+'"/>';
 }
 var createTRJW =x=>{
-    var q =0;
-    var tr = '';
-    $.each(x.list, (i,j)=>{
-        tr+='<tr id="jw_'+(q++)+'" class ="'+x.clazz+'">'
-        +createTDJW(j)+'</tr>';
-    });
-    return tr;
+	var q =0;
+	var tr = '';
+	$.each(x.list, (i,j)=>{
+		tr+='<tr id="jw_'+(q++)+'" class ="'+x.clazz+'">'
+		+createTDJW({j:j,q:q})+'</tr>';
+	});
+	return tr;
 }
 var createTHJW=x=>{
     var th ='<tr>'
@@ -29,27 +29,42 @@ var createTHJW=x=>{
         return th;
 }
 var createTDJW=x=>{
-    var td ='';
-    var w =0;
-    td +='<td id="td_'+w+'" class = "'+'_'+(w++)+'">'
-    +x.bID+'</td>';
-    td +='<td id="td_'+w+'" class = "'+'_'+(w++)+'" >'
-    +x.title+'</td>';
-    td +='<td id="td_'+w+'" class = "'+'_'+(w++)+'" >'
-    +x.memID+'</td>';
-    td +='<td id="td_'+w+'" class = "'+'_'+(w++)+'">'
-    +x.viewNum+'</td>';
-    td +='<td id="td_'+w+'" class = "'+'_'+(w++)+'">'
-    +x.createDate+'</td>';
-    return td;
+	var td ='';
+	var w =0;
+	td +='<td id="td_'+x.q+'_'+w+'" class = "'+'_'+(w++)+'">'
+	+x.j.bID+'</td>';
+	td +='<td id="td_'+x.q+'_'+w+'" class = "'+'_'+w+'" ><a id="a_'+x.q+'_'+(w++)+'">'
+	+x.j.title+'</a></td>';
+	td +='<td id="td_'+x.q+'_'+w+'" class = "'+'_'+(w++)+'" >'
+	+x.j.memID+'</td>';
+	td +='<td id="td_'+x.q+'_'+w+'" class = "'+'_'+(w++)+'">'
+	+x.j.viewNum+'</td>';
+	td +='<td id="td_'+x.q+'_'+w+'" class = "'+'_'+(w++)+'">'
+	+x.j.createDate+'</td>';
+	return td;
 }
 //추가 만호
-var createListTr=x=>{
+var createMultiSpan=x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<span id ="'+x.id+'-'+i+'"></span>'
+	});
+	return temp;
+}
+var createMultiDiv=x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<div id ="'+x.id+'-'+i+'"></div>'
+	});
+	return temp;
+}
+var createViewTr=x=>{
 	var tmep ='';
 	
 	$.each(x.trNum,(i,j)=>{
+		
 		temp +='<tr id="tr-'+x.id+'-'+j+'" class="'+x.clazz+'">'
-		+createListTd({
+		+createViewTd({
 			tdNum:x.tdNum,
 			tdClazz:x.tdClazz,
 			id:x.id
@@ -58,7 +73,7 @@ var createListTr=x=>{
 	});
 	return temp;
 }
-var createListTd=x=>{
+var createViewTd=x=>{
 	
 	var temp ='';
 	$.each(x.tdNum,(i,j)=>{
@@ -66,32 +81,24 @@ var createListTd=x=>{
 	});
 	return temp;
 }
-var createListTh=x=>{
-	
-	var temp ='';
-	$.each(x.tdNum,(i,j)=>{
-		temp +='<th id ="td-'+x.id+'-'+j+'" class ="'+x.tdClazz+'"></th>'
+var createMultiTr=x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<tr id ="'+x.id+'-'+i+'"></tr>'
+	});
+	return temp;
+}
+var createMultiTd=x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<td id ="'+x.id+'-'+i+'"></td>'
 	});
 	return temp;
 }
 var createMultiTh = x=>{
 	var temp ='';
 	$.each(x.arr,(i,j)=>{
-		temp+='<th id="th-'+i+'" class="'+x.clazz+'"></th>'
-	});
-	return temp;
-}
-var createMultiTd = x=>{
-	var temp ='';
-	$.each(x.arr,(i,j)=>{
-		temp+='<td id="td-'+i+'" class="'+x.clazz+'"></td>'
-	});
-	return temp;
-}
-var createMultiTr = x=>{
-	var temp ='';
-	$.each(x.arr,(i,j)=>{
-		temp+='<tr id="tr-'+i+'" class="'+x.clazz+'"></tr>'
+		temp+='<th id="'+x.id+'-'+i+'" class="'+x.clazz+'"></th>'
 	});
 	return temp;
 }

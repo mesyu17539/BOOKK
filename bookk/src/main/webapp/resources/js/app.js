@@ -34,7 +34,7 @@ app.nav=(()=>{
 			
 //			서점 게시판
 			$(createButton({id:'',type:'',clazz:'btn mint long',val:'서점'}))
-            .appendTo('#div-header-pageMenu')
+			.appendTo('#div-header-pageMenu')
             .on('click',e=>{
                 e.preventDefault();
                 document.getElementById('wizcss').href=(context+'/resources/css/style.css');
@@ -58,16 +58,17 @@ app.nav=(()=>{
 			$(createDiv({
 	   			 id : 'wrap-tnb-menu',
 	   			 clazz : 'wrap-tnb-menu'
-			})).appendTo('#div-header-userMenu');
+			})).appendTo('#div-header-userMenu').attr('style','border-bottom: 2px dotted #c6c6c6;line-height:40px; ');
 			$(createDiv({
 	   			 id : 'tnb-menu-text-right',
 	   			 clazz : 'tnb-menu text-right'
-	   		 })).appendTo('#wrap-tnb-menu');
+	   		 })).appendTo('#wrap-tnb-menu')
+	   		 .attr('style','width:1000px;margin:0 auto; font-size:20px;  position:relative; ');
 	   		 $(createATag({
 	   			 id : 'a-login',
 	   			 clazz : 'tnb-link',
 	   			 val : '로그인'
-	   		 })).appendTo('#tnb-menu-text-right')
+	   		 })).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative;   ')
 				.on('click',e=>{
 					e.preventDefault();
 					$.getScript($.javascript()+'/user.js',()=>{
@@ -78,12 +79,12 @@ app.nav=(()=>{
 	   		 $(createSpan({
 	   			 id : 'span-login',
 	   			 clazz : 'division'
-	   		 })).appendTo('#tnb-menu-text-right');
+	   		 })).appendTo('#tnb-menu-text-right').attr('style','border: 2px solid green;');
 	   		 $(createATag({
 	   			 id : 'a-join',
 	   			 clazz : 'tnb-link last',
 	   			 val : '회원가입'
-	   		 })).appendTo('#tnb-menu-text-right')
+	   		 })).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative; ')
 				.on('click',e=>{
 					e.preventDefault();
 					$.getScript($.javascript()+'/user.js',()=>{

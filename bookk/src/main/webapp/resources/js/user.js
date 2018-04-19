@@ -110,6 +110,7 @@ user.member=(x=>{
 						$(createATag({id:'a-cart',val:'장바구니'})).appendTo('#div-member-bar')
 						.on('click',e=>{
 							e.preventDefault();
+							document.getElementById('wizcss').href=(context+'/resources/css/style.css');
 							$.getScript($.javascript()+'/book.js',()=>{
 								book.main.onCreate();	  
 								$.getScript($.javascript()+'/shop.js',()=>{
@@ -122,6 +123,7 @@ user.member=(x=>{
 						.appendTo('#div-header')
 						.on('click',e=>{
 							e.preventDefault();
+							document.getElementById('wizcss').href=(context+'/resources/css/style.css');
 							$.getScript($.javascript()+'/book.js',()=>{
 								book.main.onCreate();	   			
 								$.getScript($.javascript()+'/user.js',()=>{
@@ -266,8 +268,11 @@ user.member=(x=>{
 					email:$('#join-email').val()+$('#join-url').val(),
 					phone:$('#join-phoneB').val()+'-'+$('#join-phoneM').val()+'-'+$('#join-phoneA').val(),
 					ssn:$('#join-ssnB').val()+'-'+$('#join-ssnA').val(),
-					address:$('#join-roadAddress').val()+$('#join-jibunAddress').val()+$('#join-detailAddress').val(),
 					postDetail:$('#join-postCodeAddress').val(),
+					roadAddress:$('#join-roadAddress').val(),
+					jibunAddress:$('#join-jibunAddress').val(),
+					detailAddress:$('#join-detailAddress').val(),
+					address:$('#join-roadAddress').val()+$('#join-jibunAddress').val()+$('#join-detailAddress').val(),
 					type:'member'
 					}),
 				dataType:'json',

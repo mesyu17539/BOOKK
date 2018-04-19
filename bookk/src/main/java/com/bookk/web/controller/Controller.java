@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import com.bookk.web.mapper.Mapper;
 import com.bookk.web.service.ICountService;
 import com.bookk.web.service.IGetService;
 import com.bookk.web.service.IPostService;
+import com.bookk.web.service.ISearchService;
 
 
 @RestController
@@ -40,7 +42,6 @@ public class Controller{
 			param.put("colum2", "MEM_PASS");
 			param.put("type", param.get("type"));
 			o= new IGetService() {
-				
 				@Override
 				public Object execute(HashMap<?, ?> param) {
 					// TODO Auto-generated method stub
@@ -77,8 +78,9 @@ public class Controller{
 			System.out.println("mem");
 			param.put("colum", "id");
 			map.put("success", new IPostService() {
-				@Override
+				@Override @Transactional
 				public int execute(HashMap<?, ?> param) {
+					mapper.addAddress(param);
 					return mapper.addMember(param);
 				}
 			}.execute(param));
@@ -105,7 +107,7 @@ public class Controller{
 			@PathVariable("userid")String userid,
 			@RequestBody HashMap<String, String> param) {
 				Map<String,Object> map = new HashMap<>();
-				logger.info("넘어온 ID값은?{}",param.get("userid"));
+				logger.info("넘어온 ID값은? {}",param.get("userid"));
 		return new IGetService() {
 			
 			@Override
@@ -164,4 +166,116 @@ public class Controller{
 				return map;
 		  
 	  }
+	
+	@RequestMapping("/searchArticle/{select}")
+	public Map<?, ?> search(
+		 @PathVariable String select,
+		 @RequestBody HashMap<String, String> param) {
+		Map<String, Object> map = new HashMap<>();
+		Object o = null;
+		System.out.println(param.get("type"));
+		System.out.println(param.get("data"));
+		param.get("data");
+		/*
+		 * 
+		 * 
+		 * 
+		 * 
+		  
+		  */
+		page.setTotalCount( new ICountService() {
+			
+			@Override
+			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.searchCount(param);
+			}
+		}.execute(param));
+	 	page.setPageSize(Integer.parseInt("3"));
+	 	page.setBlockSize(Integer.parseInt("3"));
+	 	page.setPageNum(Integer.parseInt("1"));
+	 	page = (Page) adapter.attr(page);
+	 	map.put("page", page);	
+	 	
+	 	
+	 	map.put("list", new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+			return mapper.searchList(param);
+			}
+		}.execute(param));
+		/*
+		 * 
+		 * 
+		 * 
+		 * 
+		 * */
+		System.out.println("type :  "+param.get("type"));
+		switch (param.get("type")) {
+		case "co_title":
+
+			o = new ISearchService() {
+					
+					@Override
+					public Object execute(HashMap<?, ?> param) {
+						// TODO Auto-generated method stub
+						return mapper.searchAll(param);
+					}
+				}.execute(param);
+			break;
+			
+		case "titleContent":
+			System.out.println("titleContent");
+			o = new ISearchService() {
+				
+				@Override
+				public Object execute(HashMap<?, ?> param) {
+					// TODO Auto-generated method stub
+					return mapper.searchAll(param);
+				}
+			}.execute(param);
+			break;
+			
+		case "content":
+			System.out.println("content");
+			o = new ISearchService() {
+				
+				@Override
+				public Object execute(HashMap<?, ?> param) {
+					// TODO Auto-generated method stub
+					return mapper.searchAll(param);
+				}
+			}.execute(param);
+			break;
+		}
+		map.put("o", o);
+		System.out.println("넘어온 값 : "+o);
+		System.out.println("map :" + map);
+		return map;
+	}
+	
+	
+	// 상세게시판
+	@RequestMapping("/articleDetail/{x}")
+	public Map<?,?> articleDetail(
+			@PathVariable("x") String x			
+		){
+	
+		Map<String, Object> map = new HashMap<>();
+		map.put("x", x);
+		Object o = null;
+		o = new IGetService() {
+			
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.articleDetail(param);
+			}
+		}.execute((HashMap<?, ?>) map);
+		map.put("o", o);
+		
+		return map;
+		
+	}
 }
