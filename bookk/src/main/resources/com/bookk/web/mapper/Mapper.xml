@@ -125,7 +125,9 @@
      </select>
      <!-- 장만호 영역  start-->
      <select  id="mallCartList" resultMap="map" parameterType="hashMap">
-     select * from shop s where s.mem_id like #{userid};
+     SELECT s.*,(select i.`imageRoute` from image i where i.`imageName` like s.imagename) As imageRoute
+  FROM shop s
+ WHERE s.mem_id LIKE 'ju'
      </select>
      <!-- 장만호 영역  end -->
 </mapper>

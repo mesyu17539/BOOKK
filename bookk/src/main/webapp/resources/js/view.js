@@ -43,7 +43,7 @@ var createTDJW=x=>{
 	+x.j.createDate+'</td>';
 	return td;
 }
-//추가 만호
+// 추가 만호
 var createMultiSpan=x=>{
 	var temp = '';
 	$.each(x.arr,(i,j)=>{
@@ -54,7 +54,7 @@ var createMultiSpan=x=>{
 var createMultiDiv=x=>{
 	var temp = '';
 	$.each(x.arr,(i,j)=>{
-		temp+='<div id ="'+x.id+'-'+i+'"></div>'
+		temp+='<div id ="'+x.id+'-'+i+'" class="'+x.clazz+'"></div>'
 	});
 	return temp;
 }
@@ -132,6 +132,9 @@ var makeCount = x=>{
 }
 
 // 기본
+var strong=x=>{
+	return '<strong id="'+x.id+'">'+x.val+'</strong>'
+}
 var createFont=x=>{
     return '<font>'+x.val+'</font>';
 }

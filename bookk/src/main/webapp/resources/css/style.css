@@ -188,6 +188,11 @@ a.btn:hover {text-decoration: none;}
 	height: 60px;
 	
 }
+.table-cart td{
+	border-bottom: 2px solid #eee;
+	width: 684px;
+	height: 149px;
+}
 .table-buyer-info{
 	width:100%;
 	border-top: 1px solid #aaa;
@@ -216,6 +221,10 @@ a.btn:hover {text-decoration: none;}
 	width: 150px;
 	font-size: 14px;
 	
+}
+.div-cart-list-content{
+	float: left;
+	border: 1px solid;
 }
 /* CSS 장바구니 #div-monitor End */
 /* 책 리스트 사이드바 */

@@ -54,31 +54,48 @@ shop.mall = {cart:x=>{
 					success:y=>{
 						console.log(y,'1');
 						console.log(Object.keys(y[0]).length,'1');
+						console.log(Object.keys(y).length,'리스트의 개수');
+
 						$('#div-cart-title').html(createHTag({size:'2',val:'장바구니 '+Object.keys(y).length+'건'}))
 							$('#div-cart-title').attr('style','border-bottom:2px solid black; text-align: center')
 							$(createTable({id:'table-cart',clazz:'table-cart'})).appendTo('#div-cart-content')
 							$(createTr({id:'tr-head'})).appendTo('#table-cart')
 							$(createMultiTh({arr:['1','2','3','4'],clazz:'',id:'th'})).appendTo('#tr-head')
-							$('#th-0').html(createInput({id:'ip-check-all',clazz:'',type:'checkbox'}))
-							$('#th-1').text('상품정보')
+							$('#th-0').html(createInput({id:'ip-check-all',clazz:'',type:'checkbox'})).attr('style','width:5%')
+							$('#th-1').text('상품정보').attr('style','width:65%')
 							$('#th-2').text('상품금액')
-							$('#th-3').text('삭제')
+							$('#th-3').text('삭제').attr('colspan','3').attr('style','width:10%');
 							$(createMultiTr({id:'tr-cart-list',arr:makeCount(Object.keys(y).length)}))
 							.appendTo('#table-cart');
-						for(var i =0; i<=5;i++){
-							$('#tr-cart-list-'+i+'').append(createMultiTd({id:'td-tr'+i+'-cart-list',arr:makeCount(Object.keys(y[0]).length-3)}))
-							for(var j=1;j<=4;j++){
-								$('#td-tr'+i+'-cart-list-'+j+'').attr('text',y[i].imageName);
-								$('#td-tr'+i+'-cart-list-'+j+'').text(y[i].writter);
-								$('#td-tr'+i+'-cart-list-'+j+'').text(y[i].amount);
-								$('#td-tr'+i+'-cart-list-'+j+'').text(y[i].price);
-							}
+		
+						for(var i =0; i<=Object.keys(y).length-1;i++){
+							$('#tr-cart-list-'+i+'').append(createMultiTd({
+								id:'td-tr'+i+'-cart-list',
+								arr:makeCount(Object.keys(y[0]).length-4)}))
+							$('#td-tr'+i+'-cart-list-1').append(createDiv({
+								id:'div-cart-list-content-'+i+'',clazz:''}))
+							$('#div-cart-list-content-'+i+'').append(createMultiDiv({
+								id:'div-tr'+i+'-td1-cart-list',
+								arr:makeCount(3),
+								clazz:'div-cart-list-content'}));
+							
+							
+							$(createImage({id:'',src:y[i].imageRoute,clazz:''})).appendTo('#div-tr'+i+'-td1-cart-list-0')
+							.attr('style','width:80px;height:120px;margin-top:20px')
+							$('#div-tr'+i+'-td1-cart-list-1').append(strong({id:'strong-'+i+'',val:y[i].bookName}))
+							
+							$('#div-tr'+i+'-td1-cart-list-1').append(createP({id:'p-'+i+'',val:y[i].writter}));
+							$('#div-tr'+i+'-td1-cart-list-2').append(createInput({id:'input-amount',clazz:'text'}))
+							
+							
+							$('#td-tr'+i+'-cart-list-2').text(y[i].amount);
+							$('#td-tr'+i+'-cart-list-4').text(y[i].price);
+							
 						}
+						/*$('#td-tr'+i+'-cart-list-1').apend(createImage({id:'',src:y[i].imageRoute,clazz:''}))*/
 						
-						$('#td-tr0-cart-list-1').text(y[0].imageName);
-						$('#td-tr0-cart-list-2').text(y[0].writter);
-						$('#td-tr0-cart-list-3').text(y[0].amount);
-						$('#td-tr0-cart-list-4').text(y[0].price);
+						
+					
 						
 						
 					
