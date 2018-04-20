@@ -393,39 +393,6 @@ book.main=(()=>{
 			 $(createDivVal({clazz:'book-author',val:d.genreL[i].writter})).appendTo('#a-book-item-0-'+i+'');
 			 
 		 }
-		 
-		 /*$(createDiv({
-			 clazz : 'book-title'
-		 })).appendTo('#a-book-item-1');
-		 $(createDiv({
-			 id : 'div-book-meta-1',
-			 clazz : 'book-meta'
-		 })).appendTo('#div-book-item-1');*/
-		 
-		 /*$(createATag({
-			 id : 'a-book-item-1',
-			 val : ''
-		 })).appendTo('#div-book-item-1');
-		 $(createDiv({
-			 id : 'div-book-cover-1',
-			 clazz : 'book-cover'
-		 })).appendTo('#a-book-item-1');
-		 $(createImg({
-			 id:'',alt:'',src:d.genreL[0].imageRoute,clazz:''
-		 })).appendTo('#div-book-cover-1');
-		 $(createImg({
-			 id:'',alt:'',src:d.genreL[1].imageRoute,clazz:''
-		 })).appendTo('#div-book-cover-1');
-		 $(createDiv({
-			 clazz : 'book-deco'
-		 })).appendTo('#div-book-cover-1');
-		 $(createDiv({
-			 clazz : 'book-title'
-		 })).appendTo('#a-book-item-1');
-		 $(createDiv({
-			 id : 'div-book-meta-1',
-			 clazz : 'book-meta'
-		 })).appendTo('#div-book-item-1');*/
 		});
 	}
 		// 책 네비
@@ -1038,7 +1005,6 @@ book.main=(()=>{
 	 }
 	 // 책 리스트 페이지로 넘어감
 	 var list=x=>{
-		 alert('대분류 : '+x.large + '소분류 : '+x.small);
 		 $.getScript(view,()=>{
 			 $('#div-advertise').remove();
 			 $('#div-list-container').remove();
@@ -1058,10 +1024,49 @@ book.main=(()=>{
 			 for(var i = 0; i<=5; i++){
 				 $(createUL({id : 'sidebar-lnb-category-'+i+''})).appendTo('#sidebar-lnb');
 				 $(createLI({id : 'depth-'+i+'',clazz : 'depth1'})).appendTo('#sidebar-lnb-category-'+i+'');
-				 $(createSpan({id : 'span-circle',clazz : 'circle'})).appendTo('#depth-'+i+'');
-				 $(createATag({val : temp[i],id : 'btn-parent'})).appendTo('#depth1')
+				 $(createSpan({id : 'span-circle-'+i+'',clazz : 'circle'})).appendTo('#depth-'+i+'');
+				 $(createATag({val :temp[i], id : 'btn-parent-'+i+''})).appendTo('#span-circle-'+i+'');
 			 }
-			 $(createUL({
+			 //사이드바 시에세이 클릭
+			 $('#btn-parent-0').click(()=>{
+				 $('#depth-0').remove();
+				 $('#sidebar-lnb-category-1').attr('style','margin-top:89px;');
+				 $(createLI({id : 'depth1',clazz : 'active'})).appendTo('#sidebar-lnb-category-0');
+				 $(createSpan({id : 'span-circle',clazz : 'ic-horizontal'})).appendTo('#depth1');
+				 $(createATag({val : '시·에세이',id : 'btn-parent-0'})).appendTo('#depth1')
+				 .click(()=>{
+					 $('#sidebar-lnb-category-0').empty();
+					 list(x);
+				 });
+				 $(createUL({id : 'ul-lnb-0'})).appendTo('#depth1');
+				 temp = ['시집','에세이','기타도서']
+				 for(var i = 0; i<=2; i++){
+					 $(createLI({id:'li-lnb-0-'+i+''})).appendTo('#ul-lnb-0');
+					 $(createATag({id:'a-lnb-0-'+i+'',val:temp[i]})).appendTo('#li-lnb-0-'+i+'')
+					 .attr('onclick','book.main.list({large:"시·에세이",small:$("#a-lnb-0-'+i+'").text()})'); 
+				 }
+			 });
+			 //사이드바 소설클릭
+			 $('#btn-parent-1').click(()=>{
+
+				 $('#depth-1').remove();
+				 $('#sidebar-lnb-category-2').attr('style','margin-top:239px;');
+				 $(createLI({id : 'depth2',clazz : 'active'})).appendTo('#sidebar-lnb-category-1');
+				 $(createSpan({id : 'span-circle',clazz : 'ic-horizontal'})).appendTo('#depth2');
+				 $(createATag({val : '소설',id : 'btn-parent-1'})).appendTo('#depth2')
+				 .click(()=>{
+					 $('#sidebar-lnb-category-1').empty();
+					 list(x);
+				 });
+				 $(createUL({id : 'ul-lnb-1'})).appendTo('#depth2');
+				 temp = ['일반','로맨스','판타지','BL','무협','추리/스릴러/미스터리','기타','SF소설']
+				 for(var i = 0; i<=7; i++){
+					 $(createLI({id:'li-lnb-1-'+i+''})).appendTo('#ul-lnb-1');
+					 $(createATag({id:'a-lnb-1-'+i+'',val:temp[i]})).appendTo('#li-lnb-1-'+i+'')
+					 .attr('onclick','book.main.list({large:"소설",small:$("#a-lnb-1-'+i+'").text()})'); 
+				 }
+			 });
+			 /*$(createUL({
 				 id : 'sidebar-lnb-category-1'
 			 })).appendTo('#sidebar-lnb');
 			 $(createLI({
@@ -1075,13 +1080,13 @@ book.main=(()=>{
 			 $(createATag({
 				 val : '시·에세이',
 				 id : 'btn-parent'
-			 })).appendTo('#depth1')
-			 .click(()=>{
-				 $('#sidebar-lnb-category-1').empty();
+			 })).appendTo('#depth1')*/
+			 /*$('#btn-parent-0').click(()=>{
+				 $('#sidebar-lnb-category-0').empty();
 				 $(createLI({
 					 id : 'depth1',
 					 clazz : 'active'
-				 })).appendTo('#sidebar-lnb-category-1');
+				 })).appendTo('#sidebar-lnb-category-0');
 				 $(createSpan({
 					 id : 'span-circle',
 					 clazz : 'ic-horizontal'
@@ -1091,7 +1096,7 @@ book.main=(()=>{
 					 id : 'btn-parent'
 				 })).appendTo('#depth1')
 				 .click(()=>{
-					 $('#sidebar-lnb-category-1').empty();
+					 $('#sidebar-lnb-category-0').empty();
 					 list(x);
 				 });
 				 $(createUL({
@@ -1103,7 +1108,7 @@ book.main=(()=>{
 					 $(createATag({id:'a-lnb-'+i+'',val:temp[i]})).appendTo('#li-lnb-'+i+'')
 					 .attr('onclick','book.main.list({large:"시·에세이",small:$("#a-lnb-'+i+'").text()})'); 
 				 }
-			 });
+			 });*/
 			 
 			 
 			 // 리스트 메인

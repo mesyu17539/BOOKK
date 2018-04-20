@@ -245,20 +245,21 @@ a.btn:hover {text-decoration: none;}
 .category #main #list-content #list-content-header #btn-group-sub-nav a {border-left: none; float: left; font-size: 12px; padding: 0 5px;}
 #btn-group-sub-nav a.active {font-weight: bold;}
 #btn-group-sub-nav a:hover {border-bottom: 1px solid black;}
-#sidebar-lnb>ul {margin-right: 5px; padding-bottom: 10px; border: 1px solid green; padding: 0; margin: 0; list-style: none;}
-#sidebar-lnb>ul>li {margin-top: 10px; position: relative;}
+#sidebar-lnb>ul {margin-right: 5px; padding-bottom: 10px; border: 1px solid black; padding: 0; margin: 0; list-style: none;}
+#sidebar-lnb>ul>li {margin-top: 10px; position: relative; height: 30px;}
 .sidebar li {margin: 0;}
 .category #sidebar-lnb>ul>li .active .circle {background: white;}
 .category #sidebar-lnb>ul>li .circle {position: absolute; left: 3px; cursor: pointer;}
 .circle {border-radius: 50%; width: 18px; height: 18px; display: inline-block; border: 1px solid black;}
 .circle {background:url("../img/plus-1.png") center no-repeat;}
 .category #sidebar-lnb>ul>li>a {font-size: 16px;}
-.category #sidebar-lnb ul li a {font-size: 13px; position: relative; height: auto; line-height: 20px; padding: 4px 10px 6px 29px; text-decoration: none; font-weight: bold;}
+.category #sidebar-lnb ul li a {width:200px; font-size: 13px; position: relative; height: auto; line-height: 20px; padding: 4px 10px 6px 29px; text-decoration: none; font-weight: bold;}
 .category #sidebar-lnb>ul>li .ic-horizontal {position: absolute; left: 3px; cursor: pointer;}
 .ic-horizontal {border-radius: 50%; width: 18px; height: 18px; display: inline-block; border: 1px solid black;}
 .ic-horizontal {background:url("../img/-.jpg") center no-repeat;}
-.category #sidebar-lnb>ul>li>ul {display: block; padding-left: 25px;}
+.category #sidebar-lnb>ul>li>ul {display: block; padding-left: 25px;border-left: 1px solid black;position: relative;right: 1px;}
 .category #sidebar-lnb>ul>li>ul>li>a {padding-left: 0px; color: black; background: none; border-left: 3px solid transparent; font-weight: normal;}
+.category #sidebar-lnb>ul>li>ul>li>a:hover {color: red;}
 .sidebar li a {display: block;}
 
 
