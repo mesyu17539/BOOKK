@@ -1,7 +1,12 @@
 package com.bookk.web.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.bookk.web.domain.FileProxy;
 import com.bookk.web.domain.Page;
 import com.bookk.web.domain.PageAdapter;
 import com.bookk.web.mapper.Mapper;
@@ -20,7 +28,6 @@ import com.bookk.web.service.ICountService;
 import com.bookk.web.service.IGetService;
 import com.bookk.web.service.IPostService;
 import com.bookk.web.service.ISearchService;
-import com.bookk.web.service.IUpdateService;
 
 
 @RestController
@@ -281,7 +288,7 @@ public class Controller{
 			
 			@Override
 			public Object execute(HashMap<?, ?> param) {
-				// TODO Auto-generated method stub
+				
 				return mapper.articleDetail(param);
 			}
 		}.execute((HashMap<?, ?>) map);
@@ -292,9 +299,24 @@ public class Controller{
 	}
 	@RequestMapping("/articleW")
 	public Map<?,?> articleWriting(
-			 @RequestBody HashMap<String, String> param){
+			MultipartHttpServletRequest request,
+			 @RequestBody HashMap<String, String> param) throws IllegalStateException, IOException{
 		Map<String, Object> map = new HashMap<>();
-		
+		FileProxy pxy=new FileProxy();
+		Iterator<String> it = request.getFileNames();
+		String rootPath = "";
+		String uploadPath = "";
+		String fileName = "";
+		if(it.hasNext()) {
+			MultipartFile file = request.getFile(it.next());
+			rootPath = request.getSession().getServletContext().toString();
+			uploadPath = "resources/image/";
+			fileName= file.getOriginalFilename();
+		}
+		String path = rootPath+uploadPath;
+		File files = new File(path);
+		System.out.println(fileName+"1");
+		pxy.getFile().transferTo(files);
 	 System.out.println("이거탑니까 지금 ? ");
 	 System.out.println(param+"탑니까 지금 ? ");
 	 map.put("insertA", new IPostService() {
@@ -310,4 +332,17 @@ public class Controller{
 		return map;
 		
 	}
+/*	@RequestMapping("/articleComment")
+	public Map<?,?> articleComment(
+			@RequestBody HashMap<String, String> param){
+		new IPostService() {
+			
+			@Override
+			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+		};
+		return null;
+	}*/
 }

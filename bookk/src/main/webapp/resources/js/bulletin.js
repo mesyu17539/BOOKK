@@ -227,9 +227,9 @@ bulletin.jau=(()=>{
 							articleDetail();
 						});*/
 						// 상세게시글
-						if(x.list%3==0){
+				/*		if(x.list%3==0){
 							x.page.pageSize=3;
-						}
+						}*/
 							
 				/*		alert('페이지 사이즈 : '+x.page.pageSize);
 						for(var i=1; i<=x.page.pageSize;i++){
@@ -378,7 +378,7 @@ bulletin.jau=(()=>{
 		/*	$(createDiv({id:'file-upload',clazz:''})).appendTo('#articleW-right-form')
 			.attr('style','border : 1px solid green; padding:10px;');*/
 			$(createDiv({id:'file-upload-type',clazz:''})).appendTo('#articleW-right-form');
-			$(createInput({id:'fileUp',clazz:'',type:'file'})).appendTo('#file-upload-type').attr('style','padding:10px; border:1px solid red;');
+			$(createInput({id:'input-fileUp',clazz:'',type:'file'})).appendTo('#file-upload-type').attr('style','padding:10px; border:1px solid red;').attr('name','file')
 			$(createDiv({id:'div-input-content',clazz:''})).appendTo('#articleW-right-form');
 			$(textarea({id:'jw-text'}))
 			.attr('class','form-control')
@@ -395,7 +395,7 @@ bulletin.jau=(()=>{
 			.on('click',e=>{
 				e.preventDefault();
 				alert('클릭은먹음');
-				$.ajax({
+				$('#articleW-right-form').ajaxForm({
 					url:context+'/articleW',
 					data:JSON.stringify({
 						select : $('#articleW-right-SO').val(),
@@ -404,7 +404,11 @@ bulletin.jau=(()=>{
 					}),
 					dataType:'JSON',
 					contentType:'application/json',
-					method:'POST',		
+					method:'POST',
+					enctype:"multipart/form-data",
+					beforSubmit:(()=>{
+						alert('로딩화면 : ');
+					}),
 					success : x =>{
 						alert('성공');
 						bulletin.jau.articles(1);
@@ -412,7 +416,7 @@ bulletin.jau=(()=>{
 					error : ()=>{
 						alert('실패');
 					}										
-				});
+				}).submit();
 			});
 		});
 	};
@@ -434,20 +438,52 @@ bulletin.jau=(()=>{
 
 				});
 				$('#div-articles').html($(createDiv({id:'detail-post-title',clazz:''})))
-				.attr('style','border: 1px solid gray; height:50%; padding:0px;')
+				.attr('style','border: 1px solid gray; inline-height:100%; padding:0px; border-top: 5px solid #adcfdf;')
 				;
 				$(createDiv({id:'detail-post-title-head',clazz:''}))
-				.attr('style','border-top: 5px solid #adcfdf;  height:50px;border-bottom: 1px dotted #c6c6c6; ')
+				.attr('style','  height:50px;border-bottom: 1px dotted #c6c6c6;margin-top:15px; ')
 				.appendTo('#detail-post-title');
 				$(createDiv({id:'detail-post-title-a',clazz:'col-sm-8'})).appendTo('#detail-post-title-head');
-				$(createHTag({size:'4',val:d.o.title})).appendTo('#detail-post-title-a');
-				$(createDiv({id:'detail-post-title-b',clazz:'col-sm-1'})).appendTo('#detail-post-title-head').attr('style','margin-top:5px;');
+				$(createHTag({size:'4',val:d.o.title})).appendTo('#detail-post-title-a').attr('style','color:#10b5cf');
+				$(createDiv({id:'detail-post-title-b',clazz:'col-sm-1'})).appendTo('#detail-post-title-head').attr('style','margin-top:5px; color:#10b5cf');
 				$(createSpanJW({id:'',clazz:'',val:d.o.memID})).appendTo('#detail-post-title-b').attr('style','font-size:20px');
-				$(createDiv({id:'detail-post-title-c',clazz:'col-sm-3'})).appendTo('#detail-post-title-head').attr('style','margin-top:5px;');
+				$(createDiv({id:'detail-post-title-c',clazz:'col-sm-3'})).appendTo('#detail-post-title-head').attr('style','margin-top:5px; color:#10b5cf');
 				$(createSpanJW({id:'',clazz:'',val:d.o.createDate})).appendTo('#detail-post-title-c').attr('style','font-size:20px;');
-				$(createDiv({id:'detail-post-content',clazz:'col-sm-12'})).appendTo('#detail-post-title').attr('style','padding:20px;');
-				$(createP({val:d.o.contents})).appendTo('#detail-post-content').attr('style','font-size:20px;');
-				});	
+				$(createDiv({id:'detail-post-content',clazz:'col-sm-12'})).appendTo('#detail-post-title').attr('style','padding:20px; ');
+				$(createP({val:d.o.contents})).appendTo('#detail-post-content').attr('style','font-size:20px; overflow:hidden; word-bread:bread-word;');
+				// 댓글구현
+				$(createDiv({id:'div-comment',clazz:''})).appendTo('#div-articles');
+				$(createDiv({id:'div-comment-a',clazz:''})).appendTo('#div-comment')
+				.attr('style','border-bottom: 1px dotted #c6c6c6; margin-top:30px; margin-bottom:30px; padding : 5px;');
+				$(createHTag({size:'5',val:'댓글(0)'})).appendTo('#div-comment-a');
+				$(createForm({id:'form-comment',clazz:''})).appendTo('#div-comment');
+				$(createImage({id:'img-comment',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqeFAYIE3hTj9Gs1j3v7o-oBadM5uDkuPBuXMPtXS85LufL7UVA',clazz:'col-sm-2'}))
+				.appendTo('#form-comment');
+				$(textarea({id:'text-comment'})).appendTo('#form-comment').attr('class','col-sm-10')
+				.attr('style','overflow-y:auto; display:block;resize:none;margin-bottom:10px;height:200px;width:598px;');
+				$(createButton({id:'button-comment',clazz:'btn btn-danger',val:'등록하기'})).appendTo('#form-comment').attr('style','margin-left:123px;')
+				.on('click',()=>{
+					alert('댓글등록키');
+					$.ajax({
+						url:context+'/articleComment',
+						method:'POST',
+						data:JSON.stringify({
+							image : $('#img-comment').val(),
+							text : $('#text-comment').val()
+						}),
+						dataType:'json',
+						contetnType:'application/json',
+						success: x =>{
+							alert('성공');
+						},
+						error : ()=>{
+							alert('실패');
+						}
+					});
+				});
+			});	
+				
+				
 		});
 		
 
