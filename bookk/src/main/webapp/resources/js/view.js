@@ -142,7 +142,7 @@ var createForm=x=>{
 	return '<form id="'+x.id+'" class="'+x.clazz+'"></form>'
 }
 var createATag=x=>{
-	return '<a id="'+x.id+'" href="#"> '+x.val+'</a>';
+	return '<a id="'+x.id+'" href="#">'+x.val+'</a>';
 }
 var createTable=x=>{
 	return '<table id="'+x.id+'" class = "'+x.clazz+'"></table>'

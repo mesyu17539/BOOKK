@@ -28,4 +28,5 @@ public interface Mapper {
 		public List<?> pageList(HashMap<?, ?> param);
 		public List<?> bookGenreDate(HashMap<?, ?> param);
 		public HashMap<?, ?> largeGenre();
+		public int bookGenreCount(HashMap<?, ?> param);
 }

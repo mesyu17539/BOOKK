@@ -93,7 +93,7 @@ app.nav=(()=>{
 					})
 				});
 	   		$.getScript($.javascript()+'/book.js',()=>{
-	   			book.main.onCreate(); 			
+	   			book.main.setContentView({image:image,context:context,view:view}); 			
 	   		});
 		});
 	}

@@ -282,7 +282,6 @@ public class Controller{
 	@RequestMapping("/bookMain")
 	public Map<?,?> bookMain(){
 		Map<String, Object> map = new HashMap<>();
-		map.put("genre","시/에세이");
 		map.put("genreL", new IGetService() {
 			@Override
 			public Object execute(HashMap<?, ?> param) {
@@ -295,4 +294,19 @@ public class Controller{
 		
 	}
 	
+	@RequestMapping(value="/bookGenreCount",
+			method=RequestMethod.POST,consumes="application/json")
+		public Object bookGenreCount(@RequestBody HashMap<String, String> param) {
+		Map<String,Object> map = new HashMap<>();
+		param.put("genre",param.get("small"));
+		System.out.println("뭐냐고"+param.get("genre"));
+		int i = new ICountService() {
+			@Override
+			public int execute(HashMap<?, ?> map) {
+				return mapper.bookGenreCount(param);
+			}
+		}.execute(param);
+		System.out.println("test::"+i);
+		return i;
+	}
 }

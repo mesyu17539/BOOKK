@@ -129,6 +129,11 @@
      </select>
      <select id="bookGenreDate" resultMap="map" parameterType="hashMap">
      	SELECT b.*, (select i.imageRoute from image i where b.imageName like i.imageName) as imageRoute 
-		FROM book b where b.genreNum in (select DISTINCT  g.genreNum from genre g where g.largeGenre like #{genre}) 
+		FROM book b where b.genreNum in (select DISTINCT  g.genreNum from genre g WHERE g.genreNum between 1 and 28)
      </select>
+     <select id="bookGenreCount" resultType="int" parameterType="hashMap">
+		select count(*) from book b join genre g
+		 on g.genreNum LIKE b.genreNum
+		  where g.smallGenre like #{genre}
+	 </select>
 </mapper>
