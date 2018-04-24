@@ -121,13 +121,13 @@ var createFont=x=>{
     return '<font>'+x.val+'</font>';
 }
 var textarea=x=>{
-    return '<textarea id="'+x.id+'">'
+    return '<textarea id="'+x.id+'"/>'
 }
 var createSelect=x=>{
 	return '<select id="'+x+'"></select>'
 }
 var createImg=x=>{
-	return '<img id="'+x.id+'" alt="'+x.alt+'" src="'+x.src+'" class="'+x.clazz+'">'
+	return '<img id="'+x.id+'" alt="'+x.alt+'" src="'+x.src+'" class="'+x.clazz+'"/>'
 }
 var createOption=x=>{
 	return '<option value="'+x.val+'">'+x.txt+'</option>'

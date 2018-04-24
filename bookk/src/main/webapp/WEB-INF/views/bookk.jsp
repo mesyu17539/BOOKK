@@ -10,6 +10,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="${context}/resources/js/app.js"></script>
 	<script src="${context}/resources/js/jquery.magnific-popup.min.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
 <div id="wrapper">

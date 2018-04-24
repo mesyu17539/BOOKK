@@ -37,12 +37,12 @@ bulletin.board=(x=>{
 			.attr('style','height: 200px; max-width:100%;')
 			// board
 			$(createDiv({id:'col-5',clazz:'col-sm-2'})).appendTo('#row-div').attr('style','border:2px solid blue;padding: 1px');
-			$(createImage({id:'board-img',src:'https://files.slack.com/files-pri/T8NV14PJB-FA47Q1KAA/image.png',clazz:'boo'})).appendTo('#col-5')
+			$(createImage({id:'board-img',src:'https://i.imgur.com/Wm3nI02.jpg',clazz:'boo'})).appendTo('#col-5')
 			.attr('style','height: 200px; max-width:100%;')
 								   .hover(()=>{
-									   $('.boo').attr('src','https://files.slack.com/files-pri/T8NV14PJB-FA47Q1KAA/image.png');
+									   $('.boo').attr('src','https://i.imgur.com/Wm3nI02.jpg');
 								   }, ()=>{
-									   $('.boo').attr('src','https://files.slack.com/files-pri/T8NV14PJB-FA47Q1KAA/image.png');
+									   $('.boo').attr('src','https://i.imgur.com/Wm3nI02.jpg');
 								   })
 								   .on('click',()=>{
 										boards();

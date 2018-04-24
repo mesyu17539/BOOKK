@@ -68,7 +68,39 @@ public class Controller{
 		System.out.println("넘길 값 : "+o);
 		return o;
 	}
-	
+	@RequestMapping(value="/{type}/myProfile")
+	public Object myProfile(@RequestBody HashMap<String, String> param){
+		logger.info("welcom {}","myProfile ");
+		param.put("data1", param.get("id"));
+		param.put("data2", param.get("pass"));
+		Object o=null;
+		switch (param.get("type")) {
+		case "member":
+			System.out.println("mem");
+			param.put("colum1", "MEM_ID");
+			param.put("colum2", "MEM_PASS");
+			param.put("type", param.get("type"));
+			o= new IGetService() {
+				@Override
+				public Object execute(HashMap<?, ?> param) {
+					
+					return mapper.selectMemberById(param);
+				}
+			}.execute(param);
+			break;
+		case "admin":
+			System.out.println("adm");
+			param.put("colum1", "ADM_ID");
+			param.put("colum2", "ADM_PASS");
+			param.put("type", param.get("type"));
+			
+			break;
+		default:
+			break;
+		}
+		System.out.println("넘길 값 : "+o);
+		return o;
+	}
 	@RequestMapping(value="/{type}/join")
 	public Map<?, ?> join(@RequestBody HashMap<String, String> param){
 		Map<String,Object> map=new HashMap<>();
@@ -78,6 +110,7 @@ public class Controller{
 			System.out.println("mem");
 			param.put("colum", "id");
 			map.put("success", new IPostService() {
+				
 				@Override @Transactional
 				public int execute(HashMap<?, ?> param) {
 					mapper.addAddress(param);

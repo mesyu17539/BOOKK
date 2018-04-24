@@ -9,6 +9,8 @@
 		<result property="memPass" column="MEM_PASS"/>
 		<result property="memStatus" column="MEMSTATUS"/>
 		<result property="memName" column="MEM_NAME"/>
+		<result property="memNickName" column="MEM_NICKNAME"/>
+		<result property="memIntroduce" column="MEM_INTRODUCE"/>
 		<result property="memSsn" column="MEM_SSN"/>
 		<result property="memPhone" column="MEM_PHONE"/>
 		<result property="memEmail" column="MEM_EMAIL"/>
@@ -70,8 +72,8 @@
 	<!-- MEMBER -->
 	<insert id="addMember" parameterType="hashMap">
     INSERT INTO
-    MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS)
-    VALUES('${id}','${pass}','${name}','${email}','${phone}','${ssn}',(SELECT MAX(ADDR_ADDRESS) FROM address))
+    MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_NICKNAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS,MEM_INTRODUCE)
+    VALUES('${id}','${pass}','${name}','${id}','${email}','${phone}','${ssn}',(SELECT MAX(ADDR_ADDRESS) FROM address),'')
     </insert>
 	<insert id="addAddress" parameterType="hashMap">
     INSERT INTO
@@ -79,16 +81,16 @@
     VALUES('${postDetail}','${roadAddress}','${jibunAddress}','${detailAddress}')
     </insert>
     <select id="selectMemberById" resultMap="map" parameterType="hashMap">
-    SELECT *
-    FROM MEMBER
+    SELECT ${type}.*, ADDRESS.ADDR_POSTCODEADDRESS, ADDRESS.ADDR_ROADADDRESS, ADDRESS.ADDR_JIBUNADDRESS, ADDRESS.ADDR_DETAILADDRESS
+    FROM ${type}, ADDRESS
     WHERE
-	${colum} LIKE #{data}
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2} AND ADDRESS.ADDR_ADDRESS LIKE ${type}.MEM_ADDRESS
     </select>
     <select id="selectById" resultMap="map" parameterType="hashMap">
-    SELECT *
-    FROM ${type}
+    SELECT ${type}.*, ADDRESS.ADDR_POSTCODEADDRESS, ADDRESS.ADDR_ROADADDRESS, ADDRESS.ADDR_JIBUNADDRESS, ADDRESS.ADDR_DETAILADDRESS
+    FROM ${type}, ADDRESS
     WHERE
-	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2}
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2} AND ADDRESS.ADDR_ADDRESS LIKE ${type}.MEM_ADDRESS
     </select>
     <!-- board -->
     <select id="boardList" resultMap="map" parameterType="hashMap">
