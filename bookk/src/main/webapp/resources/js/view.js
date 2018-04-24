@@ -186,3 +186,9 @@ var DcreateHTag=x=>{
 var createP=x=>{
 	return '<p>'+x.val+'</p>'
 }
+var DcreateSpan=x=>{
+	return '<span id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</span>';
+}
+var createStrong=x=>{
+	return '<strong>'+x.val+'</strong>';
+}

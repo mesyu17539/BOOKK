@@ -294,19 +294,44 @@ public class Controller{
 		
 	}
 	
-	@RequestMapping(value="/bookGenreCount",
+	@RequestMapping(value="/bookGenreSmallCount",
 			method=RequestMethod.POST,consumes="application/json")
-		public Object bookGenreCount(@RequestBody HashMap<String, String> param) {
+		public Object bookGenreSmallCount(@RequestBody HashMap<String, String> param) {
 		Map<String,Object> map = new HashMap<>();
 		param.put("genre",param.get("small"));
 		System.out.println("뭐냐고"+param.get("genre"));
 		int i = new ICountService() {
 			@Override
 			public int execute(HashMap<?, ?> map) {
-				return mapper.bookGenreCount(param);
+				return mapper.bookGenreSmallCount(param);
 			}
 		}.execute(param);
 		System.out.println("test::"+i);
 		return i;
+	}
+	
+	@RequestMapping(value="/bookGenreLargeList",
+			method=RequestMethod.POST,consumes="application/json")
+		public Object bookGenreLargeList(@RequestBody HashMap<String, String> param) {
+		Map<String,Object> map = new HashMap<>();
+		param.put("genre",param.get("large"));
+		System.out.println("뭐냐고"+param.get("genre"));
+		int i = new ICountService() {
+			@Override
+			public int execute(HashMap<?, ?> map) {
+				return mapper.bookGenreLargeCount(param);
+			}
+		}.execute(param);
+		System.out.println("test::"+i);
+		Object o = new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				return mapper.bookGenreLargeList(param);
+			}
+		}.execute(param);
+		System.out.println("test::"+o);
+		map.put("count",i);
+		map.put("largeList",o);
+		return map;
 	}
 }

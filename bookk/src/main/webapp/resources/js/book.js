@@ -111,7 +111,7 @@ book.main=(()=>{
 		 //시 에세이
 		 $(createDiv({id:'div-section-category',clazz:'section-category'})).appendTo('#div-container-2');
 		 $(createDiv({id:'div-section-category-1'})).appendTo('#div-section-category');
-		 var temp = ['시·에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타']
+		 var temp = ['시/에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타']
 		 for(var i= 0; i<6; i++){
 			 $(createDiv({id:'div-book-header-'+i+'',clazz:'widget-header'})).appendTo('#div-section-category-1');
 			 $(createHTag({size:'3',clazz:'widget-title',val:temp[i]})).appendTo('#div-book-header-'+i+'');
@@ -203,7 +203,7 @@ book.main=(()=>{
 		 $(createUL({id : 'store-lnb',clazz : ''})).appendTo('#store-lnb-box');
 		 $(createLI({id : 'active',clazz : 'active'})).appendTo('#store-lnb');
 		 // 전체메뉴 시 에세이
-		 var temp = ['시·에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타'];
+		 var temp = ['시/에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타'];
 		 for(var i=0;i<6;i++){
 			 $(createATag({id:'large-category-'+i+'',val:temp[i]})).appendTo('#active');
 		 }
@@ -218,13 +218,13 @@ book.main=(()=>{
 			 $('#ca-1-0').click(()=>{
 				 var g = {small:$('#ca-1-0').text(), large:$('#large-category-0').text()};
 				 $.ajax({
-						url:x.context+'/bookGenreCount',
+						url:x.context+'/bookGenreSmallCount',
 						method:'POST',
 						data:JSON.stringify({small:g.small}),
 						dataType:'json',
 						contentType:'application/json',
 						success:d=>{
-							list({g:g,d:d,x:x});
+							list({small:g.small,large:g.large,count:d,context:x.context});
 						},
 						error : (x,h,m)=>{
 							alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -234,13 +234,13 @@ book.main=(()=>{
 			 $('#ca-1-1').click(()=>{
 				 var g = {small:$('#ca-1-1').text(), large:$('#large-category-0').text()};
 				 $.ajax({
-						url:x.context+'/bookGenreCount',
+						url:x.context+'/bookGenreSmallCount',
 						method:'POST',
 						data:JSON.stringify({small:g.small}),
 						dataType:'json',
 						contentType:'application/json',
 						success:d=>{
-							list(g,d);
+							list({small:g.small,large:g.large,count:d,context:x.context});
 						},
 						error : (x,h,m)=>{
 							alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -250,13 +250,13 @@ book.main=(()=>{
 			 $('#ca-1-2').click(()=>{
 				 var g = {small:$('#ca-1-2').text(), large:$('#large-category-0').text()};
 				 $.ajax({
-						url:x.context+'/bookGenreCount',
+						url:x.context+'/bookGenreSmallCount',
 						method:'POST',
 						data:JSON.stringify({small:g.small}),
 						dataType:'json',
 						contentType:'application/json',
 						success:d=>{
-							list(g,d);
+							list({small:g.small,large:g.large,count:d,context:x.context});
 						},
 						error : (x,h,m)=>{
 							alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -277,13 +277,13 @@ book.main=(()=>{
 			 $('#ca-2-0').click(()=>{
 				 var g = {small:$('#ca-2-0').text(), large:$('#large-category-1').text()};
 				 $.ajax({
-						url:x.context+'/bookGenreCount',
+						url:x.context+'/bookGenreSmallCount',
 						method:'POST',
 						data:JSON.stringify({small:g.small}),
 						dataType:'json',
 						contentType:'application/json',
 						success:d=>{
-							list(g,d);
+							list({small:g.small,large:g.large,count:d,context:x.context});
 						},
 						error : (x,h,m)=>{
 							alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -293,13 +293,13 @@ book.main=(()=>{
 			 $('#ca-2-1').click(()=>{
 				 var g = {small:$('#ca-2-1').text(), large:$('#large-category-1').text()};
 				 $.ajax({
-						url:x.context+'/bookGenreCount',
+						url:x.context+'/bookGenreSmallCount',
 						method:'POST',
 						data:JSON.stringify({small:g.small}),
 						dataType:'json',
 						contentType:'application/json',
 						success:d=>{
-							list(g,d);
+							list({small:g.small,large:g.large,count:d,context:x.context});
 						},
 						error : (x,h,m)=>{
 							alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -309,13 +309,13 @@ book.main=(()=>{
 			 $('#ca-2-2').click(()=>{
 				 var g = {small:$('#ca-2-2').text(), large:$('#large-category-1').text()};
 				 $.ajax({
-						url:x.context+'/bookGenreCount',
+						url:x.context+'/bookGenreSmallCount',
 						method:'POST',
 						data:JSON.stringify({small:g.small}),
 						dataType:'json',
 						contentType:'application/json',
 						success:d=>{
-							list(g,d);
+							list({small:g.small,large:g.large,count:d,context:x.context});
 						},
 						error : (x,h,m)=>{
 							alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -325,13 +325,13 @@ book.main=(()=>{
 			 $('#ca-2-3').click(()=>{
 				 var g = {small:$('#ca-2-3').text(), large:$('#large-category-1').text()};
 				 $.ajax({
-						url:x.context+'/bookGenreCount',
+						url:x.context+'/bookGenreSmallCount',
 						method:'POST',
 						data:JSON.stringify({small:g.small}),
 						dataType:'json',
 						contentType:'application/json',
 						success:d=>{
-							list(g,d);
+							list({small:g.small,large:g.large,count:d,context:x.context});
 						},
 						error : (x,h,m)=>{
 							alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -341,13 +341,13 @@ book.main=(()=>{
 			 $('#ca-2-4').click(()=>{
 				 var g = {small:$('#ca-2-4').text(), large:$('#large-category-1').text()};
 				 $.ajax({
-						url:x.context+'/bookGenreCount',
+						url:x.context+'/bookGenreSmallCount',
 						method:'POST',
 						data:JSON.stringify({small:g.small}),
 						dataType:'json',
 						contentType:'application/json',
 						success:d=>{
-							list(g,d);
+							list({small:g.small,large:g.large,count:d,context:x.context});
 						},
 						error : (x,h,m)=>{
 							alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -357,13 +357,13 @@ book.main=(()=>{
 			 $('#ca-2-5').click(()=>{
 				 var g = {small:$('#ca-2-5').text(), large:$('#large-category-1').text()};
 				 $.ajax({
-						url:x.context+'/bookGenreCount',
+						url:x.context+'/bookGenreSmallCount',
 						method:'POST',
 						data:JSON.stringify({small:g.small}),
 						dataType:'json',
 						contentType:'application/json',
 						success:d=>{
-							list(g,d);
+							list({small:g.small,large:g.large,count:d,context:x.context});
 						},
 						error : (x,h,m)=>{
 							alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -373,13 +373,13 @@ book.main=(()=>{
 			 $('#ca-2-6').click(()=>{
 				 var g = {small:$('#ca-2-6').text(), large:$('#large-category-1').text()};
 				 $.ajax({
-						url:x.context+'/bookGenreCount',
+						url:x.context+'/bookGenreSmallCount',
 						method:'POST',
 						data:JSON.stringify({small:g.small}),
 						dataType:'json',
 						contentType:'application/json',
 						success:d=>{
-							list(g,d);
+							list({small:g.small,large:g.large,count:d,context:x.context});
 						},
 						error : (x,h,m)=>{
 							alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -389,13 +389,13 @@ book.main=(()=>{
 			 $('#ca-2-7').click(()=>{
 				 var g = {small:$('#ca-2-7').text(), large:$('#large-category-1').text()};
 				 $.ajax({
-						url:x.context+'/bookGenreCount',
+						url:x.context+'/bookGenreSmallCount',
 						method:'POST',
 						data:JSON.stringify({small:g.small}),
 						dataType:'json',
 						contentType:'application/json',
 						success:d=>{
-							list(g,d);
+							list({small:g.small,large:g.large,count:d,context:x.context});
 						},
 						error : (x,h,m)=>{
 							alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -439,18 +439,39 @@ book.main=(()=>{
 				 $(createATag({id :'ca-6-'+i+'',val :temp[i]})).appendTo('#smallgenre-category-6-'+i+'');
 			 }
 		 });
-		 var temp = ['시·에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타'];
+		 var temp = ['시/에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타'];
 		 for(var i=0;i<6;i++){
 			 $(createLI({id:'store-category-'+i+''})).appendTo('#store-gnb-all-menu');
 			 $(createATag({val:temp[i]})).appendTo('#store-category-'+i+'');
 		 }
 		 $('#store-category-0').click(()=>{
+			 
 			 var g = {large:$('#store-category-0').text()};
-			 list({context:x.context,large:g.large,small:g.small});
+			 $.ajax({
+					url:x.context+'/bookGenreLargeList',
+					method:'POST',
+					data:JSON.stringify({large:g.large}),
+					dataType:'json',
+					contentType:'application/json',
+					success:d=>{
+						list({large:g.large,count:d.count,largeList:d.largeList,context:x.context});
+						},
+					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					});
 		 });
 		 $('#store-category-1').click(()=>{
 			 var g = {large:$('#store-category-1').text()};
-			 list(g);
+			 $.ajax({
+					url:x.context+'/bookGenreLargeList',
+					method:'POST',
+					data:JSON.stringify({large:g.large}),
+					dataType:'json',
+					contentType:'application/json',
+					success:d=>{
+						list({large:g.large,count:d.count,largeList:d.largeList,context:x.context});
+						},
+					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					});
 		 });
 		 $(createDiv({id : 'div-advertise'})).appendTo('#bookk-store');
 	 }
@@ -462,7 +483,7 @@ book.main=(()=>{
 			 //리스트 사이드 바
 			 $(createDiv({id : 'sidebar',clazz : 'sidebar'})).appendTo('#div-list-container');
 			 $(createDiv({id : 'sidebar-lnb'})).appendTo('#sidebar');
-			 temp = ['시·에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타']
+			 temp = ['시/에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타']
 			 for(var i = 0; i<=5; i++){
 				 $(createUL({id : 'sidebar-lnb-category-'+i+''})).appendTo('#sidebar-lnb');
 				 $(createLI({id : 'depth-'+i+'',clazz : 'depth1'})).appendTo('#sidebar-lnb-category-'+i+'');
@@ -475,7 +496,7 @@ book.main=(()=>{
 				 $('#sidebar-lnb-category-1').attr('style','margin-top:89px;');
 				 $(createLI({id : 'depth1',clazz : 'active'})).appendTo('#sidebar-lnb-category-0');
 				 $(createSpan({id : 'span-circle',clazz : 'ic-horizontal'})).appendTo('#depth1');
-				 $(createATag({val : '시·에세이',id : 'btn-parent-0'})).appendTo('#depth1')
+				 $(createATag({val : '시/에세이',id : 'btn-parent-0'})).appendTo('#depth1')
 				 .click(()=>{
 					 $('#sidebar-lnb-category-0').empty();
 					 list(x);
@@ -487,20 +508,39 @@ book.main=(()=>{
 					 $(createATag({id:'a-lnb-0-'+i+'',val:temp[i]})).appendTo('#li-lnb-0-'+i+''); 
 				 }
 				 $('#a-lnb-0-0').click(()=>{
-					 alert(xx.x.context);
 					 var g = {small:$('#a-lnb-0-0').text(), large:$('#large-category-1').text()};
 					 $.ajax({
-							url:xx.x.context+'/bookGenreCount',
+							url:x.context+'/bookGenreSmallCount',
 							method:'POST',
-							data:JSON.stringify({small:xx.g.small}),
+							data:JSON.stringify({small:g.small}),
 							dataType:'json',
 							contentType:'application/json',
-							success:d=>{
-								list({g:g,d:d,x:xx.x});
-							},
-							error : (x,h,m)=>{
-								alert('검색 실패 x='+x+', h='+h+', m='+m);
-							}
+							success:d=>{list({context:x.context,count:d,small:g.small,large:g.large});},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					 });
+				 });
+				 $('#a-lnb-0-1').click(()=>{
+					 var g = {small:$('#a-lnb-0-1').text(), large:$('#large-category-1').text()};
+					 $.ajax({
+							url:x.context+'/bookGenreSmallCount',
+							method:'POST',
+							data:JSON.stringify({small:g.small}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{list({context:x.context,count:d,small:g.small,large:g.large});},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					 });
+				 });
+				 $('#a-lnb-0-2').click(()=>{
+					 var g = {small:$('#a-lnb-0-2').text(), large:$('#large-category-1').text()};
+					 $.ajax({
+							url:x.context+'/bookGenreSmallCount',
+							method:'POST',
+							data:JSON.stringify({small:g.small}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{list({context:x.context,count:d,small:g.small,large:g.large});},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
 					 });
 				 });
 			 });
@@ -519,36 +559,131 @@ book.main=(()=>{
 				 temp = ['일반','로맨스','판타지','BL','무협','추리/스릴러/미스터리','기타','SF소설']
 				 for(var i = 0; i<=7; i++){
 					 $(createLI({id:'li-lnb-1-'+i+''})).appendTo('#ul-lnb-1');
-					 $(createATag({id:'a-lnb-1-'+i+'',val:temp[i]})).appendTo('#li-lnb-1-'+i+'')
-					 .attr('onclick','book.main.list({large:"소설",small:$("#a-lnb-1-'+i+'").text()})'); 
+					 $(createATag({id:'a-lnb-1-'+i+'',val:temp[i]})).appendTo('#li-lnb-1-'+i+'');
 				 }
+				 $('#a-lnb-1-0').click(()=>{
+					 var g = {small:$('#a-lnb-1-0').text(), large:$('#large-category-2').text()};
+					 $.ajax({
+							url:x.context+'/bookGenreSmallCount',
+							method:'POST',
+							data:JSON.stringify({small:g.small}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{list({context:x.context,count:d,small:g.small,large:g.large});},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					 });
+				 });
+				 $('#a-lnb-1-1').click(()=>{
+					 var g = {small:$('#a-lnb-1-1').text(), large:$('#large-category-2').text()};
+					 $.ajax({
+							url:x.context+'/bookGenreSmallCount',
+							method:'POST',
+							data:JSON.stringify({small:g.small}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{list({context:x.context,count:d,small:g.small,large:g.large});},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					 });
+				 });
+				 $('#a-lnb-1-2').click(()=>{
+					 var g = {small:$('#a-lnb-1-2').text(), large:$('#large-category-2').text()};
+					 $.ajax({
+							url:x.context+'/bookGenreSmallCount',
+							method:'POST',
+							data:JSON.stringify({small:g.small}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{list({context:x.context,count:d,small:g.small,large:g.large});},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					 });
+				 });
+				 $('#a-lnb-1-3').click(()=>{
+					 var g = {small:$('#a-lnb-1-3').text(), large:$('#large-category-2').text()};
+					 $.ajax({
+							url:x.context+'/bookGenreSmallCount',
+							method:'POST',
+							data:JSON.stringify({small:g.small}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{list({context:x.context,count:d,small:g.small,large:g.large});},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					 });
+				 });
+				 $('#a-lnb-1-4').click(()=>{
+					 var g = {small:$('#a-lnb-1-4').text(), large:$('#large-category-2').text()};
+					 $.ajax({
+							url:x.context+'/bookGenreSmallCount',
+							method:'POST',
+							data:JSON.stringify({small:g.small}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{list({context:x.context,count:d,small:g.small,large:g.large});},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					 });
+				 });
+				 $('#a-lnb-1-5').click(()=>{
+					 var g = {small:$('#a-lnb-1-5').text(), large:$('#large-category-2').text()};
+					 $.ajax({
+							url:x.context+'/bookGenreSmallCount',
+							method:'POST',
+							data:JSON.stringify({small:g.small}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{list({context:x.context,count:d,small:g.small,large:g.large});},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					 });
+				 });
+				 $('#a-lnb-1-6').click(()=>{
+					 var g = {small:$('#a-lnb-1-6').text(), large:$('#large-category-2').text()};
+					 $.ajax({
+							url:x.context+'/bookGenreSmallCount',
+							method:'POST',
+							data:JSON.stringify({small:g.small}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{list({context:x.context,count:d,small:g.small,large:g.large});},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					 });
+				 });
+				 $('#a-lnb-1-7').click(()=>{
+					 var g = {small:$('#a-lnb-1-7').text(), large:$('#large-category-2').text()};
+					 $.ajax({
+							url:x.context+'/bookGenreSmallCount',
+							method:'POST',
+							data:JSON.stringify({small:g.small}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{list({context:x.context,count:d,small:g.small,large:g.large});},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					 });
+				 });
 			 });
 
 			 // 리스트 메인
 			 $(createDiv({id : 'main'})).appendTo('#div-list-container');
 			 $(createDiv({id : 'list-header',clazz : 'col-sm-12'})).appendTo('#main');
-			 if(xx.g.small==null){
-				 $('#list-header').html((DcreateHTag({size : '2',val : xx.g.large,clazz : 'col-sm-10'})));
+			 if(x.small==null){
+				 $('#list-header').html((DcreateHTag({size : '2',val : x.large,clazz : 'col-sm-10'})));
 			 }else{
-				 $('#list-header').html((DcreateHTag({size : '2',val : xx.g.small,clazz : 'col-sm-10'})));
+				 $('#list-header').html((DcreateHTag({size : '2',val : x.small,clazz : 'col-sm-10'})));
 			 }
 			 $(createDiv({id : 'location',clazz : 'col-sm-2'})).appendTo('#list-header');
 			 $('#location').html((createATag({id : 'a-main-move',val : '서점 >'})));
-			 $(createATag({id : 'a-largegenre-move',val : xx.g.large})).appendTo('#location');
-			 if(xx.g.small == null){
+			 $(createATag({id : 'a-largegenre-move',val : x.large})).appendTo('#location');
+			 if(x.small == null){
 			 }else{
-				 $(createATag({val : ' > '+xx.g.small})).appendTo('#location');
+				 $(createATag({val : ' > '+x.small})).appendTo('#location');
 			 }
 			 
 			 //책 리스트
-			 $(createDiv({id : 'list-content'})).appendTo('#main');
-			 $(createDiv({id : 'list-content-header'})).appendTo('#list-content');
-			 if(xx.g.small == null){
-				 $(createHTag({size : '4',val : xx.g.large})).appendTo('#list-content-header');
+			 $(createDiv({id :'list-content'})).appendTo('#main');
+			 $(createDiv({id :'list-content-header'})).appendTo('#list-content');
+			 if(x.small == null){
+				 $(createHTag({size : '4',val : x.large})).appendTo('#list-content-header');
 			 }else{
-				 $(createHTag({size : '4',val : xx.g.small})).appendTo('#list-content-header');
+				 $(createHTag({size : '4',val : x.small})).appendTo('#list-content-header');
 			 }
-			 $(createP({val : ' 권의 책이 검색 되었습니다.'})).appendTo('#list-content-header');
+			 $(createP({val : x.count+' 권의 책이 검색 되었습니다.'})).appendTo('#list-content-header');
 			 $(createDiv({id : 'btn-group-sub-nav'})).appendTo('#list-content-header');
 			 $(createDiv({id : 'btn-group-sub-nav-1'})).appendTo('#btn-group-sub-nav');
 			 $(createATag({id : 'a-group-sub-nav-new',val : '최신순'})).appendTo('#btn-group-sub-nav-1').attr('class','active')
@@ -561,6 +696,31 @@ book.main=(()=>{
 				 $('#a-group-sub-nav-new').removeAttr('class');
 				 $('#a-group-sub-nav-name').attr('class','active');
 			 });
+			 $(createDiv({id:'list-content-content'})).appendTo('#list-content');
+			 $(createTable({id:'list-content-table'})).appendTo('#list-content-content');
+			 for(var i=0;i<x.largeList.length;i++){
+				 $(createTr({id:'list-content-tr-'+i+''})).appendTo('#list-content-table');
+				 $(createTd({id:'list-left-td-'+i+'',clazz:'product-image'})).appendTo('#list-content-tr-'+i+'');
+				 $(createTd({id:'list-right-td-'+i+'',clazz:'product-info'})).appendTo('#list-content-tr-'+i+'');
+				 $(createATag({id:'list-left-a-'+i+'',val:''})).appendTo('#list-left-td-'+i+'');
+				 $(createDiv({id:'list-left-div-'+i+'',clazz:'book-cover'})).appendTo('#list-left-a-'+i+'');
+				 $(createImg({src:x.largeList[i].imageRoute})).appendTo('#list-left-div-'+i+'');
+				 $(DcreateHTag({size:'3',val:'',clazz:'list-right-htag-'+i+''})).appendTo('#list-right-td-'+i+'');
+				 $(createATag({val:x.largeList[i].bookName})).appendTo('.list-right-htag-'+i+'');
+				 $(createDiv({id:'list-right-div-'+i+'',clazz:'product-meta'})).appendTo('#list-right-td-'+i+'');
+				 $(DcreateSpan({id:'list-right-span-'+i+'',val:'저자 ',clazz:'list-right-span'})).appendTo('#list-right-div-'+i+'');
+				 $(createATag({id:'list-right-writter-a-'+i+'',val:x.largeList[i].writter})).appendTo('#list-right-span-'+i+'');
+				 $(DcreateSpan({val:x.largeList[i].publisher+'  ',clazz:'list-right-publisher'})).appendTo('#list-right-div-'+i+'');
+				 $(DcreateSpan({val:x.largeList[i].publishingDate,clazz:'list-right-span last'})).appendTo('#list-right-div-'+i+'');
+				 $(createDiv({id:'list-right-price-div-'+i+'',clazz:'product-price'})).appendTo('#list-right-td-'+i+'');
+				 $(createStrong({val:x.largeList[i].price})).appendTo('#list-right-price-div-'+i+'');
+				 $(DcreateSpan({val:'원',clazz:'currency'})).appendTo('#list-right-price-div-'+i+'');
+				 $(createForm({id:'list-right-form-'+i+'',clazz:'btn-group'})).appendTo('#list-right-td-'+i+'');
+				 $(createButton({clazz:'btn btn-primary fas fa-shopping-cart',val:'&nbsp;&nbsp;장바구니'})).appendTo('#list-right-form-'+i+'');
+				 $(createButton({clazz:'btn btn-primary fas fa-arrow-right',val:'&nbsp;&nbsp;바로구매'})).appendTo('#list-right-form-'+i+'');
+				 $(createButton({clazz:'btn btn-primary far fa-heart',val:'&nbsp;&nbsp;찜하기'})).appendTo('#list-right-form-'+i+'');
+			 }
+
 	 };
 	 return{setContentView:setContentView,list:list}
 })();

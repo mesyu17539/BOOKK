@@ -131,9 +131,20 @@
      	SELECT b.*, (select i.imageRoute from image i where b.imageName like i.imageName) as imageRoute 
 		FROM book b where b.genreNum in (select DISTINCT  g.genreNum from genre g WHERE g.genreNum between 1 and 28)
      </select>
-     <select id="bookGenreCount" resultType="int" parameterType="hashMap">
+     <select id="bookGenreSmallCount" resultType="int" parameterType="hashMap">
 		select count(*) from book b join genre g
 		 on g.genreNum LIKE b.genreNum
 		  where g.smallGenre like #{genre}
+	 </select>
+	 <select id="bookGenreLargeCount" resultType="int" parameterType="hashMap">
+		select count(*) from book b join genre g
+		 on g.genreNum LIKE b.genreNum
+		  where g.largeGenre like #{genre}
+	 </select>
+	 <select id="bookGenreLargeList" resultType="map" parameterType="hashMap">
+		select b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		left join genre g on b.genreNum like g.genreNum
+		where g.largeGenre like #{genre}
+		order by b.publishingDate DESC
 	 </select>
 </mapper>
