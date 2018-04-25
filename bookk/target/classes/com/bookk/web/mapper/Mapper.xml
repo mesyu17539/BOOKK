@@ -29,7 +29,6 @@
 		<result property="createDate" column="create_date"/>
 		<result property="title" column="co_title"/>
 		<result property="contents" column="contents"/>
-		<result property="notify" column="notify"/>
 		<result property="viewNum" column="view_num"/>
 	<!-- 몰 -->
 		<result property="orderNum" column="order_num"/>
@@ -104,7 +103,13 @@
      select A2.* from(
         select @rank:=@rank+1 rank, A.* 
             from(select 
-                    *
+                                     
+		board_id,
+		DATE_FORMAT(create_date, '%Y-%m-%d') AS create_date,
+		co_title,
+		contents,
+		view_num,
+		mem_id
                         from board 
                             order by board_id desc
                ) A,(SELECT @rank := 0) R) A2
@@ -119,19 +124,23 @@
      <select id="searchCount" resultType="int" parameterType="hashMap">
      	select count(*) from board where ${type} like '%${data}%'
      </select> 
-     <select id="searchList" resultMap="map" parameterType="hashMap">
+     <select id="searchList" resultMap="map" parameterType="hashMap"> 
          select A2.* from(
         select @rank:=@rank+1 rank, A.* 
             from(select 
-                    *
+					 *
                         from board 
                             order by board_id desc
                ) A,(SELECT @rank := 0) R) A2
-              where rank between #{page.startRow} and #{page.endRow}
+             where ${type} like '%${data}%'
      </select>
          <select id="articleDetail" resultMap="map" parameterType="hashMap">
      	select * from board where board_id like #{x}
      </select>
+     <insert id="insertBoard" parameterType="hashMap">
+     	insert into board(co_title,contents,mem_id)values(#{title},#{contents},'#{memID}')
+     </insert>
+     
      
      <!-- book -->
      <select id="largeGenre" resultMap="map">

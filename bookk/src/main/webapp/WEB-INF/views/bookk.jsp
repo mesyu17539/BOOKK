@@ -17,6 +17,7 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="${context}/resources/js/app.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+	<script src="${context}/resources/js/fileupload.js"></script>
 </head>
 <body>
 <div id="wrapper">

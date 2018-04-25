@@ -132,6 +132,9 @@ var makeCount = x=>{
 }
 
 // 기본
+var createFont=x=>{
+    return '<font>'+x.val+'</font>';
+}
 var strong=x=>{
 	return '<strong id="'+x.id+'">'+x.val+'</strong>'
 }
