@@ -1,6 +1,40 @@
 var user=user || {};
 user.admin={
 	login:x=>{
+		$('#div-member-bar')
+		.attr('style','background-color:black;color:white; padding: 6px 18px;')
+		.append(createSpan({id:'division',clazz:'division'}));
+		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
+		$(createATag({id:'a-logout',val:'로그아웃'}))
+		.appendTo('#div-member-bar')
+		.attr('style','color: white;float:right;')
+		.on('click',e=>{
+			e.preventDefault();
+			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
+			sessionStorage.removeItem('user');
+			$('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
+			$.getScript($.javascript()+'/app.js',()=>{
+				app.init(x.context);
+			})
+		});
+		$(createImage({id:'',src:'http://www.bookk.co.kr/img/logo_blue.png',clazz:''}))
+		.appendTo('#div-member-bar')
+		.on('click',x=>{
+			user.admin.adminContent(x);			
+		});
+		user.admin.adminContent(x);
+	},
+	adminContent:x=>{
+		$('#div-body').html(createDiv({id:'div-admin',clazz:'container cart-div'}));
+		$('#div-admin')
+		.attr('style','width: 1050px;height:700px;border: 2px solid blue;')
+		.append(createDiv({id:'div-adminSideMenu',clazz:'container cart-div'}))
+		.append(createDiv({id:'div-adminContent',clazz:'container cart-div'}))
+		
+		$('#div-adminSideMenu')
+		.attr('style','width:20%;float:left;height:700px;border: 2px solid red;')
+		$('#div-adminContent')
+		.attr('style','width:77%;float:right;height:700px;border: 2px solid red;')
 		
 	}
 }
@@ -257,13 +291,13 @@ user.member={
 				+createInput({id:'login-id',clazz:'my-border-input',type:'text'})+'<br/>')
 		.append(createLabel({fo:'comment',val:'비밀번호'})+'<br/>'
 				+createInput({id:'login-password',clazz:'my-border-input',type:'password'})+'<br/>');
-		$('#login-id').attr('value','user');
-		$('#login-password').attr('value','user');
+		$('#login-id').attr('value','master');
+		$('#login-password').attr('value','master');
 		$('label')
 		.attr('style','display: inline-block;margin-bottom: 5px;max-width: 100%;font-weight: 700;');
 		
 		$('#div-btn-group')
-		.append($(createInput({id:'',clazz:'',type:'checkbox'})).attr('name','admin-check'))
+		.append($(createInput({id:'',clazz:'',type:'checkbox'})).attr('name','admin-check').attr('checked',true))
 		.append($(createLabel({fo:'comment',val:'관리자 로그인'}))
 				.attr('style','font-size: 11px;'))
 		.append('<br/>');
@@ -332,17 +366,18 @@ user.member={
 									});
 								});
 							});
+							$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
+							$(createATag({id:'a-logout',val:'로그아웃'})).appendTo('#div-member-bar')
+							.on('click',e=>{
+								e.preventDefault();
+								document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
+								sessionStorage.removeItem('user');
+								$('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
+								$.getScript($.javascript()+'/app.js',()=>{
+									app.init(x.context);
+								})
+							});
 						}
-						$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
-						$(createATag({id:'a-logout',val:'로그아웃'})).appendTo('#div-member-bar')
-						.on('click',e=>{
-							e.preventDefault();
-							sessionStorage.removeItem('user');
-							$('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
-							$.getScript($.javascript()+'/app.js',()=>{
-								app.init(x.context);
-							})
-						});
 						$.magnificPopup.close();
 					}else{
 						alert('로그인 실패');
