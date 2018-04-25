@@ -1,17 +1,26 @@
 package com.bookk.web.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.bookk.web.domain.FileProxy;
 import com.bookk.web.domain.Page;
 import com.bookk.web.domain.PageAdapter;
 import com.bookk.web.mapper.Mapper;
@@ -77,8 +86,9 @@ public class Controller{
 			System.out.println("mem");
 			param.put("colum", "id");
 			map.put("success", new IPostService() {
-				@Override
+				@Override @Transactional
 				public int execute(HashMap<?, ?> param) {
+					mapper.addAddress(param);
 					return mapper.addMember(param);
 				}
 			}.execute(param));
@@ -122,7 +132,6 @@ public class Controller{
 			@RequestBody HashMap<String, String> param) {
 		Map<String,Object> map = new HashMap<>();
 		Object o = new IGetService() {
-			
 			@Override
 			public Object execute(HashMap<?, ?> map) {
 				// TODO Auto-generated method stub
@@ -166,14 +175,17 @@ public class Controller{
 		  
 	  }
 	
-	@RequestMapping("/searchArticle/{select}")
+	@RequestMapping("/searchArticle/{select}/{pageNum}")
 	public Map<?, ?> search(
 		 @PathVariable String select,
+		 @PathVariable String pageNum,
 		 @RequestBody HashMap<String, String> param) {
 		Map<String, Object> map = new HashMap<>();
 		Object o = null;
-		System.out.println(param.get("type"));
-		System.out.println(param.get("data"));
+		System.out.println("select :"+select);
+		System.out.println("pageNum :"+pageNum );
+		System.out.println("타입 : " +param.get("type"));
+		System.out.println("검색명 : "+param.get("data"));
 		param.get("data");
 		/*
 		 * 
@@ -182,6 +194,7 @@ public class Controller{
 		 * 
 		  
 		  */
+		
 		page.setTotalCount( new ICountService() {
 			
 			@Override
@@ -190,12 +203,19 @@ public class Controller{
 				return mapper.searchCount(param);
 			}
 		}.execute(param));
-	 	page.setPageSize(Integer.parseInt("3"));
-	 	page.setBlockSize(Integer.parseInt("3"));
-	 	page.setPageNum(Integer.parseInt("1"));
+	 	page.setPageNum(Integer.parseInt(pageNum));
+	 	System.out.println("페이지 넘버요  : "+page.getPageNum());
+	 	page.setPageSize(3); //게시글
+	 	page.setBlockSize(3); // 3까지 페이지넘버
+	
 	 	page = (Page) adapter.attr(page);
+	 	
+	  
+	 		
+	 	
 	 	map.put("page", page);	
 	 	
+	
 	 	
 	 	map.put("list", new IGetService() {
 			@Override
@@ -205,7 +225,6 @@ public class Controller{
 			}
 		}.execute(param));
 		/*
-		 * 
 		 * 
 		 * 
 		 * 
@@ -269,7 +288,7 @@ public class Controller{
 			
 			@Override
 			public Object execute(HashMap<?, ?> param) {
-				// TODO Auto-generated method stub
+				
 				return mapper.articleDetail(param);
 			}
 		}.execute((HashMap<?, ?>) map);
@@ -278,4 +297,52 @@ public class Controller{
 		return map;
 		
 	}
+	@RequestMapping("/articleW")
+	public Map<?,?> articleWriting(
+			MultipartHttpServletRequest request,
+			 @RequestBody HashMap<String, String> param) throws IllegalStateException, IOException{
+		Map<String, Object> map = new HashMap<>();
+		FileProxy pxy=new FileProxy();
+		Iterator<String> it = request.getFileNames();
+		String rootPath = "";
+		String uploadPath = "";
+		String fileName = "";
+		if(it.hasNext()) {
+			MultipartFile file = request.getFile(it.next());
+			rootPath = request.getSession().getServletContext().toString();
+			uploadPath = "resources/image/";
+			fileName= file.getOriginalFilename();
+		}
+		String path = rootPath+uploadPath;
+		File files = new File(path);
+		System.out.println(fileName+"1");
+		pxy.getFile().transferTo(files);
+	 System.out.println("이거탑니까 지금 ? ");
+	 System.out.println(param+"탑니까 지금 ? ");
+	 map.put("insertA", new IPostService() {
+			
+			@Override
+			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.insertBoard(param);
+			}
+		}.execute(param));
+		System.out.println("담긴값 : "+ map );
+		
+		return map;
+		
+	}
+/*	@RequestMapping("/articleComment")
+	public Map<?,?> articleComment(
+			@RequestBody HashMap<String, String> param){
+		new IPostService() {
+			
+			@Override
+			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+		};
+		return null;
+	}*/
 }

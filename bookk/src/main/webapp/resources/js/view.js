@@ -28,9 +28,7 @@ var createTHJW=x=>{
             th +='</tr>'
         return th;
 }
-var createP=x=>{
-	return '<p>'+x+'</p>'
-}
+
 var createTDJW=x=>{
 	var td ='';
 	var w =0;
@@ -47,6 +45,13 @@ var createTDJW=x=>{
 	return td;
 }
 //추가 만호
+var createMultiSpan=x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<span id ="'+x.id+'-'+i+'"></span>'
+	});
+	return temp;
+}
 var createMultiDiv=x=>{
 	var temp = '';
 	$.each(x.arr,(i,j)=>{
@@ -172,4 +177,10 @@ var createSpan=x=>{
 }
 var createHTag=x=>{
 	return '<h'+x.size+'>'+x.val+'</h'+x.size+'>';
+}
+var DcreateHTag=x=>{
+	return '<h'+x.size+' class="'+x.clazz+'">'+x.val+'</h'+x.size+'>';
+}
+var createP=x=>{
+	return '<p>'+x.val+'</p>'
 }
