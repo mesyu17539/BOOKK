@@ -2,6 +2,60 @@
 =======
 @charset "UTF-8";
 .header .auth-form {display:none;position:absolute;top:35px;left: 0;right: 0;margin-left: auto;margin-right: auto;width: 300px;padding:12px 19px;background-color:#fff;border:1px solid #969696;z-index:10;}
+/* CSS USER */
+.mylist-inline {
+  padding-left: 0;
+  list-style: none;
+  margin-left: -5px;
+}
+.mylist-inline > li {
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.lo-btn {
+	padding: 6px 12px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+.border-input {
+  line-height: normal;
+}
+.div-img-profile {
+	float: left;
+    width: 128px;
+    height: 128px;
+    margin-right: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #c8c8c8;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.my-border-input{
+	line-height: normal;
+	width:250px;
+}
+.table-profile>tr{
+	border-bottom: 1px solid #f3f4f5;
+}
+.table-profile>tr>th{
+	width:200px;
+	text-align: left;
+}
+.table-profile>tr>td{
+	width: 700px;
+}
+.table-induProfile>tr{
+	border-bottom: 1px solid #f3f4f5;
+}
+.table-induProfile>tr>th{
+	width:200px;
+	text-align: left;
+}
+.table-induProfile>tr>td{
+	width: 700px;
+}
 a {cursor:pointer;}
 /* CSS board */
 .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
@@ -122,7 +176,16 @@ ul, ol, li {list-style: none;}
 .btn {display: inline-block;border-radius: 3px;padding: 9px 10px 11px;background: none;border: 0;border: 1px solid transparent;font-size: 12px;letter-spacing: -1px;cursor: pointer;}
 a.btn:hover {text-decoration: none;}
 /* 책 */
+.widget-content {overflow: hidden;}
+.book-list {margin-right: -20px;}
+.book-list .book-item {width:1000px;margin: 25px 20px 0 0;height: 240px;}
+.book-item .book-cover {margin-bottom: 8px;}
+.book-cover {position: relative;width: 104px;height: 158px;}
+.book-deco {position: absolute;left: 0;top: 0; display: block;width: 104px;height: 158px;}
 .book-cover img {width: 104px;height: 154px;margin-top: 4px;}
+.a-book-cover {float: left;width: 16.6%;}
+.book-item .book-title {font-weight: bold;font-size: 10px;}
+.book-item .book-author {margin-top: 4px;font-size: 10px;color: blue;}
 /* 장르, 더보기 */
 .widget-header {height: 24px;padding: 12px 1px;border-bottom: 1px solid black;}
 .widget-header h3, .widget-title {float: left;margin: 0 30px 0 0;font-size: 16px;}
@@ -248,8 +311,45 @@ a.btn:hover {text-decoration: none;}
 .category #main #list-content #list-content-header #btn-group-sub-nav a {border-left: none; float: left; font-size: 12px; padding: 0 5px;}
 #btn-group-sub-nav a.active {font-weight: bold;}
 #btn-group-sub-nav a:hover {border-bottom: 1px solid black;}
+#sidebar-lnb>ul {margin-right: 5px; padding-bottom: 10px; border: 1px solid black; padding: 0; margin: 0; list-style: none;}
+#sidebar-lnb>ul>li {margin-top: 10px; position: relative; height: 30px;}
+.sidebar li {margin: 0;}
+.category #sidebar-lnb>ul>li .active .circle {background: white;}
+.category #sidebar-lnb>ul>li .circle {position: absolute; left: 3px; cursor: pointer;}
+.circle {border-radius: 50%; width: 18px; height: 18px; display: inline-block; border: 1px solid black;}
+.circle {background:url("../img/plus-1.png") center no-repeat;}
+.category #sidebar-lnb>ul>li>a {font-size: 16px;}
+.category #sidebar-lnb ul li a {width:200px; font-size: 13px; position: relative; height: auto; line-height: 20px; padding: 4px 10px 6px 29px; text-decoration: none; font-weight: bold;}
+.category #sidebar-lnb>ul>li .ic-horizontal {position: absolute; left: 3px; cursor: pointer;}
+.ic-horizontal {border-radius: 50%; width: 18px; height: 18px; display: inline-block; border: 1px solid black;}
+.ic-horizontal {background:url("../img/-.jpg") center no-repeat;}
+.category #sidebar-lnb>ul>li>ul {display: block; padding-left: 25px;border-left: 1px solid black;position: relative;right: 1px;}
+.category #sidebar-lnb>ul>li>ul>li>a {padding-left: 0px; color: black; background: none; border-left: 3px solid transparent; font-weight: normal;}
+.category #sidebar-lnb>ul>li>ul>li>a:hover {color: red;}
+.sidebar li a {display: block;}
 
+/* 리스트 테이블 CSS */
+#list-content-table {width: 100%; border-top: 1px solid gray; font-size: 12px; border-collapse: collapse; border-spacing: 0; display: table;}
+#list-content-table tr {display: table-row; vertical-align: inherit; border-color: inherit; }
+#list-content-table td {border-bottom: 1px solid gray;}
+.product-image {padding-top: 50px;}
+#list-content-table .product-info {padding: 0px;}
+#list-content-table .product-info h3 {font-size: 18px; width: 468px; position: relative;}
+#list-content-table .product-info h3 a {position: relative; bottom: 130;}
+.product-meta {position: relative; bottom: 110;}
+.list-right-span {float: left; border-right: 1px solid #c8c8c8; margin-right: 8px;}
+.list-right-span a {padding: 0 10px 0 5px; color: red;}
+.list-right-publisher {float: left; margin-right: 15px;}
+.last {border-right: none;}
+.product-price {clear: both; line-height: 1; position: relative; bottom: 80;}
+.product-price strong {position: relative; top: 2px; font-family: Arial, sans-serif; font-size: 24px; letter-spacing: 0; color: red;}
+.product-price .currency {font-size: 14px;}
 
+/* 리스트 버튼 */
+.product-info .btn-group button {position: relative; width: 150px; padding: 10px 10px 12px; margin-bottom: 5px; font-size: 13px;}
+.btn-primary {background-color: white; border-color: black; color:black;}
+.product-info .btn-group button .icon {position: relative; margin-right: 6px; vertical-align: top;}
+.btn-primary:hover {background-color: #545cf5;border-color: #545cf5;color: #ff0000;}
 //
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;

@@ -1,6 +1,9 @@
 package com.bookk.web.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -13,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.bookk.web.domain.FileProxy;
 import com.bookk.web.domain.Page;
 import com.bookk.web.domain.PageAdapter;
 import com.bookk.web.mapper.Mapper;
@@ -73,13 +79,13 @@ public class Controller{
 			param.put("colum1", "ADM_ID");
 			param.put("colum2", "ADM_PASS");
 			param.put("type", param.get("type"));
-//			o=  new ISerachService() {
-//				@Override
-//				public Object excute(HashMap<?, ?> param) {
-//					// TODO Auto-generated method stub
-//					return mapper.selectById(param);
-//				}
-//			}.excute(param);
+			o=  new IGetService() {
+				@Override
+				public Object execute(HashMap<?, ?> param) {
+					// TODO Auto-generated method stub
+					return mapper.selectAdminById(param);
+				}
+			}.execute(param);
 			break;
 		default:
 			break;
@@ -87,7 +93,39 @@ public class Controller{
 		System.out.println("넘길 값 : "+o);
 		return o;
 	}
-	
+	@RequestMapping(value="/{type}/myProfile")
+	public Object myProfile(@RequestBody HashMap<String, String> param){
+		logger.info("welcom {}","myProfile ");
+		param.put("data1", param.get("id"));
+		param.put("data2", param.get("pass"));
+		Object o=null;
+		switch (param.get("type")) {
+		case "member":
+			System.out.println("mem");
+			param.put("colum1", "MEM_ID");
+			param.put("colum2", "MEM_PASS");
+			param.put("type", param.get("type"));
+			o= new IGetService() {
+				@Override
+				public Object execute(HashMap<?, ?> param) {
+					
+					return mapper.selectMemberById(param);
+				}
+			}.execute(param);
+			break;
+		case "admin":
+			System.out.println("adm");
+			param.put("colum1", "ADM_ID");
+			param.put("colum2", "ADM_PASS");
+			param.put("type", param.get("type"));
+			
+			break;
+		default:
+			break;
+		}
+		System.out.println("넘길 값 : "+o);
+		return o;
+	}
 	@RequestMapping(value="/{type}/join")
 	public Map<?, ?> join(@RequestBody HashMap<String, String> param){
 		Map<String,Object> map=new HashMap<>();
@@ -186,14 +224,17 @@ public class Controller{
 		  
 	  }
 	
-	@RequestMapping("/searchArticle/{select}")
+	@RequestMapping("/searchArticle/{select}/{pageNum}")
 	public Map<?, ?> search(
 		 @PathVariable String select,
+		 @PathVariable String pageNum,
 		 @RequestBody HashMap<String, String> param) {
 		Map<String, Object> map = new HashMap<>();
 		Object o = null;
-		System.out.println(param.get("type"));
-		System.out.println(param.get("data"));
+		System.out.println("select :"+select);
+		System.out.println("pageNum :"+pageNum );
+		System.out.println("타입 : " +param.get("type"));
+		System.out.println("검색명 : "+param.get("data"));
 		param.get("data");
 		/*
 		 * 
@@ -202,6 +243,7 @@ public class Controller{
 		 * 
 		  
 		  */
+		
 		page.setTotalCount( new ICountService() {
 			
 			@Override
@@ -210,9 +252,11 @@ public class Controller{
 				return mapper.searchCount(param);
 			}
 		}.execute(param));
-	 	page.setPageSize(Integer.parseInt("3"));
-	 	page.setBlockSize(Integer.parseInt("3"));
-	 	page.setPageNum(Integer.parseInt("1"));
+	 	page.setPageNum(Integer.parseInt(pageNum));
+	 	System.out.println("페이지 넘버요  : "+page.getPageNum());
+	 	page.setPageSize(3); //게시글
+	 	page.setBlockSize(3); // 3까지 페이지넘버
+	
 	 	page = (Page) adapter.attr(page);
 	 	map.put("page", page);	
 	 	
@@ -296,5 +340,109 @@ public class Controller{
 		
 		return map;
 		
+	}
+	@RequestMapping("/articleW")
+	public Map<?,?> articleWriting(
+			MultipartHttpServletRequest request,
+			 @RequestBody HashMap<String, String> param) throws IllegalStateException, IOException{
+		Map<String, Object> map = new HashMap<>();
+		FileProxy pxy=new FileProxy();
+		Iterator<String> it = request.getFileNames();
+		String rootPath = "";
+		String uploadPath = "";
+		String fileName = "";
+		if(it.hasNext()) {
+			MultipartFile file = request.getFile(it.next());
+			rootPath = request.getSession().getServletContext().toString();
+			uploadPath = "resources/image/";
+			fileName= file.getOriginalFilename();
+		}
+		String path = rootPath+uploadPath;
+		File files = new File(path);
+		System.out.println(fileName+"1");
+		pxy.getFile().transferTo(files);
+	 System.out.println("이거탑니까 지금 ? ");
+	 System.out.println(param+"탑니까 지금 ? ");
+	 map.put("insertA", new IPostService() {
+			
+			@Override
+			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.insertBoard(param);
+			}
+		}.execute(param));
+		System.out.println("담긴값 : "+ map );
+		
+		return map;
+		
+	}
+/*	@RequestMapping("/articleComment")
+	public Map<?,?> articleComment(
+			@RequestBody HashMap<String, String> param){
+		new IPostService() {
+			
+			@Override
+			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+		};
+		return null;
+	}*/
+	// book
+	@RequestMapping("/bookMain")
+	public Map<?,?> bookMain(){
+		Map<String, Object> map = new HashMap<>();
+		map.put("genreL", new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.bookGenreDate(param);
+			}
+		}.execute((HashMap<?, ?>) map));
+		System.out.println(map.get("genreL"));
+		return map;
+		
+	}
+	
+	@RequestMapping(value="/bookGenreSmallCount",
+			method=RequestMethod.POST,consumes="application/json")
+		public Object bookGenreSmallCount(@RequestBody HashMap<String, String> param) {
+		Map<String,Object> map = new HashMap<>();
+		param.put("genre",param.get("small"));
+		System.out.println("뭐냐고"+param.get("genre"));
+		int i = new ICountService() {
+			@Override
+			public int execute(HashMap<?, ?> map) {
+				return mapper.bookGenreSmallCount(param);
+			}
+		}.execute(param);
+		System.out.println("test::"+i);
+		return i;
+	}
+	
+	@RequestMapping(value="/bookGenreLargeList",
+			method=RequestMethod.POST,consumes="application/json")
+		public Object bookGenreLargeList(@RequestBody HashMap<String, String> param) {
+		Map<String,Object> map = new HashMap<>();
+		param.put("genre",param.get("large"));
+		System.out.println("뭐냐고"+param.get("genre"));
+		int i = new ICountService() {
+			@Override
+			public int execute(HashMap<?, ?> map) {
+				return mapper.bookGenreLargeCount(param);
+			}
+		}.execute(param);
+		System.out.println("test::"+i);
+		Object o = new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				return mapper.bookGenreLargeList(param);
+			}
+		}.execute(param);
+		System.out.println("test::"+o);
+		map.put("count",i);
+		map.put("largeList",o);
+		return map;
 	}
 }

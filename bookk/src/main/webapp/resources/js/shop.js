@@ -60,7 +60,7 @@ shop.mall = {cart:x=>{
 							$(createTable({id:'table-cart',clazz:'table-cart'})).appendTo('#div-cart-content')
 							$(createTr({id:'tr-head'})).appendTo('#table-cart')
 							$(createMultiTh({arr:['1','2','3','4'],clazz:'',id:'th'})).appendTo('#tr-head')
-							$('#th-0').html(createInput({id:'ip-check-all',clazz:'update',type:'checkbox'})).attr('style','width:5%;padding-right:30px;')
+							$('#th-0').html(createInput({id:'ip-check-all',clazz:'',type:'checkbox'})).attr('style','width:5%;padding-right:30px;')
 							$('#ip-check-all').attr('checked','checked')
 							$('#th-1').text('상품정보').attr('style','width:65%')
 							$('#th-2').text('상품금액')
@@ -118,9 +118,9 @@ shop.mall = {cart:x=>{
 						
 						$('#ip-check-all').change(()=>{
 							if($('#ip-check-all').is(":checked")){
-								$('input[type=checkbox]').prop('checked',true);
+								$('input[name=book-check]').prop('checked',true);
 							}else if(!($('#ip-check-all').is(":checked"))){
-								$('input[type=checkbox]').prop('checked',false);
+								$('input[name=book-check]').prop('checked',false);
 							}
 						});
 					
@@ -220,10 +220,14 @@ shop.mall = {cart:x=>{
 						});
 						$('.ui-spinner-button').addClass('update');
 						var zz = 0;
+						$('ip-check-all').change(()=>{
+							
+						});
 						$('.update').click(()=>{
-							$('#span-td-0').text(zz).attr('style','font-size:30px');
+							
+							/*$('#span-td-0').text(zz).attr('style','font-size:30px');*/
 							zz =0;
-							$(function(){
+							/*$(function(){
 								if($('#ip-check-all').is(':checked')){
 									calc();
 								} else {
@@ -231,16 +235,16 @@ shop.mall = {cart:x=>{
 									$('#span-td-0').text(0).attr('style','font-size:30px');
 								}
 								
-							});
-							var calc = function(){for(var i =0;i<Object.keys(y).length;i++){
+							});*/
+							/*var calc = function(){*/for(var i =0;i<Object.keys(y).length;i++){
 								
 								if($('#book-check-'+i+'').is(':checked')){
 									zz += 1*$( "#input-amount-"+i).spinner("value")*$('#td-tr'+i+'-cart-list-2').text();
-									$('#span-td-0').text(zz).attr('style','font-size:30px');
-									$('#span-td-2').text(zz+$('#span-td-1').text()*1).attr('style','font-size:30px');
 								}
 							}
-							};
+							$('#span-td-0').text(zz).attr('style','font-size:30px');
+							$('#span-td-2').text(zz+$('#span-td-1').text()*1).attr('style','font-size:30px');
+							/*};*/
 						});
 						$(createDiv({id:'div-btn-wrapper',clazz:''})).appendTo('#div-content');
 						$('#div-btn-wrapper').append(createButton({id:'btn-cart-payment',clazz:'btn',val:'결제하기'}))

@@ -132,6 +132,9 @@ var makeCount = x=>{
 }
 
 // 기본
+var createFont=x=>{
+    return '<font>'+x.val+'</font>';
+}
 var strong=x=>{
 	return '<strong id="'+x.id+'">'+x.val+'</strong>'
 }
@@ -139,13 +142,13 @@ var createFont=x=>{
     return '<font>'+x.val+'</font>';
 }
 var textarea=x=>{
-    return '<textarea id="'+x.id+'">'
+    return '<textarea id="'+x.id+'"/>'
 }
 var createSelect=x=>{
 	return '<select id="'+x+'"></select>'
 }
 var createImg=x=>{
-	return '<img id="'+x.id+'" alt="'+x.alt+'" src="'+x.src+'" class="'+x.clazz+'">'
+	return '<img id="'+x.id+'" alt="'+x.alt+'" src="'+x.src+'" class="'+x.clazz+'"/>'
 }
 var createOption=x=>{
 	return '<option value="'+x.val+'">'+x.txt+'</option>'
@@ -153,11 +156,14 @@ var createOption=x=>{
 var createDiv=x=>{
 	return '<div id="'+x.id+'" class="'+x.clazz+'"></div>'
 }
+var createDivVal=x=>{
+	return '<div id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</div>'
+}
 var createForm=x=>{
 	return '<form id="'+x.id+'" class="'+x.clazz+'"></form>'
 }
 var createATag=x=>{
-	return '<a id="'+x.id+'" href="#"> '+x.val+'</a>';
+	return '<a id="'+x.id+'" href="#">'+x.val+'</a>';
 }
 var createTable=x=>{
 	return '<table id="'+x.id+'" class = "'+x.clazz+'"></table>'
@@ -200,4 +206,10 @@ var DcreateHTag=x=>{
 }
 var createP=x=>{
 	return '<p>'+x.val+'</p>'
+}
+var DcreateSpan=x=>{
+	return '<span id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</span>';
+}
+var createStrong=x=>{
+	return '<strong>'+x.val+'</strong>';
 }
