@@ -195,7 +195,7 @@ a.btn:hover {text-decoration: none;}
 .section-ad .ad-item:hover a img {border: 2px solid blue;}
 /* 이주의 책, 부크크 차트 */
 .nav {list-style: none;margin: 0;padding: 0;}
-.nav-tabs-vertical {float: left;width: 70px;text-align: center;}
+.jquery 다중 이벤트nav-tabs-vertical {float: left;width: 70px;text-align: center;}
 .nav-tabs-vertical li a {display: block;height: 67px;line-height: 67px;}
 .nav-tabs-vertical li.active a:hover {text-decoration: none;color: #0000ff;border-bottom: 2px solid blue;}
 .nav-tabs-vertical li.active a {background-color: black;color: white;cursor: pointer;font-weight: bold;}
@@ -203,6 +203,15 @@ a.btn:hover {text-decoration: none;}
 .section-ranking .widget {width: 480px;}
 .section-ranking .widget-content {height: 202px;border-bottom: 1px solid black;}
 /* CSS 장바구니 #div-monitor Start */
+.book-del{
+	background-color:#ce6a52;
+	color:white;
+	width:50%;
+	margin-left:25%
+}
+.book-del:hover{
+	background-color:#df5e42;
+}
 .table-cart-price{
 	width: 100%; margin-top: 70px;
 	border-collapse: collapse;

@@ -24,6 +24,7 @@ import com.bookk.web.domain.Page;
 import com.bookk.web.domain.PageAdapter;
 import com.bookk.web.mapper.Mapper;
 import com.bookk.web.service.ICountService;
+import com.bookk.web.service.IDeleteService;
 import com.bookk.web.service.IGetService;
 import com.bookk.web.service.IPostService;
 import com.bookk.web.service.ISearchService;
@@ -41,18 +42,28 @@ public class Controller{
 	//장만호 영역 start
 	@RequestMapping(value="/cartlist/{userid}",
 			method=RequestMethod.POST,consumes="application/json")
-	public Object cartList(@RequestBody HashMap<String, String> param) {
+	public Object cartList(@RequestBody HashMap<String, Object> param) {
 		System.out.println(param.get("userid"));
-		return new IGetService() {
+		System.out.println(param.get("deleteNum"));
+		new IDeleteService() {
 			
 			@Override
+			public void execute(HashMap<?, ?> param) {
+				mapper.deleteCartList(param);
+				
+			}
+		}.execute(param);
+		return new IGetService() {
+			
+			@Override 
 			public Object execute(HashMap<?, ?> param) {
-				// TODO Auto-generated method stub
+				
 				return mapper.mallCartList(param);
 			}
 		}.execute(param) ;
 		
 	}
+	
 	//장만호 영역 end
 	@RequestMapping(value="/{type}/login")
 	public Object login(@RequestBody HashMap<String, String> param){
