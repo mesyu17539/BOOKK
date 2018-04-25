@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookk.web.domain.Page;
@@ -29,6 +30,24 @@ public class Controller{
 	@Autowired PageAdapter adapter;
 	@Autowired Page page;
 	
+	
+	
+	//장만호 영역 start
+	@RequestMapping(value="/cartlist/{userid}",
+			method=RequestMethod.POST,consumes="application/json")
+	public Object cartList(@RequestBody HashMap<String, String> param) {
+		System.out.println(param.get("userid"));
+		return new IGetService() {
+			
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.mallCartList(param);
+			}
+		}.execute(param) ;
+		
+	}
+	//장만호 영역 end
 	@RequestMapping(value="/{type}/login")
 	public Object login(@RequestBody HashMap<String, String> param){
 		logger.info("welcom {}","login ");
@@ -139,7 +158,7 @@ public class Controller{
 	public Object cartCount(
 			@PathVariable("userid")String userid,
 			@RequestBody HashMap<String, String> param) {
-				Map<String,Object> map = new HashMap<>();
+				
 				logger.info("넘어온 ID값은? {}",param.get("userid"));
 		return new IGetService() {
 			

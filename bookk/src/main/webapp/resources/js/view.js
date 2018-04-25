@@ -43,7 +43,7 @@ var createTDJW=x=>{
 	+x.j.createDate+'</td>';
 	return td;
 }
-//추가 만호
+// 추가 만호
 var createMultiSpan=x=>{
 	var temp = '';
 	$.each(x.arr,(i,j)=>{
@@ -54,7 +54,7 @@ var createMultiSpan=x=>{
 var createMultiDiv=x=>{
 	var temp = '';
 	$.each(x.arr,(i,j)=>{
-		temp+='<div id ="'+x.id+'-'+i+'"></div>'
+		temp+='<div id ="'+x.id+'-'+i+'" class="'+x.clazz+'"></div>'
 	});
 	return temp;
 }
@@ -116,7 +116,25 @@ var createMultiLi = x=>{
 	})
 	return temp;
 }
+var multiOption = x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<option id="'+x.id+'">'+j+'</option>'
+	});
+	return temp;
+}
+var makeCount = x=>{
+	var a= new Array();
+	for(var i =1;i<=x;i++){
+		a.push(i);
+	}
+	return a;
+}
+
 // 기본
+var strong=x=>{
+	return '<strong id="'+x.id+'">'+x.val+'</strong>'
+}
 var createFont=x=>{
     return '<font>'+x.val+'</font>';
 }
