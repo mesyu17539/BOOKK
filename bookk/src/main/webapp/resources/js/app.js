@@ -40,7 +40,7 @@ app.nav=(()=>{
                 document.getElementById('wizcss').href=(context+'/resources/css/style.css');
                 $('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
                 $.getScript($.javascript()+'/book.js',()=>{
-                    book.main.onCreate();
+                    book.main.setContentView({context:context,view:view});
                 })
             });
             $(createButton({id:'',type:'',clazz:'btn mint long',val:'게시판'}))

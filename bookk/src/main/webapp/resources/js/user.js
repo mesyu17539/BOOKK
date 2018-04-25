@@ -304,9 +304,9 @@ user.member={
 							e.preventDefault();
 							document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
 							$.getScript($.javascript()+'/book.js',()=>{
-								book.main.onCreate();	  
+								book.main.bookNav(x);
 								$.getScript($.javascript()+'/shop.js',()=>{
-									shop.mall.cart({view:x.view,context:x.context});
+									shop.mall.cart(x);
 								});
 							});
 						});
@@ -317,7 +317,7 @@ user.member={
 							e.preventDefault();
 							document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
 							$.getScript($.javascript()+'/book.js',()=>{
-								book.main.onCreate();	   			
+								book.main.bookNav(x);   			
 								$.getScript($.javascript()+'/user.js',()=>{
 									user.member.admempage(x);
 									user.member.mypage(x);
