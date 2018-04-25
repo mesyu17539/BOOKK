@@ -153,11 +153,14 @@ var createOption=x=>{
 var createDiv=x=>{
 	return '<div id="'+x.id+'" class="'+x.clazz+'"></div>'
 }
+var createDivVal=x=>{
+	return '<div id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</div>'
+}
 var createForm=x=>{
 	return '<form id="'+x.id+'" class="'+x.clazz+'"></form>'
 }
 var createATag=x=>{
-	return '<a id="'+x.id+'" href="#"> '+x.val+'</a>';
+	return '<a id="'+x.id+'" href="#">'+x.val+'</a>';
 }
 var createTable=x=>{
 	return '<table id="'+x.id+'" class = "'+x.clazz+'"></table>'
@@ -200,4 +203,10 @@ var DcreateHTag=x=>{
 }
 var createP=x=>{
 	return '<p>'+x.val+'</p>'
+}
+var DcreateSpan=x=>{
+	return '<span id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</span>';
+}
+var createStrong=x=>{
+	return '<strong>'+x.val+'</strong>';
 }

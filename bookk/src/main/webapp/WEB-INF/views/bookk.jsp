@@ -4,7 +4,6 @@
 <html>
 <head>
 	<title>Home</title>
-	
  	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
       rel = "stylesheet">
 	<link rel="stylesheet" id="wizcss" href="${context}/resources/css/style.css">
@@ -17,6 +16,7 @@
 	<script src="${context}/resources/js/jquery.magnific-popup.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="${context}/resources/js/app.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 </head>
 <body>
 <div id="wrapper">

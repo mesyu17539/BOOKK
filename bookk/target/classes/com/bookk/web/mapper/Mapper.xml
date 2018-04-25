@@ -65,9 +65,16 @@
 		
 	</resultMap>
 	<!-- MALL -->
+    <!-- 장만호 영역  start-->
 	<select id="mallCartCount" resultType="map" parameterType="hashMap">
 	SELECT COUNT(*) AS count FROM CARTBASKET
 	</select>
+    <select id="mallCartList" resultMap="map" parameterType="hashMap">
+    SELECT s.*,(select i.`imageRoute` from image i where i.`imageName` like s.imagename) As imageRoute
+	  FROM shop s
+	 WHERE s.mem_id LIKE 'ju'
+    </select>
+    <!-- 장만호 영역  end -->
 	
 	<!-- MEMBER -->
 	<insert id="addMember" parameterType="hashMap">
@@ -125,11 +132,29 @@
          <select id="articleDetail" resultMap="map" parameterType="hashMap">
      	select * from board where board_id like #{x}
      </select>
-     <!-- 장만호 영역  start-->
-     <select  id="mallCartList" resultMap="map" parameterType="hashMap">
-     SELECT s.*,(select i.`imageRoute` from image i where i.`imageName` like s.imagename) As imageRoute
-  FROM shop s
- WHERE s.mem_id LIKE 'ju'
+     
+     <!-- book -->
+     <select id="largeGenre" resultMap="map">
+     	select DISTINCT largeGenre from genre
      </select>
-     <!-- 장만호 영역  end -->
+     <select id="bookGenreDate" resultMap="map" parameterType="hashMap">
+     	SELECT b.*, (select i.imageRoute from image i where b.imageName like i.imageName) as imageRoute 
+		FROM book b where b.genreNum in (select DISTINCT  g.genreNum from genre g WHERE g.genreNum between 1 and 28)
+     </select>
+     <select id="bookGenreSmallCount" resultType="int" parameterType="hashMap">
+		select count(*) from book b join genre g
+		 on g.genreNum LIKE b.genreNum
+		  where g.smallGenre like #{genre}
+	 </select>
+	 <select id="bookGenreLargeCount" resultType="int" parameterType="hashMap">
+		select count(*) from book b join genre g
+		 on g.genreNum LIKE b.genreNum
+		  where g.largeGenre like #{genre}
+	 </select>
+	 <select id="bookGenreLargeList" resultType="map" parameterType="hashMap">
+		select b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		left join genre g on b.genreNum like g.genreNum
+		where g.largeGenre like #{genre}
+		order by b.publishingDate DESC
+	 </select>
 </mapper>
