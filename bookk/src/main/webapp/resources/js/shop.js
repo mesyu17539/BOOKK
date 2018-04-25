@@ -221,14 +221,13 @@ shop.mall = {cart:x=>{
 						$('.ui-spinner-button').addClass('update');
 						var zz = 0;
 						$('.update').click(()=>{
-							$('#span-td-0').text(zz).attr('style','font-size:30px');
 							zz =0;
 							$(function(){
 								if($('#ip-check-all').is(':checked')){
 									calc();
-								} else {
-									
-									$('#span-td-0').text(0).attr('style','font-size:30px');
+								}else {
+									calc();
+									$('#span-td-0').text(zz).attr('style','font-size:30px');
 								}
 								
 							});
@@ -236,10 +235,10 @@ shop.mall = {cart:x=>{
 								
 								if($('#book-check-'+i+'').is(':checked')){
 									zz += 1*$( "#input-amount-"+i).spinner("value")*$('#td-tr'+i+'-cart-list-2').text();
-									$('#span-td-0').text(zz).attr('style','font-size:30px');
-									$('#span-td-2').text(zz+$('#span-td-1').text()*1).attr('style','font-size:30px');
 								}
 							}
+							$('#span-td-0').text(zz).attr('style','font-size:30px');
+							$('#span-td-2').text(zz+$('#span-td-1').text()*1).attr('style','font-size:30px');
 							};
 						});
 						$(createDiv({id:'div-btn-wrapper',clazz:''})).appendTo('#div-content');
