@@ -213,7 +213,8 @@ bulletin.jau=(()=>{
 						$('#div-articles').attr('style','border:1px solid blue;padding:0px;');
 						$('#div-articles').html($(createTab({id:'tab-articles1',clazz:''}))
 							.attr('style','width:100%;font-size:15px; border-top: 5px solid #adcfdf;border-bottom: 5px solid #adcfdf;'));
-						$(createTHJW({id:'th-articles1',thList: ''})).appendTo('#tab-articles1').attr('style','border-top: 2px solid #adcfdf;');
+						$(createTHJW({id:'th-articles1',thList: ''})).appendTo('#tab-articles1')
+						.attr('style','border-top: 2px solid #adcfdf;');
 						$(createTRJW({list : x.list, clazz : ''})).appendTo('#tab-articles1')
 							.attr('style', 'text-align: center; border: 1px solid gray;height: 60px; ');
 						$('._0').attr('class','col-sm-1');
