@@ -382,7 +382,9 @@ user.member={
 				+createInput({id:'join-phoneM',clazz:'my-border-input',type:'email'})+'-'
 				+createInput({id:'join-phoneA',clazz:'my-border-input',type:'email'})+'<br/>');
 		
-		$('#div-form-group')
+		$(createDiv({id:'ssns',clazz:''}))
+		.attr('style','position: relative;')
+		.appendTo('#div-form-group')
 		.append(createLabel({fo:'comment',val:'주민번호'})+'<br/>'
 				+createInput({id:'join-ssnB',clazz:'my-border-input',type:'text'})+'-'
 				+createSelect('join-ssnA')+'<br/>');
@@ -432,7 +434,22 @@ user.member={
 		
 		$('#join-ssnB')
 		.attr('style','width:120px;')
-		.attr('placeholder','앞자리 6자리');
+		.attr('placeholder','앞자리 6자리')
+		.daterangepicker({
+			autoUpdateInput: false,
+				locale: {
+					cancelLabel: 'Clear',
+			        format: 'YYMMDD'
+			    },
+				singleDatePicker: true,
+		        showDropdowns: true
+	    }, 
+	    function(start, end, label) {
+	    	$('#join-ssnB').val(moment().format('YYMMDD'));
+	    });
+		$('.daterangepicker').attr('style','display: none;position: fixed;width: 300px;left: 0;right: 0;margin-left: auto;margin-right: auto;top: 62%;border: 1px solid #969696;background-color: #fff;');
+	    
+	    
 		$('#join-email')
 		.attr('style','width:70px;');
 		$('#join-phoneM')
@@ -485,7 +502,6 @@ user.member={
 		.appendTo('#div-btn-group')
 		.on('click',e=>{
 			e.preventDefault();
-			
 			id=$('#join-id').val();
 			pass=$('#join-password').val();
 			ssn=$('#join-ssnB').val();
@@ -507,7 +523,7 @@ user.member={
 				$('#join-ssnB').focus();
 				return;
 			}
-			if(ssn.length!=4){
+			if(ssn.length!=6){
 				alert('생년월일 6자리를 입력하세요');
 				$('#join-ssnB').select();
 				return;
