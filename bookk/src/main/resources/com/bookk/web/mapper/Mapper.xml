@@ -92,6 +92,12 @@
     WHERE
 	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2} AND ADDRESS.ADDR_ADDRESS LIKE ${type}.MEM_ADDRESS
     </select>
+    <select id="selectAdminById" resultMap="map" parameterType="hashMap">
+    SELECT *
+    FROM ${type}
+    WHERE
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2}
+    </select>
     <select id="selectById" resultMap="map" parameterType="hashMap">
     SELECT ${type}.*, ADDRESS.ADDR_POSTCODEADDRESS, ADDRESS.ADDR_ROADADDRESS, ADDRESS.ADDR_JIBUNADDRESS, ADDRESS.ADDR_DETAILADDRESS
     FROM ${type}, ADDRESS

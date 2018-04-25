@@ -11,6 +11,7 @@ public interface Mapper {
 	    public int addMember(HashMap<?, ?> param);
 	    public int addAddress(HashMap<?, ?> param);
 	    public Object selectMemberById(HashMap<?, ?> param);
+	    public Object selectAdminById(HashMap<?, ?> param);
 	    public Object selectById(HashMap<?, ?> param);
 		public HashMap<?, ?> mallCartCount(HashMap<?, ?> map);
 		public List<?> mallCartList(HashMap<?, ?> param);

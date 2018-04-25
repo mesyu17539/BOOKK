@@ -263,6 +263,7 @@ user.member={
 		.attr('style','display: inline-block;margin-bottom: 5px;max-width: 100%;font-weight: 700;');
 		
 		$('#div-btn-group')
+		.append($(createInput({id:'',clazz:'',type:'checkbox'})).attr('name','admin-check'))
 		.append($(createLabel({fo:'comment',val:'관리자 로그인'}))
 				.attr('style','font-size: 11px;'))
 		.append('<br/>');
@@ -272,15 +273,20 @@ user.member={
 		.appendTo('#div-btn-group')
 		.on('click',e=>{
 			e.preventDefault();
+			var type='member';
+			if($('input[name=admin-check]').is(':checked')){
+				type='admin';
+			}
+			
 			var userid=$('#login-id').val();
 			var userpass=$('#login-password').val();
 			$.ajax({
-				url:x.context+'/member/login',
+				url:x.context+'/'+type+'/login',
 				method:'POST',
 				data:JSON.stringify({
 					id:userid,
 					pass:userpass,
-					type:'member'
+					type:type
 					}),
 				dataType:'json',
 				contentType:'application/json',
@@ -288,42 +294,45 @@ user.member={
 					if(d!==null){
 						sessionStorage.setItem('user',JSON.stringify(d));
 						$('#div-header-userMenu').html(createDiv({id:'div-member-bar',clazz:''}));
-						
-						$(createATag({id:'a-cs',val:'고객센터'})).appendTo('#div-member-bar')
-						.on('click',()=>{
-							alert('서비스 준비중..');
-						});
-						$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
-						$(createATag({id:'a-delivery-check',val:'주문배송조회'})).appendTo('#div-member-bar')
-						.on('click',()=>{
-							alert('서비스 준비중..');
-						});
-						$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
-						$(createATag({id:'a-cart',val:'장바구니'})).appendTo('#div-member-bar')
-						.on('click',e=>{
-							e.preventDefault();
-							document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
-							$.getScript($.javascript()+'/book.js',()=>{
-								book.main.bookNav(x);
-								$.getScript($.javascript()+'/shop.js',()=>{
-									shop.mall.cart(x);
+						if($('input[name=admin-check]').is(':checked')){
+							user.admin.login(x);
+						}else{
+							$(createATag({id:'a-cs',val:'고객센터'})).appendTo('#div-member-bar')
+							.on('click',()=>{
+								alert('서비스 준비중..');
+							});
+							$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
+							$(createATag({id:'a-delivery-check',val:'주문배송조회'})).appendTo('#div-member-bar')
+							.on('click',()=>{
+								alert('서비스 준비중..');
+							});
+							$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
+							$(createATag({id:'a-cart',val:'장바구니'})).appendTo('#div-member-bar')
+							.on('click',e=>{
+								e.preventDefault();
+								document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
+								$.getScript($.javascript()+'/book.js',()=>{
+									book.main.bookNav(x);
+									$.getScript($.javascript()+'/shop.js',()=>{
+										shop.mall.cart(x);
+									});
 								});
 							});
-						});
-						
-						$(createButton({id:'',type:'',clazz:'lo-btn',val:'마이페이지'}))
-						.appendTo('#div-header')
-						.on('click',e=>{
-							e.preventDefault();
-							document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
-							$.getScript($.javascript()+'/book.js',()=>{
-								book.main.bookNav(x);   			
-								$.getScript($.javascript()+'/user.js',()=>{
-									user.member.admempage(x);
-									user.member.mypage(x);
+							
+							$(createButton({id:'',type:'',clazz:'lo-btn',val:'마이페이지'}))
+							.appendTo('#div-header')
+							.on('click',e=>{
+								e.preventDefault();
+								document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
+								$.getScript($.javascript()+'/book.js',()=>{
+									book.main.bookNav(x);   			
+									$.getScript($.javascript()+'/user.js',()=>{
+										user.member.admempage(x);
+										user.member.mypage(x);
+									});
 								});
 							});
-						});
+						}
 						$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
 						$(createATag({id:'a-logout',val:'로그아웃'})).appendTo('#div-member-bar')
 						.on('click',e=>{

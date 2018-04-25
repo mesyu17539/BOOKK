@@ -79,13 +79,13 @@ public class Controller{
 			param.put("colum1", "ADM_ID");
 			param.put("colum2", "ADM_PASS");
 			param.put("type", param.get("type"));
-//			o=  new ISerachService() {
-//				@Override
-//				public Object excute(HashMap<?, ?> param) {
-//					// TODO Auto-generated method stub
-//					return mapper.selectById(param);
-//				}
-//			}.excute(param);
+			o=  new IGetService() {
+				@Override
+				public Object execute(HashMap<?, ?> param) {
+					// TODO Auto-generated method stub
+					return mapper.selectAdminById(param);
+				}
+			}.execute(param);
 			break;
 		default:
 			break;
