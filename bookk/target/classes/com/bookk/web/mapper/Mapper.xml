@@ -3,5 +3,167 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookk.web.mapper.Mapper">
-    
+    <resultMap type="java.util.HashMap" id="map">
+    <!-- 회원 -->
+		<result property="memID" column="MEM_ID"/>
+		<result property="memPass" column="MEM_PASS"/>
+		<result property="memStatus" column="MEMSTATUS"/>
+		<result property="memName" column="MEM_NAME"/>
+		<result property="memNickName" column="MEM_NICKNAME"/>
+		<result property="memIntroduce" column="MEM_INTRODUCE"/>
+		<result property="memSsn" column="MEM_SSN"/>
+		<result property="memPhone" column="MEM_PHONE"/>
+		<result property="memEmail" column="MEM_EMAIL"/>
+		<result property="memAddr" column="MEM_ADDRESS"/>
+	<!-- 주소 -->
+		<result property="addrAddress" column="ADDR_ADDRESS"/>
+		<result property="addrPostCode" column="ADDR_POSTCODEADDRESS"/>
+		<result property="addrRoad" column="ADDR_ROADADDRESS"/>
+		<result property="addrJibun" column="ADDR_JIBUNADDRESS"/>
+		<result property="addrDetailAddr" column="ADDR_DETAILADDRESS"/>
+		
+		<result property="admId" column="ADM_ID"/>
+		<result property="admPass" column="ADM_PASS"/>
+	<!-- 게시판 -->
+		<result property="bID" column="board_id"/>
+		<result property="createDate" column="create_date"/>
+		<result property="title" column="co_title"/>
+		<result property="contents" column="contents"/>
+		<result property="viewNum" column="view_num"/>
+	<!-- 몰 -->
+		<result property="orderNum" column="order_num"/>
+		
+		<result property="cartNum" column="cart_num"/>
+		<result property="reservDate" column="reserv_date"/>
+		<result property="amount" column="amount"/>
+		
+		<result property="sbid" column="sbid"/>
+		<result property="salesamount" column="salesamount"/>
+		<result property="salesdate" column="salesdate"/>
+		<result property="recipient" column="recipient"/>
+		<result property="phonenum" column="phonenum"/>
+		<result property="sellAddress" column="sell_ADDRESS"/>
+	<!-- 북 -->
+		<result property="genreNum" column="genreNum"/>
+		<result property="largeGenre" column="largeGenre"/>
+		<result property="smallGenre" column="smallGenre"/>
+		
+		<result property="bookNum" column="bookNum"/>
+		<result property="bookName" column="bookName"/>
+		<result property="writter" column="writter"/>
+		<result property="publisher" column="publisher"/>
+		<result property="publishingDate" column="publishingDate"/>
+		<result property="price" column="price"/>
+		
+		<result property="imageName" column="imageName"/>
+		<result property="imageRoute" column="imageRoute"/>
+		
+		
+		<result property="evaluid" column="evaluid"/>
+		<result property="evalulike" column="evalulike"/>
+		
+	</resultMap>
+	<!-- MALL -->
+    <!-- 장만호 영역  start-->
+	<select id="mallCartCount" resultType="map" parameterType="hashMap">
+	SELECT COUNT(*) AS count FROM CARTBASKET
+	</select>
+    <select id="mallCartList" resultMap="map" parameterType="hashMap">
+    SELECT s.*,(select i.`imageRoute` from image i where i.`imageName` like s.imagename) As imageRoute
+	  FROM shop s
+	 WHERE s.mem_id LIKE 'ju'
+    </select>
+    <!-- 장만호 영역  end -->
+	
+	<!-- MEMBER -->
+	<insert id="addMember" parameterType="hashMap">
+    INSERT INTO
+    MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_NICKNAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS,MEM_INTRODUCE)
+    VALUES('${id}','${pass}','${name}','${id}','${email}','${phone}','${ssn}',(SELECT MAX(ADDR_ADDRESS) FROM address),'')
+    </insert>
+	<insert id="addAddress" parameterType="hashMap">
+    INSERT INTO
+    ADDRESS(ADDR_POSTCODEADDRESS,ADDR_ROADADDRESS,ADDR_JIBUNADDRESS,ADDR_DETAILADDRESS)
+    VALUES('${postDetail}','${roadAddress}','${jibunAddress}','${detailAddress}')
+    </insert>
+    <select id="selectMemberById" resultMap="map" parameterType="hashMap">
+    SELECT ${type}.*, ADDRESS.ADDR_POSTCODEADDRESS, ADDRESS.ADDR_ROADADDRESS, ADDRESS.ADDR_JIBUNADDRESS, ADDRESS.ADDR_DETAILADDRESS
+    FROM ${type}, ADDRESS
+    WHERE
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2} AND ADDRESS.ADDR_ADDRESS LIKE ${type}.MEM_ADDRESS
+    </select>
+    <select id="selectById" resultMap="map" parameterType="hashMap">
+    SELECT ${type}.*, ADDRESS.ADDR_POSTCODEADDRESS, ADDRESS.ADDR_ROADADDRESS, ADDRESS.ADDR_JIBUNADDRESS, ADDRESS.ADDR_DETAILADDRESS
+    FROM ${type}, ADDRESS
+    WHERE
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2} AND ADDRESS.ADDR_ADDRESS LIKE ${type}.MEM_ADDRESS
+    </select>
+    <!-- board -->
+    <select id="boardList" resultMap="map" parameterType="hashMap">
+     select A2.* from(
+        select @rank:=@rank+1 rank, A.* 
+            from(select 
+                                     
+		board_id,
+		DATE_FORMAT(create_date, '%Y-%m-%d') AS create_date,
+		co_title,
+		contents,
+		view_num,
+		mem_id
+                        from board 
+                            order by board_id desc
+               ) A,(SELECT @rank := 0) R) A2
+                where rank between #{page.startRow} and #{page.endRow}
+    </select>
+    <select id="selectBoardCount" resultType="int" parameterType="hashMap">
+    SELECT COUNT(*) FROM board
+    </select>
+    <select id="searchAll" resultMap="map" parameterType="hashMap">
+     	select * from board where ${type} like '%${data}%'
+     </select>
+     <select id="searchCount" resultType="int" parameterType="hashMap">
+     	select count(*) from board where ${type} like '%${data}%'
+     </select> 
+     <select id="searchList" resultMap="map" parameterType="hashMap"> 
+         select A2.* from(
+        select @rank:=@rank+1 rank, A.* 
+            from(select 
+					 *
+                        from board 
+                            order by board_id desc
+               ) A,(SELECT @rank := 0) R) A2
+             where ${type} like '%${data}%'
+     </select>
+         <select id="articleDetail" resultMap="map" parameterType="hashMap">
+     	select * from board where board_id like #{x}
+     </select>
+     <insert id="insertBoard" parameterType="hashMap">
+     	insert into board(co_title,contents,mem_id)values(#{title},#{contents},'#{memID}')
+     </insert>
+     
+     
+     <!-- book -->
+     <select id="largeGenre" resultMap="map">
+     	select DISTINCT largeGenre from genre
+     </select>
+     <select id="bookGenreDate" resultMap="map" parameterType="hashMap">
+     	SELECT b.*, (select i.imageRoute from image i where b.imageName like i.imageName) as imageRoute 
+		FROM book b where b.genreNum in (select DISTINCT  g.genreNum from genre g WHERE g.genreNum between 1 and 28)
+     </select>
+     <select id="bookGenreSmallCount" resultType="int" parameterType="hashMap">
+		select count(*) from book b join genre g
+		 on g.genreNum LIKE b.genreNum
+		  where g.smallGenre like #{genre}
+	 </select>
+	 <select id="bookGenreLargeCount" resultType="int" parameterType="hashMap">
+		select count(*) from book b join genre g
+		 on g.genreNum LIKE b.genreNum
+		  where g.largeGenre like #{genre}
+	 </select>
+	 <select id="bookGenreLargeList" resultType="map" parameterType="hashMap">
+		select b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		left join genre g on b.genreNum like g.genreNum
+		where g.largeGenre like #{genre}
+		order by b.publishingDate DESC
+	 </select>
 </mapper>
