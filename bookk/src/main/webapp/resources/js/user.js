@@ -112,8 +112,6 @@ user.admin={
 	        $('#div-adminContent-chartbtn').html($(createButton({id:'',clazz:'',val:'지워보자 1번'}))
 	        .on('click',function(e){
 	        	e.preventDefault();
-	        	var view = new google.visualization.DataView(data);
-	        	view.hideColumns([1]);
 	        	chart.draw(view, options);	
 	        }));
 	      }
@@ -123,6 +121,8 @@ user.admin={
 			e.preventDefault();
 			$('path').eq(0).toggle();
 //			(new google.visualization.DataView(data)).hideColumns([2]);
+//			var view = new google.visualization.DataView(data);
+//			view.hideColumns([1]);
 //			chart.hideColumns([1])
 ////			options.series[0].lineWidth=15;
 //			drawChart(view, options);
