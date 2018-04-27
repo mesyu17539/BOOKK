@@ -19,6 +19,7 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="${context}/resources/js/app.js"></script>
 	<script src="${context}/resources/js/jquery.magnific-popup.min.js"></script>
 	<script src="${context}/resources/js/fileupload.js"></script>
