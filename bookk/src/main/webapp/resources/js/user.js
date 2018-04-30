@@ -33,10 +33,10 @@ user.admin={
 		.append(createDiv({id:'div-adminContent',clazz:''}))
 		
 		$('#div-adminSideMenu')
-		.attr('style','background-color: black;border: 2px solid red;')
+		.attr('style','background-color: black;')
 		.html(createUL({id:'ul-sideMenu',clazz:''}));
 		$('#div-adminContent')
-		.attr('style','border: 2px solid red;');
+		.attr('style','border: 2px solid black;');
 		$('#ul-sideMenu')
 		.attr('style','color: white;');
 		
@@ -84,49 +84,119 @@ user.admin={
 	},
 	chart:x=>{
 		$('#div-adminContent')
-		.html(createDiv({id:'div-adminContent-chart',clazz:''}))
+		.html(createDiv({id:'div-adminContent-dash',clazz:''}))
 		.append(createDiv({id:'div-adminContent-chartbtn',clazz:'text-center'}));
-		google.charts.load('current', {'packages':['corechart']});
+		$('#div-adminContent-dash')
+		.append(createDiv({id:'div-adminContent-chart',clazz:'text-center'}))
+		.append(createDiv({id:'div-adminContent-control',clazz:'text-center'}));
+		
+		google.charts.load('current', {packages: ['corechart', 'controls', 'table']});
 		google.charts.setOnLoadCallback(drawChart);
-		var options = {
-				title: 'Company Performance',
-				curveType: 'function',
-				series:[
-					{lineWidth:9},
-					{lineWidth:9}
-					],
-					legend: { position: 'bottom' }
-		};
+		var data;
+		var chart;
+		var options;
 		function drawChart() {
-			var data = google.visualization.arrayToDataTable([
-				['Year', 'Sales', 'Expenses'],
-				['2004',  1000,      400],
-				['2005',  1170,      460],
-				['2006',  660,       1120],
-				['2007',  1030,      540]
-				]);
-			var dataview= new google.visualization.DataView(data);
-			var chart = new google.visualization.LineChart(document.getElementById('div-adminContent-chart'));
-	        chart.draw(data, options);
-	        
-	        $('#div-adminContent-chartbtn').html($(createButton({id:'',clazz:'',val:'지워보자 1번'}))
-	        .on('click',function(e){
-	        	e.preventDefault();
-	        	chart.draw(view, options);	
-	        }));
+			data=new google.visualization.DataTable();
+			data.addColumn('date', 'Year');
+			data.addColumn('number', 'Sales');
+			data.addColumn('number', 'Expenses');
+			data.addColumn('number', 'Penses');
+			
+			data.addRow([new Date(2014, 6, 13),  1000,      400,      400]);
+			data.addRow([new Date(2015, 4, 4),  1170,      460,      400]);
+			data.addRow([new Date(2016, 0, 22),  660,       1120,      0]);
+			data.addRow([new Date(2017, 9, 6),  1030,      540,      0]);
+			data.addRow([new Date(2018, 0, 17),  1030,      540,      0]);
+			data.addRow([new Date(2019, 7, 12),  1030,      540,      0]);
+			
+			var dashboard = new google.visualization.Dashboard(
+		            document.getElementById('div-adminContent-dash'));
+//			data = google.visualization.arrayToDataTable([
+//				['Year', 'Sales', 'Expenses', 'penses'],
+//				[new Date(2014, 6, 13),  1000,      400,      400],
+//				[new Date(2015, 4, 4),  1170,      460,      400],
+//				[new Date(2016, 0, 22),  660,       1120,      0],
+//				[new Date(2017, 9, 6),  1030,      540,      0],
+//				[new Date(2018, 0, 17),  1030,      540,      0],
+//				[new Date(2019, 7, 12),  1030,      540,      0]
+//				]);
+			var control = new google.visualization.ControlWrapper({
+				controlType: 'DateRangeFilter',
+				containerId: 'div-adminContent-control',
+		        options: {
+		            filterColumnIndex: '0',
+		            'ui': { 'format': { 'pattern': 'yyyy' } },
+		          }
+		        });
+			chart = new google.visualization.ChartWrapper({
+			     'chartType': 'LineChart',
+			     'containerId': 'div-adminContent-chart',
+				'options' : {
+					title: '판매량 통계',
+					curveType: 'function',
+					pointSize: 3,
+					width: 950,
+					height: 600,
+					legend: { position: 'right' }
+				}
+			});
+			
+			
+//			chart = new google.visualization.LineChart(document.getElementById('div-adminContent-chart'));
+			dashboard.bind(control, [chart]);
+			dashboard.draw(data);
 	      }
-		$(createButton({id:'',clazz:'',val:'1번'}))
-		.appendTo('#div-adminContent-chartbtn')
-		.on('click',function(e){
-			e.preventDefault();
-			$('path').eq(0).toggle();
-//			(new google.visualization.DataView(data)).hideColumns([2]);
-//			var view = new google.visualization.DataView(data);
-//			view.hideColumns([1]);
-//			chart.hideColumns([1])
-////			options.series[0].lineWidth=15;
-//			drawChart(view, options);
-		});
+//		$('#div-adminContent-chartbtn')
+//		.append(createUL({id:'ul-chart-genre',clazz:'mylist-inline'}))
+//		$.each([
+//        	[1,'Sales'],
+//        	[2,'Expenses'],
+//        	[3,'Penses']
+//        ],(k,v)=>{
+//        	$(createLI({id:'li-chart-genre-'+k,clazz:''}))
+//        	.appendTo('#ul-chart-genre')
+//	        .append(
+//        		$(createInput({id:'',clazz:'',type:'checkbox'}))
+//        		.attr('name','genrelist-check')
+//        		.attr('checked',true)
+//        		.attr('value',v[0])
+//		        .on('click',function(e){
+//		        	var selected = [0];
+//		        	var nonselected = [];
+//		        	$('input[name=genrelist-check]').each(function(){
+//		        		if(this.checked){
+//		        			selected.push(parseInt($(this).val()));
+//		        		}else{
+//		        			nonselected.push(parseInt($(this).val()));
+//		        		}
+//		        	})
+//		        	if(selected.length==1){
+//		        		alert('하나 이상 체크하셔야 합니다');
+//		    			e.preventDefault();
+//			        	return;
+//			        }
+//		        	var view = new google.visualization.DataView(data);
+//		        	view.setColumns(selected);
+//		        	view.hideColumns(nonselected);
+//		        	chart.draw(view, options);	
+//		        }))
+//	        .append(createLabel({fo:'comment',val:v[1]})+' ');
+//        })
+//		setInterval(() => {
+//			var selected = [0];
+//        	var nonselected = [];
+//        	$('input[name=genrelist-check]').each(function(){
+//        		if(this.checked){
+//        			selected.push(parseInt($(this).val()));
+//        		}else{
+//        			nonselected.push(parseInt($(this).val()));
+//        		}
+//        	})
+//        	var view = new google.visualization.DataView(data);
+//        	view.setColumns(selected);
+//        	view.hideColumns(nonselected);
+//        	chart.draw(view, options);
+//		}, 3000);
 	}
 }
 user.member={
