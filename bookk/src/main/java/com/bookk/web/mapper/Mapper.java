@@ -30,9 +30,19 @@ public interface Mapper {
 		public List<?> searchWriterTitle(HashMap<?, ?> param);
 		public List<?> searchTitle(HashMap<?, ?> param);
 		public List<?> pageList(HashMap<?, ?> param);
-		public List<?> bookGenreDate(HashMap<?, ?> param);
+		public List<?> bookMainBook1(HashMap<?, ?> param);
+		public List<?> bookMainBook2(HashMap<?, ?> param);
+		public List<?> bookMainBook3(HashMap<?, ?> param);
+		public List<?> bookMainBook4(HashMap<?, ?> param);
+		public List<?> bookMainBook5(HashMap<?, ?> param);
+		public List<?> bookMainBook6(HashMap<?, ?> param);
 		public HashMap<?, ?> largeGenre();
 		public int bookGenreSmallCount(HashMap<?, ?> param);
 		public int bookGenreLargeCount(HashMap<?, ?> param);
 		public List<?> bookGenreLargeList(HashMap<?, ?> param);
+		public List<?> bookGenreSmallList(HashMap<?, ?> param);
+		public List<?> bookGenreNameList(HashMap<?, ?> param);
+		public List<?> bookDetail(HashMap<?, ?> param);
+		
+		
 }

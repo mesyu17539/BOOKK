@@ -438,6 +438,10 @@ user.member={
 				+createInput({id:'login-password',clazz:'my-border-input',type:'password'})+'<br/>');
 		$('label')
 		.attr('style','display: inline-block;margin-bottom: 5px;max-width: 100%;font-weight: 700;');
+		$('#login-id')
+		.attr('value','user');
+		$('#login-password')
+		.attr('value','user');
 		
 		$('#div-btn-group')
 		.append($(createInput({id:'',clazz:'',type:'checkbox'}))

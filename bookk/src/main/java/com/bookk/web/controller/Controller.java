@@ -437,24 +437,74 @@ public class Controller{
 	@RequestMapping("/bookMain")
 	public Map<?,?> bookMain(){
 		Map<String, Object> map = new HashMap<>();
-		map.put("genreL", new IGetService() {
+		map.put("1", "시/에세이");
+		Object book1 = new IGetService() {
 			@Override
 			public Object execute(HashMap<?, ?> param) {
-				// TODO Auto-generated method stub
-				return mapper.bookGenreDate(param);
+				return mapper.bookMainBook1(param);
 			}
-		}.execute((HashMap<?, ?>) map));
-		System.out.println(map.get("genreL"));
+		}.execute((HashMap<?, ?>) map);
+		map.put("book1", book1);
+		System.out.println("1::"+map.get("book1"));
+		
+		map.put("2", "소설");
+		Object book2 = new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				return mapper.bookMainBook2(param);
+			}
+		}.execute((HashMap<?, ?>) map);
+		map.put("book2", book2);
+		System.out.println("2::"+map.get("book2"));
+		
+		map.put("3", "전기/회고록");
+		Object book3 = new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				return mapper.bookMainBook3(param);
+			}
+		}.execute((HashMap<?, ?>) map);
+		map.put("book3", book3);
+		System.out.println("3::"+map.get("book3"));
+		
+		map.put("4", "경영/경제/자기계발");
+		Object book4 = new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				return mapper.bookMainBook4(param);
+			}
+		}.execute((HashMap<?, ?>) map);
+		map.put("book4", book4);
+		System.out.println("4::"+map.get("book4"));
+		
+		map.put("5", "인문사회");
+		Object book5 = new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				return mapper.bookMainBook5(param);
+			}
+		}.execute((HashMap<?, ?>) map);
+		map.put("book5", book5);
+		System.out.println("5::"+map.get("book5"));
+		
+		map.put("6", "기타");
+		Object book6 = new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				return mapper.bookMainBook6(param);
+			}
+		}.execute((HashMap<?, ?>) map);
+		map.put("book6", book6);
+		System.out.println("6::"+map.get("book6"));
 		return map;
 		
 	}
 	
-	@RequestMapping(value="/bookGenreSmallCount",
+	@RequestMapping(value="/bookGenreSmallList",
 			method=RequestMethod.POST,consumes="application/json")
 		public Object bookGenreSmallCount(@RequestBody HashMap<String, String> param) {
 		Map<String,Object> map = new HashMap<>();
 		param.put("genre",param.get("small"));
-		System.out.println("뭐냐고"+param.get("genre"));
 		int i = new ICountService() {
 			@Override
 			public int execute(HashMap<?, ?> map) {
@@ -462,7 +512,16 @@ public class Controller{
 			}
 		}.execute(param);
 		System.out.println("test::"+i);
-		return i;
+		Object o = new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				return mapper.bookGenreSmallList(param);
+			}
+		}.execute(param);
+		System.out.println("test::"+o);
+		map.put("count",i);
+		map.put("smallList",o);
+		return map;
 	}
 	
 	@RequestMapping(value="/bookGenreLargeList",
@@ -487,6 +546,23 @@ public class Controller{
 		System.out.println("test::"+o);
 		map.put("count",i);
 		map.put("largeList",o);
+		return map;
+	}
+	
+	@RequestMapping(value="/bookDetail",
+			method=RequestMethod.POST,consumes="application/json")
+		public Object bookDetail(@RequestBody HashMap<String, Object> param) {
+		Map<String,Object> map = new HashMap<>();
+		param.put("bookNum",param.get("bookList"));
+		System.out.println("넘버 :?"+param.get("bookList"));
+		Object o = new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				return mapper.bookDetail(param);
+			}
+		}.execute(param);
+		System.out.println("나오는 값::"+o);
+		map.put("bookList",o);
 		return map;
 	}
 }

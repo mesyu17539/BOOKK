@@ -172,10 +172,54 @@ VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member wher
      <select id="largeGenre" resultMap="map">
      	select DISTINCT largeGenre from genre
      </select>
-     <select id="bookGenreDate" resultMap="map" parameterType="hashMap">
-     	SELECT b.*, (select i.imageRoute from image i where b.imageName like i.imageName) as imageRoute 
-		FROM book b where b.genreNum in (select DISTINCT  g.genreNum from genre g WHERE g.genreNum between 1 and 28)
+     <select id="bookMainBook1" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{1} order by publishingDate desc limit 0,6;
      </select>
+     
+     <select id="bookMainBook2" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{2} order by publishingDate desc limit 0,6;
+     </select>
+     
+     <select id="bookMainBook3" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{3} order by publishingDate desc limit 0,6;
+     </select>
+     
+     <select id="bookMainBook4" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{4} order by publishingDate desc limit 0,6;
+     </select>
+     
+     <select id="bookMainBook5" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{5} order by publishingDate desc limit 0,6;
+     </select>
+     
+     <select id="bookMainBook6" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{6} order by publishingDate desc limit 0,6;
+     </select>
+     
      <select id="bookGenreSmallCount" resultType="int" parameterType="hashMap">
 		select count(*) 
 		  from book b join genre g
@@ -189,9 +233,30 @@ VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member wher
 		  where g.largeGenre like #{genre}
 	 </select>
 	 <select id="bookGenreLargeList" resultType="map" parameterType="hashMap">
-		select b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
 		left join genre g on b.genreNum like g.genreNum
 		where g.largeGenre like #{genre}
 		order by b.publishingDate DESC
+	 </select>
+	 <select id="bookGenreSmallList" resultType="map" parameterType="hashMap">
+		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		left join genre g on b.genreNum like g.genreNum
+		where g.smallGenre like #{genre}
+		order by b.publishingDate DESC
+	 </select>
+	 <select id="bookGenreNameList" resultType="map" parameterType="hashMap">
+		select b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		left join genre g on b.genreNum like g.genreNum
+		where g.smallGenre like #{genre}
+		order by b.bookName ASC
+	 </select>
+	 <select id="bookDetail" resultType="map" parameterType="hashMap">
+		SELECT b.*,
+        i.imageRoute,
+		g.largeGenre,
+		g.smallGenre
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+   		WHERE b.bookNum LIKE #{bookNum};
 	 </select>
 </mapper>
