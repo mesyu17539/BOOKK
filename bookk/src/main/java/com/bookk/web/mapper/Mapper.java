@@ -20,6 +20,7 @@ public interface Mapper {
 		public void malladdSalesDetail(HashMap<?,?> param);
 		public int insertBoard(HashMap<?, ?> param);
 		public void updateBoard(HashMap<?, ?> param);
+		public void viewStack(HashMap<?, ?> param);
 		public void deleteBoard(HashMap<?, ?> param);
 		public List<?> boardList(HashMap<?, ?> param);
 		public Object articleDetail(HashMap<?, ?> param);
