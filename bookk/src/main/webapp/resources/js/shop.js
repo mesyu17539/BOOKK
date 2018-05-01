@@ -595,7 +595,7 @@ sell:x=>{
 							bookNum:oNum,
 							salesamount:oAmount,
 							recipient:$('#input-recipient-info-0').val(),
-							phonenum:$('#input-recipient-info-1').val(),
+							recipientNum:$('#input-recipient-info-1').val(),
 							requirements:$('#textarea-tr3-td1-requierment').val(),
 							postDetail:$('#input-addr-1').val(),
 							roadAddress:$('#input-addr-3').val(),

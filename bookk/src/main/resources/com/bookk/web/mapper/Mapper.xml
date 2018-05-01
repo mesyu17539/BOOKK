@@ -82,7 +82,7 @@
 </update>
 	<insert id ="malladdSalesDetail" parameterType="hashMap"> 
 	INSERT INTO sellbasket (salesamount, salesdate, recipient, sell_address, requirements, `bookNum`, mem_id, recipent_num) 
-VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member where mem_id like #{memId}), #{requirements}, #{bookNum}, #{memId}, #{recipent_num});
+VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member where mem_id like #{memId}), #{requirements}, #{bookNum}, #{memId}, #{recipientNum});
 	</insert>
 	 
     <!-- 장만호 영역  end -->
