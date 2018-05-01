@@ -40,7 +40,7 @@ app.nav=(()=>{
                 document.getElementById('wizcss').href=(context+'/resources/css/style.css');
                 $('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
                 $.getScript($.javascript()+'/book.js',()=>{
-                    book.main.onCreate();
+                    book.main.setContentView({context:context,view:view});
                 })
             });
             $(createButton({id:'',type:'',clazz:'btn mint long',val:'게시판'}))
@@ -63,17 +63,16 @@ app.nav=(()=>{
 	   			 id : 'tnb-menu-text-right',
 	   			 clazz : 'tnb-menu text-right'
 	   		 })).appendTo('#wrap-tnb-menu')
-	   		 .attr('style','width:1000px;margin:0 auto; font-size:20px;  position:relative; ');
+	   		 .attr('style','width:1000px;margin:0 auto; font-size:20px;  position:relative;');
 	   		 $(createATag({
 	   			 id : 'a-login',
 	   			 clazz : 'tnb-link',
 	   			 val : '로그인'
-	   		 })).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative;   ')
+	   		 })).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative;')
 				.on('click',e=>{
 					e.preventDefault();
 					$.getScript($.javascript()+'/user.js',()=>{
-						user.member.onCreate()
-						user.member.login();
+						user.member.login({context:context,view:view});
 					})
 				});
 	   		 $(createSpan({
@@ -88,12 +87,11 @@ app.nav=(()=>{
 				.on('click',e=>{
 					e.preventDefault();
 					$.getScript($.javascript()+'/user.js',()=>{
-						user.member.onCreate()
-						user.member.join();
+						user.member.join({context:context,view:view});
 					})
 				});
 	   		$.getScript($.javascript()+'/book.js',()=>{
-	   			book.main.onCreate(); 			
+	   			book.main.setContentView({image:image,context:context,view:view}); 			
 	   		});
 		});
 	}

@@ -9,6 +9,8 @@
 		<result property="memPass" column="MEM_PASS"/>
 		<result property="memStatus" column="MEMSTATUS"/>
 		<result property="memName" column="MEM_NAME"/>
+		<result property="memNickName" column="MEM_NICKNAME"/>
+		<result property="memIntroduce" column="MEM_INTRODUCE"/>
 		<result property="memSsn" column="MEM_SSN"/>
 		<result property="memPhone" column="MEM_PHONE"/>
 		<result property="memEmail" column="MEM_EMAIL"/>
@@ -27,7 +29,6 @@
 		<result property="createDate" column="create_date"/>
 		<result property="title" column="co_title"/>
 		<result property="contents" column="contents"/>
-		<result property="notify" column="notify"/>
 		<result property="viewNum" column="view_num"/>
 	<!-- 몰 -->
 		<result property="orderNum" column="order_num"/>
@@ -63,15 +64,34 @@
 		
 	</resultMap>
 	<!-- MALL -->
+    <!-- 장만호 영역  start-->
 	<select id="mallCartCount" resultType="map" parameterType="hashMap">
-	SELECT COUNT(*) AS count FROM CARTBASKET
+	SELECT COUNT(*) AS count 
+	 FROM  CARTBASKET
 	</select>
+    <select id="mallCartList" resultMap="map" parameterType="hashMap">
+    SELECT s.*,(select i.`imageRoute` from image i where i.`imageName` like s.imagename) As imageRoute
+	  FROM shop s
+	 WHERE s.mem_id LIKE 'ju' 
+    </select>
+    <delete id="deleteCartList" parameterType="hashMap">
+    	DELETE FROM orders where order_num in (${deleteNum})
+    </delete>
+    <update id="cartAmountUpdate" parameterType="hashMap">
+        update orders set amount = #{modifyVal} where order_num = #{modifyKey}
+</update>
+	<insert id ="malladdSalesDetail" parameterType="hashMap"> 
+	INSERT INTO sellbasket (salesamount, salesdate, recipient, sell_address, requirements, `bookNum`, mem_id, recipent_num) 
+VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member where mem_id like #{memId}), #{requirements}, #{bookNum}, #{memId}, #{recipent_num});
+	</insert>
+	 
+    <!-- 장만호 영역  end -->
 	
 	<!-- MEMBER -->
 	<insert id="addMember" parameterType="hashMap">
     INSERT INTO
-    MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS)
-    VALUES('${id}','${pass}','${name}','${email}','${phone}','${ssn}',(SELECT MAX(ADDR_ADDRESS) FROM address))
+    MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_NICKNAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS,MEM_INTRODUCE)
+    VALUES('${id}','${pass}','${name}','${id}','${email}','${phone}','${ssn}',(SELECT MAX(ADDR_ADDRESS) FROM address),'')
     </insert>
 	<insert id="addAddress" parameterType="hashMap">
     INSERT INTO
@@ -79,23 +99,35 @@
     VALUES('${postDetail}','${roadAddress}','${jibunAddress}','${detailAddress}')
     </insert>
     <select id="selectMemberById" resultMap="map" parameterType="hashMap">
-    SELECT *
-    FROM MEMBER
+    SELECT ${type}.*, ADDRESS.ADDR_POSTCODEADDRESS, ADDRESS.ADDR_ROADADDRESS, ADDRESS.ADDR_JIBUNADDRESS, ADDRESS.ADDR_DETAILADDRESS
+    FROM ${type}, ADDRESS
     WHERE
-	${colum} LIKE #{data}
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2} AND ADDRESS.ADDR_ADDRESS LIKE ${type}.MEM_ADDRESS
     </select>
-    <select id="selectById" resultMap="map" parameterType="hashMap">
+    <select id="selectAdminById" resultMap="map" parameterType="hashMap">
     SELECT *
     FROM ${type}
     WHERE
 	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2}
+    </select>
+    <select id="selectById" resultMap="map" parameterType="hashMap">
+    SELECT ${type}.*, ADDRESS.ADDR_POSTCODEADDRESS, ADDRESS.ADDR_ROADADDRESS, ADDRESS.ADDR_JIBUNADDRESS, ADDRESS.ADDR_DETAILADDRESS
+    FROM ${type}, ADDRESS
+    WHERE
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2} AND ADDRESS.ADDR_ADDRESS LIKE ${type}.MEM_ADDRESS
     </select>
     <!-- board -->
     <select id="boardList" resultMap="map" parameterType="hashMap">
      select A2.* from(
         select @rank:=@rank+1 rank, A.* 
             from(select 
-                    *
+                                     
+		board_id,
+		DATE_FORMAT(create_date, '%Y-%m-%d') AS create_date,
+		co_title,
+		contents,
+		view_num,
+		mem_id
                         from board 
                             order by board_id desc
                ) A,(SELECT @rank := 0) R) A2
@@ -110,24 +142,56 @@
      <select id="searchCount" resultType="int" parameterType="hashMap">
      	select count(*) from board where ${type} like '%${data}%'
      </select> 
-     <select id="searchList" resultMap="map" parameterType="hashMap">
+     <select id="searchList" resultMap="map" parameterType="hashMap"> 
          select A2.* from(
         select @rank:=@rank+1 rank, A.* 
             from(select 
-                    *
+					 *
                         from board 
                             order by board_id desc
                ) A,(SELECT @rank := 0) R) A2
-              where rank between #{page.startRow} and #{page.endRow}
+             where ${type} like '%${data}%'
      </select>
          <select id="articleDetail" resultMap="map" parameterType="hashMap">
      	select * from board where board_id like #{x}
      </select>
-     <!-- 장만호 영역  start-->
-     <select  id="mallCartList" resultMap="map" parameterType="hashMap">
-     SELECT s.*,(select i.`imageRoute` from image i where i.`imageName` like s.imagename) As imageRoute
-  FROM shop s
- WHERE s.mem_id LIKE 'ju'
+     <insert id="insertBoard" parameterType="hashMap">
+     	insert into board(
+     	  co_title
+     	, contents
+     	, mem_id
+     	)values(
+     	  #{title}
+     	, #{contents}
+     	,'#{memID}
+     	')
+     </insert>
+     
+     
+     <!-- book -->
+     <select id="largeGenre" resultMap="map">
+     	select DISTINCT largeGenre from genre
      </select>
-     <!-- 장만호 영역  end -->
+     <select id="bookGenreDate" resultMap="map" parameterType="hashMap">
+     	SELECT b.*, (select i.imageRoute from image i where b.imageName like i.imageName) as imageRoute 
+		FROM book b where b.genreNum in (select DISTINCT  g.genreNum from genre g WHERE g.genreNum between 1 and 28)
+     </select>
+     <select id="bookGenreSmallCount" resultType="int" parameterType="hashMap">
+		select count(*) 
+		  from book b join genre g
+		 	   on g.genreNum 
+		  LIKE b.genreNum
+		 where g.smallGenre like #{genre}
+	 </select>
+	 <select id="bookGenreLargeCount" resultType="int" parameterType="hashMap">
+		select count(*) from book b join genre g
+		 on g.genreNum LIKE b.genreNum
+		  where g.largeGenre like #{genre}
+	 </select>
+	 <select id="bookGenreLargeList" resultType="map" parameterType="hashMap">
+		select b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		left join genre g on b.genreNum like g.genreNum
+		where g.largeGenre like #{genre}
+		order by b.publishingDate DESC
+	 </select>
 </mapper>
