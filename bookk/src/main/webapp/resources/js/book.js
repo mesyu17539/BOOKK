@@ -1117,6 +1117,7 @@ book.main={
 						 $(createHTag({size:'2',val:x.small})).appendTo('#list-section-header').attr('class','list-section-title');
 					 }
 					 $(DcreateSpan({id:'list-section-title-span',val:'&nbsp;&nbsp;&nbsp;추천도서'})).appendTo('.list-section-title');
+					 $(createDiv({id:'list-section-content'})).appendTo('#list-section');
 					 
 					 //책 리스트
 					 $(createDiv({id :'list-content'})).appendTo('#main');

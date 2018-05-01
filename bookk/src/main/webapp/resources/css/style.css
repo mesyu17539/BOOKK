@@ -1,5 +1,5 @@
 @charset "UTF-8";
-//두영
+
 body {margin: 0 auto;}
 a {background: transparent;}
 img {border: 0;cursor: pointer;}
@@ -249,6 +249,7 @@ a.btn:hover {text-decoration: none;}
 .product-price strong {position: relative; top: 2px; font-family: Arial, sans-serif; font-size: 24px; letter-spacing: 0; color: red;}
 .product-price .currency {font-size: 14px;}
 .btn-group {position: relative; bottom: 30px;}
+#list-section-content {border-top: 1px soild black; border-bottom: 1px soild black;}
 
 /* 리스트 버튼 */
 .product-info .btn-group button {position: relative; width: 150px; padding: 10px 10px 12px; margin-bottom: 5px; font-size: 13px;}
