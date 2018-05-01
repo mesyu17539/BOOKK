@@ -248,12 +248,11 @@ public class Controller{
 					return mapper.selectBoardCount(param);
 				}
 			}.execute((HashMap<?, ?>) map));
-		 	page.setPageSize(3);
-		 	page.setBlockSize(3);
+		 	page.setPageSize(5);
+		 	page.setBlockSize(5);
 		 	page.setPageNum(Integer.parseInt(pageNum));
 		 	page = (Page) adapter.attr(page);
 		 	map.put("page", page);	
-		 	
 		 	
 		 	map.put("list", new IGetService() {
 				@Override
@@ -262,8 +261,9 @@ public class Controller{
 				return mapper.boardList(param);
 				}
 			}.execute((HashMap<?, ?>) map));
-		 	
+			
 		 	System.out.println(map.get("list") );
+		 	System.out.println("page"+ page);
 				return map;
 		  
 	  }
@@ -279,45 +279,34 @@ public class Controller{
 		System.out.println("pageNum :"+pageNum );
 		System.out.println("타입 : " +param.get("type"));
 		System.out.println("검색명 : "+param.get("data"));
-		param.get("data");
-		/*
-		 * 
-		 * 
-		 * 
-		 * 
-		  
-		  */
-		
-		page.setTotalCount( new ICountService() {
-			
+	
+		page.setTotalCount( new ICountService() {			
 			@Override
 			public int execute(HashMap<?, ?> param) {
-				// TODO Auto-generated method stub
 				return mapper.searchCount(param);
 			}
 		}.execute(param));
 	 	page.setPageNum(Integer.parseInt(pageNum));
 	 	System.out.println("페이지 넘버요  : "+page.getPageNum());
-	 	page.setPageSize(3); //게시글
-	 	page.setBlockSize(3); // 3까지 페이지넘버
-	
-	 	page = (Page) adapter.attr(page);
+	 	page.setPageSize(5); //게시글
+	 	page.setBlockSize(5); // 3까지 페이지넘버
+	 	//엔드스타트 스타트로우 구현!
+	 	page.setStartRow(1);
+	 	page.setEndRow(5);
+	 	page = (Page) adapter.attr(page); 	
 	 	map.put("page", page);	
-	 	
+	 	map.put("data", param.get("data"));
+	 	map.put("type", param.get("type"));
+	 	System.out.println(page.getStartRow()+"//1111111111//"+page.getEndRow());	 	
 	 	
 	 	map.put("list", new IGetService() {
 			@Override
 			public Object execute(HashMap<?, ?> param) {
-				// TODO Auto-generated method stub
 			return mapper.searchList(param);
 			}
-		}.execute(param));
-		/*
-		 * 
-		 * 
-		 * 
-		 * 
-		 * */
+		}.execute((HashMap<?, ?>) map));
+	 	
+	 	System.out.println("list"+ map.get("list"));
 		System.out.println("type :  "+param.get("type"));
 		switch (param.get("type")) {
 		case "co_title":
@@ -359,6 +348,8 @@ public class Controller{
 		map.put("o", o);
 		System.out.println("넘어온 값 : "+o);
 		System.out.println("map :" + map);
+		System.out.println("page"+ page);
+		System.out.println("list"+ map.get("list"));
 		return map;
 	}
 	
@@ -372,14 +363,25 @@ public class Controller{
 		Map<String, Object> map = new HashMap<>();
 		map.put("x", x);
 		Object o = null;
+		System.out.println("x : "+x);
 		o = new IGetService() {
 			
 			@Override
 			public Object execute(HashMap<?, ?> param) {
-				// TODO Auto-generated method stub
+				
 				return mapper.articleDetail(param);
 			}
 		}.execute((HashMap<?, ?>) map);
+		map.put("viewStack",new IUpdateService() {
+			
+			@Override
+			public void execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				mapper.viewStack(param);
+			}
+		});
+	/*	System.out.println("viewStack2"+Integer.parseInt((String) map.get("viewStack")));*/
+
 		map.put("o", o);
 		
 		return map;
@@ -387,10 +389,9 @@ public class Controller{
 	}
 	@RequestMapping("/articleW")
 	public Map<?,?> articleWriting(
-			MultipartHttpServletRequest request,
-			 @RequestBody HashMap<String, String> param) throws IllegalStateException, IOException{
+			 @RequestBody HashMap<String, String> param){
 		Map<String, Object> map = new HashMap<>();
-		FileProxy pxy=new FileProxy();
+/*		FileProxy pxy=new FileProxy();
 		Iterator<String> it = request.getFileNames();
 		String rootPath = "";
 		String uploadPath = "";
@@ -406,7 +407,14 @@ public class Controller{
 		System.out.println(fileName+"1");
 		pxy.getFile().transferTo(files);
 	 System.out.println("이거탑니까 지금 ? ");
-	 System.out.println(param+"탑니까 지금 ? ");
+	 System.out.println(param+"탑니까 지금 ? ");*/
+		System.out.println("넘어왔나요"+param.get("select"));
+		System.out.println("넘어왔나요"+param.get("title"));
+		System.out.println("넘어왔나요"+param.get("contents"));
+		map.put("select", param.get("select"));
+		map.put("title", param.get("title"));
+		map.put("contents", param.get("contents"));
+		System.out.println();
 	 map.put("insertA", new IPostService() {
 			
 			@Override
@@ -433,6 +441,7 @@ public class Controller{
 		};
 		return null;
 	}*/
+	
 	// book
 	@RequestMapping("/bookMain")
 	public Map<?,?> bookMain(){
