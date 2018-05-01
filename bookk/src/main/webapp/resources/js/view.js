@@ -28,7 +28,6 @@ var createTHJW=x=>{
             th +='</tr>'
         return th;
 }
-
 var createTDJW=x=>{
 	var td ='';
 	var w =0;
@@ -44,7 +43,7 @@ var createTDJW=x=>{
 	+x.j.createDate+'</td>';
 	return td;
 }
-//추가 만호
+// 추가 만호
 var createMultiSpan=x=>{
 	var temp = '';
 	$.each(x.arr,(i,j)=>{
@@ -55,7 +54,7 @@ var createMultiSpan=x=>{
 var createMultiDiv=x=>{
 	var temp = '';
 	$.each(x.arr,(i,j)=>{
-		temp+='<div id ="'+x.id+'-'+i+'"></div>'
+		temp+='<div id ="'+x.id+'-'+i+'" class="'+x.clazz+'"></div>'
 	});
 	return temp;
 }
@@ -117,18 +116,39 @@ var createMultiLi = x=>{
 	})
 	return temp;
 }
+var multiOption = x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<option id="'+x.id+'">'+j+'</option>'
+	});
+	return temp;
+}
+var makeCount = x=>{
+	var a= new Array();
+	for(var i =1;i<=x;i++){
+		a.push(i);
+	}
+	return a;
+}
+
 // 기본
 var createFont=x=>{
     return '<font>'+x.val+'</font>';
 }
+var strong=x=>{
+	return '<strong id="'+x.id+'">'+x.val+'</strong>'
+}
+var createFont=x=>{
+    return '<font>'+x.val+'</font>';
+}
 var textarea=x=>{
-    return '<textarea id="'+x.id+'">'
+    return '<textarea id="'+x.id+'"/>'
 }
 var createSelect=x=>{
 	return '<select id="'+x+'"></select>'
 }
 var createImg=x=>{
-	return '<img id="'+x.id+'" alt="'+x.alt+'" src="'+x.src+'" class="'+x.clazz+'">'
+	return '<img id="'+x.id+'" alt="'+x.alt+'" src="'+x.src+'" class="'+x.clazz+'"/>'
 }
 var createOption=x=>{
 	return '<option value="'+x.val+'">'+x.txt+'</option>'
@@ -136,11 +156,14 @@ var createOption=x=>{
 var createDiv=x=>{
 	return '<div id="'+x.id+'" class="'+x.clazz+'"></div>'
 }
+var createDivVal=x=>{
+	return '<div id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</div>'
+}
 var createForm=x=>{
 	return '<form id="'+x.id+'" class="'+x.clazz+'"></form>'
 }
 var createATag=x=>{
-	return '<a id="'+x.id+'" href="#"> '+x.val+'</a>';
+	return '<a id="'+x.id+'" href="#">'+x.val+'</a>';
 }
 var createTable=x=>{
 	return '<table id="'+x.id+'" class = "'+x.clazz+'"></table>'
@@ -164,7 +187,7 @@ var createOL=x=>{
     return '<ol id="'+x.id+'"class="'+x.clazz+'"></ol>';
 }
 var createLabel=x=>{
-	return '<label for="'+x.fo+'">'+x.val+'</label>'
+	return '<label class="'+x.clazz+'" for="'+x.fo+'">'+x.val+'</label>'
 }
 var createButton=x=>{
 	return  '<button id="'+x.id+'" class = "'+x.clazz+'">'+x.val+'</button>';
@@ -183,4 +206,16 @@ var DcreateHTag=x=>{
 }
 var createP=x=>{
 	return '<p>'+x.val+'</p>'
+}
+var DcreateSpan=x=>{
+	return '<span id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</span>';
+}
+var createStrong=x=>{
+	return '<strong>'+x.val+'</strong>';
+}
+var DcreateTh = x=>{
+	return '<th id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</th>';
+}
+var DcreateTd = x=>{
+	return '<td id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</td>'
 }
