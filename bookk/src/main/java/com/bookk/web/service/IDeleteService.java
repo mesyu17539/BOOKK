@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 @Service  @FunctionalInterface
 public interface IDeleteService {
 	public void execute(HashMap<?, ?> param);
+	
 }
