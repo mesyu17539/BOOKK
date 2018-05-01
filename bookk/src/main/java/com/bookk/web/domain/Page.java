@@ -55,7 +55,7 @@ public class Page {
 	public int getPageEnd() {
 	
 		return pageEnd;
-	}//
+	}
 	public void setPageEnd(int pageEnd) {
 		// pageNum
 		 pageEnd=((pageNum-1)/pageSize)*pageSize+pageSize;

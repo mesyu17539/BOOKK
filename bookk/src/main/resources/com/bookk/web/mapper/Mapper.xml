@@ -9,6 +9,8 @@
 		<result property="memPass" column="MEM_PASS"/>
 		<result property="memStatus" column="MEMSTATUS"/>
 		<result property="memName" column="MEM_NAME"/>
+		<result property="memNickName" column="MEM_NICKNAME"/>
+		<result property="memIntroduce" column="MEM_INTRODUCE"/>
 		<result property="memSsn" column="MEM_SSN"/>
 		<result property="memPhone" column="MEM_PHONE"/>
 		<result property="memEmail" column="MEM_EMAIL"/>
@@ -27,7 +29,6 @@
 		<result property="createDate" column="create_date"/>
 		<result property="title" column="co_title"/>
 		<result property="contents" column="contents"/>
-		<result property="notify" column="notify"/>
 		<result property="viewNum" column="view_num"/>
 	<!-- 몰 -->
 		<result property="orderNum" column="order_num"/>
@@ -63,15 +64,22 @@
 		
 	</resultMap>
 	<!-- MALL -->
+    <!-- 장만호 영역  start-->
 	<select id="mallCartCount" resultType="map" parameterType="hashMap">
 	SELECT COUNT(*) AS count FROM CARTBASKET
 	</select>
-	<select id="mallCartList" resultMap="map" parameterType="hashMap"></select>
+    <select id="mallCartList" resultMap="map" parameterType="hashMap">
+    SELECT s.*,(select i.`imageRoute` from image i where i.`imageName` like s.imagename) As imageRoute
+	  FROM shop s
+	 WHERE s.mem_id LIKE 'ju'
+    </select>
+    <!-- 장만호 영역  end -->
+	
 	<!-- MEMBER -->
 	<insert id="addMember" parameterType="hashMap">
     INSERT INTO
-    MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS)
-    VALUES('${id}','${pass}','${name}','${email}','${phone}','${ssn}',(SELECT MAX(ADDR_ADDRESS) FROM address))
+    MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_NICKNAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS,MEM_INTRODUCE)
+    VALUES('${id}','${pass}','${name}','${id}','${email}','${phone}','${ssn}',(SELECT MAX(ADDR_ADDRESS) FROM address),'')
     </insert>
 	<insert id="addAddress" parameterType="hashMap">
     INSERT INTO
@@ -79,23 +87,35 @@
     VALUES('${postDetail}','${roadAddress}','${jibunAddress}','${detailAddress}')
     </insert>
     <select id="selectMemberById" resultMap="map" parameterType="hashMap">
-    SELECT *
-    FROM MEMBER
+    SELECT ${type}.*, ADDRESS.ADDR_POSTCODEADDRESS, ADDRESS.ADDR_ROADADDRESS, ADDRESS.ADDR_JIBUNADDRESS, ADDRESS.ADDR_DETAILADDRESS
+    FROM ${type}, ADDRESS
     WHERE
-	${colum} LIKE #{data}
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2} AND ADDRESS.ADDR_ADDRESS LIKE ${type}.MEM_ADDRESS
     </select>
-    <select id="selectById" resultMap="map" parameterType="hashMap">
+    <select id="selectAdminById" resultMap="map" parameterType="hashMap">
     SELECT *
     FROM ${type}
     WHERE
 	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2}
+    </select>
+    <select id="selectById" resultMap="map" parameterType="hashMap">
+    SELECT ${type}.*, ADDRESS.ADDR_POSTCODEADDRESS, ADDRESS.ADDR_ROADADDRESS, ADDRESS.ADDR_JIBUNADDRESS, ADDRESS.ADDR_DETAILADDRESS
+    FROM ${type}, ADDRESS
+    WHERE
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2} AND ADDRESS.ADDR_ADDRESS LIKE ${type}.MEM_ADDRESS
     </select>
     <!-- board -->
     <select id="boardList" resultMap="map" parameterType="hashMap">
      select A2.* from(
         select @rank:=@rank+1 rank, A.* 
             from(select 
-                    *
+                                     
+		board_id,
+		DATE_FORMAT(create_date, '%Y-%m-%d') AS create_date,
+		co_title,
+		contents,
+		view_num,
+		mem_id
                         from board 
                             order by board_id desc
                ) A,(SELECT @rank := 0) R) A2
@@ -110,27 +130,76 @@
      <select id="searchCount" resultType="int" parameterType="hashMap">
      	select count(*) from board where ${type} like '%${data}%'
      </select> 
-     <select id="searchList" resultMap="map" parameterType="hashMap">
+     <select id="searchList" resultMap="map" parameterType="hashMap"> 
          select A2.* from(
         select @rank:=@rank+1 rank, A.* 
             from(select 
-                    *
+					 *
                         from board 
                             order by board_id desc
                ) A,(SELECT @rank := 0) R) A2
-              where rank between #{page.startRow} and #{page.endRow}
+             where ${type} like '%${data}%'
      </select>
-     <select id="articleDetail" resultMap="map" parameterType="hashMap">
+         <select id="articleDetail" resultMap="map" parameterType="hashMap">
      	select * from board where board_id like #{x}
      </select>
+     <insert id="insertBoard" parameterType="hashMap">
+     	insert into board(co_title,contents,mem_id)values(#{title},#{contents},'#{memID}')
+     </insert>
+     
+     
      <!-- book -->
      <select id="largeGenre" resultMap="map">
      	select DISTINCT largeGenre from genre
      </select>
-     <select id="bookGenreDate" resultMap="map" parameterType="hashMap">
-     	SELECT b.*, (select i.imageRoute from image i where b.imageName like i.imageName) as imageRoute 
-		FROM book b where b.genreNum in (select DISTINCT  g.genreNum from genre g WHERE g.genreNum between 1 and 28)
+     <select id="bookMainBook1" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{1} order by publishingDate desc limit 0,6;
      </select>
+     
+     <select id="bookMainBook2" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{2} order by publishingDate desc limit 0,6;
+     </select>
+     
+     <select id="bookMainBook3" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{3} order by publishingDate desc limit 0,6;
+     </select>
+     
+     <select id="bookMainBook4" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{4} order by publishingDate desc limit 0,6;
+     </select>
+     
+     <select id="bookMainBook5" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{5} order by publishingDate desc limit 0,6;
+     </select>
+     
+     <select id="bookMainBook6" resultMap="map" parameterType="hashMap">
+     	SELECT b.*,
+        i.imageRoute
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+  	 	WHERE largeGenre like #{6} order by publishingDate desc limit 0,6;
+     </select>
+     
      <select id="bookGenreSmallCount" resultType="int" parameterType="hashMap">
 		select count(*) from book b join genre g
 		 on g.genreNum LIKE b.genreNum
@@ -142,9 +211,30 @@
 		  where g.largeGenre like #{genre}
 	 </select>
 	 <select id="bookGenreLargeList" resultType="map" parameterType="hashMap">
-		select b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
 		left join genre g on b.genreNum like g.genreNum
 		where g.largeGenre like #{genre}
 		order by b.publishingDate DESC
+	 </select>
+	 <select id="bookGenreSmallList" resultType="map" parameterType="hashMap">
+		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		left join genre g on b.genreNum like g.genreNum
+		where g.smallGenre like #{genre}
+		order by b.publishingDate DESC
+	 </select>
+	 <select id="bookGenreNameList" resultType="map" parameterType="hashMap">
+		select b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		left join genre g on b.genreNum like g.genreNum
+		where g.smallGenre like #{genre}
+		order by b.bookName ASC
+	 </select>
+	 <select id="bookDetail" resultType="map" parameterType="hashMap">
+		SELECT b.*,
+        i.imageRoute,
+		g.largeGenre,
+		g.smallGenre
+    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
+        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
+   		WHERE b.bookNum LIKE #{bookNum};
 	 </select>
 </mapper>
