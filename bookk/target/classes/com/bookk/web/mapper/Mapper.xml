@@ -216,11 +216,23 @@
 		where g.largeGenre like #{genre}
 		order by b.publishingDate DESC
 	 </select>
+	 <select id="bookNameLargeList" resultType="map" parameterType="hashMap">
+		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		left join genre g on b.genreNum like g.genreNum
+		where g.largeGenre like #{genre}
+		order by bookName asc
+	 </select>
 	 <select id="bookGenreSmallList" resultType="map" parameterType="hashMap">
 		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
 		left join genre g on b.genreNum like g.genreNum
 		where g.smallGenre like #{genre}
 		order by b.publishingDate DESC
+	 </select>
+	 <select id="bookNameSmallList" resultType="map" parameterType="hashMap">
+		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		left join genre g on b.genreNum like g.genreNum
+		where g.smallGenre like #{genre}
+		order by b.bookName asc
 	 </select>
 	 <select id="bookGenreNameList" resultType="map" parameterType="hashMap">
 		select b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)

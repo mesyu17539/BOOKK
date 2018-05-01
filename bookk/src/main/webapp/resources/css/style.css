@@ -208,8 +208,6 @@ a.btn:hover {text-decoration: none;}
 #btn-group-sub-nav {top: 0px;}
 #btn-group-sub-nav-1 {display: table; float: right;}
 .category #main #list-content #list-content-header #btn-group-sub-nav a {border-left: none; float: left; font-size: 12px; padding: 0 5px;}
-#btn-group-sub-nav a.active {font-weight: bold;}
-#btn-group-sub-nav a:hover {border-bottom: 1px solid black;}
 #sidebar-lnb {padding-left: 5px;}
 .depth1 {margin-top: 25px;}
 .ul-lnb-small {position:relative; margin-top: 10px; right: 50px;}
@@ -229,8 +227,11 @@ a.btn:hover {text-decoration: none;}
 .category #sidebar-lnb>ul>li>ul>li>a:hover {color: red;}
 .sidebar li a {display: block; width: 170; margin-left: 25px; margin-left: 0;}
 #list-section-header {margin-top: 25px; margin: 50px 0 12px;}
-.list-section-title {color: blue; float: left; margin: 0; font-size: 14px; line-height: 20px; letter-spacing: -2px; position:relative; left: 50px; width: 800px; height: 300px;}
+.list-section-title {color: blue; float: left; margin: 0; font-size: 14px; line-height: 20px; letter-spacing: -2px; position:relative; left: 50px;}
 .list-section-title span {color: black;}
+#list-section-container {width: 665px; padding: 25px 0 25px 75px; overflow: hidden; margin: 0 auto; position: relative;}
+#list-section-book {opacity: 1; }
+
 
 /* 리스트 테이블 CSS */
 #list-content-table {width: 100%; border-top: 1px solid gray; font-size: 12px; border-collapse: collapse; border-spacing: 0; display: table;}

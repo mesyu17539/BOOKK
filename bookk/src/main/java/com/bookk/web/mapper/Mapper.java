@@ -40,6 +40,7 @@ public interface Mapper {
 		public List<?> bookGenreSmallList(HashMap<?, ?> param);
 		public List<?> bookGenreNameList(HashMap<?, ?> param);
 		public List<?> bookDetail(HashMap<?, ?> param);
-		
+		public List<?> bookNameLargeList(HashMap<?, ?> param);
+		public List<?> bookNameSmallList(HashMap<?, ?> param);
 		
 }
