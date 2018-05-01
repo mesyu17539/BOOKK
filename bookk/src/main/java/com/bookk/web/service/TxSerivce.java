@@ -26,6 +26,7 @@ public class TxSerivce implements ITxService{
 				System.out.println("파람 값?"+param.get("size"));
 				System.out.println("파람 값?"+param.get("bookNum"));
 				System.out.println("파람 값?"+param.get("salesamount"));
+				/*((String) param.get("bookNum")).split(",")).*/
 				for(int i =0; i< (int) param.get("size");i++) {
 					param.put("bookNum",((String) param.get("bookNum")).split(",")[i]);
 					param.put("salesamount",((String) param.get("salesamount")).split(",")[i]);
