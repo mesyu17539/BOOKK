@@ -1103,8 +1103,8 @@ book.main={
 									book.main.list({large:g.large,count:d.count,largeList:d.largeList,context:x.context});
 									},
 								error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
-								});//두
-					 });
+								});
+					 });//두영
 					 if(x.small == null){
 					 }else{
 						 $(createATag({val : ' > '+x.small})).appendTo('#location');
