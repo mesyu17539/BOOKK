@@ -2,8 +2,10 @@ package com.bookk.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -28,6 +29,8 @@ import com.bookk.web.service.IDeleteService;
 import com.bookk.web.service.IGetService;
 import com.bookk.web.service.IPostService;
 import com.bookk.web.service.ISearchService;
+import com.bookk.web.service.ITxService;
+import com.bookk.web.service.IUpdateService;
 
 
 @RestController
@@ -36,23 +39,53 @@ public class Controller{
 	@Autowired Mapper mapper;
 	@Autowired PageAdapter adapter;
 	@Autowired Page page;
+	@Autowired ITxService tx;
 	
 	
 	
 	//장만호 영역 start
-	@RequestMapping(value="/cartlist/{userid}",
+	@RequestMapping(value="/cartlist/{df}",
 			method=RequestMethod.POST,consumes="application/json")
-	public Object cartList(@RequestBody HashMap<String, Object> param) {
-		System.out.println(param.get("userid"));
+	public Object cartList(
+			@RequestBody HashMap<String, Object> param) {
+		
+		
 		System.out.println(param.get("deleteNum"));
-		new IDeleteService() {
+		System.out.println
+		(" orderNum:"+param.get("modifyKey")+" 수정 할 amount: "+param.get("modifyVal"));
+		
+		if(param.get("postDetail")!=null) {
 			
+			
+			System.out.println("파람 값은 무엇이냐?"+param);
+			tx.execute(param);
+		}
+		//빈 배열 체크시 equals를 쓴다.
+		if(param.get("modifyKey")!=null&&!(param.get("modifyKey").equals(""))) {
+			System.out.println("흠냐");
+			List<String> list = new ArrayList<>();
+			List<String> list2 = new ArrayList<>();
+			for(int i =0; i<((String) param.get("modifyKey")).split(",").length;i++) {
+				list.add(((String) param.get("modifyKey")).split(",")[i]);
+				list2.add(((String) param.get("modifyVal")).split(",")[i]);
+			}
+			/*List<String> list = (List<String>) param.get("modifyKey");
+			List<String> list2 = (List<String>) param.get("modifyVal");*/
+			param.put("modifyKey", list);
+			param.put("modifyVal", list2);
+			
+			logger.info("array[0] is {}", list);
+			tx.execute(param);
+		}
+		if(param.get("deleteNum")!=null&&param.get("deleteNum")!="") {
+				new IDeleteService() {
 			@Override
 			public void execute(HashMap<?, ?> param) {
 				mapper.deleteCartList(param);
-				
 			}
 		}.execute(param);
+		}
+		
 		return new IGetService() {
 			
 			@Override 
@@ -186,7 +219,7 @@ public class Controller{
 		}.execute(param);
 		
 	}
-	@RequestMapping(value="/cartList/{userid}",
+	@RequestMapping(value="/cart/{userid}",
 			method=RequestMethod.GET,consumes="application/json")
 	public Object cartList(@PathVariable("userid")String userid,
 			@RequestBody HashMap<String, String> param) {

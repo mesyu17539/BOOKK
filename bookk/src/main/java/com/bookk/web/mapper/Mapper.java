@@ -16,6 +16,8 @@ public interface Mapper {
 		public HashMap<?, ?> mallCartCount(HashMap<?, ?> map);
 		public List<?> mallCartList(HashMap<?, ?> param);
 		public void deleteCartList(HashMap<?, ?> param);
+		public void cartAmountUpdate(HashMap<?, ?> map);
+		public void malladdSalesDetail(HashMap<?,?> param);
 		public int insertBoard(HashMap<?, ?> param);
 		public void updateBoard(HashMap<?, ?> param);
 		public void deleteBoard(HashMap<?, ?> param);
