@@ -20,15 +20,18 @@ public class TxSerivce implements ITxService{
 	public String execute(HashMap<String,Object > param) {
 		HashMap<String, String> temp = new HashMap<>();
 		if(param.get("postDetail")!=null) {
-
 			if(param.get("recipentCheck").equals("true")) {
 				System.out.println("구매자 정보와 동일");
 				System.out.println("파람 값?"+param);
+				System.out.println("파람 값?"+param.get("size"));
+				System.out.println("파람 값?"+param.get("bookNum"));
+				System.out.println("파람 값?"+param.get("salesamount"));
 				for(int i =0; i< (int) param.get("size");i++) {
 					param.put("bookNum",((String) param.get("bookNum")).split(",")[i]);
 					param.put("salesamount",((String) param.get("salesamount")).split(",")[i]);
-					System.out.println(temp+"결제 완료 리스트 값은?");
+					System.out.println("param 값은?"+param);
 					mapper.malladdSalesDetail(param);
+					
 				}
 			}else {
 				System.out.println("구매자 정보와 다름");

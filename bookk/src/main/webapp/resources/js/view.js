@@ -187,7 +187,7 @@ var createOL=x=>{
     return '<ol id="'+x.id+'"class="'+x.clazz+'"></ol>';
 }
 var createLabel=x=>{
-	return '<label for="'+x.fo+'">'+x.val+'</label>'
+	return '<label class="'+x.clazz+'" for="'+x.fo+'">'+x.val+'</label>'
 }
 var createButton=x=>{
 	return  '<button id="'+x.id+'" class = "'+x.clazz+'">'+x.val+'</button>';
@@ -212,4 +212,10 @@ var DcreateSpan=x=>{
 }
 var createStrong=x=>{
 	return '<strong>'+x.val+'</strong>';
+}
+var DcreateTh = x=>{
+	return '<th id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</th>';
+}
+var DcreateTd = x=>{
+	return '<td id="'+x.id+'" class="'+x.clazz+'">'+x.val+'</td>'
 }

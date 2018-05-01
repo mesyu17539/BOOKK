@@ -1,18 +1,4 @@
 var shop=shop || {};
-
-/*
- * var exed = x=>{ // iframe을 넣은 element를 안보이게 한다. element_wrap.style.display =
- * 'none'; };
- */
-/*
- * shop.ajax = {aj:()=>{ $.ajax({ url:x.context+'/cartlist/'+id.userid+'',
- * method:'POST', data:JSON.stringify({ userid:id.userid}), dataType:'json',
- * contentType:'application/json', success:x=>{ console.log(x,'1');
- * alert(x[5].imageName+'김정워이씨발'); x=j
- *  }, error:(x,h,m)=>{
- *  } });
- *  }}
- */
 shop.mall = {cart:x=>{
 	$.getScript(x.view,()=>{
 		
