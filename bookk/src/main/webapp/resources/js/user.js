@@ -2,13 +2,24 @@ var user=user || {};
 user.admin={
 	login:x=>{
 		$('#div-header-userMenu').html(createDiv({id:'div-member-bar',clazz:''}));
+		$('#div-header-pageMenu').html(createDiv({id:'div-subMenu',clazz:''}));
+
+		$('#div-subMenu')
+		.attr('style','display: grid;grid-template-columns: 200px 1000px;height:30px;margin: 0 auto;width:1200px;')
+		.append(
+				$(createDiv({id:'div-subMenu-empty',clazz:''}))
+				.attr('style','border-top: 2px solid black;border-left: 2px solid black;'))
+		.append(
+				$(createDiv({id:'div-subMenu-ul',clazz:''}))
+				.attr('style','border-top: 2px solid black;border-right: 2px solid black;'));
+		
 		$('#div-member-bar')
 		.attr('style','width: 1164px;background-color:black;color:white; padding: 12px 18px;margin:0 auto;')
 		.append(createSpan({id:'division',clazz:'division'}));
 		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
 		$(createATag({id:'a-logout',val:'로그아웃'}))
 		.appendTo('#div-member-bar')
-		.attr('style','color: white;float:right;')
+		.attr('style','color: white;float:right;margin: 0 auto;')
 		.on('click',e=>{
 			e.preventDefault();
 			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
@@ -51,35 +62,28 @@ user.admin={
 		],(k,v)=>{
 			$(createLI({id:'li-sideMenu-'+k,clazz:''}))
 			.attr('name','li-sideMenu-'+k)
-			.attr('style','padding: 10px;')
+			.attr('style','padding: 10px;height:60px')
 			.append(
 					$(createATag({id:'',val:v[0]}))
 					.attr('style','color: white;')
 					.on('click',function(e){
 						e.preventDefault();
+						$('#div-subMenu-ul')
+						.html($(createUL({id:'ul-subMenu',clazz:'mylist-inline'})).attr('style','margin: 0 auto;'));
+						$.each(v[1],(sk,sv)=>{
+							$(createLI({id:'li-subMenu-'+sk,clazz:''}))
+							.attr('style','font-size: 21px;background-color: #bfa1a1;margin: 0 5px;')
+							.append($(createATag({id:'',val:sv})).attr('style','color: black;'))
+							.appendTo('#ul-subMenu')
+							.on('click',function(e){
+								e.preventDefault();
+								v[3+sk](x)
+							})
+						});
 						$('#div-adminContent').html(v[2](x));
 					}))
-			.append($(createUL({id:'ul-subMenu-'+k,clazz:''})).attr('style','display:none;'))
-			.mouseover(function(){
-						$('#ul-subMenu-'+k)
-						.attr('style','display:block;')
-					})
-			.mouseleave(function(){
-						$('#ul-subMenu-'+k)
-						.attr('style','display:none;')
-					})
-			
 			.appendTo('#ul-sideMenu');
-			$.each(v[1],(sk,sv)=>{
-				$(createLI({id:'li-subMenu-'+sk,clazz:''}))
-				.attr('style','font-size: 15px;')
-				.append($(createATag({id:'',val:sv})).attr('style','color: white;'))
-				.appendTo('#ul-subMenu-'+k)
-				.on('click',function(e){
-					e.preventDefault();
-					v[3+sk](x)
-				})
-			});
+			
 		});
 	},
 	chart:x=>{
@@ -93,8 +97,10 @@ user.admin={
 		google.charts.load('current', {packages: ['corechart', 'controls', 'table']});
 		google.charts.setOnLoadCallback(drawChart);
 		var data;
+		var control;
 		var chart;
-		var options;
+		var view;
+		var dashboard;
 		function drawChart() {
 			data=new google.visualization.DataTable();
 			data.addColumn('date', 'Year');
@@ -104,23 +110,14 @@ user.admin={
 			
 			data.addRow([new Date(2014, 6, 13),  1000,      400,      400]);
 			data.addRow([new Date(2015, 4, 4),  1170,      460,      400]);
-			data.addRow([new Date(2016, 0, 22),  660,       1120,      0]);
-			data.addRow([new Date(2017, 9, 6),  1030,      540,      0]);
-			data.addRow([new Date(2018, 0, 17),  1030,      540,      0]);
-			data.addRow([new Date(2019, 7, 12),  1030,      540,      0]);
+			data.addRow([new Date(2016, 0, 22),  660,       1120,      5]);
+			data.addRow([new Date(2017, 9, 6),  1030,      540,      7]);
+			data.addRow([new Date(2018, 0, 17),  1030,      540,      100]);
+			data.addRow([new Date(2019, 7, 12),  1030,      540,      500]);
 			
-			var dashboard = new google.visualization.Dashboard(
+			dashboard = new google.visualization.Dashboard(
 		            document.getElementById('div-adminContent-dash'));
-//			data = google.visualization.arrayToDataTable([
-//				['Year', 'Sales', 'Expenses', 'penses'],
-//				[new Date(2014, 6, 13),  1000,      400,      400],
-//				[new Date(2015, 4, 4),  1170,      460,      400],
-//				[new Date(2016, 0, 22),  660,       1120,      0],
-//				[new Date(2017, 9, 6),  1030,      540,      0],
-//				[new Date(2018, 0, 17),  1030,      540,      0],
-//				[new Date(2019, 7, 12),  1030,      540,      0]
-//				]);
-			var control = new google.visualization.ControlWrapper({
+			control = new google.visualization.ControlWrapper({
 				controlType: 'DateRangeFilter',
 				containerId: 'div-adminContent-control',
 		        options: {
@@ -141,61 +138,48 @@ user.admin={
 				}
 			});
 			
-			
-//			chart = new google.visualization.LineChart(document.getElementById('div-adminContent-chart'));
 			dashboard.bind(control, [chart]);
-			dashboard.draw(data);
+        	dashboard.draw(data);
 	      }
-//		$('#div-adminContent-chartbtn')
-//		.append(createUL({id:'ul-chart-genre',clazz:'mylist-inline'}))
-//		$.each([
-//        	[1,'Sales'],
-//        	[2,'Expenses'],
-//        	[3,'Penses']
-//        ],(k,v)=>{
-//        	$(createLI({id:'li-chart-genre-'+k,clazz:''}))
-//        	.appendTo('#ul-chart-genre')
-//	        .append(
-//        		$(createInput({id:'',clazz:'',type:'checkbox'}))
-//        		.attr('name','genrelist-check')
-//        		.attr('checked',true)
-//        		.attr('value',v[0])
-//		        .on('click',function(e){
-//		        	var selected = [0];
-//		        	var nonselected = [];
-//		        	$('input[name=genrelist-check]').each(function(){
-//		        		if(this.checked){
-//		        			selected.push(parseInt($(this).val()));
-//		        		}else{
-//		        			nonselected.push(parseInt($(this).val()));
-//		        		}
-//		        	})
-//		        	if(selected.length==1){
-//		        		alert('하나 이상 체크하셔야 합니다');
-//		    			e.preventDefault();
-//			        	return;
-//			        }
-//		        	var view = new google.visualization.DataView(data);
-//		        	view.setColumns(selected);
-//		        	view.hideColumns(nonselected);
-//		        	chart.draw(view, options);	
-//		        }))
-//	        .append(createLabel({fo:'comment',val:v[1]})+' ');
-//        })
+		
+		$('#div-adminContent-chartbtn')
+		.append(createUL({id:'ul-chart-genre',clazz:'mylist-inline'}))
+		$.each([
+        	[1,'Sales'],
+        	[2,'Expenses'],
+        	[3,'Penses']
+        ],(k,v)=>{
+        	$(createLI({id:'li-chart-genre-'+k,clazz:''}))
+        	.appendTo('#ul-chart-genre')
+	        .append(
+        		$(createInput({id:'',clazz:'',type:'checkbox'}))
+        		.attr('name','genrelist-check')
+        		.attr('checked',true)
+        		.attr('value',v[0])
+		        .on('click',function(e){
+		        	var selected = [0];
+		        	var nonselected = [];
+		        	$('input[name=genrelist-check]').each(function(){
+		        		if(this.checked){
+		        			selected.push(parseInt($(this).val()));
+		        		}else{
+		        			nonselected.push(parseInt($(this).val()));
+		        		}
+		        	})
+		        	if(selected.length==1){
+		        		alert('하나 이상 체크하셔야 합니다');
+		    			e.preventDefault();
+			        	return;
+			        }
+		        	view = new google.visualization.DataView(data);
+		        	view.setColumns(selected);
+		        	view.hideColumns(nonselected);
+		        	dashboard.draw(view);
+		        }))
+	        .append(createLabel({fo:'comment',val:v[1]})+' ');
+        });
+		
 //		setInterval(() => {
-//			var selected = [0];
-//        	var nonselected = [];
-//        	$('input[name=genrelist-check]').each(function(){
-//        		if(this.checked){
-//        			selected.push(parseInt($(this).val()));
-//        		}else{
-//        			nonselected.push(parseInt($(this).val()));
-//        		}
-//        	})
-//        	var view = new google.visualization.DataView(data);
-//        	view.setColumns(selected);
-//        	view.hideColumns(nonselected);
-//        	chart.draw(view, options);
 //		}, 3000);
 	}
 }
@@ -452,13 +436,18 @@ user.member={
 				+createInput({id:'login-id',clazz:'my-border-input',type:'text'})+'<br/>')
 		.append(createLabel({fo:'comment',val:'비밀번호'})+'<br/>'
 				+createInput({id:'login-password',clazz:'my-border-input',type:'password'})+'<br/>');
-		$('#login-id').attr('value','master');
-		$('#login-password').attr('value','master');
 		$('label')
 		.attr('style','display: inline-block;margin-bottom: 5px;max-width: 100%;font-weight: 700;');
 		
 		$('#div-btn-group')
-		.append($(createInput({id:'',clazz:'',type:'checkbox'})).attr('name','admin-check').attr('checked',true))
+		.append($(createInput({id:'',clazz:'',type:'checkbox'}))
+				.attr('name','admin-check')
+				.on('click',()=>{
+					$('#login-id')
+					.attr('value','master');
+					$('#login-password')
+					.attr('value','master');
+				}))
 		.append($(createLabel({fo:'comment',val:'관리자 로그인'}))
 				.attr('style','font-size: 11px;'))
 		.append('<br/>');
