@@ -280,6 +280,7 @@ public class Controller{
 				return mapper.articleDetail(param);
 			}
 		}.execute((HashMap<?, ?>) map);
+		System.out.println("o ================ 확인");
 		map.put("viewStack",new IUpdateService() {
 			
 			@Override
@@ -288,8 +289,7 @@ public class Controller{
 				mapper.viewStack(param);
 			}
 		});
-	/*	System.out.println("viewStack2"+Integer.parseInt((String) map.get("viewStack")));*/
-
+		System.out.println("x : "+x);
 		map.put("o", o);
 		
 		return map;

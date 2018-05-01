@@ -155,7 +155,7 @@
      </insert>
      <update id="viewStack" parameterType="hashMap">
      UPDATE BOARD
-   			SET view_num = #{viewNum} +1
+   			SET view_num = IFNULL(view_num, 0) + 1
  			WHERE BOARD_ID = #{x};	
      </update>
      
