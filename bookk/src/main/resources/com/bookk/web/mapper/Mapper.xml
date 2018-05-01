@@ -66,13 +66,25 @@
 	<!-- MALL -->
     <!-- 장만호 영역  start-->
 	<select id="mallCartCount" resultType="map" parameterType="hashMap">
-	SELECT COUNT(*) AS count FROM CARTBASKET
+	SELECT COUNT(*) AS count 
+	 FROM  CARTBASKET
 	</select>
     <select id="mallCartList" resultMap="map" parameterType="hashMap">
     SELECT s.*,(select i.`imageRoute` from image i where i.`imageName` like s.imagename) As imageRoute
 	  FROM shop s
-	 WHERE s.mem_id LIKE 'ju'
+	 WHERE s.mem_id LIKE 'ju' 
     </select>
+    <delete id="deleteCartList" parameterType="hashMap">
+    	DELETE FROM orders where order_num in (${deleteNum})
+    </delete>
+    <update id="cartAmountUpdate" parameterType="hashMap">
+        update orders set amount = #{modifyVal} where order_num = #{modifyKey}
+</update>
+	<insert id ="malladdSalesDetail" parameterType="hashMap"> 
+	INSERT INTO sellbasket (salesamount, salesdate, recipient, sell_address, requirements, `bookNum`, mem_id, recipent_num) 
+VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member where mem_id like #{memId}), #{requirements}, #{bookNum}, #{memId}, #{recipent_num});
+	</insert>
+	 
     <!-- 장만호 영역  end -->
 	
 	<!-- MEMBER -->
@@ -144,7 +156,15 @@
      	select * from board where board_id like #{x}
      </select>
      <insert id="insertBoard" parameterType="hashMap">
-     	insert into board(co_title,contents,mem_id)values(#{title},#{contents},'#{memID}')
+     	insert into board(
+     	  co_title
+     	, contents
+     	, mem_id
+     	)values(
+     	  #{title}
+     	, #{contents}
+     	,'#{memID}
+     	')
      </insert>
      
      
@@ -157,9 +177,11 @@
 		FROM book b where b.genreNum in (select DISTINCT  g.genreNum from genre g WHERE g.genreNum between 1 and 28)
      </select>
      <select id="bookGenreSmallCount" resultType="int" parameterType="hashMap">
-		select count(*) from book b join genre g
-		 on g.genreNum LIKE b.genreNum
-		  where g.smallGenre like #{genre}
+		select count(*) 
+		  from book b join genre g
+		 	   on g.genreNum 
+		  LIKE b.genreNum
+		 where g.smallGenre like #{genre}
 	 </select>
 	 <select id="bookGenreLargeCount" resultType="int" parameterType="hashMap">
 		select count(*) from book b join genre g
