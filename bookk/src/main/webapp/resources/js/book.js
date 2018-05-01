@@ -1104,7 +1104,7 @@ book.main={
 									},
 								error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
 								});
-					 });//두영
+					 });
 					 if(x.small == null){
 					 }else{
 						 $(createATag({val : ' > '+x.small})).appendTo('#location');
