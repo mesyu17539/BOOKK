@@ -75,7 +75,7 @@ public class Page {
 	}
 	public void setEndRow(int endRow) {
 		
-		this.endRow = (pageNum*blockSize>totalCount)? totalCount : ((pageNum*blockSize)/blockSize)*pageSize;
+		this.endRow = ((pageNum*blockSize)>totalCount)? totalCount : ((pageNum*blockSize)/blockSize)*pageSize;
 	}//1*5 /5 = 1 *5 =5-1 =4 
 	public int getBlockSize() {
 		return blockSize;
