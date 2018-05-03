@@ -15,8 +15,12 @@ public interface Mapper {
 	    public Object selectById(HashMap<?, ?> param);
 		public HashMap<?, ?> mallCartCount(HashMap<?, ?> map);
 		public List<?> mallCartList(HashMap<?, ?> param);
+		public void deleteCartList(HashMap<?, ?> param);
+		public void cartAmountUpdate(HashMap<?, ?> map);
+		public void malladdSalesDetail(HashMap<?,?> param);
 		public int insertBoard(HashMap<?, ?> param);
 		public void updateBoard(HashMap<?, ?> param);
+		public void viewStack(HashMap<?, ?> param);
 		public void deleteBoard(HashMap<?, ?> param);
 		public List<?> boardList(HashMap<?, ?> param);
 		public Object articleDetail(HashMap<?, ?> param);
@@ -42,5 +46,13 @@ public interface Mapper {
 		public List<?> bookDetail(HashMap<?, ?> param);
 		public List<?> bookNameLargeList(HashMap<?, ?> param);
 		public List<?> bookNameSmallList(HashMap<?, ?> param);
+		public List<?> bookWeekRanking(HashMap<?, ?> param);
+		public List<?> bookMonthRanking(HashMap<?, ?> param);
+		public List<?> bookAllRanking(HashMap<?, ?> param);
+		public List<?> bookNewRanking(HashMap<?, ?> param);
+		
+		
+		
+		
 		
 }

@@ -1,7 +1,186 @@
 var user=user || {};
 user.admin={
 	login:x=>{
+		$('#div-header-userMenu').html(createDiv({id:'div-member-bar',clazz:''}));
+		$('#div-header-pageMenu').html(createDiv({id:'div-subMenu',clazz:''}));
+
+		$('#div-subMenu')
+		.attr('style','display: grid;grid-template-columns: 200px 1000px;height:30px;margin: 0 auto;width:1200px;')
+		.append(
+				$(createDiv({id:'div-subMenu-empty',clazz:''}))
+				.attr('style','border-top: 2px solid black;border-left: 2px solid black;'))
+		.append(
+				$(createDiv({id:'div-subMenu-ul',clazz:''}))
+				.attr('style','border-top: 2px solid black;border-right: 2px solid black;'));
 		
+		$('#div-member-bar')
+		.attr('style','width: 1164px;background-color:black;color:white; padding: 12px 18px;margin:0 auto;')
+		.append(createSpan({id:'division',clazz:'division'}));
+		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
+		$(createATag({id:'a-logout',val:'로그아웃'}))
+		.appendTo('#div-member-bar')
+		.attr('style','color: white;float:right;margin: 0 auto;')
+		.on('click',e=>{
+			e.preventDefault();
+			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
+			sessionStorage.removeItem('admin');
+			$('#div-advertise').html(createDiv({id:'div-content',clazz:''}));
+			$.getScript($.javascript()+'/app.js',()=>{
+				app.init(x.context);
+			})
+		});
+		$(createImage({id:'',src:'http://www.bookk.co.kr/img/logo_blue.png',clazz:''}))
+		.appendTo('#div-member-bar')
+		.on('click',x=>{
+			user.admin.adminContent(x);			
+		});
+		user.admin.adminContent(x);
+	},
+	adminContent:x=>{
+		$('#div-body').html(createDiv({id:'div-admin',clazz:''}));
+		$('#div-admin')
+		.attr('style','display: grid;grid-template-columns: 200px 1000px;height:700px;margin: 0 auto;width:1200px;')
+		.append(createDiv({id:'div-adminSideMenu',clazz:''}))
+		.append(createDiv({id:'div-adminContent',clazz:''}))
+		
+		$('#div-adminSideMenu')
+		.attr('style','background-color: black;')
+		.html(createUL({id:'ul-sideMenu',clazz:''}));
+		$('#div-adminContent')
+		.attr('style','border: 2px solid black;');
+		$('#ul-sideMenu')
+		.attr('style','color: white;');
+		
+		
+		$.each([
+			['판매량 통계', ['차트','리스트'], user.admin.chart,
+				user.admin.chart, user.admin.chart],
+			['서적 관리', ['등록','수정','삭제'], user.member.login,
+				user.member.login, user.member.join, user.member.join],
+			['회원 관리', ['회원정보 수정','회원 삭제'], user.member.join,
+				user.member.login, user.member.join]
+		],(k,v)=>{
+			$(createLI({id:'li-sideMenu-'+k,clazz:''}))
+			.attr('name','li-sideMenu-'+k)
+			.attr('style','padding: 10px;height:60px')
+			.append(
+					$(createATag({id:'',val:v[0]}))
+					.attr('style','color: white;')
+					.on('click',function(e){
+						e.preventDefault();
+						$('#div-subMenu-ul')
+						.html($(createUL({id:'ul-subMenu',clazz:'mylist-inline'})).attr('style','margin: 0 auto;'));
+						$.each(v[1],(sk,sv)=>{
+							$(createLI({id:'li-subMenu-'+sk,clazz:''}))
+							.attr('style','font-size: 21px;background-color: #bfa1a1;margin: 0 5px;')
+							.append($(createATag({id:'',val:sv})).attr('style','color: black;'))
+							.appendTo('#ul-subMenu')
+							.on('click',function(e){
+								e.preventDefault();
+								v[3+sk](x)
+							})
+						});
+						$('#div-adminContent').html(v[2](x));
+					}))
+			.appendTo('#ul-sideMenu');
+			
+		});
+	},
+	chart:x=>{
+		$('#div-adminContent')
+		.html(createDiv({id:'div-adminContent-dash',clazz:''}))
+		.append(createDiv({id:'div-adminContent-chartbtn',clazz:'text-center'}));
+		$('#div-adminContent-dash')
+		.append(createDiv({id:'div-adminContent-chart',clazz:'text-center'}))
+		.append(createDiv({id:'div-adminContent-control',clazz:'text-center'}));
+		
+		google.charts.load('current', {packages: ['corechart', 'controls', 'table']});
+		google.charts.setOnLoadCallback(drawChart);
+		var data;
+		var control;
+		var chart;
+		var view;
+		var dashboard;
+		function drawChart() {
+			data=new google.visualization.DataTable();
+			data.addColumn('date', 'Year');
+			data.addColumn('number', 'Sales');
+			data.addColumn('number', 'Expenses');
+			data.addColumn('number', 'Penses');
+			
+			data.addRow([new Date(2014, 6, 13),  1000,      400,      400]);
+			data.addRow([new Date(2015, 4, 4),  1170,      460,      400]);
+			data.addRow([new Date(2016, 0, 22),  660,       1120,      5]);
+			data.addRow([new Date(2017, 9, 6),  1030,      540,      7]);
+			data.addRow([new Date(2018, 0, 17),  1030,      540,      100]);
+			data.addRow([new Date(2019, 7, 12),  1030,      540,      500]);
+			
+			dashboard = new google.visualization.Dashboard(
+		            document.getElementById('div-adminContent-dash'));
+			control = new google.visualization.ControlWrapper({
+				controlType: 'DateRangeFilter',
+				containerId: 'div-adminContent-control',
+		        options: {
+		            filterColumnIndex: '0',
+		            'ui': { 'format': { 'pattern': 'yyyy' } },
+		          }
+		        });
+			chart = new google.visualization.ChartWrapper({
+			     'chartType': 'LineChart',
+			     'containerId': 'div-adminContent-chart',
+				'options' : {
+					title: '판매량 통계',
+					curveType: 'function',
+					pointSize: 3,
+					width: 950,
+					height: 600,
+					legend: { position: 'right' }
+				}
+			});
+			
+			dashboard.bind(control, [chart]);
+        	dashboard.draw(data);
+	      }
+		
+		$('#div-adminContent-chartbtn')
+		.append(createUL({id:'ul-chart-genre',clazz:'mylist-inline'}))
+		$.each([
+        	[1,'Sales'],
+        	[2,'Expenses'],
+        	[3,'Penses']
+        ],(k,v)=>{
+        	$(createLI({id:'li-chart-genre-'+k,clazz:''}))
+        	.appendTo('#ul-chart-genre')
+	        .append(
+        		$(createInput({id:'',clazz:'',type:'checkbox'}))
+        		.attr('name','genrelist-check')
+        		.attr('checked',true)
+        		.attr('value',v[0])
+		        .on('click',function(e){
+		        	var selected = [0];
+		        	var nonselected = [];
+		        	$('input[name=genrelist-check]').each(function(){
+		        		if(this.checked){
+		        			selected.push(parseInt($(this).val()));
+		        		}else{
+		        			nonselected.push(parseInt($(this).val()));
+		        		}
+		        	})
+		        	if(selected.length==1){
+		        		alert('하나 이상 체크하셔야 합니다');
+		    			e.preventDefault();
+			        	return;
+			        }
+		        	view = new google.visualization.DataView(data);
+		        	view.setColumns(selected);
+		        	view.hideColumns(nonselected);
+		        	dashboard.draw(view);
+		        }))
+	        .append(createLabel({fo:'comment',val:v[1]})+' ');
+        });
+		
+//		setInterval(() => {
+//		}, 3000);
 	}
 }
 user.member={
@@ -257,13 +436,22 @@ user.member={
 				+createInput({id:'login-id',clazz:'my-border-input',type:'text'})+'<br/>')
 		.append(createLabel({fo:'comment',val:'비밀번호'})+'<br/>'
 				+createInput({id:'login-password',clazz:'my-border-input',type:'password'})+'<br/>');
-		$('#login-id').attr('value','user');
-		$('#login-password').attr('value','user');
 		$('label')
 		.attr('style','display: inline-block;margin-bottom: 5px;max-width: 100%;font-weight: 700;');
+		$('#login-id')
+		.attr('value','user');
+		$('#login-password')
+		.attr('value','user');
 		
 		$('#div-btn-group')
-		.append($(createInput({id:'',clazz:'',type:'checkbox'})).attr('name','admin-check'))
+		.append($(createInput({id:'',clazz:'',type:'checkbox'}))
+				.attr('name','admin-check')
+				.on('click',()=>{
+					$('#login-id')
+					.attr('value','master');
+					$('#login-password')
+					.attr('value','master');
+				}))
 		.append($(createLabel({fo:'comment',val:'관리자 로그인'}))
 				.attr('style','font-size: 11px;'))
 		.append('<br/>');
@@ -277,7 +465,6 @@ user.member={
 			if($('input[name=admin-check]').is(':checked')){
 				type='admin';
 			}
-			
 			var userid=$('#login-id').val();
 			var userpass=$('#login-password').val();
 			$.ajax({
@@ -292,57 +479,13 @@ user.member={
 				contentType:'application/json',
 				success : d =>{
 					if(d!==null){
-						sessionStorage.setItem('user',JSON.stringify(d));
-						$('#div-header-userMenu').html(createDiv({id:'div-member-bar',clazz:''}));
 						if($('input[name=admin-check]').is(':checked')){
+							sessionStorage.setItem('admin',JSON.stringify(d));
 							user.admin.login(x);
 						}else{
-							$(createATag({id:'a-cs',val:'고객센터'})).appendTo('#div-member-bar')
-							.on('click',()=>{
-								alert('서비스 준비중..');
-							});
-							$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
-							$(createATag({id:'a-delivery-check',val:'주문배송조회'})).appendTo('#div-member-bar')
-							.on('click',()=>{
-								alert('서비스 준비중..');
-							});
-							$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
-							$(createATag({id:'a-cart',val:'장바구니'})).appendTo('#div-member-bar')
-							.on('click',e=>{
-								e.preventDefault();
-								document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
-								$.getScript($.javascript()+'/book.js',()=>{
-									book.main.bookNav(x);
-									$.getScript($.javascript()+'/shop.js',()=>{
-										shop.mall.cart(x);
-									});
-								});
-							});
-							
-							$(createButton({id:'',type:'',clazz:'lo-btn',val:'마이페이지'}))
-							.appendTo('#div-header')
-							.on('click',e=>{
-								e.preventDefault();
-								document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
-								$.getScript($.javascript()+'/book.js',()=>{
-									book.main.bookNav(x);   			
-									$.getScript($.javascript()+'/user.js',()=>{
-										user.member.admempage(x);
-										user.member.mypage(x);
-									});
-								});
-							});
+							sessionStorage.setItem('user',JSON.stringify(d));
+							user.member.costomer(x);
 						}
-						$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
-						$(createATag({id:'a-logout',val:'로그아웃'})).appendTo('#div-member-bar')
-						.on('click',e=>{
-							e.preventDefault();
-							sessionStorage.removeItem('user');
-							$('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
-							$.getScript($.javascript()+'/app.js',()=>{
-								app.init(x.context);
-							})
-						});
 						$.magnificPopup.close();
 					}else{
 						alert('로그인 실패');
@@ -361,6 +504,55 @@ user.member={
 		});
 		$('<a href="#" class="find-user pull-right">아이디/비밀번호 찾기</a>')
 		.appendTo('#div-auth-help');
+	},
+	costomer:x=>{
+		$('#div-header-userMenu').html(createDiv({id:'div-member-bar',clazz:''}));
+		$(createATag({id:'a-cs',val:'고객센터'})).appendTo('#div-member-bar')
+		.on('click',()=>{
+			alert('서비스 준비중..');
+		});
+		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
+		$(createATag({id:'a-delivery-check',val:'주문배송조회'})).appendTo('#div-member-bar')
+		.on('click',()=>{
+			alert('서비스 준비중..');
+		});
+		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
+		$(createATag({id:'a-cart',val:'장바구니'})).appendTo('#div-member-bar')
+		.on('click',e=>{
+			e.preventDefault();
+			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
+			$.getScript($.javascript()+'/book.js',()=>{
+				book.main.bookNav(x);
+				$.getScript($.javascript()+'/shop.js',()=>{
+					shop.mall.cart(x);
+				});
+			});
+		});
+		
+		$(createButton({id:'',type:'',clazz:'lo-btn',val:'마이페이지'}))
+		.appendTo('#div-header')
+		.on('click',e=>{
+			e.preventDefault();
+			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
+			$.getScript($.javascript()+'/book.js',()=>{
+				book.main.bookNav(x);   			
+				$.getScript($.javascript()+'/user.js',()=>{
+					user.member.admempage(x);
+					user.member.mypage(x);
+				});
+			});
+		});
+		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
+		$(createATag({id:'a-logout',val:'로그아웃'})).appendTo('#div-member-bar')
+		.on('click',e=>{
+			e.preventDefault();
+			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
+				sessionStorage.removeItem('user');
+			$('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
+			$.getScript($.javascript()+'/app.js',()=>{
+				app.init(x.context);
+			})
+		});
 	},
 	join:x=>{
 		$.magnificPopup.open(
@@ -417,6 +609,7 @@ user.member={
 					$.each(sv,(k,v)=>{
 						str+=createOption({val:v.opVal,txt:v.opTxt});
 					});
+					
 				$('#'+sk)
 				.append(str);
 		});
@@ -469,41 +662,7 @@ user.member={
 		.attr('pattern','[0-9]{4}');
 		$('#join-btn-address')
 		.on('click',e=>{
-			e.preventDefault();
-			new daum.Postcode({
-		        oncomplete: function(data) {
-		        	// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-		            // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-		            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-		            var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-		            var extraRoadAddr = ''; // 도로명 조합형 주소 변수
-
-		            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-		            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-		            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-		                extraRoadAddr += data.bname;
-		            }
-		            // 건물명이 있고, 공동주택일 경우 추가한다.
-		            if(data.buildingName !== '' && data.apartment === 'Y'){
-		                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-		            }
-		            // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-		            if(extraRoadAddr !== ''){
-		                extraRoadAddr = ' (' + extraRoadAddr + ')';
-		            }
-		            // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-		            if(fullRoadAddr !== ''){
-		                fullRoadAddr += extraRoadAddr;
-		            }
-
-		            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-		            document.getElementById('join-postCodeAddress').value = data.zonecode; //5자리 새우편번호 사용
-		            document.getElementById('join-roadAddress').value = fullRoadAddr;
-		            document.getElementById('join-jibunAddress').value = data.jibunAddress;
-
-		        }
-		    }).open();
+			
 		});
 		
 		$(createButton({id:'',type:'submit',clazz:'lo-btn',val:'가입하기'}))

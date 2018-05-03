@@ -53,46 +53,57 @@ app.nav=(()=>{
                     bulletin.board.onCreate();
                 })
             });
-			
-//			로그인 회원가입
+//			로그인 회원가입 글자
 			$(createDiv({
-	   			 id : 'wrap-tnb-menu',
-	   			 clazz : 'wrap-tnb-menu'
+				id : 'wrap-tnb-menu',
+				clazz : 'wrap-tnb-menu'
 			})).appendTo('#div-header-userMenu').attr('style','border-bottom: 2px dotted #c6c6c6;line-height:40px; ');
 			$(createDiv({
-	   			 id : 'tnb-menu-text-right',
-	   			 clazz : 'tnb-menu text-right'
-	   		 })).appendTo('#wrap-tnb-menu')
-	   		 .attr('style','width:1000px;margin:0 auto; font-size:20px;  position:relative;');
-	   		 $(createATag({
-	   			 id : 'a-login',
-	   			 clazz : 'tnb-link',
-	   			 val : '로그인'
-	   		 })).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative;')
-				.on('click',e=>{
-					e.preventDefault();
+				id : 'tnb-menu-text-right',
+				clazz : 'tnb-menu text-right'
+			})).appendTo('#wrap-tnb-menu')
+			.attr('style','width:1000px;margin:0 auto; font-size:20px;  position:relative;');
+			if(sessionStorage.getItem('admin')!=null){
+				$.getScript($.javascript()+'/user.js',()=>{
+					user.admin.login({context:context,view:view});
+				})
+			}else{
+				if(sessionStorage.getItem('user')!=null){
 					$.getScript($.javascript()+'/user.js',()=>{
-						user.member.login({context:context,view:view});
+						user.member.costomer({context:context,view:view});
 					})
+				}else{
+					$(createATag({
+						id : 'a-login',
+						clazz : 'tnb-link',
+						val : '로그인'
+					})).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative;')
+					.on('click',e=>{
+						e.preventDefault();
+						$.getScript($.javascript()+'/user.js',()=>{
+							user.member.login({context:context,view:view});
+						})
+					});
+					$(createSpan({
+						id : 'span-login',
+						clazz : 'division'
+					})).appendTo('#tnb-menu-text-right').attr('style','border: 2px solid green;');
+					$(createATag({
+						id : 'a-join',
+						clazz : 'tnb-link last',
+						val : '회원가입'
+					})).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative; ')
+					.on('click',e=>{
+						e.preventDefault();
+						$.getScript($.javascript()+'/user.js',()=>{
+							user.member.join({context:context,view:view});
+						})
+					});
+				}
+				$.getScript($.javascript()+'/book.js',()=>{
+					book.main.setContentView({image:image,context:context,view:view}); 	
 				});
-	   		 $(createSpan({
-	   			 id : 'span-login',
-	   			 clazz : 'division'
-	   		 })).appendTo('#tnb-menu-text-right').attr('style','border: 2px solid green;');
-	   		 $(createATag({
-	   			 id : 'a-join',
-	   			 clazz : 'tnb-link last',
-	   			 val : '회원가입'
-	   		 })).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative; ')
-				.on('click',e=>{
-					e.preventDefault();
-					$.getScript($.javascript()+'/user.js',()=>{
-						user.member.join({context:context,view:view});
-					})
-				});
-	   		$.getScript($.javascript()+'/book.js',()=>{
-	   			book.main.setContentView({image:image,context:context,view:view}); 			
-	   		});
+			}
 		});
 	}
 	return {onCreate:onCreate}

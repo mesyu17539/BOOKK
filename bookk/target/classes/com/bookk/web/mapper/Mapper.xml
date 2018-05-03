@@ -20,8 +20,7 @@
 		<result property="addrPostCode" column="ADDR_POSTCODEADDRESS"/>
 		<result property="addrRoad" column="ADDR_ROADADDRESS"/>
 		<result property="addrJibun" column="ADDR_JIBUNADDRESS"/>
-		<result property="addrDetailAddr" column="ADDR_DETAILADDRESS"/>
-		
+		<result property="addrDetailAddr" column="ADDR_DETAILADDRESS"/>	
 		<result property="admId" column="ADM_ID"/>
 		<result property="admPass" column="ADM_PASS"/>
 	<!-- 게시판 -->
@@ -30,6 +29,9 @@
 		<result property="title" column="co_title"/>
 		<result property="contents" column="contents"/>
 		<result property="viewNum" column="view_num"/>
+	<!-- 댓글 -->
+		<result property="CID" column="c_seq"/>
+		<result property="comment" column="comment"/>
 	<!-- 몰 -->
 		<result property="orderNum" column="order_num"/>
 		
@@ -66,13 +68,25 @@
 	<!-- MALL -->
     <!-- 장만호 영역  start-->
 	<select id="mallCartCount" resultType="map" parameterType="hashMap">
-	SELECT COUNT(*) AS count FROM CARTBASKET
+	SELECT COUNT(*) AS count 
+	 FROM  CARTBASKET
 	</select>
     <select id="mallCartList" resultMap="map" parameterType="hashMap">
     SELECT s.*,(select i.`imageRoute` from image i where i.`imageName` like s.imagename) As imageRoute
 	  FROM shop s
-	 WHERE s.mem_id LIKE 'ju'
+	 WHERE s.mem_id LIKE 'ju' 
     </select>
+    <delete id="deleteCartList" parameterType="hashMap">
+    	DELETE FROM orders where order_num in (${deleteNum})
+    </delete>
+    <update id="cartAmountUpdate" parameterType="hashMap">
+        update orders set amount = #{modifyVal} where order_num = #{modifyKey}
+</update>
+	<insert id ="malladdSalesDetail" parameterType="hashMap"> 
+	INSERT INTO sellbasket (salesamount, salesdate, recipient, sell_address, requirements, `bookNum`, mem_id, recipent_num) 
+VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member where mem_id like #{memId}), #{requirements}, #{bookNum}, #{memId}, #{recipent_num});
+	</insert>
+	 
     <!-- 장만호 영역  end -->
 	
 	<!-- MEMBER -->
@@ -117,9 +131,10 @@
 		view_num,
 		mem_id
                         from board 
-                            order by board_id desc
-               ) A,(SELECT @rank := 0) R) A2
+                        order by  board_id desc
+              LIMIT 18446744073709551615 ) A,(SELECT @rank := 0) R) A2
                 where rank between #{page.startRow} and #{page.endRow}
+                
     </select>
     <select id="selectBoardCount" resultType="int" parameterType="hashMap">
     SELECT COUNT(*) FROM board
@@ -131,22 +146,45 @@
      	select count(*) from board where ${type} like '%${data}%'
      </select> 
      <select id="searchList" resultMap="map" parameterType="hashMap"> 
-         select A2.* from(
+        select A2.* from(
         select @rank:=@rank+1 rank, A.* 
-            from(select 
-					 *
-                        from board 
+            from(select             
+			board_id,
+			DATE_FORMAT(create_date, '%Y-%m-%d') AS create_date,
+			co_title,
+			contents,
+			view_num,
+			mem_id
+        from board 
+ 			where ${type} like '%${data}%'
                             order by board_id desc
-               ) A,(SELECT @rank := 0) R) A2
-             where ${type} like '%${data}%'
+               ) A,(SELECT @rank := 0 
+ 			) R) A2
+      
+         where rank between #{page.startRow} and #{page.endRow}
+         
      </select>
          <select id="articleDetail" resultMap="map" parameterType="hashMap">
-     	select * from board where board_id like #{x}
+     	select 
+		board_id,
+		DATE_FORMAT(create_date, '%Y-%m-%d') AS create_date,
+		co_title,
+		contents,
+		view_num,
+		mem_id
+     	from board where board_id like #{x}
      </select>
      <insert id="insertBoard" parameterType="hashMap">
-     	insert into board(co_title,contents,mem_id)values(#{title},#{contents},'#{memID}')
+     	insert into board(co_title,contents,create_date,mem_id)values(#{title},#{contents},curdate(),#{memID})
      </insert>
-     
+     <insert id="insertComment" parameterType="hashMap">
+     	insert into comment(comment,mem_id)values(#{comment},#{memID})
+     </insert>
+     <update id="viewStack" parameterType="hashMap">
+     UPDATE BOARD
+   			SET view_num = #{viewNum} +1
+ 			WHERE BOARD_ID = #{x};	
+     </update>
      
      <!-- book -->
      <select id="largeGenre" resultMap="map">
@@ -201,9 +239,11 @@
      </select>
      
      <select id="bookGenreSmallCount" resultType="int" parameterType="hashMap">
-		select count(*) from book b join genre g
-		 on g.genreNum LIKE b.genreNum
-		  where g.smallGenre like #{genre}
+		select count(*) 
+		  from book b join genre g
+		 	   on g.genreNum 
+		  LIKE b.genreNum
+		 where g.smallGenre like #{genre}
 	 </select>
 	 <select id="bookGenreLargeCount" resultType="int" parameterType="hashMap">
 		select count(*) from book b join genre g
@@ -249,4 +289,80 @@
         LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
    		WHERE b.bookNum LIKE #{bookNum};
 	 </select>
+	 <select id="bookMonthRanking" resultType="map" parameterType="hashMap">
+		select sum(book_count) as count, 
+		salesdate, 
+		writter,
+		bookNum,
+		b.imageName,
+		i.imageRoute
+		 from (select
+		  A.*,b.imageName,b.writter
+		  from 
+		(select 
+		sum(salesamount) as book_count, 
+		salesdate , 
+		bookNum
+		from 
+		sellbasket 
+		GROUP BY 
+		salesdate,bookNum)
+		A join book b on a.bookNum like b.bookNum) B join image i on b.imageName like i.imageName
+		where salesdate BETWEEN #{MonthStart} AND #{MonthEnd}
+		group by b.imageName
+		order by count DESC LIMIT 6
+	 </select>
+	 
+	 <select id="bookWeekRanking" resultType="map" parameterType="hashMap">
+		select sum(book_count) as count, 
+		salesdate, 
+		writter,
+		bookNum,
+		b.imageName,
+		i.imageRoute
+		 from (select
+		  A.*,b.imageName,b.writter
+		  from 
+		(select 
+		sum(salesamount) as book_count, 
+		salesdate , 
+		bookNum
+		from 
+		sellbasket 
+		GROUP BY 
+		salesdate,bookNum)
+		A join book b on a.bookNum like b.bookNum) B join image i on b.imageName like i.imageName
+		where salesdate BETWEEN #{weekStart} AND #{weekEnd}
+		group by b.imageName
+		order by count DESC LIMIT 6
+	 </select>
+	 
+	 <select id="bookAllRanking" resultType="map" parameterType="hashMap">
+			select sum(book_count) as count, 
+			salesdate , 
+			bookNum,
+			writter,
+			b.imageName,
+			i.imageRoute
+			 from (select
+			  A.*,b.imageName,b.writter
+			  from 
+			(select 
+			sum(salesamount) as book_count, 
+			salesdate ,
+			bookNum
+			from 
+			sellbasket 
+			GROUP BY 
+			salesdate,bookNum)
+			A join book b on a.bookNum like b.bookNum) B join image i on b.imageName like i.imageName
+			group by b.imageName
+			order by salesdate DESC LIMIT 6;
+	 </select>
+	 
+	 <select id="bookNewRanking" resultType="map" parameterType="hashMap">
+			select b.bookNum, b.bookName, b.writter, i.imageRoute from book b join image i ON b.imageName like i.imageName
+			order by publishingDate desc LIMIT 6;
+	 </select>
+
 </mapper>
