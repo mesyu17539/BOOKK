@@ -105,7 +105,7 @@ var createMultiTh = x=>{
 var createMultiATag = x=>{
 	var temp = '';
 	$.each(x.arr,(i,j)=>{
-		temp+='<a id="a-'+x.id+'-'+i+'" href="#">'+j+'</a>'
+		temp+='<a id="a-'+x.id+'-'+i+'" class="'+x.clazz+'" href="#">'+j+'</a>'
 	});
 	return temp;
 }

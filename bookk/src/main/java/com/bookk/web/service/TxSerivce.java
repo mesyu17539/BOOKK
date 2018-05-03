@@ -1,6 +1,5 @@
 package com.bookk.web.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,31 +17,33 @@ public class TxSerivce implements ITxService{
 	@Autowired Mapper mapper;
 	@Override @Transactional
 	public String execute(HashMap<String,Object > param) {
-		HashMap<String, String> temp = new HashMap<>();
+		@SuppressWarnings("unchecked")
+		//클론을쓰면
+		HashMap<String, String> temp = (HashMap<String, String>) param.clone();
 		if(param.get("postDetail")!=null) {
 			if(param.get("recipentCheck").equals("true")) {
-				System.out.println("구매자 정보와 동일");
-				System.out.println("파람 값?"+param);
-				System.out.println("파람 값?"+param.get("size"));
-				System.out.println("파람 값?"+param.get("bookNum"));
-				System.out.println("파람 값?"+param.get("salesamount"));
-				/*((String) param.get("bookNum")).split(",")).*/
+				logger.info("{}",temp);
 				for(int i =0; i< (int) param.get("size");i++) {
-					param.put("bookNum",((String) param.get("bookNum")).split(",")[i]);
-					param.put("salesamount",((String) param.get("salesamount")).split(",")[i]);
-					System.out.println("param 값은?"+param);
-					mapper.malladdSalesDetail(param);
+					temp.put("bookNum",((String) param.get("bookNum")).split(",")[i]);
+					temp.put("salesamount",((String) param.get("salesamount")).split(",")[i]);
+					mapper.malladdSalesDetail(temp);
 					
 				}
+				System.out.println("딜리트 타기 전 "+"bookNum:"+param.get("orderNum"));
+				mapper.deleteCartList(param);
+				System.out.println("딜리트 타기 후 ");
 			}else {
-				System.out.println("구매자 정보와 다름");
+				mapper.addAddress(temp);
+				for(int i =0; i< (int) param.get("size");i++) {
+					temp.put("bookNum",((String) param.get("bookNum")).split(",")[i]);
+					temp.put("salesamount",((String) param.get("salesamount")).split(",")[i]);
+					mapper.malladdSalesDetail(temp);
+				}
+				mapper.deleteCartList(param);
 			}
-			System.out.println("파람 값은 무엇이냐?"+param);
+		
 			
-			
-			System.out.println();
 			/*mapper.addAddress(temp);*/
-			
 			
 		}else if(param.get("modifyKey") != null) {
 			@SuppressWarnings("unchecked")
@@ -56,6 +57,19 @@ public class TxSerivce implements ITxService{
 				temp.put("modifyVal", list2.get(i));
 				mapper.cartAmountUpdate(temp);
 			}
+		}else if(param.get("insertBook") != null) {
+			System.out.println("인서트 준비됐다 서비스 안~~\n"+param);
+			
+			int check =mapper.insertCheck(param);
+			System.out.println("체크된 값은?"+check);
+			if(check==1) {
+				System.out.println("책이 있으니 업데이트 해라");
+				mapper.insertAmountUpdate(param);
+			}else if(check==0) {
+				System.out.println("책이 없으니 인서트 해라");
+				mapper.insertcart(param);
+			}
+			
 		}
 		
 		return null;

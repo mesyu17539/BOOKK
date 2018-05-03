@@ -1,4 +1,5 @@
 var shop=shop || {};
+var se=JSON.parse(sessionStorage.getItem('user'));
 shop.mall = {cart:x=>{
 	$.getScript(x.view,()=>{
 		
@@ -13,13 +14,16 @@ shop.mall = {cart:x=>{
 			$('#div-content').attr('style','width:1000px; margin: 0 auto');
 
 		
-			var id ={userid:'ju'}
 			
+		
 					$.ajax({
-					url:x.context+'/cartlist/'+id.userid+'',
+					url:x.context+'/cartlist/b',
 					method:'POST',
 					data:JSON.stringify({
-						userid:id.userid}),
+						userid:se.memID,
+						insertBook:x.insertBook,
+						insertAmount:x.insertAmount
+						}),
 					dataType:'json',
 					contentType:'application/json',
 					success:y=>{
@@ -346,9 +350,10 @@ shop.mall = {cart:x=>{
 },
 
 sell:x=>{
+	
 	$.getScript(x.view,()=>{
 		console.log(x.y);
-		var se=JSON.parse(sessionStorage.getItem('user'));
+		
 		$('div[id=div-content]').html(createMultiDiv({
 			id:'div-sell',
 			clazz:'',
@@ -423,6 +428,8 @@ sell:x=>{
 			$('#div-sell-2-4-0').text('받는 사람 정보').attr('style','font-size:20px;margin:20px');
 			$('#div-sell-2-4-1').append(createInput({id:'input-buyer-check',clazz:'',type:'checkbox'}))
 			.attr('style','float:right;maring-right:5px');
+			$('#input-buyer-check').val(false);
+			
 			$('#div-sell-2-4-1').append(createLabel({fo:'',val:'구매자 정보와 동일'}));
 			$('#div-sell-2-5').append(createTable({id:'table-recipient-info',clazz:'table-buyer-info'}))
 			$('#table-recipient-info').append(createMultiTr({id:'tr-recipient-info',arr:['','','','']}))
@@ -539,23 +546,24 @@ sell:x=>{
 				if($('#input-recipient-info-0').val()===''
 					||$('#input-recipient-info-1').val()===''
 						||$('#input-addr-1').val()===''){
-					
 					alert('값 넣어라 임마');
-					
 				}else{
 					var oNum = '';
 					var oAmount = '';
-					
-					
+					var oOderNum = '';
+				
 					$.each(x.y,function(i,j){
 						
 						if(x.y.length-1==i){
-							oNum+= j.bookNum;
+							oNum+= "'"+j.bookNum+"'";
+							oOderNum+= "'"+j.orderNum+"'";
 							oAmount+=j.amount;
 							
 							
+							
 						}else{
-							oNum+= j.bookNum+',';
+							oNum+= "'"+j.bookNum+"'"+',';
+							oOderNum+= "'"+j.orderNum+"'"+',';
 							oAmount+= j.amount+',';
 							
 						}
@@ -571,7 +579,9 @@ sell:x=>{
 							+$('#input-addr-5').val()+","
 							+$('#input-addr-7').val()+","	
 							+$('#textarea-tr3-td1-requierment').val()+","
-							+$('#input-buyer-check').val()
+							+$('#input-buyer-check').val()+","
+							+se.memID+","
+							+oOderNum
 					);
 				$.ajax({
 						url:x.context+'/cartlist/sd',
@@ -587,8 +597,9 @@ sell:x=>{
 							roadAddress:$('#input-addr-3').val(),
 							jibunAddress:$('#input-addr-5').val(),
 							detailAddress:$('#input-addr-7').val(),
-							memId:se.memID,
-							recipentCheck:$('#input-buyer-check').val()
+							userid:se.memID,
+							recipentCheck:$('#input-buyer-check').val(),
+							orderNum:oOderNum
 							}),
 						dataType:'json',
 						contentType:'application/json',
@@ -612,5 +623,86 @@ sell:x=>{
 	});
 	
 	
+},
+orderCheck:x=>{
+	alert('옵니다 와용');
+	$('#div-advertise').html(createDiv({id:'div-adminipage-menu',clazz:'text-center'}))
+	.attr('style','width: 1050px;margin: 0 auto;');
+	
+	$('#div-adminipage-menu')
+	.attr('style','width: 100%;')
+	.html(createUL({id:'mypage-header',clazz:'mylist-inline'}));
+	$('#div-advertise').append(createMultiDiv({id:'div-orderlist',arr:makeCount(1)}));
+	$('#div-orderlist-0').html(createMultiDiv({id:'div-orderlist-0',arr:makeCount(3)}));
+	$('#div-orderlist-0-0').attr('style','border-bottom: 2px solid #dddddd;margin-top:80px;width:100%').
+	append(createUL({id:'ul-sub-menu',clazz:''}));
+	$('#ul-sub-menu').append(createMultiLi({
+		id:'sub-menu',
+		clazz:'a-sub-menu',
+		arr:[createATag({id:'a-sub-menu-0',val:'도서 주문내역'}),
+			createATag({id:'a-sub-menu-1',val:'작가 서비스 주문내역'})]}))
+			.attr('style','position: relative; bottom: 37px;margin: 0;padding: 0;');
+	$('#li-sub-menu-0')
+	.attr('style','float: left; width: 200px;text-align: center;'
+			+'border-bottom:2px solid;height:37px');
+	$('#li-sub-menu-1')
+	.attr('style','float: left; width: 200px;text-align: center;height:37px');
+	
+	$('.a-sub-menu').on('click',function(){
+		if($(this).text()==='도서 주문내역'){
+			$('#li-sub-menu-0')
+			.attr('style','float: left; width: 200px;text-align: center;'
+			+'border-bottom:2px solid;height:37px');
+			$('#li-sub-menu-1')
+			.attr('style','float: left; width: 200px;text-align: center;height:37px;border-bottom:none;');
+		}else{
+			$('#li-sub-menu-0')
+			.attr('style','float: left; width: 200px;text-align: center;'
+			+'border-bottom:none;height:37px');
+			$('#li-sub-menu-1')
+			.attr('style','float: left; width: 200px;text-align: center;height:37px;border-bottom:2px solid;');
+		}
+	});
+	$('#div-orderlist-0-1').attr('style','width:100%;background-color:#f9f9f9;border: 1px solid #ddd;height:111px;margin-top: 30px;')
+	.append(createTable({id:'table-search'}));
+	$('#table-search').append(createMultiTr({id:'tr-search',arr:makeCount(2)})).attr('style','width:100%;height:100%');
+	$('#table-search tr').each(function(i){
+		$(this).append(createMultiTd({id:'td-tr'+i+'-search',arr:makeCount(2)}));
+		
+	});
+	$('#td-tr1-search-0').remove();
+	$('#td-tr0-search-0').attr('rowsapn','2').text('조회기간');
+	$(createMultiATag({clazz:'term-check',arr:['1주일','15일','1개월','3개월','6개월']})).appendTo('#td-tr0-search-1')
+	.attr('style','width: 59px;height:28px;border:solid #d7d7d7;border-width: 1px 1px 1px 0;font-size: 11px;text-align: center;background: #fff;');
+	
+	
+	
+	$.each([
+		'http://www.bookk.co.kr/img/settings/index01.jpg',
+		'http://www.bookk.co.kr/img/settings/index02.jpg',
+		'http://www.bookk.co.kr/img/settings/index03.jpg',
+		'http://www.bookk.co.kr/img/settings/index04.jpg',
+		'http://www.bookk.co.kr/img/settings/index05.jpg'
+	],(k,v)=>{
+		$(createLI({id:'li-headMenu-'+k,clazz:''}))
+		.attr('name','li-headMenu')
+		.append(createImg({id:'',alt:'',src:v,clazz:''}))
+		.appendTo('#mypage-header');			
+	});
+	$('li[name="li-headMenu"]').attr('style','border: 1px solid #eee;');
+	$('#li-headMenu-2').attr('style','border: 1px solid #adcfdf;');
+	$('#li-headMenu-0')
+	.on('click',e=>{
+		e.preventDefault();
+		user.member.mypage(x);
+	});
+	
+	$('#li-headMenu-2')
+	.on('click',e=>{
+		e.preventDefault();
+		$('li[name="li-headMenu"]').attr('style','border: 1px solid #eee;');
+		$('#li-headMenu-2').attr('style','border: 1px solid #adcfdf;');
+		
+	});
 }
 }

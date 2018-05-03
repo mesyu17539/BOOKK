@@ -514,7 +514,9 @@ user.member={
 		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
 		$(createATag({id:'a-delivery-check',val:'주문배송조회'})).appendTo('#div-member-bar')
 		.on('click',()=>{
-			alert('서비스 준비중..');
+			$.getScript($.javascript()+'/shop.js',()=>{
+				shop.mall.orderCheck(x);
+			});
 		});
 		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
 		$(createATag({id:'a-cart',val:'장바구니'})).appendTo('#div-member-bar')

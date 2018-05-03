@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.SynchronousQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,20 +49,27 @@ public class Controller{
 			method=RequestMethod.POST,consumes="application/json")
 	public Object cartList(
 			@RequestBody HashMap<String, Object> param) {
+		System.out.println("파람값은 무엇니냐?"+param);
+		
+		if(param.get("insertBook")!=null&&param.get("insertBook")!="") {
+			System.out.println("인서트 준비됐다");
+			tx.execute(param);
+			
+		}
 		
 		
-		System.out.println(param.get("deleteNum"));
-		System.out.println
-		(" orderNum:"+param.get("modifyKey")+" 수정 할 amount: "+param.get("modifyVal"));
 		
 		if(param.get("postDetail")!=null) {
-			
+			System.out.println("여기는 왜 안타냐?");
+			mapper.deleteCartList(param);
 			
 			System.out.println("파람 값은 무엇이냐?"+param);
 			tx.execute(param);
 		}
 		//빈 배열 체크시 equals를 쓴다.
 		if(param.get("modifyKey")!=null&&!(param.get("modifyKey").equals(""))) {
+			System.out.println
+			(" orderNum:"+param.get("modifyKey")+" 수정 할 amount: "+param.get("modifyVal"));
 			System.out.println("흠냐");
 			List<String> list = new ArrayList<>();
 			List<String> list2 = new ArrayList<>();
@@ -69,8 +77,6 @@ public class Controller{
 				list.add(((String) param.get("modifyKey")).split(",")[i]);
 				list2.add(((String) param.get("modifyVal")).split(",")[i]);
 			}
-			/*List<String> list = (List<String>) param.get("modifyKey");
-			List<String> list2 = (List<String>) param.get("modifyVal");*/
 			param.put("modifyKey", list);
 			param.put("modifyVal", list2);
 			
@@ -78,6 +84,7 @@ public class Controller{
 			tx.execute(param);
 		}
 		if(param.get("deleteNum")!=null&&param.get("deleteNum")!="") {
+			System.out.println("선택한 도서 삭제 값"+param.get("deleteNum"));
 				new IDeleteService() {
 			@Override
 			public void execute(HashMap<?, ?> param) {

@@ -529,7 +529,7 @@ $.fn.ajaxSubmit = function(options) {
             }
 
             // look for server aborts
-            function checkState() {
+           function checkState() {
                 try {
                     var state = getDoc(io).readyState;
                     log('state = ' + state);
