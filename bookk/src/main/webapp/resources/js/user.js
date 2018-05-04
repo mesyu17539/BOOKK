@@ -1,25 +1,22 @@
 var user=user || {};
 user.admin={
 	login:x=>{
-		$('#div-header-userMenu').html(createDiv({id:'div-member-bar',clazz:''}));
-		$('#div-header-pageMenu').html(createDiv({id:'div-subMenu',clazz:''}));
-
-		$('#div-subMenu')
-		.attr('style','display: grid;grid-template-columns: 200px 1000px;height:30px;margin: 0 auto;width:1200px;')
+		$('#div-header-userMenu').html(createDiv({id:'div-member-bar',clazz:''}))
+		$('#div-header-pageMenu').remove();
+		$('#div-member-bar')
+		.attr('style','display: grid;grid-template-columns: 1000px 200px;margin: 0 auto;width:1200px;')
 		.append(
-				$(createDiv({id:'div-subMenu-empty',clazz:''}))
+				$(createDiv({id:'div-userMenu-left',clazz:''}))
 				.attr('style','border-top: 2px solid black;border-left: 2px solid black;'))
 		.append(
-				$(createDiv({id:'div-subMenu-ul',clazz:''}))
-				.attr('style','border-top: 2px solid black;border-right: 2px solid black;'));
+				$(createDiv({id:'div-userMenu-right',clazz:''}))
+				.attr('style','border-top: 2px solid black;border-right: 2px solid black;text-align: right;padding: 15px 20px;'));
 		
-		$('#div-member-bar')
+		$('#div-userMenu-left')
 		.attr('style','width: 1164px;background-color:black;color:white; padding: 12px 18px;margin:0 auto;')
-		.append(createSpan({id:'division',clazz:'division'}));
-		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
 		$(createATag({id:'a-logout',val:'로그아웃'}))
-		.appendTo('#div-member-bar')
-		.attr('style','color: white;float:right;margin: 0 auto;')
+		.appendTo('#div-userMenu-right')
+		.attr('style','color: white;')
 		.on('click',e=>{
 			e.preventDefault();
 			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
@@ -30,7 +27,8 @@ user.admin={
 			})
 		});
 		$(createImage({id:'',src:'http://www.bookk.co.kr/img/logo_blue.png',clazz:''}))
-		.appendTo('#div-member-bar')
+		.attr('style','height: 31px;')
+		.appendTo('#div-userMenu-left')
 		
 		user.admin.adminContent(x);
 	},
@@ -51,21 +49,24 @@ user.admin={
 		
 		
 		$.each([
-			['판매량 통계', ['연간 장르별 판매량 라인차트','연간 판매량 테이블 차트'], user.admin.lineCharts,
+			['판매량 통계', ['연간 장르별<br/>판매량<br/>라인 차트','연간 판매량<br/>테이블 차트'], user.admin.lineCharts,
 				user.admin.lineCharts, user.admin.bookTableChart],
-			['서적 관리', ['등록','수정','삭제'], user.admin.tableCharts,
-				user.admin.undefind, user.admin.undefind, user.admin.undefind],
-			['회원 관리', ['회원정보 수정','회원 삭제'], user.admin.undefind,
-				user.admin.undefind, user.admin.undefind]
+			['서적 관리', ['서적 리스트','재고량 차트'], user.admin.tableCharts,
+				user.admin.tableCharts, user.admin.pietableChart]
 		],(k,v)=>{
 			$(createLI({id:'li-sideMenu-'+k,clazz:''}))
 			.attr('name','li-sideMenu-'+k)
-			.attr('style','padding: 10px;height:60px')
+			.attr('style','padding: 10px;min-height: 240px;font-size: 26px;text-align: center;')
 			.append(
 					$(createATag({id:'',val:v[0]}))
 					.attr('style','color: white;')
 					.on('click',function(e){
 						e.preventDefault();
+						$('a')
+						.attr('style','color: white;');
+						$(this)
+						.attr('style','color: red;');
+						
 						$('#div-adminContent').html(v[2](x));
 						$('#div-subMenu-ul')
 						.html($(createUL({id:'ul-subMenu',clazz:'mylist-inline'})).attr('style','margin: 0 auto;'));
@@ -77,26 +78,31 @@ user.admin={
 						.append(createDiv({id:'div-adminContent-chart',clazz:'text-center'}))
 						.append(createDiv({id:'div-adminContent-control',clazz:'text-center'}));
 						
-						$.each(v[1],(sk,sv)=>{
-							$(createLI({id:'li-subMenu-'+sk,clazz:''}))
-							.attr('style','font-size: 21px;background-color: #bfa1a1;margin: 0 5px;')
-							.append($(createATag({id:'',val:sv})).attr('style','color: black;'))
-							.appendTo('#ul-subMenu')
-							.on('click',function(e){
-								e.preventDefault();
-								$('#div-adminContent').html(v[3+sk](x));
-								$('#div-adminContent')
-								.html(createDiv({id:'div-adminContent-dash',clazz:''}))
-								.append(createDiv({id:'div-adminContent-chartbtn',clazz:'text-center'}));
-								$('#div-adminContent-dash')
-								.append(createDiv({id:'div-adminContent-chart',clazz:'text-center'}))
-								.append(createDiv({id:'div-adminContent-control',clazz:'text-center'}));
-								
-								
-							})
-						});
 					}))
+			.append($(createUL({id:'ul-subMenu-'+k,clazz:'ul-subMenus'}))
+//					.attr('style','display:none;')
+					)
 			.appendTo('#ul-sideMenu');
+			$.each(v[1],(sk,sv)=>{
+				$(createLI({id:'li-subMenu-'+sk,clazz:'subMenus'}))
+				.attr('style','font-size: 15px;margin: 17px 5px;')
+				.append($(createATag({id:'',val:sv})).attr('style','color: white;'))
+				.appendTo('#ul-subMenu-'+k)
+				.on('click',function(e){
+					e.preventDefault();
+					$('a')
+					.attr('style','color: white;');
+					$(this).children('a')
+					.attr('style','color: red;');
+					$('#div-adminContent').html(v[3+sk](x));
+					$('#div-adminContent')
+					.html(createDiv({id:'div-adminContent-dash',clazz:''}))
+					.append(createDiv({id:'div-adminContent-chartbtn',clazz:'text-center'}));
+					$('#div-adminContent-dash')
+					.append(createDiv({id:'div-adminContent-chart',clazz:'text-center'}))
+					.append(createDiv({id:'div-adminContent-control',clazz:'text-center'}));
+				})
+			});
 			
 		});
 	},
@@ -212,6 +218,7 @@ user.admin={
 				
 				dashboard.bind(control, [tableChart]);
 				dashboard.draw(data);
+				$('#div-adminContent-chart').attr('style','margin-top: 55px;')
 			}
 			
 			$('#div-adminContent-chartbtn')
@@ -348,6 +355,7 @@ user.admin={
 			});
 			dashboard.bind(control, [lineChart]);
         	dashboard.draw(data);
+    		$('#div-adminContent-chart').attr('style','')
 	      }
 		
 		$('#div-adminContent-chartbtn')
@@ -490,6 +498,156 @@ user.admin={
 				
 				dashboard.bind(control, [tableChart]);
 				dashboard.draw(data);
+				$('#div-adminContent-chart').attr('style','margin-top: 55px;')
+				
+				$('#div-adminContent-chartbtn')
+				.append(createUL({id:'ul-chart-genre',clazz:'mylist-inline'}))
+				$.each(chartList.cols,(k,v)=>{
+					$(createLI({id:'li-chart-genre-'+k,clazz:''}))
+					.appendTo('#ul-chart-genre')
+					.append(
+							$(createInput({id:'',clazz:'',type:'checkbox'}))
+							.attr('name','genrelist-check')
+							.attr('checked',true)
+							.attr('value',k)
+							.on('click',function(e){
+								var selected = [];
+								var nonselected = [];
+								$('input[name=genrelist-check]').each(function(){
+									if(this.checked){
+										$.each(chartList.rows[parseInt($(this).val())],(rk,rv)=>{
+											selected.push(rv);
+										});
+									}else{
+										$.each(chartList.rows[parseInt($(this).val())],(rk,rv)=>{
+											nonselected.push(rv);
+										});
+									}
+								})
+								if(selected.length==0){
+									alert('하나 이상 체크하셔야 합니다');
+									e.preventDefault();
+									return;
+								}
+								view = new google.visualization.DataView(data);
+								console.log()
+								console.log(selected)
+								console.log(nonselected)
+								view.setRows(selected);
+								view.hideRows(nonselected);
+								dashboard.draw(view);
+							}))
+							.append(createLabel({fo:'comment',val:v})+' ');
+				});
+				$('#div-adminContent-chartbtn')
+				.append(createUL({id:'ul-chart-bookMg',clazz:'mylist-inline'}))
+				$.each([['서적 등록',user.admin.undefind],['서적 수정',user.admin.undefind],['서적 삭제',user.admin.undefind]],(k,v)=>{
+					$(createLI({id:'li-chart-bookMg-'+k,clazz:''}))
+					.appendTo('#ul-chart-bookMg')
+					.append(
+							$(createButton({id:'',clazz:'',val:v[0]}))
+							.on('click',function(e){
+								v[1](x)
+							}))
+				});
+			}
+			
+		});
+	},
+	pietableChart:x=>{
+		var chartList={'cols':[],'rows':[]};
+		$.getJSON(x.context+'/chartData/books', d=>{
+			console.log(d.chartData);
+			var rowlen;
+			var collen;
+			var cbooleans;
+			var rbooleans;
+			$.each(d.chartData,(k,v)=>{
+				if(chartList.cols.length==0){
+					chartList.cols.push(v.largeGenre)
+					collen=chartList.cols.length-1;
+					chartList.rows[collen]=[]
+				}else{
+					cbooleans=true;
+					collen=0;
+					$.each(chartList.cols,(kc,vc)=>{
+						if(vc===String(v.largeGenre)){
+							cbooleans=false;
+						}
+						if(cbooleans){
+							collen=kc+1;
+						}
+					});
+					if(cbooleans){
+						chartList.cols.push(v.largeGenre);
+						chartList.rows[chartList.cols.length-1]=[]
+					}
+				}
+				rbooleans=true;
+				rowlen=0;
+				$.each(chartList.rows[collen],(kc,vc)=>{
+					if(vc===String(v.smallGenre)){
+						rbooleans=false;
+					}
+					if(rbooleans){
+						rowlen=kc+1;
+					}
+				});
+				if(rbooleans){
+					chartList.rows[collen][rowlen]=k;
+				}
+			});
+			
+			google.charts.load('current', {packages: ['corechart', 'controls', 'table']});
+			google.charts.setOnLoadCallback(drawChart);
+			var data;
+			var control;
+			var lineChart;
+			var pietableChart;
+			var view;
+			var dashboard;
+			function drawChart() {
+				data=new google.visualization.DataTable();
+				$.each({'책이름':'string','재고량':'number'},(kc,vc)=>{
+					data.addColumn(vc, kc);
+				});
+//				console.log(JSON.stringify(data));
+				$.each(d.chartData,(k,v)=>{
+//					k+1번째 튜플을 지우게 한다.
+					data.addRow([v.bookName,v.inventory]);
+				});
+				
+//				console.log(JSON.stringify(data));
+				dashboard = new google.visualization.Dashboard(
+						document.getElementById('div-adminContent-dash'));
+				
+				control = new google.visualization.ControlWrapper({
+					controlType: 'NumberRangeFilter',
+					containerId: 'div-adminContent-control',
+					options: {
+						filterColumnIndex: 1,
+			            'ui': {'labelStacking': 'vertical'}
+					}
+				});
+				pietableChart = new google.visualization.ChartWrapper({
+					'chartType': 'PieChart',
+					'containerId': 'div-adminContent-chart',
+					'options': {
+						width: 950,
+						height: 500,
+						'pieSliceText': 'value',
+						legend: { position: 'right' },
+						'title': '연간 판매량 파이 차트',			
+						'chartArea': {'left': 15, 'top': 15, 'right': 0, 'bottom': 0},
+						'pieSliceText': ''
+							
+					}
+				});
+				
+				dashboard.bind(control, pietableChart);
+				dashboard.draw(data);
+				$('#div-adminContent-chart').attr('style','margin-top: 55px;')
+				
 				$('#div-adminContent-chartbtn')
 				.append(createUL({id:'ul-chart-genre',clazz:'mylist-inline'}))
 				$.each(chartList.cols,(k,v)=>{
@@ -532,6 +690,7 @@ user.admin={
 			}
 			
 		});
+	
 	}
 }
 user.member={
