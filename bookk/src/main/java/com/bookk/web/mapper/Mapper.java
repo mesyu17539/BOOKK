@@ -13,6 +13,8 @@ public interface Mapper {
 	    public Object selectMemberById(HashMap<?, ?> param);
 	    public Object selectAdminById(HashMap<?, ?> param);
 	    public Object selectById(HashMap<?, ?> param);
+		public List<?> chartDateBook(HashMap<?, ?> param);
+		public List<?> chartDateBooks(HashMap<?, ?> param);
 		public HashMap<?, ?> mallCartCount(HashMap<?, ?> map);
 		public List<?> mallCartList(HashMap<?, ?> param);
 		public void deleteCartList(HashMap<?, ?> param);

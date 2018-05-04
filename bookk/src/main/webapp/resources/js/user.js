@@ -31,9 +31,7 @@ user.admin={
 		});
 		$(createImage({id:'',src:'http://www.bookk.co.kr/img/logo_blue.png',clazz:''}))
 		.appendTo('#div-member-bar')
-		.on('click',x=>{
-			user.admin.adminContent(x);			
-		});
+		
 		user.admin.adminContent(x);
 	},
 	adminContent:x=>{
@@ -53,12 +51,12 @@ user.admin={
 		
 		
 		$.each([
-			['판매량 통계', ['차트','리스트'], user.admin.chart,
-				user.admin.chart, user.admin.chart],
-			['서적 관리', ['등록','수정','삭제'], user.member.login,
-				user.member.login, user.member.join, user.member.join],
-			['회원 관리', ['회원정보 수정','회원 삭제'], user.member.join,
-				user.member.login, user.member.join]
+			['판매량 통계', ['연간 장르별 판매량 라인차트','연간 판매량 테이블 차트'], user.admin.lineCharts,
+				user.admin.lineCharts, user.admin.bookTableChart],
+			['서적 관리', ['등록','수정','삭제'], user.admin.tableCharts,
+				user.admin.undefind, user.admin.undefind, user.admin.undefind],
+			['회원 관리', ['회원정보 수정','회원 삭제'], user.admin.undefind,
+				user.admin.undefind, user.admin.undefind]
 		],(k,v)=>{
 			$(createLI({id:'li-sideMenu-'+k,clazz:''}))
 			.attr('name','li-sideMenu-'+k)
@@ -68,8 +66,17 @@ user.admin={
 					.attr('style','color: white;')
 					.on('click',function(e){
 						e.preventDefault();
+						$('#div-adminContent').html(v[2](x));
 						$('#div-subMenu-ul')
 						.html($(createUL({id:'ul-subMenu',clazz:'mylist-inline'})).attr('style','margin: 0 auto;'));
+						
+						$('#div-adminContent')
+						.html(createDiv({id:'div-adminContent-dash',clazz:''}))
+						.append(createDiv({id:'div-adminContent-chartbtn',clazz:'text-center'}));
+						$('#div-adminContent-dash')
+						.append(createDiv({id:'div-adminContent-chart',clazz:'text-center'}))
+						.append(createDiv({id:'div-adminContent-control',clazz:'text-center'}));
+						
 						$.each(v[1],(sk,sv)=>{
 							$(createLI({id:'li-subMenu-'+sk,clazz:''}))
 							.attr('style','font-size: 21px;background-color: #bfa1a1;margin: 0 5px;')
@@ -77,43 +84,245 @@ user.admin={
 							.appendTo('#ul-subMenu')
 							.on('click',function(e){
 								e.preventDefault();
-								v[3+sk](x)
+								$('#div-adminContent').html(v[3+sk](x));
+								$('#div-adminContent')
+								.html(createDiv({id:'div-adminContent-dash',clazz:''}))
+								.append(createDiv({id:'div-adminContent-chartbtn',clazz:'text-center'}));
+								$('#div-adminContent-dash')
+								.append(createDiv({id:'div-adminContent-chart',clazz:'text-center'}))
+								.append(createDiv({id:'div-adminContent-control',clazz:'text-center'}));
+								
+								
 							})
 						});
-						$('#div-adminContent').html(v[2](x));
 					}))
 			.appendTo('#ul-sideMenu');
 			
 		});
 	},
-	chart:x=>{
-		$('#div-adminContent')
-		.html(createDiv({id:'div-adminContent-dash',clazz:''}))
-		.append(createDiv({id:'div-adminContent-chartbtn',clazz:'text-center'}));
-		$('#div-adminContent-dash')
-		.append(createDiv({id:'div-adminContent-chart',clazz:'text-center'}))
-		.append(createDiv({id:'div-adminContent-control',clazz:'text-center'}));
-		
+	undefind:x=>{
+		alert('업데이트 중')
+	},
+	bookTableChart:x=>{
+		var chartList={'cols':[],'rows':[]};
+		$.getJSON(x.context+'/chartData/book', d=>{
+			var rowlen;
+			var collen;
+			var cbooleans;
+			var rbooleans;
+			$.each(d.chartData,(k,v)=>{
+				console.log('테스팅 리스트');
+				if(chartList.cols.length==0){
+					chartList.cols.push(v.largeGenre)
+					collen=chartList.cols.length;
+				}else{
+					cbooleans=true;
+					$.each(chartList.cols,(kc,vc)=>{
+						if(vc===String(v.largeGenre)){
+							cbooleans=false;
+							collen=kc+1;
+						}
+					});
+					if(cbooleans){
+						chartList.cols.push(v.largeGenre);
+						collen=chartList.cols.length;
+					}
+				}
+				if(chartList.rows.length===0){
+					chartList.rows.push([v.salesdate])
+					rowlen=chartList.rows.length;
+					
+				}else{
+					rbooleans=true;
+					$.each(chartList.rows,(kc,vc)=>{
+						if(vc[0]===String(v.salesdate)){
+							rbooleans=false;
+							rowlen=kc+1;
+						}
+					});
+					if(rbooleans){
+						chartList.rows.push([v.salesdate]);
+						rowlen=chartList.rows.length;
+					}
+				}
+				--collen;
+				--rowlen;
+				chartList.rows[rowlen][collen+1]=v.salesamount;		
+			});
+			$.each(chartList.rows,(ro,rv)=>{
+				for(var i=0;i<=chartList.cols.length;i++){
+					chartList.rows[ro][0]=new Date(chartList.rows[ro][0])
+					if(chartList.rows[ro][i]==null){
+						chartList.rows[ro][i]=0;
+					}
+				}				
+			});
+			
+			console.log(chartList);
+			console.log(d.chartData);
+			
+			google.charts.load('current', {packages: ['corechart', 'controls', 'table']});
+			google.charts.setOnLoadCallback(drawChart);
+			var data;
+			var control;
+			var lineChart;
+			var tableChart;
+			var view;
+			var dashboard;
+			function drawChart() {
+				
+				data=new google.visualization.DataTable();
+				data.addColumn('date', 'Year');
+				$.each(chartList.cols,(kc,vc)=>{
+					data.addColumn('number', vc);
+				});
+				$.each(chartList.rows,(k,v)=>{
+					data.addRow(v);
+				});
+				
+				
+				dashboard = new google.visualization.Dashboard(
+						document.getElementById('div-adminContent-dash'));
+				
+				control = new google.visualization.ControlWrapper({
+					controlType: 'DateRangeFilter',
+					containerId: 'div-adminContent-control',
+					options: {
+						filterColumnIndex: '0',
+						'ui': { 'format': { 'pattern': 'yyyy/MM/dd' } },
+					}
+				});
+				tableChart = new google.visualization.ChartWrapper({
+					'chartType': 'Table',
+					'containerId': 'div-adminContent-chart',
+					'options': {
+						width: 950,
+						height: 500,
+						allowHtml: true,
+						showRowNumber: true,
+						page: 'enable',
+						pageSize: 5,
+						legend: { position: 'right' },
+						'title': '연간 판매량 파이 차트',			
+						'chartArea': {'left': 15, 'top': 15, 'right': 0, 'bottom': 0},
+						'pieSliceText': ''
+							
+					}
+				});
+				
+				dashboard.bind(control, [tableChart]);
+				dashboard.draw(data);
+			}
+			
+			$('#div-adminContent-chartbtn')
+			.append(createUL({id:'ul-chart-genre',clazz:'mylist-inline'}))
+			$.each(chartList.cols,(k,v)=>{
+					$(createLI({id:'li-chart-genre-'+k,clazz:''}))
+					.appendTo('#ul-chart-genre')
+					.append(
+							$(createInput({id:'',clazz:'',type:'checkbox'}))
+							.attr('name','genrelist-check')
+							.attr('checked',true)
+							.attr('value',k+1)
+							.on('click',function(e){
+								var selected = [0];
+								var nonselected = [];
+								$('input[name=genrelist-check]').each(function(){
+									if(this.checked){
+										selected.push(parseInt($(this).val()));
+									}else{
+										nonselected.push(parseInt($(this).val()));
+									}
+								})
+								if(selected.length==1){
+									alert('하나 이상 체크하셔야 합니다');
+									e.preventDefault();
+									return;
+								}
+								view = new google.visualization.DataView(data);
+								view.setColumns(selected);
+								view.hideColumns(nonselected);
+								dashboard.draw(view);
+							}))
+							.append(createLabel({fo:'comment',val:v})+' ');
+				});
+		});
+	},
+	lineCharts:x=>{
+		var chartList={'cols':[],'rows':[]};
+		$.getJSON(x.context+'/chartData/book', d=>{
+			var rowlen;
+			var collen;
+			var cbooleans;
+			var rbooleans;
+			$.each(d.chartData,(k,v)=>{
+				console.log('테스팅 리스트');
+				if(chartList.cols.length==0){
+					chartList.cols.push(v.largeGenre)
+					collen=chartList.cols.length;
+				}else{
+					cbooleans=true;
+					$.each(chartList.cols,(kc,vc)=>{
+						if(vc===String(v.largeGenre)){
+							cbooleans=false;
+							collen=kc+1;
+						}
+					});
+					if(cbooleans){
+						chartList.cols.push(v.largeGenre);
+						collen=chartList.cols.length;
+					}
+				}
+				if(chartList.rows.length===0){
+					chartList.rows.push([v.salesdate])
+					rowlen=chartList.rows.length;
+					
+				}else{
+					rbooleans=true;
+					$.each(chartList.rows,(kc,vc)=>{
+						if(vc[0]===String(v.salesdate)){
+							rbooleans=false;
+							rowlen=kc+1;
+						}
+					});
+					if(rbooleans){
+						chartList.rows.push([v.salesdate]);
+						rowlen=chartList.rows.length;
+					}
+				}
+				--collen;
+				--rowlen;
+				chartList.rows[rowlen][collen+1]=v.salesamount;		
+			});
+			$.each(chartList.rows,(ro,rv)=>{
+				for(var i=0;i<=chartList.cols.length;i++){
+					chartList.rows[ro][0]=new Date(chartList.rows[ro][0])
+					if(chartList.rows[ro][i]==null){
+						chartList.rows[ro][i]=0;
+					}
+				}				
+			});
+			
+			console.log(chartList);
+			console.log(d.chartData);
+			
 		google.charts.load('current', {packages: ['corechart', 'controls', 'table']});
 		google.charts.setOnLoadCallback(drawChart);
 		var data;
 		var control;
-		var chart;
+		var lineChart;
+		var pieChart;
 		var view;
 		var dashboard;
 		function drawChart() {
 			data=new google.visualization.DataTable();
 			data.addColumn('date', 'Year');
-			data.addColumn('number', 'Sales');
-			data.addColumn('number', 'Expenses');
-			data.addColumn('number', 'Penses');
-			
-			data.addRow([new Date(2014, 6, 13),  1000,      400,      400]);
-			data.addRow([new Date(2015, 4, 4),  1170,      460,      400]);
-			data.addRow([new Date(2016, 0, 22),  660,       1120,      5]);
-			data.addRow([new Date(2017, 9, 6),  1030,      540,      7]);
-			data.addRow([new Date(2018, 0, 17),  1030,      540,      100]);
-			data.addRow([new Date(2019, 7, 12),  1030,      540,      500]);
+			$.each(chartList.cols,(kc,vc)=>{
+				data.addColumn('number', vc);
+			});
+			$.each(chartList.rows,(k,v)=>{
+				data.addRow(v);
+			});
 			
 			dashboard = new google.visualization.Dashboard(
 		            document.getElementById('div-adminContent-dash'));
@@ -122,14 +331,14 @@ user.admin={
 				containerId: 'div-adminContent-control',
 		        options: {
 		            filterColumnIndex: '0',
-		            'ui': { 'format': { 'pattern': 'yyyy' } },
+		            'ui': { 'format': { 'pattern': 'yyyy/MM/dd' } },
 		          }
 		        });
-			chart = new google.visualization.ChartWrapper({
+			lineChart = new google.visualization.ChartWrapper({
 			     'chartType': 'LineChart',
 			     'containerId': 'div-adminContent-chart',
 				'options' : {
-					title: '판매량 통계',
+					title: '연간 판매량 라인 차트',
 					curveType: 'function',
 					pointSize: 3,
 					width: 950,
@@ -137,50 +346,192 @@ user.admin={
 					legend: { position: 'right' }
 				}
 			});
-			
-			dashboard.bind(control, [chart]);
+			dashboard.bind(control, [lineChart]);
         	dashboard.draw(data);
 	      }
 		
 		$('#div-adminContent-chartbtn')
 		.append(createUL({id:'ul-chart-genre',clazz:'mylist-inline'}))
-		$.each([
-        	[1,'Sales'],
-        	[2,'Expenses'],
-        	[3,'Penses']
-        ],(k,v)=>{
-        	$(createLI({id:'li-chart-genre-'+k,clazz:''}))
-        	.appendTo('#ul-chart-genre')
-	        .append(
-        		$(createInput({id:'',clazz:'',type:'checkbox'}))
-        		.attr('name','genrelist-check')
-        		.attr('checked',true)
-        		.attr('value',v[0])
-		        .on('click',function(e){
-		        	var selected = [0];
-		        	var nonselected = [];
-		        	$('input[name=genrelist-check]').each(function(){
-		        		if(this.checked){
-		        			selected.push(parseInt($(this).val()));
-		        		}else{
-		        			nonselected.push(parseInt($(this).val()));
-		        		}
-		        	})
-		        	if(selected.length==1){
-		        		alert('하나 이상 체크하셔야 합니다');
-		    			e.preventDefault();
-			        	return;
-			        }
-		        	view = new google.visualization.DataView(data);
-		        	view.setColumns(selected);
-		        	view.hideColumns(nonselected);
-		        	dashboard.draw(view);
-		        }))
-	        .append(createLabel({fo:'comment',val:v[1]})+' ');
+		$.each(chartList.cols,(k,v)=>{
+				$(createLI({id:'li-chart-genre-'+k,clazz:''}))
+				.appendTo('#ul-chart-genre')
+				.append(
+						$(createInput({id:'',clazz:'',type:'checkbox'}))
+						.attr('name','genrelist-check')
+						.attr('checked',true)
+						.attr('value',k+1)
+						.on('click',function(e){
+							var selected = [0];
+							var nonselected = [];
+							$('input[name=genrelist-check]').each(function(){
+								if(this.checked){
+									selected.push(parseInt($(this).val()));
+								}else{
+									nonselected.push(parseInt($(this).val()));
+								}
+							})
+							if(selected.length==1){
+								alert('하나 이상 체크하셔야 합니다');
+								e.preventDefault();
+								return;
+							}
+							view = new google.visualization.DataView(data);
+							view.setColumns(selected);
+							view.hideColumns(nonselected);
+							dashboard.draw(view);
+						}))
+						.append(createLabel({fo:'comment',val:v})+' ');
+			});
         });
 		
 //		setInterval(() => {
 //		}, 3000);
+	},
+	tableCharts:x=>{
+		var chartList={'cols':[],'rows':[]};
+		$.getJSON(x.context+'/chartData/books', d=>{
+			console.log(d.chartData);
+			var rowlen;
+			var collen;
+			var cbooleans;
+			var rbooleans;
+			$.each(d.chartData,(k,v)=>{
+				if(chartList.cols.length==0){
+					chartList.cols.push(v.largeGenre)
+					collen=chartList.cols.length-1;
+					chartList.rows[collen]=[]
+				}else{
+					cbooleans=true;
+					collen=0;
+					$.each(chartList.cols,(kc,vc)=>{
+						if(vc===String(v.largeGenre)){
+							cbooleans=false;
+						}
+						if(cbooleans){
+							collen=kc+1;
+						}
+					});
+					if(cbooleans){
+						chartList.cols.push(v.largeGenre);
+						chartList.rows[chartList.cols.length-1]=[]
+					}
+				}
+				rbooleans=true;
+				rowlen=0;
+				$.each(chartList.rows[collen],(kc,vc)=>{
+					if(vc===String(v.smallGenre)){
+						rbooleans=false;
+					}
+					if(rbooleans){
+						rowlen=kc+1;
+					}
+				});
+				if(rbooleans){
+					chartList.rows[collen][rowlen]=k;
+				}
+			});
+			
+			google.charts.load('current', {packages: ['corechart', 'controls', 'table']});
+			google.charts.setOnLoadCallback(drawChart);
+			var data;
+			var control;
+			var lineChart;
+			var tableChart;
+			var view;
+			var dashboard;
+			function drawChart() {
+				data=new google.visualization.DataTable();
+				$.each({'이미지':'string','출판일':'date','대장르':'string','소장르':'string','책이름':'string','출판사':'string','가격':'number','재고량':'number'},(kc,vc)=>{
+					data.addColumn(vc, kc);
+				});
+//				console.log(JSON.stringify(data));
+				$.each(d.chartData,(k,v)=>{
+//					k+1번째 튜플을 지우게 한다.
+					data.addRow([
+						createImage({id:'',src:v.imageRoute,clazz:''}),
+						new Date(v.publishingDate),
+							v.largeGenre,
+							v.smallGenre,
+							v.bookName,
+							v.publisher,
+							v.price,
+							v.inventory]);
+				});
+				
+//				console.log(JSON.stringify(data));
+				dashboard = new google.visualization.Dashboard(
+						document.getElementById('div-adminContent-dash'));
+				
+				control = new google.visualization.ControlWrapper({
+					controlType: 'DateRangeFilter',
+					containerId: 'div-adminContent-control',
+					options: {
+						filterColumnIndex: '1',
+						'ui': { 'format': { 'pattern': 'yyyy/MM/dd' } },
+					}
+				});
+				tableChart = new google.visualization.ChartWrapper({
+					'chartType': 'Table',
+					'containerId': 'div-adminContent-chart',
+					'options': {
+						width: 950,
+						height: 500,
+						allowHtml: true,
+						showRowNumber: true,
+						page: 'enable',
+						pageSize: 5,
+						legend: { position: 'right' },
+						'title': '연간 판매량 파이 차트',			
+						'chartArea': {'left': 15, 'top': 15, 'right': 0, 'bottom': 0},
+						'pieSliceText': ''
+							
+					}
+				});
+				
+				dashboard.bind(control, [tableChart]);
+				dashboard.draw(data);
+				$('#div-adminContent-chartbtn')
+				.append(createUL({id:'ul-chart-genre',clazz:'mylist-inline'}))
+				$.each(chartList.cols,(k,v)=>{
+					$(createLI({id:'li-chart-genre-'+k,clazz:''}))
+					.appendTo('#ul-chart-genre')
+					.append(
+							$(createInput({id:'',clazz:'',type:'checkbox'}))
+							.attr('name','genrelist-check')
+							.attr('checked',true)
+							.attr('value',k)
+							.on('click',function(e){
+								var selected = [];
+								var nonselected = [];
+								$('input[name=genrelist-check]').each(function(){
+									if(this.checked){
+										$.each(chartList.rows[parseInt($(this).val())],(rk,rv)=>{
+											selected.push(rv);
+										});
+									}else{
+										$.each(chartList.rows[parseInt($(this).val())],(rk,rv)=>{
+											nonselected.push(rv);
+										});
+									}
+								})
+								if(selected.length==0){
+									alert('하나 이상 체크하셔야 합니다');
+									e.preventDefault();
+									return;
+								}
+								view = new google.visualization.DataView(data);
+								console.log()
+								console.log(selected)
+								console.log(nonselected)
+								view.setRows(selected);
+								view.hideRows(nonselected);
+								dashboard.draw(view);
+							}))
+							.append(createLabel({fo:'comment',val:v})+' ');
+				});
+			}
+			
+		});
 	}
 }
 user.member={

@@ -81,15 +81,27 @@
     </delete>
     <update id="cartAmountUpdate" parameterType="hashMap">
         update orders set amount = #{modifyVal} where order_num = #{modifyKey}
-</update>
+	</update>
 	<insert id ="malladdSalesDetail" parameterType="hashMap"> 
 	INSERT INTO sellbasket (salesamount, salesdate, recipient, sell_address, requirements, `bookNum`, mem_id, recipent_num) 
-VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member where mem_id like #{memId}), #{requirements}, #{bookNum}, #{memId}, #{recipent_num});
+	VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member where mem_id like #{memId}), #{requirements}, #{bookNum}, #{memId}, #{recipent_num});
 	</insert>
 	 
     <!-- 장만호 영역  end -->
 	
-	<!-- MEMBER -->
+	<!-- 박상우 영역 start -->
+    <select id="chartDateBook" resultMap="map" parameterType="hashMap">
+    SELECT DATE_FORMAT(s.salesdate ,'%Y-%m-%d') salesdate ,sum(s.salesamount) salesamount, (SELECT g.`largeGenre` FROM genre g where g.`genreNum` like b.genreNum) largeGenre
+	FROM sellbasket s join book b on s.`bookNum` like b.`bookNum`
+	GROUP BY DATE_FORMAT(s.salesdate ,'%Y-%m-%d'), largeGenre
+	ORDER BY DATE_FORMAT(s.salesdate ,'%Y-%m-%d') DESC;
+    </select>
+    <select id="chartDateBooks" resultMap="map" parameterType="hashMap">
+    SELECT b.inventory, g.largeGenre,g.smallGenre, DATE_FORMAT(b.publishingDate ,'%Y-%m-%d') publishingDate,(SELECT i.imageRoute FROM image i where i.imageName like b.imageName) imageRoute, b.bookName, b.publisher,b.price
+	FROM book b, genre g
+	WHERE b.bookNum LIKE g.genreNum
+	ORDER BY DATE_FORMAT(b.publishingDate ,'%Y-%m-%d') DESC;
+    </select>
 	<insert id="addMember" parameterType="hashMap">
     INSERT INTO
     MEMBER(MEM_ID,MEM_PASS,MEM_NAME,MEM_NICKNAME,MEM_EMAIL,MEM_PHONE,MEM_SSN,MEM_ADDRESS,MEM_INTRODUCE)

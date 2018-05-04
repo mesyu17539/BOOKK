@@ -98,6 +98,7 @@ public class Controller{
 	}
 	
 	//장만호 영역 end
+	//박상우 start
 	@RequestMapping(value="/{type}/login")
 	public Object login(@RequestBody HashMap<String, String> param){
 		logger.info("welcom {}","login ");
@@ -202,6 +203,33 @@ public class Controller{
 		}
 		return map;
 	}
+	@RequestMapping(value="/chartData/book")
+	public Map<?, ?> chartDataBook(){
+		Map<String,Object> map=new HashMap<>();
+		map.put("chartData", new IGetService() {
+			
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.chartDateBook(param);
+			}
+		}.execute((HashMap<?, ?>) map)) ;
+		return map;
+	}
+	@RequestMapping(value="/chartData/books")
+	public Map<?, ?> chartDataBooks(){
+		Map<String,Object> map=new HashMap<>();
+		map.put("chartData", new IGetService() {
+			
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.chartDateBooks(param);
+			}
+		}.execute((HashMap<?, ?>) map)) ;
+		return map;
+	}
+	//박상우 end
 	@RequestMapping(value="/cartcount/{userid}",
 			method=RequestMethod.POST,consumes="application/json")
 	public Object cartCount(
