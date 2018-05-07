@@ -1,5 +1,26 @@
 @charset "UTF-8";
 /* CSS 장바구니 #div-monitor Start */
+
+#table-orderlist td{
+	height: 125px;
+	text-align: center;
+	border : 1px solid #eee;
+}
+#table-orderlist th{
+	border-bottom:1px solid;
+	border-top:1px solid;
+	height:45px;
+	background-color:#f9f9f9;
+	border-left:1px solid #eee;
+	text-align: center;
+	font-size:14px; 
+	color:#667
+	
+}
+
+
+
+
  .wrap-root{
 	border-bottom: 1px solid #eaeaea;
 } 

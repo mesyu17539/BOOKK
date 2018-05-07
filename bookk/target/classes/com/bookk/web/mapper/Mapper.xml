@@ -67,6 +67,10 @@
 	</resultMap>
 	<!-- MALL -->
     <!-- 장만호 영역  start-->
+    <select  id="orderList" resultType="map" parameterType="hashMap">
+    select salesdate, (price*sum(salesamount)) price,bookNum,bookName,writter, sum(salesamount) salesamount from sell
+where mem_id like #{userid} and salesdate BETWEEN  #{startDate}  and #{endDate} group by salesdate,bookName
+    </select>
 	<select  id="insertCheck" resultType="int" parameterType="hashMap">
 		SELECT COUNT(*) AS count 
 	 FROM  orders where mem_id like #{userid} AND bookNum like #{insertBook}

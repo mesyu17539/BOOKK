@@ -613,96 +613,226 @@ sell:x=>{
 				}
 				
 			});
-				
-		    
-		    
-			
-			
-			
-			
 	});
 	
 	
 },
 orderCheck:x=>{
-	alert('옵니다 와용');
-	$('#div-advertise').html(createDiv({id:'div-adminipage-menu',clazz:'text-center'}))
-	.attr('style','width: 1050px;margin: 0 auto;');
-	
-	$('#div-adminipage-menu')
-	.attr('style','width: 100%;')
-	.html(createUL({id:'mypage-header',clazz:'mylist-inline'}));
-	$('#div-advertise').append(createMultiDiv({id:'div-orderlist',arr:makeCount(1)}));
-	$('#div-orderlist-0').html(createMultiDiv({id:'div-orderlist-0',arr:makeCount(3)}));
-	$('#div-orderlist-0-0').attr('style','border-bottom: 2px solid #dddddd;margin-top:80px;width:100%').
-	append(createUL({id:'ul-sub-menu',clazz:''}));
-	$('#ul-sub-menu').append(createMultiLi({
-		id:'sub-menu',
-		clazz:'a-sub-menu',
-		arr:[createATag({id:'a-sub-menu-0',val:'도서 주문내역'}),
-			createATag({id:'a-sub-menu-1',val:'작가 서비스 주문내역'})]}))
-			.attr('style','position: relative; bottom: 37px;margin: 0;padding: 0;');
-	$('#li-sub-menu-0')
-	.attr('style','float: left; width: 200px;text-align: center;'
-			+'border-bottom:2px solid;height:37px');
-	$('#li-sub-menu-1')
-	.attr('style','float: left; width: 200px;text-align: center;height:37px');
-	
-	$('.a-sub-menu').on('click',function(){
-		if($(this).text()==='도서 주문내역'){
-			$('#li-sub-menu-0')
-			.attr('style','float: left; width: 200px;text-align: center;'
-			+'border-bottom:2px solid;height:37px');
-			$('#li-sub-menu-1')
-			.attr('style','float: left; width: 200px;text-align: center;height:37px;border-bottom:none;');
-		}else{
-			$('#li-sub-menu-0')
-			.attr('style','float: left; width: 200px;text-align: center;'
-			+'border-bottom:none;height:37px');
-			$('#li-sub-menu-1')
-			.attr('style','float: left; width: 200px;text-align: center;height:37px;border-bottom:2px solid;');
-		}
-	});
-	$('#div-orderlist-0-1').attr('style','width:100%;background-color:#f9f9f9;border: 1px solid #ddd;height:111px;margin-top: 30px;')
+	/*location.reload();*/
+	user.member.admempage();
+
+		$('li[name="li-headMenu"]').attr('style','border: 1px solid #eee;');
+		$('#li-headMenu-2').attr('style','border: 1px solid #adcfdf;');
+		$('#div-adminipage-submenu').attr('style','border-bottom: 2px solid #dddddd;margin-top:80px;width:100%').
+		append(createUL({id:'ul-sub-menu',clazz:''}));
+		$('#ul-sub-menu').append(createMultiLi({
+			id:'sub-menu',
+			clazz:'a-sub-menu',
+			arr:[createATag({id:'a-sub-menu-0',val:'도서 주문내역'}),
+				createATag({id:'a-sub-menu-1',val:'작가 서비스 주문내역'})]}))
+				.attr('style','position: relative; bottom: 37px;margin: 0;padding: 0;');
+		$('#li-sub-menu-0')
+		.attr('style','float: left; width: 200px;text-align: center;'
+				+'border-bottom:2px solid;height:37px');
+		$('#li-sub-menu-1')
+		.attr('style','float: left; width: 200px;text-align: center;height:37px');
+		
+		$('.a-sub-menu').on('click',function(){
+			if($(this).text()==='도서 주문내역'){
+				$('#li-sub-menu-0')
+				.attr('style','float: left; width: 200px;text-align: center;'
+				+'border-bottom:2px solid;height:37px');
+				$('#li-sub-menu-1')
+				.attr('style','float: left; width: 200px;text-align: center;height:37px;border-bottom:none;');
+			}else{
+				$('#li-sub-menu-0')
+				.attr('style','float: left; width: 200px;text-align: center;'
+				+'border-bottom:none;height:37px');
+				$('#li-sub-menu-1')
+				.attr('style','float: left; width: 200px;text-align: center;height:37px;border-bottom:2px solid;');
+			}
+		});
+	$('#div-adminipage-content').append(createMultiDiv({id:'div-content',arr:makeCount(3)}));
+	$('#div-content-0').attr('style','width:100%;background-color:#f9f9f9;border: 1px solid #ddd;height:111px;margin-top: 30px;')
 	.append(createTable({id:'table-search'}));
-	$('#table-search').append(createMultiTr({id:'tr-search',arr:makeCount(2)})).attr('style','width:100%;height:100%');
+	
+	$('#table-search').append(createMultiTr({id:'tr-search',arr:makeCount(2)}))
+	.attr('style','width:100%;height:100%;text-align:center;border-collapse:collapse');
 	$('#table-search tr').each(function(i){
 		$(this).append(createMultiTd({id:'td-tr'+i+'-search',arr:makeCount(2)}));
 		
 	});
+	$('#table-search tr td').attr('style','height:50px;');
+	$('#td-tr0-search-0').attr('style','padding-bottom:15px;');
 	$('#td-tr1-search-0').remove();
-	$('#td-tr0-search-0').attr('rowsapn','2').text('조회기간');
-	$(createMultiATag({clazz:'term-check',arr:['1주일','15일','1개월','3개월','6개월']})).appendTo('#td-tr0-search-1')
-	.attr('style','width: 59px;height:28px;border:solid #d7d7d7;border-width: 1px 1px 1px 0;font-size: 11px;text-align: center;background: #fff;');
-	
-	
-	
-	$.each([
-		'http://www.bookk.co.kr/img/settings/index01.jpg',
-		'http://www.bookk.co.kr/img/settings/index02.jpg',
-		'http://www.bookk.co.kr/img/settings/index03.jpg',
-		'http://www.bookk.co.kr/img/settings/index04.jpg',
-		'http://www.bookk.co.kr/img/settings/index05.jpg'
-	],(k,v)=>{
-		$(createLI({id:'li-headMenu-'+k,clazz:''}))
-		.attr('name','li-headMenu')
-		.append(createImg({id:'',alt:'',src:v,clazz:''}))
-		.appendTo('#mypage-header');			
+	$('#td-tr0-search-0').attr('rowspan','2').text('조회기간').attr('style')
+	$('#td-tr0-search-1').append(createDiv({}));
+	$(createMultiDiv({clazz:'term-check',arr:['','','','','']})).appendTo('#td-tr0-search-1 div')
+	.attr('style','font-size:11px;'
+			+'width:60px;float:left;height:30px');
+	var btn = ['1주일','15일','1개월','3개월','6개월']
+	$('.term-check').each(function(i){
+		$(this).append(createButton({clazz:'btn btn-term',val:btn[i]}));
 	});
-	$('li[name="li-headMenu"]').attr('style','border: 1px solid #eee;');
-	$('#li-headMenu-2').attr('style','border: 1px solid #adcfdf;');
-	$('#li-headMenu-0')
-	.on('click',e=>{
-		e.preventDefault();
-		user.member.mypage(x);
+	$('.btn-term')
+	.attr('style','width:100%;height:100%; background-color: #f8f8f8;border-color: #c8c8c8;')
+	.on('click',function(){
+		
+		$('.btn-term')
+		.attr('style','width:100%;height:100%; background-color: #f8f8f8;border-color: #c8c8c8;')
+		$(this).attr('style','width:100%;height:100%;color:#fff; background-color: #c33e38;border-color: #c33e38;')
 	});
+	var elements = [createInput({id:'input-startdate',clazz:'timepicker',type:'text'}),
+					' ~ ',
+					createInput({id:'input-enddate', clazz:'timepicker',type:'text'}),
+					createButton({id:'btn-search', clazz:'btn',val:'조회하기'})];
+	$('#td-tr1-search-1').append(createMultiDiv({arr:makeCount(4)}));
 	
-	$('#li-headMenu-2')
-	.on('click',e=>{
-		e.preventDefault();
-		$('li[name="li-headMenu"]').attr('style','border: 1px solid #eee;');
-		$('#li-headMenu-2').attr('style','border: 1px solid #adcfdf;');
+	$('#td-tr1-search-1 div').each(function(i){
+		
+		$(this).append(elements[i]).attr('style','float:left');
+	});
+	$.datepicker.regional['kr'] = {
+		    closeText: '닫기', // 닫기 버튼 텍스트 변경
+		    currentText: '오늘', // 오늘 텍스트 변경
+		    monthNames: ['1 월','2 월','3 월','4 월','5 월','6 월','7 월','8 월','9 월','10 월','11 월','12 월'], // 개월 텍스트 설정
+		    monthNamesShort: ['1 월','2 월','3 월','4 월','5 월','6 월','7 월','8 월','9 월','10 월','11 월','12 월'], // 개월 텍스트 설정
+		    dayNames: ['월요일','화요일','수요일','목요일','금요일','토요일','일요일'], // 요일 텍스트 설정
+		    dayNamesShort: ['월','화','수','목','금','토','일'], // 요일 텍스트 축약 설정&nbsp;   dayNamesMin: ['월','화','수','목','금','토','일'], // 요일 최소 축약 텍스트 설정
+		    dateFormat: 'yy-mm-dd' // 날짜 포맷 설정
+		};
+
+		// Seeting up default language, Korean
+		$.datepicker.setDefaults($.datepicker.regional['kr']);
+	
+		// Start Datepicker UI
+		$("#datepicker").datepicker();
+	$('#input-startdate').attr('style','margin-right:10px;width:118px;height:20px').datepicker();
+	$('#input-enddate').attr('style','margin-left:10px;width:118px;height:20px').datepicker();
+	
+	$('#ui-datepicker-div').attr('style', 'left: 27%;  top: 56%; position: absolute;');
+	$('#btn-search').attr('style','background-color: #f8f8f8;border-color:#c8c8c8;height:40px;'
+			+'position:relative;bottom: 10px;left:20px;');
+	
+		
+		var calcDate = 
+	$('.btn-term').on('click',function(){
+			var calcDate = new Date();
+			if($(this).text()==='1주일'){
+				calcDate.setDate(calcDate.getDate() - 7 );
+			}else if($(this).text()==='15일'){
+				calcDate.setDate(calcDate.getDate() - 15 );
+			}else if($(this).text()==='1개월'){
+				calcDate.setMonth(calcDate.getMonth() - 1 );
+			}else if($(this).text()==='3개월'){
+				calcDate.setMonth(calcDate.getMonth() - 3 );
+			}else if($(this).text()==='6개월'){
+				calcDate.setMonth(calcDate.getMonth() - 6 );
+			}
+		
+			var year = calcDate.getFullYear(); 
+			var month = new String(calcDate.getMonth() + 1 ); 
+			var day = new String(calcDate.getDate()); 
+			if(month.length == 1){ 
+				  month = "0" + month; 
+				} 
+				if(day.length == 1){ 
+				  day = "0" + day; 
+				} 
+			$('#input-enddate').attr('value',year+'-'+month+'-'+day);
+			var thisYear = new Date().getFullYear(); 
+			var thisMonth = new String(new Date().getMonth() + 1 ); 
+			var today = new String(new Date().getDate()); 
+			if(thisMonth.length == 1){ 
+				  month = "0" + month; 
+				} 
+				if(today.length == 1){ 
+				  day = "0" + day; 
+				} 
+				$('#input-startdate').attr('value',thisYear+'-'+thisMonth+'-'+today);
+	})
+	$('#btn-search').click(()=>{
+		
+		alert(se.memID)
+		$.getJSON(
+				x.context+'/orderlist/'
+				+$('#input-startdate').val()+','+$('#input-enddate').val()+','+se.memID
+			,li=>{
+				var sDate = [];
+				
+				for(var i =0;i<li.length;i++){
+					var check = false;
+					for(var j=0;j<li.length;j++){
+						if(sDate[j]===li[i].salesdate){
+							
+							check = true;
+							break;
+							
+						}
+					}
+					if(check){
+						continue;
+					}else{
+						sDate.push(li[i].salesdate);
+						
+					}
+					
+					
+				}
+				sDate.reverse();
+				alert(sDate+'tr 수'+sDate.length);
+				$('#table-orderlist').remove();
+				$(createTable({id:'table-orderlist'})).appendTo('#div-content-0')
+				.attr('style','width:100%;border-collapse:collapse;margin-top:40px;');
+				$('#table-orderlist').append(createTr({id:'tr-head'}))
+				$('#tr-head').append(createMultiTh({id:'th-head',arr:makeCount(4)}));
+				var word = ['주문일','상품/옵션정보','결제 금액','상태']
+				var attr = ['152px','549px','166px','133px']
+				$('#tr-head th').each(function(i){
+					$('#th-head-'+i).text(word[i]).attr('style','width:'+attr[i]+'');
+				});
+				$('#table-orderlist tr td').attr('style','text-align:center');
+				$('#table-orderlist').append(createMultiTr({id:'tr-orderlist',arr:makeCount(sDate.length)}))
+				
+				$('#table-orderlist tr').each(function(i){
+					
+					$('#tr-orderlist-'+i).append(createMultiTd({id:'td-tr'+i+'',arr:makeCount(4)}));
+					
+				});
+				
+				var content =[];
+				var keydate = new Array(sDate.length);
+				alert(keydate.length);
+				console.log(li);
+				for(var i =0;i<sDate.length;i++){
+					$.each(li,function(k,v){
+						
+						if(sDate[i]===v.salesdate){
+							content.push(v);
+							keydate[i] = {i:content}
+						}
+					});
+					
+				}
+				
+				console.log(keydate);
+				$('#table-orderlist tr').each(function(i){
+					
+					$('#td-tr'+(i)+'-0').text(sDate[i]).append(createDiv({id:'div-btn-wrapper-'+i+''}));
+					$(createButton({id:'btn-'+i+'',clazz:'btn',val:'구매 상세보기'})).appendTo('#td-tr'+(i)+'-0 div').
+					attr('style','background-color:#f8f8f8;color: black;border-color: #c8c8c8;')
+					$('#td-tr'+(i)+'-1')
+				});
+					
+			}
+			
+		)
+		
+			
 		
 	});
-}
+		
+	
+	
+	}
 }

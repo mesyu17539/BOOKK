@@ -14,6 +14,7 @@ public interface Mapper {
 	    public Object selectAdminById(HashMap<?, ?> param);
 	    public Object selectById(HashMap<?, ?> param);
 	    //장만호 영역
+	    public List<?> orderList(HashMap<?, ?> param);
 	    public int insertCheck(HashMap<?, ?> param);
 	    public void addCartList(HashMap<?, ?> map);
 		public HashMap<?, ?> mallCartCount(HashMap<?, ?> map);

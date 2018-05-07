@@ -45,6 +45,25 @@ public class Controller{
 	
 	
 	//장만호 영역 start
+	//3	
+	@RequestMapping("/orderlist/{date}")
+	public Object orderList(@PathVariable("date")String date
+			) {System.out.println(date);
+			HashMap<String, String> orderList = new HashMap<>();
+			orderList.put("endDate",date.split(",")[0] );
+			orderList.put("startDate",date.split(",")[1] );
+			orderList.put("userid",date.split(",")[2] );
+			Object o= new IGetService() {
+				
+				@Override
+				public Object execute(HashMap<?, ?> param) {
+					
+					return mapper.orderList(orderList);
+				}
+			}.execute(orderList);	
+			
+			return o;
+				}
 	@RequestMapping(value="/cartlist/{df}",
 			method=RequestMethod.POST,consumes="application/json")
 	public Object cartList(

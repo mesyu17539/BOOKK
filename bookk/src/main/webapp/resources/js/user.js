@@ -186,7 +186,6 @@ user.admin={
 user.member={
 	// 마이페이지 승인내역 도서관리 주문내역 판매내역 조회
 	admempage:x=>{
-		
 		$('#div-advertise').html(createDiv({id:'div-adminipage-menu',clazz:'text-center'}))
 		.attr('style','width: 1050px;margin: 0 auto;')
 		.append(createDiv({id:'div-adminipage-submenu',clazz:'text-left'}))
@@ -215,8 +214,9 @@ user.member={
 		$('#li-headMenu-2')
 		.on('click',e=>{
 			e.preventDefault();
-			$('li[name="li-headMenu"]').attr('style','border: 1px solid #eee;');
-			$('#li-headMenu-2').attr('style','border: 1px solid #adcfdf;');
+			$.getScript($.javascript()+'/shop.js',()=>{
+				shop.mall.orderCheck(x);
+			});
 		});
 	},
 	mypage:x=>{
@@ -514,9 +514,9 @@ user.member={
 		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
 		$(createATag({id:'a-delivery-check',val:'주문배송조회'})).appendTo('#div-member-bar')
 		.on('click',()=>{
-			$.getScript($.javascript()+'/shop.js',()=>{
-				shop.mall.orderCheck(x);
-			});
+				$.getScript($.javascript()+'/shop.js',()=>{
+					shop.mall.orderCheck(x);
+				});
 		});
 		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
 		$(createATag({id:'a-cart',val:'장바구니'})).appendTo('#div-member-bar')

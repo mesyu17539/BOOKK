@@ -7,6 +7,7 @@ book.main={
 	bookContent:x=>{		
 	//DB 연결
 		$.getJSON(x.context+'/bookMain', d=>{
+			
 			$(createDiv({
 			id : 'img-advertise',
 			clazz : 'img-advertise'
