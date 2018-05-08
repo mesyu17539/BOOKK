@@ -24,7 +24,7 @@ bulletin.board=(x=>{
 				.attr('style','padding: 1px');
 			$(createImage({id:'notice-img',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWJsKhhu3CEjTbmKwJtkNz7aB8rGTSqBO08iKvLSrID3-YuNn8tg',clazz:''}))
 				.appendTo('#col-1')
-				.attr('style','height: 200px; max-width:100%;')
+				.attr('style','height: 200px; max-width:100%;cursor: no-drop;')
 			// qna
 				
 			$(createDiv({id:'col-2',clazz:'col-sm-2'}))
@@ -32,14 +32,14 @@ bulletin.board=(x=>{
 				.attr('style','padding: 1px');
 			$(createImage({id:'qna-img',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWJsKhhu3CEjTbmKwJtkNz7aB8rGTSqBO08iKvLSrID3-YuNn8tg',clazz:''}))
 				.appendTo('#col-2')
-				.attr('style','height: 200px; max-width:100%;')
+				.attr('style','height: 200px; max-width:100%;cursor: no-drop;')
 			// help https://i.imgur.com/YVOZuRqb.jpg
 			$(createDiv({id:'col-3',clazz:'col-sm-2'}))
 				.appendTo('#row-div')
 				.attr('style','padding: 1px');
 			$(createImage({id:'help-img',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWJsKhhu3CEjTbmKwJtkNz7aB8rGTSqBO08iKvLSrID3-YuNn8tg',clazz:''}))
 				.appendTo('#col-3')
-				.attr('style','height: 200px; max-width:100%;')
+				.attr('style','height: 200px; max-width:100%;cursor: no-drop;')
 			// review
 				
 			$(createDiv({id:'col-4',clazz:'col-sm-2'}))
@@ -47,14 +47,14 @@ bulletin.board=(x=>{
 				.attr('style','padding: 1px');
 			$(createImage({id:'review-img',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWJsKhhu3CEjTbmKwJtkNz7aB8rGTSqBO08iKvLSrID3-YuNn8tg',clazz:''}))
 				.appendTo('#col-4')
-				.attr('style','height: 200px; max-width:100%;')
+				.attr('style','height: 200px; max-width:100%; cursor: no-drop;')
 			// board
 			$(createDiv({id:'col-5',clazz:'col-sm-2'}))
 				.appendTo('#row-div')
 				.attr('style','padding: 1px');
 			$(createImage({id:'board-img',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8TrIyRb8uy6IT98yokhFMv2mGxk74kgB036MenUiJEEnUf7xXuA',clazz:'boo'}))
 				.appendTo('#col-5')
-				.attr('style','height: 200px; max-width:100%;')
+				.attr('style','height: 200px; max-width:100%;cursor: -webkit-grab; cursor: grab;')
 								   .hover(()=>{
 									   $('.boo').attr('src','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSesp9RlBJ4fbN7VEzCUh1u0KTnjH11YumY3Grr7-WXbpX1ik-w');
 								   }, ()=>{
@@ -183,7 +183,7 @@ bulletin.board=(x=>{
 			$(createLI({id:'3-left-li',clazz:''}))
 				.appendTo('#left-ul')
 				.attr('style',' height: 60px; line-height: 60px; border: 1px solid green; text-align: center; margin-top: -1px;');
-			$(createATag({id:'3-left-atag',val:'독서토론'}))
+			$(createP({val:'서비스 준비중'})).attr('style','color:red;cursor: no-drop;')
 				.appendTo('#3-left-li');
 			// 오른쪽 상세내용
 			$(createDiv({id:'new-right-side',clazz:'col-sm-8'}))
@@ -265,8 +265,8 @@ bulletin.jau=(()=>{
 				});
 			
 			$(createDiv({id:'div-articles',clazz:'col-sm-12'}))
-				.appendTo('#new-right-side');
-				articles(1);
+				.appendTo('#new-right-side').attr('style','border-top:5px solid #adcfdf');
+					articles(1);
 		});
 		};
 	var searchList=x=>{
@@ -288,10 +288,10 @@ bulletin.jau=(()=>{
 						}
 						// 검색결과
 						$('#div-articles')
-							.attr('style','padding:0px;');
+							.attr('style','padding:0px; border-top:5px solid #adcfdf');
 						$('#div-articles')
 							.html($(createTab({id:'tab-articles1',clazz:''}))
-							.attr('style','width:100%;font-size:15px; border-top: 5px solid #adcfdf;border-bottom: 5px solid #adcfdf;'));
+							.attr('style','width:100%;font-size:15px;border-bottom: 5px solid #adcfdf;'));
 						$(createTHJW({id:'th-articles1',thList: ''}))
 							.appendTo('#tab-articles1')
 							.attr('style','border-top: 2px solid #adcfdf; ');
@@ -361,10 +361,10 @@ bulletin.jau=(()=>{
 		$.getScript(x.view, ()=>{	
 			
 			$('#div-articles')
-				.attr('style','padding:0px;');
+				.attr('style','padding:0px;border-top:5px solid #adcfdf');
 			$('#div-articles')
 				.html($(createTab({id:'tab-articles',clazz:''}))
-				.attr('style','width:100%;font-size:15px; border-top: 5px solid #adcfdf;border-bottom: 5px solid #adcfdf;'));
+				.attr('style','width:100%;font-size:15px;border-bottom: 5px solid #adcfdf;'));
 			$(createTHJW({id:'th-articles',thList: ''}))
 				.appendTo('#tab-articles')
 				.attr('style','border-top: 2px solid #adcfdf;');
@@ -481,10 +481,6 @@ bulletin.jau=(()=>{
 				.appendTo('#articleW-right-select');
 			$(createDiv({id:'file-upload-type',clazz:''}))
 				.appendTo('#articleW-right-form');
-		/*	$(createInput({id:'input-fileUp',clazz:'',type:'file'}))
-				.appendTo('#file-upload-type')
-				.attr('style','padding:10px; border:1px solid red;')
-				.attr('name','file')*/
 			$(createDiv({id:'div-input-content',clazz:''}))
 				.appendTo('#articleW-right-form');
 			$(textarea({id:'jw-text'}))
@@ -525,7 +521,7 @@ bulletin.jau=(()=>{
 						},
 						error : ()=>{
 							alert('실패');
-						}										
+						}									
 					});
 				});
 			});
@@ -556,32 +552,36 @@ bulletin.jau=(()=>{
 					});				
 				$('#div-articles')
 					.html($(createDiv({id:'detail-post-title',clazz:''})))
-					.attr('style','inline-height:100%; padding:0px; border-top: 5px solid #adcfdf;');
+					.attr('style','inline-height:100%; padding:0px;');
 				$(createDiv({id:'detail-post-title-head',clazz:''}))
 					.attr('style','  height:50px;border-bottom: 1px dotted #c6c6c6;margin-top:15px; ')
 					.appendTo('#detail-post-title');
-				$(createDiv({id:'detail-post-title-subhead',clazz:''})).appendTo('#detail-post-title');
+				$(createDiv({id:'detail-post-title-subhead',clazz:''}))
+					.appendTo('#detail-post-title');
 				
 				var ub=JSON.parse(sessionStorage.getItem('user'));
 				
 				if(ub!=null &&ub.memID==d.o.memID){
 					
-					$(createDiv({id:'inner-div',clazz:'col-sm-12'})).appendTo('#detail-post-title-subhead')
-					$(createDiv({id:'inner-div-btnF',clazz:''})).appendTo('#inner-div')
-					$(createButton({id:'inner-div-firstbtn',clazz:'btn',val:'삭제'})).appendTo('#inner-div-btnF')
-					.attr('style','float:right; color:red; background-color:teal; margin-left:5px;border-radius: 10px;')
-					.on('click',()=>{
-						$.ajax({
-							url:context+'/deleteArticle/'+x,
-							dataType:'json',
-							contentType:'application/json',
-							success:x=>{
-								alert('삭제되었습니다.');
-								bulletin.jau.onCreate();
-							}
-						})
-						
-					});
+					$(createDiv({id:'inner-div',clazz:'col-sm-12'}))
+						.appendTo('#detail-post-title-subhead')
+					$(createDiv({id:'inner-div-btnF',clazz:''}))
+						.appendTo('#inner-div')
+					$(createButton({id:'inner-div-firstbtn',clazz:'btn',val:'삭제'}))
+						.appendTo('#inner-div-btnF')
+						.attr('style','float:right; color:red; background-color:teal; margin-left:5px;border-radius: 10px;')
+						.on('click',()=>{
+							$.ajax({
+								url:context+'/deleteArticle/'+x,
+								dataType:'json',
+								contentType:'application/json',
+								success:x=>{
+									alert('삭제되었습니다.');
+									bulletin.jau.onCreate();
+								}
+							});
+							
+						});
 					$(createButton({id:'inner-div-secondbtn',clazz:'btn',val:'수정'}))
 						.appendTo('#inner-div-btnF')
 						.attr('style','float:right; color:brown; background-color:antiquewhite;')
@@ -635,7 +635,7 @@ bulletin.jau=(()=>{
 									success:x=>{
 										bulletin.jau.onCreate();
 										}
-									})
+									});
 								});
 								});
 				
@@ -679,49 +679,46 @@ bulletin.jau=(()=>{
 									.appendTo('#div-comment-a');
 								$('#div-aa').remove();
 								$(createDiv({id:'div-aa',clazz:''}))
-								.appendTo('#div-comment')
-								.attr('style',' overflow-x: hidden;overflow-y: scroll; height:300px; border-bottom:2px solid #efefef');
+									.appendTo('#div-comment')
+									.attr('style',' overflow-x: hidden;overflow-y: scroll; height:300px; border-bottom:2px solid #efefef');
 								$.each(d.Clist,(i,j)=>{	
-								if(d.o.board_id==d.Clist.board_id){						
-									$(createDiv({id:'div-aa-'+i,clazz:''}))
-									.appendTo('#div-aa')
-									.attr('style','height:70px; border-bottom:1px solid #efefef; margin-bottom:30px; position:relative; top:20px;')
-									.attr('class','');
-									$(createImage({id:'',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqeFAYIE3hTj9Gs1j3v7o-oBadM5uDkuPBuXMPtXS85LufL7UVA'}))
-									.appendTo('#div-aa-'+i)
-									.attr('style','height:50px;width:50px;');
-									$(createP({val:j.mem_id}))
-									.attr('style','width:30px; position:relative; bottom:67px; left:70px; font-weight:bold;')
-									.appendTo('#div-aa-'+i);
-									$(createP({val:j.comment_date}))
-									.attr('style','position:relative; bottom:95px; left:120px; font-size:13px;')
-									.appendTo('#div-aa-'+i);
-									$(createP({val:j.comment_content}))
-									.attr('style','font-size:13px;position:relative; bottom:100px; left:70px;')
-									.appendTo('#div-aa-'+i);
+									if(d.o.board_id==d.Clist.board_id){						
+										$(createDiv({id:'div-aa-'+i,clazz:''}))
+											.appendTo('#div-aa')
+											.attr('style','height:70px; border-bottom:1px solid #efefef; margin-bottom:30px; position:relative; top:20px;')
+											.attr('class','');
+										$(createImage({id:'',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqeFAYIE3hTj9Gs1j3v7o-oBadM5uDkuPBuXMPtXS85LufL7UVA'}))
+											.appendTo('#div-aa-'+i)
+											.attr('style','height:50px;width:50px;');
+										$(createP({val:j.mem_id}))
+											.attr('style','width:30px; position:relative; bottom:67px; left:70px; font-weight:bold;')
+											.appendTo('#div-aa-'+i);
+										$(createP({val:j.comment_date}))
+											.attr('style','position:relative; bottom:95px; left:120px; font-size:13px;')
+											.appendTo('#div-aa-'+i);
+										$(createP({val:j.comment_content}))
+											.attr('style','font-size:13px;position:relative; bottom:100px; left:70px;')
+											.appendTo('#div-aa-'+i);
 									
 									if(ub!=null &&ub.memID==j.mem_id){
 										$(createButton({id:'',clazz:'',val:'삭제'}))
-										.appendTo('#div-aa-'+i)
-										.attr('style','position:relative;bottom:130px;left:650px; border-radius:10px;')
-										.on('click',()=>{
-											$.ajax({
-												url:context+'/deleteComment/'+j.c_seq,
-												dataType:'json',
-												method:'POST',
-												contentType:'application/json',
-												success : z =>{
-													alert('성공적으로 댓글이 삭제되었습니다.');												
-													articleDetail(x);
-												}
-											})
-										});
-									}
-									}
-								})
-					
-									
-								
+											.appendTo('#div-aa-'+i)
+											.attr('style','position:relative;bottom:130px;left:650px; border-radius:10px;')
+											.on('click',()=>{
+												$.ajax({
+													url:context+'/deleteComment/'+j.c_seq,
+													dataType:'json',
+													method:'POST',
+													contentType:'application/json',
+													success : z =>{
+														alert('성공적으로 댓글이 삭제되었습니다.');												
+														articleDetail(x);
+													}
+												});
+											});
+										};
+										};
+									});
 								$(createForm({id:'form-comment',clazz:''}))
 									.appendTo('#div-comment')
 									.attr('style','margin-top:30px;');
@@ -813,41 +810,38 @@ bulletin.jau=(()=>{
 							.appendTo('#infinity-post-content-'+listNum+i)
 							.attr('style','font-size:20px; overflow:hidden; word-bread:bread-word;');
 						
-		
-						// 댓글구현
-						// 보드의 pk 를 가져왔다.
 						
 			$.getJSON(context+'/CommentMore/'+j.bID, t=>{	
 						$(createDiv({id:'infinity-comment-'+listNum+i,clazz:''}))
-						.appendTo('#infinity-articles-sector-'+listNum+i);
+							.appendTo('#infinity-articles-sector-'+listNum+i);
 						$(createDiv({id:'infinity-comment-a-'+listNum+i,clazz:''}))
-						.appendTo('#infinity-comment-'+listNum+i)
-						.attr('style',' margin-top:30px; margin-bottom:30px; padding : 5px; ');
+							.appendTo('#infinity-comment-'+listNum+i)
+							.attr('style',' margin-top:30px; margin-bottom:30px; padding : 5px; ');
 						$(createHTag({size:'5',val:'댓글('+t.count+')'}))
-						.appendTo('#infinity-comment-'+listNum+i)
-						.attr('style','border-bottom:1px solid bisque');
+							.appendTo('#infinity-comment-'+listNum+i)
+							.attr('style','border-bottom:1px solid bisque');
 						$('#div-i-'+listNum+i).remove();
 						$(createDiv({id:'div-i-'+listNum+i,clazz:''}))
-						.appendTo('#infinity-comment-'+listNum+i)
-						.attr('style',' overflow-x: hidden;overflow-y: scroll; height:100px; border-bottom:2px solid #efefef');
+							.appendTo('#infinity-comment-'+listNum+i)
+							.attr('style',' overflow-x: hidden;overflow-y: scroll; height:100px; border-bottom:2px solid #efefef');
 						var ub=JSON.parse(sessionStorage.getItem('user'));
 						
 						$.each(t.DComment,(q,w)=>{
 							$(createDiv({id:'div-dc-'+i+commentNum+q,clazz:''}))
-							.appendTo('#div-i-'+listNum+i)
-							.attr('style','height:70px;')
+								.appendTo('#div-i-'+listNum+i)
+								.attr('style','height:70px;')
 							$(createImage({id:'',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqeFAYIE3hTj9Gs1j3v7o-oBadM5uDkuPBuXMPtXS85LufL7UVA'}))
-							.appendTo('#div-dc-'+i+commentNum+q)
-							.attr('style','height:50px;width:50px;');;
+								.appendTo('#div-dc-'+i+commentNum+q)
+								.attr('style','height:50px;width:50px;');;
 							$(createP({val:w.memID}))
-							.appendTo('#div-dc-'+i+commentNum+q)
-							.attr('style','position:relative; bottom:50px; left:60px; font-weight:bold;');
+								.appendTo('#div-dc-'+i+commentNum+q)
+								.attr('style','position:relative; bottom:50px; left:60px; font-weight:bold;');
 							$(createP({val:w.commentDate}))
-							.appendTo('#div-dc-'+i+commentNum+q)
-							.attr('style','position:relative; bottom:80px; left:100px; font-size:13px;');;
+								.appendTo('#div-dc-'+i+commentNum+q)
+								.attr('style','position:relative; bottom:80px; left:100px; font-size:13px;');;
 							$(createP({val:w.comment}))
-							.appendTo('#div-dc-'+i+commentNum+q)
-							.attr('style','position:relative; bottom:80px; left:70px;');
+								.appendTo('#div-dc-'+i+commentNum+q)
+								.attr('style','position:relative; bottom:80px; left:70px;');
 							if(ub!=null &&ub.memID==w.memID){
 								$(createButton({id:'',clazz:'',val:'삭제'}))
 								.appendTo('#div-dc-'+i+commentNum+q)
@@ -863,13 +857,14 @@ bulletin.jau=(()=>{
 											alert('성공적으로 댓글이 삭제되었습니다.');
 											jakga(x);
 										}
-									})
+									});
 								});
-							}
+							};
 						});		
 					
 						$(createForm({id:'infinity-form-comment-'+listNum+i,clazz:''}))
-							.appendTo('#infinity-comment-'+listNum+i);
+							.appendTo('#infinity-comment-'+listNum+i)
+							.attr('style','margin-top:15px;');
 						$(createImage({id:'infinity-img-comment-'+listNum+i
 							,src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqeFAYIE3hTj9Gs1j3v7o-oBadM5uDkuPBuXMPtXS85LufL7UVA'
 							,clazz:'col-sm-2'}))
@@ -885,47 +880,47 @@ bulletin.jau=(()=>{
 								e.preventDefault();
 								var ub=JSON.parse(sessionStorage.getItem('user'));
 								if(ub!=null){
-								$.ajax({
-									url:context+'/DetailCommentInsert/'+j.bID,
-									data:JSON.stringify({						
-										comment : $('#infinity-text-comment-'+listNum+i).val(),
-										id : ub.memID
-									}),
-									method:'POST',
-									dataType:'json',
-									contentType:'application/json',
-									success: y =>{
-										jakga(x);
-
-									},
-								});
-								}else{
-									alert('회원만 입력가능합니다.');
-									$.getScript($.javascript()+'/user.js',()=>{
-										user.member.login({context:context,view:view});
+									$.ajax({
+										url:context+'/DetailCommentInsert/'+j.bID,
+										data:JSON.stringify({						
+											comment : $('#infinity-text-comment-'+listNum+i).val(),
+											id : ub.memID
+										}),
+										method:'POST',
+										dataType:'json',
+										contentType:'application/json',
+										success: y =>{
+											jakga(x);
+	
+										},
 									});
-								};
-							});	
-						});		
-				});
-				}
+									}else{
+										alert('회원만 입력가능합니다.');
+										$.getScript($.javascript()+'/user.js',()=>{
+											user.member.login({context:context,view:view});
+										});
+									};
+								});	
+							});		
+					});
+					};
 						printlist();
 						$('#up-btn-div').remove();
 						$(createDiv({id:'up-btn-div',clazz:''}))
 							.appendTo('#new-right-side')
 							.attr('style','height:50px;')
-						$(createButton({id:'up-btn',clazz:'btn glyphicon glyphicon-chevron-up',val:''}))
+						$(createButton({id:'up-btn',clazz:'btn glyphicon glyphicon-chevron-up',val:'맨위로'}))
 							.appendTo('#up-btn-div')
-							.attr('style','float:right;width:80px; background-color:darkgray; color:red;')
+							.attr('style','float:right;width:80px; background-color:darkgray;font-weight:900;')
 							.on('click',()=>{					
 								$('html').stop().animate({scrollTop: 0}, 200);
 							});								
 						$(createDiv({id:'infinity-btn-div',clazz:''}))
 							.appendTo('#div-articles')
 							.attr('style','height:50px;')
-						$(createButton({id:'infinity-button',clazz:'btn glyphicon glyphicon-triangle-bottom',val:''}))
+						$(createButton({id:'infinity-button',clazz:'btn glyphicon glyphicon-triangle-bottom',val:'더보기'}))
 							.appendTo('#infinity-btn-div')
-							.attr('style','margin-left:350px; width:100px; background-color:crimson;color:aliceblue')
+							.attr('style','margin-left:350px; width:100px; background-color:olivedrab;color:aliceblue')
 							.on('click',()=>{
 								listNum+=5;
 								commentNum+=5;

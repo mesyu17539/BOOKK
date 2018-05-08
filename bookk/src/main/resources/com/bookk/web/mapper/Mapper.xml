@@ -173,6 +173,7 @@ VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member wher
         from board 
  			where ${type} like '%${data}%'
                             order by board_id desc
+                             LIMIT 18446744073709551615 
                ) A,(SELECT @rank := 0 
  			) R) A2
       
