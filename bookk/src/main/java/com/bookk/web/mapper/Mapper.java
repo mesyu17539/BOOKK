@@ -25,13 +25,19 @@ public interface Mapper {
 		public List<?> boardList(HashMap<?, ?> param);
 		public Object articleDetail(HashMap<?, ?> param);
 		public List<?> detailMore(HashMap<?, ?> param);
-		
+		public List<?> commentList(HashMap<?, ?> param);
+		public int commentCount(HashMap<?, ?> param);
 		public int selectBoardCount(HashMap<?, ?> param);
+		public int detailMoreCount(HashMap<?, ?> param);
+		public List<?> detailCommentList(HashMap<?, ?> map);
+		public void deleteComment(HashMap<?, ?> param);
 		public int searchCount(HashMap<?, ?> map);
+		public int titleContentCount(HashMap<?, ?> map);
 		public List<?> searchList(HashMap<?, ?> map);
 		public List<?> searchAll(HashMap<?, ?> param);
 		public List<?> searchWriterTitle(HashMap<?, ?> param);
 		public List<?> searchTitle(HashMap<?, ?> param);
+		public List<?> searchContent(HashMap<?, ?> param);
 		public List<?> pageList(HashMap<?, ?> param);
 		public List<?> bookMainBook1(HashMap<?, ?> param);
 		public List<?> bookMainBook2(HashMap<?, ?> param);
@@ -46,7 +52,8 @@ public interface Mapper {
 		public List<?> bookGenreSmallList(HashMap<?, ?> param);
 		public List<?> bookGenreNameList(HashMap<?, ?> param);
 		public List<?> bookDetail(HashMap<?, ?> param);
-		public int insertComment(HashMap<?,?> param);
+		public int insertComment(HashMap<?,?> param);	
+		public int DetailCommentInsert(HashMap<?,?> param);
 		
 		
 }

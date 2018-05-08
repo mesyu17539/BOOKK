@@ -275,19 +275,15 @@ public class Controller{
 		 @RequestBody HashMap<String, String> param) {
 		Map<String, Object> map = new HashMap<>();
 		Object o = null;
-		System.out.println("select :"+select);
-		System.out.println("pageNum :"+pageNum );
-		System.out.println("타입 : " +param.get("type"));
-		System.out.println("검색명 : "+param.get("data"));
-	
-		page.setTotalCount( new ICountService() {			
+		page.setTotalCount(new ICountService() {
+			
 			@Override
 			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
 				return mapper.searchCount(param);
 			}
 		}.execute(param));
 	 	page.setPageNum(Integer.parseInt(pageNum));
-	 	System.out.println("페이지 넘버요  : "+page.getPageNum());
 	 	page.setPageSize(5); //게시글
 	 	page.setBlockSize(5); // 3까지 페이지넘버
 	 	//엔드스타트 스타트로우 구현!
@@ -296,18 +292,13 @@ public class Controller{
 	 	page = (Page) adapter.attr(page); 	
 	 	map.put("page", page);	
 	 	map.put("data", param.get("data"));
-	 	map.put("type", param.get("type"));
-	 	System.out.println(page.getStartRow()+"//1111111111//"+page.getEndRow());	 	
-	 	
+	 	map.put("type", param.get("type"));	 	
 	 	map.put("list", new IGetService() {
 			@Override
 			public Object execute(HashMap<?, ?> param) {
 			return mapper.searchList(param);
 			}
 		}.execute((HashMap<?, ?>) map));
-	 	
-	 	System.out.println("list"+ map.get("list"));
-		System.out.println("type :  "+param.get("type"));
 		switch (param.get("type")) {
 		case "co_title":
 
@@ -319,37 +310,22 @@ public class Controller{
 						return mapper.searchAll(param);
 					}
 				}.execute(param);
-			break;
 			
-		case "titleContent":
-			System.out.println("titleContent");
-			o = new ISearchService() {
-				
-				@Override
-				public Object execute(HashMap<?, ?> param) {
-					// TODO Auto-generated method stub
-					return mapper.searchAll(param);
-				}
-			}.execute(param);
-			break;
-			
-		case "content":
+			break;		
+		case "contents":
 			System.out.println("content");
 			o = new ISearchService() {
 				
 				@Override
 				public Object execute(HashMap<?, ?> param) {
 					// TODO Auto-generated method stub
-					return mapper.searchAll(param);
+					return mapper.searchContent(param);
 				}
 			}.execute(param);
+			
 			break;
 		}
 		map.put("o", o);
-		System.out.println("넘어온 값 : "+o);
-		System.out.println("map :" + map);
-		System.out.println("page"+ page);
-		System.out.println("list"+ map.get("list"));
 		return map;
 	}
 	
@@ -380,33 +356,50 @@ public class Controller{
 			}
 		}.execute((HashMap<?, ?>) map);
 	/*	System.out.println("viewStack2"+Integer.parseInt((String) map.get("viewStack")));*/
-
+		map.put("count",new ICountService() {
+			
+			@Override
+			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.commentCount(param);
+			}
+		}.execute((HashMap<?, ?>) map));
+		map.put("Clist",new IGetService() {
+			
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.commentList(param);
+			}
+		}.execute((HashMap<?, ?>) map));
 		map.put("o", o);
-		
+		System.out.println("o  : "+o);
+		System.out.println(map.get("count")+": 까운트");
+		System.out.println(map.get("Clist")+"륐쓰뜨");
 		return map;
 		
+	}
+	/*/deleteComment/*/
+	@RequestMapping("/deleteComment/{x}")
+	public Map<?,?> deleteComment(
+			@PathVariable("x") String x){
+		Map<String,Object> map = new HashMap<>();
+		System.out.println(x);
+		map.put("x", x);
+		new IDeleteService() {
+			
+			@Override
+			public void execute(HashMap<?, ?> param) {
+				mapper.deleteComment(param);
+				
+			}
+		}.execute((HashMap<?, ?>) map);
+		return map;
 	}
 	@RequestMapping("/articleW")
 	public Map<?,?> articleWriting(
 			 @RequestBody HashMap<String, String> param){
 		Map<String, Object> map = new HashMap<>();
-/*		FileProxy pxy=new FileProxy();
-		Iterator<String> it = request.getFileNames();
-		String rootPath = "";
-		String uploadPath = "";
-		String fileName = "";
-		if(it.hasNext()) {
-			MultipartFile file = request.getFile(it.next());
-			rootPath = request.getSession().getServletContext().toString();
-			uploadPath = "resources/image/";
-			fileName= file.getOriginalFilename();
-		}
-		String path = rootPath+uploadPath;
-		File files = new File(path);
-		System.out.println(fileName+"1");
-		pxy.getFile().transferTo(files);
-	 System.out.println("이거탑니까 지금 ? ");
-	 System.out.println(param+"탑니까 지금 ? ");*/
 		System.out.println("넘어왔나요"+param.get("select"));
 		System.out.println("넘어왔나요"+param.get("title"));
 		System.out.println("넘어왔나요"+param.get("contents"));
@@ -431,17 +424,15 @@ public class Controller{
 		
 	}
 	//--------------------------- 댓글
-	@RequestMapping(value="/articleComment",
-			method=RequestMethod.GET,consumes="application/json")
+	@RequestMapping("/articleComment/{x}")
 	public Map<?,?> articleComments(
 			@PathVariable("x") String x,
 			@RequestBody HashMap<String, String> param){
 		Map<String, Object> map = new HashMap<>();
 		System.out.println("코멘트입성");
 		System.out.println(x+" : who");
-		
-		map.put("image", param.get("iamge"));
-		map.put("text", param.get("text"));
+		map.put("x",x);
+		map.put("comment", param.get("comment"));
 		map.put("id", param.get("id"));
 		map.put("commentSuccess",new IPostService() {
 			
@@ -451,27 +442,40 @@ public class Controller{
 				return mapper.insertComment(param) ;
 			}
 		}.execute((HashMap<?, ?>) map));
-		
+		System.out.println(map);
 		return map;
 	}
 	//-------------------------- 더보기
-	@RequestMapping("/DetailMore")
-	public Map<?,?> detailMores(){
-		Map<String,Object> map = new HashMap<>();
-		System.out.println("more");
-	 /*	page.setPageSize(5);
-	 	page.setBlockSize(5);*/
-		map.put("Dpage",new ICountService() {
+	@RequestMapping("/DetailCommentInsert/{x}")
+	public Map<?,?> DetailCommentInsert(
+			@PathVariable("x") String x,
+			@RequestBody HashMap<String, String> param){
+		Map<String, Object> map = new HashMap<>();
+		System.out.println(x);
+		map.put("x", x);
+		map.put("comment", param.get("comment"));
+		map.put("id", param.get("id"));
+		System.out.println(param.get("comment"));
+		System.out.println(param.get("id"));
+		map.put("detailComment",new IPostService() {
 			
 			@Override
 			public int execute(HashMap<?, ?> param) {
 				// TODO Auto-generated method stub
-				return mapper.selectBoardCount(param);
+				return mapper.DetailCommentInsert(param);
 			}
 		}.execute((HashMap<?, ?>) map));
-	/* 	page = (Page) adapter.attr(page);
-	 	map.put("Dpage", page);*/
-	 	System.out.println(" :: "+page.getTotalCount());
+		
+		return map;
+	}
+	@RequestMapping("/DetailMore")
+	public Map<?,?> detailMores(
+		
+			){
+		Map<String,Object> map = new HashMap<>();
+		System.out.println("more");
+	
+	 	
 		map.put("Dlist",new IGetService() {
 			
 			@Override
@@ -480,9 +484,74 @@ public class Controller{
 				return mapper.detailMore(param);
 			}
 		}.execute((HashMap<?, ?>) map));
+		
+		System.out.println(map);
 	return map;	
 	}
-	
+	@RequestMapping("/CommentMore/{x}")
+	public Map<?,?> CommentMore(
+			@PathVariable("x") String x){
+		Map <String,Object> map = new HashMap<>();
+		System.out.println(x);
+		map.put("x", x);
+		map.put("count",new ICountService() {
+			
+			@Override
+			public int execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.detailMoreCount(param);
+			}
+		}.execute((HashMap<?, ?>) map));
+		map.put("DComment",new IGetService() {
+			
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.detailCommentList(param);
+			}
+		}.execute((HashMap<?, ?>) map));
+		return map;
+	}
+	//deleteArticle
+	@RequestMapping("/deleteArticle/{x}")
+	public Map<?,?> deleteArticle(
+			@PathVariable("x") String x){
+		Map <String,Object> map = new HashMap<>();
+		map.put("x", x);
+		System.out.println("쿼리타나요?"+x);
+		new IDeleteService() {
+			
+			@Override
+			public void execute(HashMap<?, ?> param) {
+				mapper.deleteBoard(param);
+				
+			}
+		}.execute((HashMap<?, ?>) map);
+		return map;
+	}
+	//updateBoard
+	@RequestMapping("/updateBoard/{x}")
+	public Map<?,?> updateArticle(
+			@PathVariable("x") String x,
+			@RequestBody Map<?,?> param){
+		Map<String,Object> map = new HashMap<>();
+		System.out.println("연결 완료");
+		param.get("contents");
+		System.out.println("x : "+x);
+		System.out.println("2 : "+param.get("contents"));
+		map.put("contents", param.get("contents"));
+		map.put("x", x);
+		map.put("title", param.get("title"));
+		new IUpdateService() {
+			
+			@Override
+			public void execute(HashMap<?, ?> param) {
+				mapper.updateBoard(param);
+				
+			}
+		}.execute((HashMap<?, ?>) map);;
+		return map; 
+	}
 	// book
 	@RequestMapping("/bookMain")
 	public Map<?,?> bookMain(){

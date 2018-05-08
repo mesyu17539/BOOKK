@@ -31,7 +31,8 @@
 		<result property="viewNum" column="view_num"/>
 	<!-- 댓글 -->
 		<result property="CID" column="c_seq"/>
-		<result property="comment" column="comment"/>
+		<result property="comment" column="comment_content"/>
+		<result property="commentDate" column="comment_date"/>
 	<!-- 몰 -->
 		<result property="orderNum" column="order_num"/>
 		
@@ -86,6 +87,7 @@
 	INSERT INTO sellbasket (salesamount, salesdate, recipient, sell_address, requirements, `bookNum`, mem_id, recipent_num) 
 VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member where mem_id like #{memId}), #{requirements}, #{bookNum}, #{memId}, #{recipent_num});
 	</insert>
+
 	 
     <!-- 장만호 영역  end -->
 	
@@ -140,8 +142,21 @@ VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member wher
     SELECT COUNT(*) FROM board
     </select>
     <select id="searchAll" resultMap="map" parameterType="hashMap">
-     	select * from board where ${type} like '%${data}%'
+     	select * 
+     	from board 
+     	where ${type} like '%${data}%'
      </select>
+     <select id="searchContent" resultMap="map" parameterType="hashMap">
+     	select * 
+     	from board 
+     	where ${type} like '%${data}%'
+     </select>
+     <select id="searchWriterTitle" resultMap="map" parameterType="hashMap">
+     select *
+     from board 
+     where contents like '%${data}%' 
+     	or co_title like '%${data}%'
+     </select> 
      <select id="searchCount" resultType="int" parameterType="hashMap">
      	select count(*) from board where ${type} like '%${data}%'
      </select> 
@@ -172,31 +187,94 @@ VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member wher
 		contents,
 		view_num,
 		mem_id
-     	from board where board_id like #{x}
+     	from board 
+     	where board_id like #{x}
+     </select>
+     <select id="detailMoreCount" resultType="int"  parameterType="hashMap">
+     	select count(*) 
+     	from comments c,board b  
+     	where c.board_id like #{x} 
+     		and b.board_id like #{x}
+     </select>
+     <select id="detailCommentList" resultMap="map" parameterType="hashMap">
+          select  
+          c_seq,
+		 DATE_FORMAT(comment_date, '%Y-%m-%d') AS comment_date,
+		 comment_content,
+		 c.mem_id
+     	from comments c join board b 
+             where c.board_id = #{x}
+             and b.board_id = #{x}          
+     	   order by  c_seq desc
+              LIMIT 18446744073709551615 
      </select>
      <select id="detailMore" resultMap="map" parameterType="hashMap">
-     	select 
+
+                
+                	select 
 		board_id,
 		DATE_FORMAT(create_date, '%Y-%m-%d') AS create_date,
 		co_title,
 		contents,
 		view_num,
-		mem_id
-     	from board
-     	   order by  board_id desc
+		mem_id	
+     	from board   	 
+			  order by  board_id desc
               LIMIT 18446744073709551615 
      </select>
      <insert id="insertBoard" parameterType="hashMap">
-     	insert into board(co_title,contents,create_date,mem_id)values(#{title},#{contents},curdate(),#{memID})
+     	insert into board(co_title,contents,create_date,mem_id)
+     	values(#{title},#{contents},curdate(),#{memID})
      </insert>
      <insert id="insertComment" parameterType="hashMap">
-     	insert into comment(comment,mem_id)values(#{comment},#{memID})
+     	insert into comments
+     	(comment_content,comment_date,board_id,mem_id)
+     	values
+     	(#{comment},curdate(),#{x},#{id})
      </insert>
+     <insert id="DetailCommentInsert" parameterType="hashMap">
+     	insert into comments
+     	(comment_content,comment_date,board_id,mem_id)
+     	values
+     	(#{comment},curdate(),#{x},#{id})
+     </insert>
+     
+     <select id="commentCount" resultType="int" parameterType="hashMap">
+     select count(*) from comments where board_id = #{x}
+     </select>
      <update id="viewStack" parameterType="hashMap">
      UPDATE BOARD
    			SET view_num = IFNULL(view_num, 0) + 1
  			WHERE BOARD_ID = #{x}	
      </update>
+     <delete id="deleteBoard" parameterType="hashMap">
+     	DELETE 
+     	FROM board 
+     	WHERE board_id= #{x}
+     </delete>
+     <update id="updateBoard" parameterType="hashMap">
+     	UPDATE board
+     	SET contents = #{contents},
+     		co_title = #{title}
+     	WHERE board_id = #{x}
+     </update>
+      <select id="commentList" parameterType="hashMap" resultType="map">
+     select 
+		c_seq,
+		DATE_FORMAT(comment_date, '%Y-%m-%d') AS comment_date,
+		comment_content,
+		board_id,
+		mem_id
+     	from comments
+             where board_id = #{x}          
+     	   order by  c_seq desc
+              LIMIT 18446744073709551615 
+	</select> 
+	<delete id="deleteComment" parameterType="hashMap">
+	DELETE 
+     	FROM comments 
+     	WHERE c_seq = #{x}
+	</delete>
      <!-- book -->
      <select id="largeGenre" resultMap="map">
      	select DISTINCT largeGenre from genre

@@ -10,64 +10,62 @@ bulletin.board=(x=>{
 	var setContentView=()=>{
 		$.getScript(view,()=>{
 			// Border Main Button
-			$('#div-body').html($(createDiv({id:'jw-div',clazz:'container'}))
-					.attr('style','border:1px solid gray;padding:0px; '));
-				
+			$('#div-body')
+				.html($(createDiv({id:'jw-div',clazz:'container'}))
+				.attr('style','padding:0px;'));				
 			$(createDiv({id:'row-div',clazz:''}))
-				.appendTo('#jw-div')
-				.attr('style',' border:1px solid red; ');
-		/*
-		 * $(createDiv({id:'image-div',clazz:'row'})).appendTo('#jw-div').attr('style','padding:
-		 * 30px; margin:0 auto;');
-		 */
+				.appendTo('#jw-div');
 			// notice
 			$(createDiv({id:'',clazz:'col-sm-1'}))
-				.appendTo('#row-div').attr('style','height: 200px; border:2px solid blue;padding: 1px');
+				.appendTo('#row-div')
+				.attr('style','height: 200px;padding: 1px');
 			$(createDiv({id:'col-1',clazz:'col-sm-2'}))
-				.appendTo('#row-div').attr('style','border:2px solid blue; padding: 1px');
-			$(createImage({id:'notice-img',src:'https://i.imgur.com/CnBRBcYb.jpg',clazz:''}))
+				.appendTo('#row-div')
+				.attr('style','padding: 1px');
+			$(createImage({id:'notice-img',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWJsKhhu3CEjTbmKwJtkNz7aB8rGTSqBO08iKvLSrID3-YuNn8tg',clazz:''}))
 				.appendTo('#col-1')
 				.attr('style','height: 200px; max-width:100%;')
 			// qna
 				
 			$(createDiv({id:'col-2',clazz:'col-sm-2'}))
 				.appendTo('#row-div')
-				.attr('style','border:2px solid blue; padding: 1px');
-			$(createImage({id:'qna-img',src:'https://i.imgur.com/RZ0jFNpb.jpg',clazz:''}))
+				.attr('style','padding: 1px');
+			$(createImage({id:'qna-img',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWJsKhhu3CEjTbmKwJtkNz7aB8rGTSqBO08iKvLSrID3-YuNn8tg',clazz:''}))
 				.appendTo('#col-2')
 				.attr('style','height: 200px; max-width:100%;')
 			// help https://i.imgur.com/YVOZuRqb.jpg
 			$(createDiv({id:'col-3',clazz:'col-sm-2'}))
 				.appendTo('#row-div')
-				.attr('style','border:2px solid blue;padding: 1px');
-			$(createImage({id:'help-img',src:'https://i.imgur.com/NruwA2a.gif',clazz:''}))
+				.attr('style','padding: 1px');
+			$(createImage({id:'help-img',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWJsKhhu3CEjTbmKwJtkNz7aB8rGTSqBO08iKvLSrID3-YuNn8tg',clazz:''}))
 				.appendTo('#col-3')
 				.attr('style','height: 200px; max-width:100%;')
 			// review
+				
 			$(createDiv({id:'col-4',clazz:'col-sm-2'}))
 				.appendTo('#row-div')
-				.attr('style','border:2px solid blue;padding: 1px');
-			$(createImage({id:'review-img',src:'https://i.imgur.com/RXb7cQzb.jpg',clazz:''}))
+				.attr('style','padding: 1px');
+			$(createImage({id:'review-img',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWJsKhhu3CEjTbmKwJtkNz7aB8rGTSqBO08iKvLSrID3-YuNn8tg',clazz:''}))
 				.appendTo('#col-4')
 				.attr('style','height: 200px; max-width:100%;')
 			// board
 			$(createDiv({id:'col-5',clazz:'col-sm-2'}))
 				.appendTo('#row-div')
-				.attr('style','border:2px solid blue;padding: 1px');
-			$(createImage({id:'board-img',src:'https://i.imgur.com/oBKqZbVb.jpg',clazz:'boo'}))
+				.attr('style','padding: 1px');
+			$(createImage({id:'board-img',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8TrIyRb8uy6IT98yokhFMv2mGxk74kgB036MenUiJEEnUf7xXuA',clazz:'boo'}))
 				.appendTo('#col-5')
 				.attr('style','height: 200px; max-width:100%;')
 								   .hover(()=>{
-									   $('.boo').attr('src','https://i.imgur.com/Rxd9m4Wb.jpg');
+									   $('.boo').attr('src','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSesp9RlBJ4fbN7VEzCUh1u0KTnjH11YumY3Grr7-WXbpX1ik-w');
 								   }, ()=>{
-									   $('.boo').attr('src','https://i.imgur.com/oBKqZbVb.jpg');
+									   $('.boo').attr('src','https://media.istockphoto.com/vectors/community-line-icon-vector-id618555678');
 								   })
 								   .on('click',()=>{
 										boards();
 								});
 			$(createDiv({id:'',clazz:'col-sm-1'}))
 				.appendTo('#row-div')
-				.attr('style','border:2px solid blue;height: 200px;');
+				.attr('style','height: 200px;');
 		// Border Main Carousel
 			$(createDiv({id:'myCarousel',clazz:'carousel slide'}))
 				.attr('data-ride','carousel')
@@ -155,13 +153,13 @@ bulletin.board=(x=>{
 			$('#myCarousel').remove();
 			$('#borders-h').remove();
 			$(createDiv({id:'borders-h',clazz:'container'}))
-				.attr('style','border:1px solid gray; padding:1px; margin-top:50px;')
+				.attr('style','padding:1px; margin-top:50px;')
 				.appendTo('#div-body');
 			$(createDiv({id:'',clazz:'col-sm-1'}))
 				.appendTo('#borders-h');
 			$(createDiv({id:'left-side',clazz:'col-sm-2'}))
 				.appendTo('#borders-h')
-				.attr('style','float:left; border: 0px solid blue; padding:10px; ');
+				.attr('style','float:left;padding:10px; ');
 			$(createUL({id:'left-ul',clazz:''}))
 				.appendTo('#left-side')
 				.attr('style','margin:0px; padding:0px; list-style:none; ');
@@ -179,7 +177,7 @@ bulletin.board=(x=>{
 				.attr('style',' height: 60px; line-height: 60px; border: 1px solid green; text-align: center; margin-top: -1px; ');
 			$(createATag({id:'2-left-atag',val:'작가노하우'}))
 				.appendTo('#2-left-li')
-				.on('click',()=>{
+				.on('click',()=>{		
 					bulletin.jau.jakga();
 			});
 			$(createLI({id:'3-left-li',clazz:''}))
@@ -210,7 +208,7 @@ bulletin.jau=(()=>{
 		$.getScript(view,()=>{
 			$('#new-right-side')
 				.html($(createDiv({id:'right-side',clazz:'col-sm-12'}))
-				.attr('style',' border: 1px solid red;padding:10px; border:1px solid red; margin-bottom: 30px; '));
+				.attr('style','padding:10px; margin-bottom: 30px; '));
 			$(createDiv({id:'board-all',clazz:''}))
 			.appendTo('#right-side');
 			$(createDiv({id:'board-title',clazz:'col-sm-3'}))
@@ -231,9 +229,7 @@ bulletin.jau=(()=>{
 			$(createOption({val:'co_title',txt:'제목'}))
 				.appendTo('#select')
 				.attr('select','selected');
-			$(createOption({val:'titleContent',txt:'제목+내용'}))
-				.appendTo('#select');
-			$(createOption({val:'content',txt:'내용'}))
+			$(createOption({val:'contents',txt:'내용'}))
 				.appendTo('#select');
 			$(createInput({id:'select-text',clazz:'form-control',type:'search'}))
 				.appendTo('#search-form')
@@ -243,10 +239,8 @@ bulletin.jau=(()=>{
 				.appendTo('#search-form')
 				.attr('type','submit')
 				.on('click',e=>{
-					alert('검색 ');
 					e.preventDefault();
 					var select = $('#select').val();
-					alert('얍 : '+select);
 					searchList({select:select,x:1,data:$('#select-text').val()});
 				});
 			
@@ -263,7 +257,6 @@ bulletin.jau=(()=>{
 					if(ub!=null){
 						articleWriting();
 					}else{
-						
 							alert('로그인 해주세요');
 							$.getScript($.javascript()+'/user.js',()=>{
 								user.member.login({context:context,view:view});
@@ -273,7 +266,7 @@ bulletin.jau=(()=>{
 			
 			$(createDiv({id:'div-articles',clazz:'col-sm-12'}))
 				.appendTo('#new-right-side');
-			articles(1);
+				articles(1);
 		});
 		};
 	var searchList=x=>{
@@ -289,24 +282,22 @@ bulletin.jau=(()=>{
 					method : 'POST',
 					success:d =>{
 
-						console.log(d,2);
-
 						if(d.list==""){
 							alert('검색결과가 없습니다.');
 							bulletin.jau.articles(1);
 						}
 						// 검색결과
 						$('#div-articles')
-							.attr('style','border:1px solid blue;padding:0px;');
+							.attr('style','padding:0px;');
 						$('#div-articles')
 							.html($(createTab({id:'tab-articles1',clazz:''}))
 							.attr('style','width:100%;font-size:15px; border-top: 5px solid #adcfdf;border-bottom: 5px solid #adcfdf;'));
 						$(createTHJW({id:'th-articles1',thList: ''}))
 							.appendTo('#tab-articles1')
-							.attr('style','border-top: 2px solid #adcfdf;');
+							.attr('style','border-top: 2px solid #adcfdf; ');
 						$(createTRJW({list : d.list, clazz : ''}))
 							.appendTo('#tab-articles1')
-							.attr('style', 'text-align: center; border: 1px solid gray;height: 60px; ');
+							.attr('style', 'text-align: center;height: 60px; border-bottom:1px dotted;');
 						$('._0').attr('class','col-sm-1');				
 						$('._1').attr('style','text-align:left;').attr('class','col-sm-7');
 						$('._2').attr('class','col-sm-1');
@@ -320,7 +311,7 @@ bulletin.jau=(()=>{
 						// pagenation
 						$(createDiv({id:'div-page1',clazz:''}))
 							.appendTo('#div-articles')
-							.attr('style','border: 2px solid red; margin :60px auto; font-size:14px;text-align:center; ');		
+							.attr('style','margin :60px auto; font-size:14px;text-align:center; ');		
 						$(createUL({id:'ul-page1',clazz:'pagination'}))
 							.appendTo('#div-page1');
 						var t = '';
@@ -370,7 +361,7 @@ bulletin.jau=(()=>{
 		$.getScript(x.view, ()=>{	
 			
 			$('#div-articles')
-				.attr('style','border:1px solid blue;padding:0px;');
+				.attr('style','padding:0px;');
 			$('#div-articles')
 				.html($(createTab({id:'tab-articles',clazz:''}))
 				.attr('style','width:100%;font-size:15px; border-top: 5px solid #adcfdf;border-bottom: 5px solid #adcfdf;'));
@@ -379,17 +370,12 @@ bulletin.jau=(()=>{
 				.attr('style','border-top: 2px solid #adcfdf;');
 			$(createTRJW({list : x.d.list,clazz : ''}))
 				.appendTo('#tab-articles')
-				.attr('style', 'text-align: center; border: 1px solid gray;height: 60px; ');
+				.attr('style', 'text-align: center;height: 60px;border-bottom:1px dotted; ');
 			$('._0').attr('class','col-sm-1');
 			$('._1').attr('style','text-align:left;').attr('class','col-sm-7');
 			$('._2').attr('class','col-sm-1');
 			$('._3').attr('class','col-sm-1');
 			$('._4').attr('class','col-sm-2');	
-			
-			/*
-			 * $('#a_2_1').attr('style','cursor:pointer').on('click',()=>{
-			 * alert(1); articleDetail(); });
-			 */
 			// 상세게시글
 			for(var i=0; i<=x.d.page.pageSize;i++){
 				$('#a_'+i+'_1').attr('style','cursor:pointer').attr('onClick','bulletin.jau.articleDetail('+($('#td_'+i+'_0').text())+')')					
@@ -399,7 +385,7 @@ bulletin.jau=(()=>{
 			// pagenation
 			$(createDiv({id:'div-page',clazz:''}))
 				.appendTo('#div-articles')
-				.attr('style','border: 2px solid red; margin :60px auto; font-size:14px;text-align:center; ');		
+				.attr('style',' margin :60px auto; font-size:14px;text-align:center; ');		
 			$(createUL({id:'ul-page',clazz:'pagination'}))
 				.appendTo('#div-page');
 			if(x.d.page.preBlock){
@@ -450,23 +436,23 @@ bulletin.jau=(()=>{
 		$.getScript(view, ()=>{
 			$('#right-side')
 				.html($(createDiv({id:'articleW-right-side',clazz:'col-sm-12'})))
-				.attr('style','border: 1px solid red;weight:100%;');
+				.attr('style','weight:100%;');
 			$(createDiv({id:'articleW-right-header',clazz:''}))
 				.appendTo('#articleW-right-side').attr('style','padding:20px;')
 			$(createHTag({size:'4',val:'자유게시판  |  '}))
 				.appendTo('#articleW-right-header')
 				.attr('style','padding:10px;')
-				.attr('style','float:left; border-left:5px solid blueviolet;padding-left: 5px;');
+				.attr('style','float:left; padding-left: 5px;');
 			$(createSpanJW({id:'',clazz:'',val:'자유로운 소식을 전해주세요.'}))
 				.appendTo('#articleW-right-header')
 				.attr('style','float:left; padding:10px;');
 			$('#div-articles')
 				.html($(createForm({id:'articleW-right-form',clazz:''})))
-				.attr('style',' font-size: 14px; border : 2px solid blue');;
+				.attr('style',' font-size: 14px; ');;
 			// formtag 시작
 			$(createDiv({id:'articleW-right-select',clazz:''}))
 				.appendTo('#articleW-right-form')
-				.attr('style','float:left; height:22px; margin-right:10px; padding: 14px;padding-left: 7px; min-height: 60px; font: inherit; border:1px solid pink');
+				.attr('style','float:left; height:22px; margin-right:10px; padding: 14px;padding-left: 7px; min-height: 60px; font: inherit;');
 			// select option / input
 			$(createSelect('articleW-right-SO'))
 				.appendTo('#articleW-right-select')
@@ -493,16 +479,12 @@ bulletin.jau=(()=>{
 				.attr('class','col-sm-3')
 				.attr('style','width:400px; margin-left :10px; height:30px;')
 				.appendTo('#articleW-right-select');
-		/*
-		 * $(createDiv({id:'file-upload',clazz:''})).appendTo('#articleW-right-form')
-		 * .attr('style','border : 1px solid green; padding:10px;');
-		 */
 			$(createDiv({id:'file-upload-type',clazz:''}))
 				.appendTo('#articleW-right-form');
-			$(createInput({id:'input-fileUp',clazz:'',type:'file'}))
+		/*	$(createInput({id:'input-fileUp',clazz:'',type:'file'}))
 				.appendTo('#file-upload-type')
 				.attr('style','padding:10px; border:1px solid red;')
-				.attr('name','file')
+				.attr('name','file')*/
 			$(createDiv({id:'div-input-content',clazz:''}))
 				.appendTo('#articleW-right-form');
 			$(textarea({id:'jw-text'}))
@@ -511,7 +493,7 @@ bulletin.jau=(()=>{
 				.appendTo('#div-input-content');
 			$(createDiv({id:'articles-button',clazz:'col-sm-12'}))
 				.appendTo('#articleW-right-form')
-				.attr('style','padding:10px;border : 1px solid gray;')
+				.attr('style','padding:10px;')
 			$(createButton({id:'',clazz:'btn',val:'목록'}))
 				.appendTo('#articles-button')
 				.attr('style','float:left; width:80px; height:30px; background-color:white; border:1px solid gray ')
@@ -552,10 +534,9 @@ bulletin.jau=(()=>{
 		// 상세게시판
 		$.getJSON(context+'/articleDetail/'+x, d=>{
 			$.getScript(view,()=>{
-				console.log(x);
 				$('#right-side')
 					.html($(createDiv({id:'articleDetail-main',clazz:''})))
-					.attr('style',' border: 1px solid red;padding:10px; border:1px solid red; margin-bottom: 30px; ');
+					.attr('style','padding:10px; margin-bottom: 30px; ');
 				$(createDiv({id:'articleDetail-title',clazz:'col-sm-3'}))
 					.appendTo('#articleDetail-main')
 					.attr('style','padding:10px;');
@@ -571,102 +552,227 @@ bulletin.jau=(()=>{
 					.appendTo('#articleDetail-list')
 					.attr('type','button').attr('style','float:right')
 					.on('click',()=>{
-						bulletin.jau.onCreate();
-	
-					});
-				
+						bulletin.jau.onCreate();	
+					});				
 				$('#div-articles')
 					.html($(createDiv({id:'detail-post-title',clazz:''})))
-					.attr('style','border: 1px solid gray; inline-height:100%; padding:0px; border-top: 5px solid #adcfdf;');
+					.attr('style','inline-height:100%; padding:0px; border-top: 5px solid #adcfdf;');
 				$(createDiv({id:'detail-post-title-head',clazz:''}))
 					.attr('style','  height:50px;border-bottom: 1px dotted #c6c6c6;margin-top:15px; ')
 					.appendTo('#detail-post-title');
-				$(createDiv({id:'detail-post-title-a',clazz:'col-sm-7'}))
-					.appendTo('#detail-post-title-head');
-				$(createHTag({size:'4',val:d.o.title})).appendTo('#detail-post-title-a')
-					.attr('style','color:#10b5cf');
-				$(createDiv({id:'detail-post-title-b',clazz:'col-sm-2'}))
-					.appendTo('#detail-post-title-head')
-					.attr('style','margin-top:5px; color:#10b5cf');
-				$(createSpanJW({id:'',clazz:'',val:d.o.memID}))
-					.appendTo('#detail-post-title-b')
-					.attr('style','font-size:20px');
-				$(createDiv({id:'detail-post-title-c',clazz:'col-sm-3'}))
-					.appendTo('#detail-post-title-head')
-					.attr('style','margin-top:5px; color:#10b5cf');
-				$(createSpanJW({id:'',clazz:'',val:d.o.createDate}))
-					.appendTo('#detail-post-title-c')
-					.attr('style','font-size:20px;');
-				$(createDiv({id:'detail-post-content',clazz:'col-sm-12'}))
-					.appendTo('#detail-post-title')
-					.attr('style','padding:20px; ');
-				$(createP({val:d.o.contents}))
-					.appendTo('#detail-post-content')
-					.attr('style','font-size:20px; overflow:hidden; word-bread:bread-word;');
-				// 댓글구현
-				$(createDiv({id:'div-comment',clazz:''}))
-					.appendTo('#div-articles');
-				$(createDiv({id:'div-comment-a',clazz:''}))
-					.appendTo('#div-comment')
-					.attr('style','border-bottom: 1px dotted #c6c6c6; margin-top:30px; margin-bottom:30px; padding : 5px;');
-				$(createHTag({size:'5',val:'댓글(0)'}))
-					.appendTo('#div-comment-a');
-				$(createForm({id:'form-comment',clazz:''}))
-					.appendTo('#div-comment');
-				$(createImage({id:'img-comment',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqeFAYIE3hTj9Gs1j3v7o-oBadM5uDkuPBuXMPtXS85LufL7UVA',clazz:'col-sm-2'}))
-					.appendTo('#form-comment');
-				$(textarea({id:'text-comment'}))
-					.appendTo('#form-comment')
-					.attr('class','col-sm-10')
-					.attr('style','overflow-y:auto; display:block;resize:none;margin-bottom:10px;height:200px;width:598px;');
+				$(createDiv({id:'detail-post-title-subhead',clazz:''})).appendTo('#detail-post-title');
+				
 				var ub=JSON.parse(sessionStorage.getItem('user'));
-				if(ub==null){
-					$('#div-comment').remove();
-				}else{
-					$(createButton({id:'button-comment',clazz:'btn btn-danger',val:'등록하기'}))
-					.appendTo('#form-comment')
-					.attr('style','margin-left:123px;')
-					.on('click',()=>{
+				
+				if(ub!=null &&ub.memID==d.o.memID){
 					
-						
-						alert('댓글등록키');
+					$(createDiv({id:'inner-div',clazz:'col-sm-12'})).appendTo('#detail-post-title-subhead')
+					$(createDiv({id:'inner-div-btnF',clazz:''})).appendTo('#inner-div')
+					$(createButton({id:'inner-div-firstbtn',clazz:'btn',val:'삭제'})).appendTo('#inner-div-btnF')
+					.attr('style','float:right; color:red; background-color:teal; margin-left:5px;')
+					.on('click',()=>{
 						$.ajax({
-							url:context+'/articleComment',
-							method:'POST',
-							data:JSON.stringify({						
-								image : $('#img-comment').val(),
-								text : $('#text-comment').val(),
-								id : ub.memID
-							}),
+							url:context+'/deleteArticle/'+x,
 							dataType:'json',
-							contetnType:'application/json',
-							success: x =>{
-								alert('성공');
-								articleDetail(x);
-								
-							},
-							error : ()=>{
-								alert('실패');
-								console.log(bulletin.jau.articleDetail(x));
-								bulletin.jau.articleDetail(x);
+							contentType:'application/json',
+							success:x=>{
+								alert('삭제되었습니다.');
+								bulletin.jau.onCreate();
 							}
-							
-						});
-	
+						})
+						
 					});
-				}
-			
-				});					
-			});		
-		};
+					$(createButton({id:'inner-div-secondbtn',clazz:'btn',val:'수정'}))
+						.appendTo('#inner-div-btnF')
+						.attr('style','float:right; color:brown; background-color:antiquewhite;')
+						.on('click',()=>{					
+							$('#div-articles')
+							.html($(createDiv({id:'detail-post-title2',clazz:''})))
+								.attr('style',' inline-height:100%; padding:0px; border-top: 5px solid #adcfdf;');
+							$(createDiv({id:'detail-post-title-head2',clazz:''}))
+								.attr('style','  height:50px;border-bottom: 1px dotted #c6c6c6;margin-top:15px; ')
+								.appendTo('#detail-post-title2');
+							$(createDiv({id:'detail-post-title-subhead2',clazz:''}))
+								.appendTo('#detail-post-title2');
+							$(createDiv({id:'detail-post-title-a2',clazz:'col-sm-7'}))
+								.appendTo('#detail-post-title-head2');
+							$(createInput({id:'title',clazz:'',type:'text'}))
+								.attr('value',d.o.title)
+								.appendTo('#detail-post-title-a2')
+								.attr('style','color:#10b5cf; font-size:20px;');
+							$(createDiv({id:'detail-post-title-b2',clazz:'col-sm-2'}))
+								.appendTo('#detail-post-title-head2')
+								.attr('style','margin-top:5px; color:#10b5cf');
+							$(createSpanJW({id:'',clazz:'',val:d.o.memID}))
+								.appendTo('#detail-post-title-b2')
+								.attr('style','font-size:20px');
+							$(createDiv({id:'detail-post-title-c2',clazz:'col-sm-3'}))
+								.appendTo('#detail-post-title-head2')
+								.attr('style','margin-top:5px; color:#10b5cf');
+							$(createSpanJW({id:'',clazz:'',val:d.o.createDate}))
+								.appendTo('#detail-post-title-c2')
+								.attr('style','font-size:20px;');
+							$(createDiv({id:'detail-post-content2',clazz:'col-sm-12'}))
+								.appendTo('#detail-post-title2')
+								.attr('style','padding:20px;');
+							$(createInput({id:'content',clazz:'',type:'text'}))
+								.attr('value',d.o.contents)
+								.appendTo('#detail-post-content2')
+								.attr('style','font-size:20px; overflow:hidden; word-bread:bread-word; width:100%; height:300px;');
+							$(createButton({id:'',clazz:'btn',val:'수정하기'}))
+							.appendTo('#detail-post-content2')
+							.attr('style','float:right; background-color : aqua')
+							.on('click',function(){	
+								$.ajax({
+									url:context+'/updateBoard/'+x,
+									data:JSON.stringify({
+										title :$('#title').val(),
+										contents : $('#content').val(),
+									}),
+									method : 'POST',
+									dataType:'json',
+									contentType:'application/json',
+									success:x=>{
+										bulletin.jau.onCreate();
+										}
+									})
+								});
+								});
+				
+								}else{
+									$('#inner-div').remove();
+								}	
+								$(createDiv({id:'detail-post-title-a',clazz:'col-sm-7'}))
+									.appendTo('#detail-post-title-head');
+								$(createHTag({size:'4',val:d.o.title}))
+									.appendTo('#detail-post-title-a')
+									.attr('style','color:#10b5cf;font-size:20px;');
+								$(createDiv({id:'detail-post-title-b',clazz:'col-sm-2'}))
+									.appendTo('#detail-post-title-head')
+									.attr('style','margin-top:5px; color:#10b5cf');
+								$(createSpanJW({id:'',clazz:'',val:d.o.memID}))
+									.appendTo('#detail-post-title-b')
+									.attr('style','font-size:20px');
+								$(createDiv({id:'detail-post-title-c',clazz:'col-sm-3'}))
+									.appendTo('#detail-post-title-head')
+									.attr('style','margin-top:5px; color:#10b5cf');
+								$(createSpanJW({id:'',clazz:'',val:d.o.createDate}))
+									.appendTo('#detail-post-title-c')
+									.attr('style','font-size:20px;');
+								$(createDiv({id:'detail-post-content',clazz:'col-sm-12'}))
+									.appendTo('#detail-post-title')
+									.attr('style','padding:20px; ');
+								$(createP({val:d.o.contents}))
+									.appendTo('#detail-post-content')
+									.attr('style','font-size:20px; overflow:hidden; word-bread:bread-word;');
+							
+								
+								
+								// 댓글구현
+							
+								$(createDiv({id:'div-comment',clazz:''}))
+									.appendTo('#div-articles');
+								$(createDiv({id:'div-comment-a',clazz:''}))
+									.appendTo('#div-comment')
+									.attr('style','border-bottom: 1px dotted #c6c6c6; margin-top:30px; margin-bottom:30px; padding : 5px;');
+								$(createHTag({size:'5',val:'댓글('+d.count+')'}))
+									.appendTo('#div-comment-a');
+								$('#div-aa').remove();
+								$(createDiv({id:'div-aa',clazz:''}))
+								.appendTo('#div-comment')
+								.attr('style',' overflow-x: hidden;overflow-y: scroll; height:300px; border-bottom:2px solid #efefef');
+								$.each(d.Clist,(i,j)=>{	
+								if(d.o.board_id==d.Clist.board_id){						
+									$(createDiv({id:'div-aa-'+i,clazz:''}))
+									.appendTo('#div-aa')
+									.attr('style','height:70px; border-bottom:1px solid #efefef; margin-bottom:30px; position:relative; top:20px;')
+									.attr('class','');
+									$(createImage({id:'',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqeFAYIE3hTj9Gs1j3v7o-oBadM5uDkuPBuXMPtXS85LufL7UVA'}))
+									.appendTo('#div-aa-'+i)
+									.attr('style','height:50px;width:50px;');
+									$(createP({val:j.mem_id}))
+									.attr('style','width:30px; position:relative; bottom:67px; left:70px; font-weight:bold;')
+									.appendTo('#div-aa-'+i);
+									$(createP({val:j.comment_date}))
+									.attr('style','position:relative; bottom:95px; left:120px; font-size:13px;')
+									.appendTo('#div-aa-'+i);
+									$(createP({val:j.comment_content}))
+									.attr('style','font-size:13px;position:relative; bottom:100px; left:70px;')
+									.appendTo('#div-aa-'+i);
+									
+									if(ub!=null &&ub.memID==j.mem_id){
+										$(createButton({id:'',clazz:'',val:'삭제'}))
+										.appendTo('#div-aa-'+i)
+										.attr('style','position:relative;bottom:140px;left:650px;')
+										.on('click',()=>{
+											$.ajax({
+												url:context+'/deleteComment/'+j.c_seq,
+												dataType:'json',
+												method:'POST',
+												contentType:'application/json',
+												success : z =>{
+													alert('성공적으로 댓글이 삭제되었습니다.');												
+													articleDetail(x);
+												}
+											})
+										});
+									}
+									}
+								})
+					
+									
+								
+								$(createForm({id:'form-comment',clazz:''}))
+									.appendTo('#div-comment')
+									.attr('style','margin-top:30px;');
+								$(createImage({id:'img-comment',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqeFAYIE3hTj9Gs1j3v7o-oBadM5uDkuPBuXMPtXS85LufL7UVA',clazz:'col-sm-2'}))
+									.appendTo('#form-comment');
+								$(textarea({id:'text-comment'}))
+									.appendTo('#form-comment')
+									.attr('class','col-sm-10')
+									.attr('style','overflow-y:auto; display:block;resize:none;margin-bottom:10px;height:200px;width:598px;');
+								$(createButton({id:'button-comment',clazz:'btn btn-danger',val:'등록하기'}))
+								.appendTo('#form-comment')
+								.attr('style','margin-left:123px;')
+								.on('click',function(){	
+									if(ub!=null){
+									$.ajax({
+										url:context+'/articleComment/'+x,
+										data:JSON.stringify({						
+											comment : $('#text-comment').val(),
+											id : ub.memID
+										}),
+										method:'POST',
+										dataType:'json',
+										contentType:'application/json',
+										success: y =>{
+											alert('성공');
+											articleDetail(x);
+										
+										},
+									});
+									}else{
+										alert('회원만 입력가능합니다.');
+										$.getScript($.javascript()+'/user.js',()=>{
+											user.member.login({context:context,view:view});
+										});
+									};
+								});		
+								
+							});					
+						});		
+					};
+				
 	var jakga=x=>{
+		
 		$.getJSON(context+'/DetailMore', d=>{
+			
 			var listNum = 0;
-			console.log(d.Dlist.slice(listNum,listNum+5));
+			var commentNum =0;
 			$.getScript(view,()=>{
 				$('#div-articles')
 					.html($(createDiv({id:'infinity-articles',clazz:''})))
-					.attr('style','border: 1px solid gray; inline-height:100%; padding:0px;')
+					.attr('style','inline-height:100%; padding:0px;')
 					.appendTo('#new-right-side');
 	var printlist=()=>{
 					$.each(d.Dlist.slice(listNum,listNum+5),(i,j)=>{
@@ -679,9 +785,9 @@ bulletin.jau=(()=>{
 						$(createDiv({id:'infinity-seq-'+listNum+i,clazz:'col-sm-1'}))
 						.attr('style','float:left')
 						.appendTo('#infinity-head-'+listNum+i);
-						$(createHTag({size:'5',val:'No.'+j.bID}))
+						$(createHTag({size:'5',val:'No.'+j.bID})).attr('value',j.bID).attr('class','bsid')
 						.appendTo('#infinity-seq-'+listNum+i)				
-						.attr('style','color:#ea0a0a');		
+						.attr('style','color:#ea0a0a');
 						$(createDiv({id:'infinity-post-title-a-'+listNum+i,clazz:'col-sm-6'}))
 							.appendTo('#infinity-head-'+listNum+i);	
 						$(createHTag({size:'4',val:j.title}))
@@ -705,14 +811,62 @@ bulletin.jau=(()=>{
 						$(createP({val:j.contents}))
 							.appendTo('#infinity-post-content-'+listNum+i)
 							.attr('style','font-size:20px; overflow:hidden; word-bread:bread-word;');
+						
+		
 						// 댓글구현
+						// 보드의 pk 를 가져왔다.
+						
+			$.getJSON(context+'/CommentMore/'+j.bID, t=>{	
 						$(createDiv({id:'infinity-comment-'+listNum+i,clazz:''}))
-							.appendTo('#infinity-articles-sector-'+listNum+i);
+						.appendTo('#infinity-articles-sector-'+listNum+i);
 						$(createDiv({id:'infinity-comment-a-'+listNum+i,clazz:''}))
-							.appendTo('#infinity-comment-'+listNum+i)
-							.attr('style','border-bottom: 1px dotted #c6c6c6; margin-top:30px; margin-bottom:30px; padding : 5px;');
-						$(createHTag({size:'5',val:'댓글(0)'}))
-							.appendTo('#infinity-comment-a-'+listNum+i);
+						.appendTo('#infinity-comment-'+listNum+i)
+						.attr('style',' margin-top:30px; margin-bottom:30px; padding : 5px; ');
+						$(createHTag({size:'5',val:'댓글('+t.count+')'}))
+						.appendTo('#infinity-comment-'+listNum+i)
+						.attr('style','border-bottom:1px solid bisque');
+						$('#div-i-'+listNum+i).remove();
+						$(createDiv({id:'div-i-'+listNum+i,clazz:''}))
+						.appendTo('#infinity-comment-'+listNum+i)
+						.attr('style',' overflow-x: hidden;overflow-y: scroll; height:100px; border-bottom:2px solid #efefef');
+						var ub=JSON.parse(sessionStorage.getItem('user'));
+						
+						$.each(t.DComment,(q,w)=>{
+							$(createDiv({id:'div-dc-'+i+commentNum+q,clazz:''}))
+							.appendTo('#div-i-'+listNum+i)
+							.attr('style','height:70px;')
+							$(createImage({id:'',src:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqeFAYIE3hTj9Gs1j3v7o-oBadM5uDkuPBuXMPtXS85LufL7UVA'}))
+							.appendTo('#div-dc-'+i+commentNum+q)
+							.attr('style','height:50px;width:50px;');;
+							$(createP({val:w.memID}))
+							.appendTo('#div-dc-'+i+commentNum+q)
+							.attr('style','position:relative; bottom:50px; left:60px; font-weight:bold;');
+							$(createP({val:w.commentDate}))
+							.appendTo('#div-dc-'+i+commentNum+q)
+							.attr('style','position:relative; bottom:80px; left:100px; font-size:13px;');;
+							$(createP({val:w.comment}))
+							.appendTo('#div-dc-'+i+commentNum+q)
+							.attr('style','position:relative; bottom:80px; left:70px;');
+							if(ub!=null &&ub.memID==w.memID){
+								$(createButton({id:'',clazz:'',val:'삭제'}))
+								.appendTo('#div-dc-'+i+commentNum+q)
+								.attr('style','position:relative;bottom:140px;left:650px;')
+								.on('click',()=>{
+									console.log(w,"222");
+									$.ajax({
+										url:context+'/deleteComment/'+w.CID,
+										dataType:'json',
+										method:'POST',
+										contentType:'application/json',
+										success : z =>{										
+											alert('성공적으로 댓글이 삭제되었습니다.');
+											jakga(x);
+										}
+									})
+								});
+							}
+						});		
+					
 						$(createForm({id:'infinity-form-comment-'+listNum+i,clazz:''}))
 							.appendTo('#infinity-comment-'+listNum+i);
 						$(createImage({id:'infinity-img-comment-'+listNum+i
@@ -726,9 +880,40 @@ bulletin.jau=(()=>{
 						$(createButton({id:'infinity-button-comment-'+listNum+i,clazz:'btn btn-danger',val:'등록하기'}))
 							.appendTo('#infinity-form-comment-'+listNum+i)
 							.attr('style','margin-left:123px;')	
+							.on('click',function(e){	
+								e.preventDefault();
+								var ub=JSON.parse(sessionStorage.getItem('user'));
+								if(ub!=null){
+								$.ajax({
+									url:context+'/DetailCommentInsert/'+j.bID,
+									data:JSON.stringify({						
+										comment : $('#infinity-text-comment-'+listNum+i).val(),
+										id : ub.memID
+									}),
+									method:'POST',
+									dataType:'json',
+									contentType:'application/json',
+									success: y =>{
+										console.log(j,"zzz");
+										console.log(x,"xxx");
+										console.log(j.BID,"cidcid");
+										alert('성공');
+										jakga(x);
+
+									},
+								});
+								}else{
+									alert('회원만 입력가능합니다.');
+									$.getScript($.javascript()+'/user.js',()=>{
+										user.member.login({context:context,view:view});
+									});
+								};
+							});	
+						});		
 				});
 				}
 						printlist();
+						$('#up-btn-div').remove();
 						$(createDiv({id:'up-btn-div',clazz:''}))
 							.appendTo('#new-right-side')
 							.attr('style','height:50px;')
@@ -745,7 +930,8 @@ bulletin.jau=(()=>{
 							.appendTo('#infinity-btn-div')
 							.attr('style','margin-left:350px; width:100px; background-color:crimson;color:aliceblue')
 							.on('click',()=>{
-								listNum+=5
+								listNum+=5;
+								commentNum+=5;
 								if(listNum+5>=d.Dlist.length){
 									$('#infinity-button').hide();
 								};
