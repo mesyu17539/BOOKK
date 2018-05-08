@@ -569,7 +569,7 @@ bulletin.jau=(()=>{
 					$(createDiv({id:'inner-div',clazz:'col-sm-12'})).appendTo('#detail-post-title-subhead')
 					$(createDiv({id:'inner-div-btnF',clazz:''})).appendTo('#inner-div')
 					$(createButton({id:'inner-div-firstbtn',clazz:'btn',val:'삭제'})).appendTo('#inner-div-btnF')
-					.attr('style','float:right; color:red; background-color:teal; margin-left:5px;')
+					.attr('style','float:right; color:red; background-color:teal; margin-left:5px;border-radius: 10px;')
 					.on('click',()=>{
 						$.ajax({
 							url:context+'/deleteArticle/'+x,
@@ -703,7 +703,7 @@ bulletin.jau=(()=>{
 									if(ub!=null &&ub.memID==j.mem_id){
 										$(createButton({id:'',clazz:'',val:'삭제'}))
 										.appendTo('#div-aa-'+i)
-										.attr('style','position:relative;bottom:140px;left:650px;')
+										.attr('style','position:relative;bottom:130px;left:650px; border-radius:10px;')
 										.on('click',()=>{
 											$.ajax({
 												url:context+'/deleteComment/'+j.c_seq,
@@ -734,7 +734,7 @@ bulletin.jau=(()=>{
 								$(createButton({id:'button-comment',clazz:'btn btn-danger',val:'등록하기'}))
 								.appendTo('#form-comment')
 								.attr('style','margin-left:123px;')
-								.on('click',function(){	
+								.on('click',function(){
 									if(ub!=null){
 									$.ajax({
 										url:context+'/articleComment/'+x,
@@ -755,6 +755,7 @@ bulletin.jau=(()=>{
 										alert('회원만 입력가능합니다.');
 										$.getScript($.javascript()+'/user.js',()=>{
 											user.member.login({context:context,view:view});
+											articleDetail(x);
 										});
 									};
 								});		
@@ -850,7 +851,7 @@ bulletin.jau=(()=>{
 							if(ub!=null &&ub.memID==w.memID){
 								$(createButton({id:'',clazz:'',val:'삭제'}))
 								.appendTo('#div-dc-'+i+commentNum+q)
-								.attr('style','position:relative;bottom:140px;left:650px;')
+								.attr('style','position:relative;bottom:130px;left:650px; border-radius:10px;')
 								.on('click',()=>{
 									console.log(w,"222");
 									$.ajax({
@@ -894,10 +895,6 @@ bulletin.jau=(()=>{
 									dataType:'json',
 									contentType:'application/json',
 									success: y =>{
-										console.log(j,"zzz");
-										console.log(x,"xxx");
-										console.log(j.BID,"cidcid");
-										alert('성공');
 										jakga(x);
 
 									},
