@@ -510,7 +510,6 @@ public class Controller{
 			}
 		}.execute((HashMap<?, ?>) map);
 		map.put("bookWeekRanking", bookWeekRanking);
-		System.out.println("주간랭킹 :"+map.get("bookWeekRanking"));
 		
 		map.put("MonthStart", "20180401");
 		map.put("MonthEnd", "20180430");
@@ -521,7 +520,6 @@ public class Controller{
 			}
 		}.execute((HashMap<?, ?>) map);
 		map.put("bookMonthRanking", bookMonthRanking);
-		System.out.println("월간랭킹 :"+map.get("bookMonthRanking"));
 		
 		map.put("allStart", "20180401");
 		map.put("allEnd", "20180430");
@@ -532,7 +530,6 @@ public class Controller{
 			}
 		}.execute((HashMap<?, ?>) map);
 		map.put("bookAllRanking", bookAllRanking);
-		System.out.println("전체랭킹 :"+map.get("bookAllRanking"));
 		
 		Object bookNewRanking = new IGetService() {
 			@Override
@@ -541,7 +538,6 @@ public class Controller{
 			}
 		}.execute((HashMap<?, ?>) map);
 		map.put("bookNewRanking", bookNewRanking);
-		System.out.println("신간 종이책 :"+map.get("bookNewRanking"));
 		
 		return map;
 		
@@ -588,6 +584,7 @@ public class Controller{
 		}.execute(param);
 		map.put("count",i);
 		map.put("largeList",o);
+		System.out.println("ㅋㅋ"+map.get("largeList"));
 		return map;
 	}
 	
@@ -647,6 +644,23 @@ public class Controller{
 			}
 		}.execute(param);
 		map.put("bookList",o);
+		return map;
+	}
+	
+	@RequestMapping(value="/bookInven",
+			method=RequestMethod.POST,consumes="application/json")
+		public Object bookInven(@RequestBody HashMap<String, Object> param) {
+		Map<String,Object> map = new HashMap<>();
+		param.put("bookNum",param.get("bookNum"));
+		System.out.println("북넘버 들어옵니까?" +param.get("bookNum"));
+		Object o = new IGetService() {
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				return mapper.bookInven(param);
+			}
+		}.execute(param);
+		map.put("inven",o);
+		System.out.println("재고량: "+map.get("inven"));
 		return map;
 	}
 }

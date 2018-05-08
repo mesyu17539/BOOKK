@@ -424,18 +424,18 @@ user.member={
 	login:x=>{
 		$.magnificPopup.open(
 				{items: {src: $(createForm({id:'form-login',clazz:'auth-form'}))
-					.attr('style','width: 300px;left: 0;right: 0;margin-left: auto;margin-right: auto;padding:12px 19px;background-color:#fff;border:1px solid #969696;')}, type : 'inline'}, 0);
+					.attr('style','width: 300px; height: 500px;border-radius: 50px; left: 0;right: 0;margin-left: auto;margin-right: auto;padding:12px 19px;background:white;border:1px solid #969696;')}, type : 'inline'}, 0);
 		$('#form-login')
-		.append(createHTag({size:2,val:'로그인'}))
+		.append(DcreateHTag({size:2,val:'로그인',clazz:'login-htag'}))
 		.append($(createDiv({id:'div-form-group',clazz:'form-group'})).attr('style','margin-bottom: 15px;'))
 		.append(createDiv({id:'div-btn-group',clazz:'wrap-check'})
 				+createDiv({id:'div-auth-help',clazz:'form-group auth-help'}));
-
+		$('.login-htag').attr('style','text-align: center;');
 		$('#div-form-group')
 		.append(createLabel({fo:'comment',val:'아이디'})+'<br/>'
-				+createInput({id:'login-id',clazz:'my-border-input',type:'text'})+'<br/>')
+				+createInput({id:'login-id',clazz:'my-login-input',type:'text'})+'<br/>')
 		.append(createLabel({fo:'comment',val:'비밀번호'})+'<br/>'
-				+createInput({id:'login-password',clazz:'my-border-input',type:'password'})+'<br/>');
+				+createInput({id:'login-password',clazz:'my-login-input',type:'password'})+'<br/>');
 		$('label')
 		.attr('style','display: inline-block;margin-bottom: 5px;max-width: 100%;font-weight: 700;');
 		$('#login-id')
@@ -456,8 +456,8 @@ user.member={
 				.attr('style','font-size: 11px;'))
 		.append('<br/>');
 		
-		$(createButton({type:'submit',clazz:'lo-btn',val:'로그인'}))
-		.attr('style','padding: 6px 12px;border: 1px solid transparent;border-radius: 4px;')
+		$(createButton({id:'btn-login',type:'submit',clazz:'lo-btn',val:'로그인'}))
+		.attr('style','padding: 6px 12px;border: 1px solid transparent;border-radius: 4px;position: relative;width: 100%;height: 50px;top: 40px;color: white;background: black;')
 		.appendTo('#div-btn-group')
 		.on('click',e=>{
 			e.preventDefault();
@@ -496,28 +496,33 @@ user.member={
 				}
 			});
 		});
-		$(createATag({link:'#',val:'아이디가 없나요?'}))
+
+		$(createDiv({id:'login-div-form'})).attr('style','position: relative;top: 40px;').appendTo('#form-login');
+		$(createHTag({val:'잠깐! 비회원구입을 원하시나요?!<br/>부크크의 회원가입은 다른 곳의 비회원 구매보다 간단합니다.'})).attr('style','font-size: 13px;color: red;').appendTo('#login-div-form');
+		$('#div-auth-help').attr('style','position: relative;top: 150px;');
+		$(createATag({link:'#',val:'아이디가 없나요?'})).attr('style','font-size: 11px;font-weight: bold;')
 		.appendTo('#div-auth-help')
 		.on('click',e=>{
 			e.preventDefault();
 			user.member.join(x);
 		});
-		$('<a href="#" class="find-user pull-right">아이디/비밀번호 찾기</a>')
+		$('<a href="#" class="find-user pull-right">아이디/비밀번호 찾기</a>').attr('style','font-size: 11px;font-weight: bold;')
 		.appendTo('#div-auth-help');
 	},
 	costomer:x=>{
 		$('#div-header-userMenu').html(createDiv({id:'div-member-bar',clazz:''}));
-		$(createATag({id:'a-cs',val:'고객센터'})).appendTo('#div-member-bar')
+		$('#div-member-bar').attr('style','text-align: center; line-height: 50px;');
+		$(createATag({id:'a-cs',val:'고객센터'})).appendTo('#div-member-bar').attr('style','position: relative;right: 100px;color: white;font-weight: bold;')
 		.on('click',()=>{
 			alert('서비스 준비중..');
 		});
 		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
-		$(createATag({id:'a-delivery-check',val:'주문배송조회'})).appendTo('#div-member-bar')
+		$(createATag({id:'a-delivery-check',val:'주문배송조회'})).appendTo('#div-member-bar').attr('style','position: relative;right: 50px;color: white;font-weight: bold;')
 		.on('click',()=>{
 			alert('서비스 준비중..');
 		});
 		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
-		$(createATag({id:'a-cart',val:'장바구니'})).appendTo('#div-member-bar')
+		$(createATag({id:'a-cart',val:'장바구니'})).appendTo('#div-member-bar').attr('style','position: relative;color: white;font-weight: bold;')
 		.on('click',e=>{
 			e.preventDefault();
 			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
@@ -529,8 +534,8 @@ user.member={
 			});
 		});
 		
-		$(createButton({id:'',type:'',clazz:'lo-btn',val:'마이페이지'}))
-		.appendTo('#div-header')
+		$(createATag({id:'a-mypage',type:'',clazz:'lo-btn',val:'마이페이지'})).attr('style','position: relative;left: 50px;color: white;font-weight: bold;')
+		.appendTo('#div-member-bar')
 		.on('click',e=>{
 			e.preventDefault();
 			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
@@ -543,7 +548,7 @@ user.member={
 			});
 		});
 		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
-		$(createATag({id:'a-logout',val:'로그아웃'})).appendTo('#div-member-bar')
+		$(createATag({id:'a-logout',val:'로그아웃'})).appendTo('#div-member-bar').attr('style','position: relative;left: 100px;color: white;font-weight: bold;')
 		.on('click',e=>{
 			e.preventDefault();
 			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
@@ -557,14 +562,14 @@ user.member={
 	join:x=>{
 		$.magnificPopup.open(
 				{items: {src: $(createForm({id:'form-join',clazz:'auth-form'}))
-					.attr('style','width: 300px;left: 0;right: 0;margin-left: auto;margin-right: auto;padding:12px 19px;background-color:#fff;border:1px solid #969696;')}, type : 'inline'}, 0);
+					.attr('style','width: 300px; border-radius:50px;left: 0;right: 0;margin-left: auto;margin-right: auto;padding:12px 19px;background-color:#fff;border:1px solid #969696;')}, type : 'inline'}, 0);
 		$('#form-join')
 		.append(createHTag({size:2,val:'회원가입'})+'<br/>')
 		.append($(createDiv({id:'div-form-group',clazz:'form-group'})).attr('style','margin-bottom: 15px;'))
 		.append(createDiv({id:'div-btn-group',clazz:'wrap-check'}));
 		
 		$.each([
-			{labelfo:'comment',labelval:'아이디',inputid:'id',inputclazz:'my-border-input',inputtype:'text'},
+			{labelfo:'comment',labelval:'아이디',inputid:'id',inputclazz:'',inputtype:'text'},
 			{labelfo:'comment',labelval:'비밀번호',inputid:'password',inputclazz:'my-border-input',inputtype:'password'},
 			{labelfo:'comment',labelval:'이름',inputid:'name',inputclazz:'my-border-input',inputtype:'text'}
 			],(k,v)=>{
@@ -574,14 +579,14 @@ user.member={
 		});
 		$('#div-form-group')
 		.append(createLabel({fo:'comment',val:'이메일'})+'<br/>'
-				+createInput({id:'join-email',clazz:'my-border-input',type:'email'})+'@'
+				+createInput({id:'join-email',clazz:'my-border-input',type:'text'})+'@'
 				+createSelect('join-url')+'<br/>');
 
 		$('#div-form-group')
 		.append(createLabel({fo:'comment',val:'전화번호'})+'<br/>'
 				+createSelect('join-phoneB')+'-'
-				+createInput({id:'join-phoneM',clazz:'my-border-input',type:'email'})+'-'
-				+createInput({id:'join-phoneA',clazz:'my-border-input',type:'email'})+'<br/>');
+				+createInput({id:'join-phoneM',clazz:'my-border-input',type:'text'})+'-'
+				+createInput({id:'join-phoneA',clazz:'my-border-input',type:'text'})+'<br/>');
 		
 		$(createDiv({id:'ssns',clazz:''}))
 		.attr('style','position: relative;')
@@ -594,6 +599,58 @@ user.member={
 		.append(createLabel({fo:'comment',val:'주소'})+'<br/>'
 				+createInput({id:'join-postCodeAddress',clazz:'my-border-input',type:'text'}))
 		.append($(createButton({id:'join-btn-address',clazz:'lo-btn',val:'우편번호 찾기'}))
+				.on('click',function(){
+					alert('작동함')
+					  
+        new daum.Postcode({
+            oncomplete: function(data) {
+            	
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                if(fullRoadAddr !== ''){
+                    fullRoadAddr += extraRoadAddr;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('join-postCodeAddress').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('join-roadAddress').value = fullRoadAddr;
+                document.getElementById('join-jibunAddress').value = data.jibunAddress;
+
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    //예상되는 도로명 주소에 조합형 주소를 추가한다.
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+
+                } else {
+                    document.getElementById('guide').innerHTML = '';
+                }
+            }
+        }).open();
+				})
 				.attr('style','padding: 6px 12px;border: 1px solid transparent;border-radius: 4px;'))
 		.append(createInput({id:'join-roadAddress',clazz:'my-border-input',type:'text'})
 				+createInput({id:'join-jibunAddress',clazz:'my-border-input',type:'text'})
@@ -666,7 +723,7 @@ user.member={
 		});
 		
 		$(createButton({id:'',type:'submit',clazz:'lo-btn',val:'가입하기'}))
-		.attr('style','padding: 6px 12px;border: 1px solid transparent;border-radius: 4px;')
+		.attr('style','padding: 6px 12px;border: 1px solid transparent; border-radius: 50px; width:100%; font-weight: 900;background-color:aqua;color:darkmagenta')
 		.appendTo('#div-btn-group')
 		.on('click',e=>{
 			e.preventDefault();

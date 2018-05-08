@@ -251,34 +251,28 @@ VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member wher
 		  where g.largeGenre like #{genre}
 	 </select>
 	 <select id="bookGenreLargeList" resultType="map" parameterType="hashMap">
-		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		select b.inventory, b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
 		left join genre g on b.genreNum like g.genreNum
 		where g.largeGenre like #{genre}
 		order by b.publishingDate DESC
 	 </select>
 	 <select id="bookNameLargeList" resultType="map" parameterType="hashMap">
-		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		select b.inventory, b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
 		left join genre g on b.genreNum like g.genreNum
 		where g.largeGenre like #{genre}
 		order by bookName asc
 	 </select>
 	 <select id="bookGenreSmallList" resultType="map" parameterType="hashMap">
-		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		select b.inventory, b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
 		left join genre g on b.genreNum like g.genreNum
 		where g.smallGenre like #{genre}
 		order by b.publishingDate DESC
 	 </select>
 	 <select id="bookNameSmallList" resultType="map" parameterType="hashMap">
-		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		select b.inventory, b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
 		left join genre g on b.genreNum like g.genreNum
 		where g.smallGenre like #{genre}
 		order by b.bookName asc
-	 </select>
-	 <select id="bookGenreNameList" resultType="map" parameterType="hashMap">
-		select b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
-		left join genre g on b.genreNum like g.genreNum
-		where g.smallGenre like #{genre}
-		order by b.bookName ASC
 	 </select>
 	 <select id="bookDetail" resultType="map" parameterType="hashMap">
 		SELECT b.*,
@@ -364,5 +358,8 @@ VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member wher
 			select b.bookNum, b.bookName, b.writter, i.imageRoute from book b join image i ON b.imageName like i.imageName
 			order by publishingDate desc LIMIT 6;
 	 </select>
-
+	 
+	 <select id="bookInven" resultType="map" parameterType="hashMap">
+			select inventory from book where bookNum = #{bookNum}
+	 </select>
 </mapper>

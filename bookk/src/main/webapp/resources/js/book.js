@@ -9,7 +9,7 @@ book.main={
 	bookContent:x=>{		
 	//DB 연결
 		$.getJSON(x.context+'/bookMain', d=>{
-			alert(doo);
+			
 			$(createDiv({
 			id : 'img-advertise',
 			clazz : 'img-advertise'
@@ -1400,6 +1400,7 @@ book.main={
 	},
 	// 책 네비
 	bookNav:x=>{
+		$('#div-body').attr('style','');
 		$('#div-body').html(createDiv({
 								id : 'bookk-store',
 								clazz : ''
@@ -1920,6 +1921,7 @@ book.main={
 		},
 		// 책 리스트
 		list:x=>{
+				$('#div-body').attr('style','');
 				$('#div-advertise').remove();
 				$('#div-list-container').remove();
 				$(createDiv({
@@ -2271,6 +2273,7 @@ book.main={
 						val : x.small
 					})).appendTo('#list-content-header');
 				}
+
 				$(createP({
 					val : '&nbsp;&nbsp;-'+x.count+'권의 책이 검색 되었습니다.'
 				})).appendTo('#list-content-header');
@@ -2439,7 +2442,7 @@ book.main={
 							clazz:'product-price'
 						})).appendTo('#list-right-td-'+i+number+o+'');
 						$(createStrong({
-							val:j.price
+							val:Number(j.price).toLocaleString('en')
 						})).appendTo('#list-right-price-div-'+i+number+o+'');
 						$(DcreateSpan({
 							val:'원',
@@ -2451,13 +2454,13 @@ book.main={
 						})).appendTo('#list-right-td-'+i+number+o+'');
 						$(createButton({
 							id:'btn-cart-'+i+number+o+'',
-							clazz:'btn btn-primary fas fa-shopping-cart cart',
+							clazz:'btn btn-primary fas fa-shopping-cart listcart',
 							val:'&nbsp;&nbsp;장바구니'
 						})).attr('value',j.bookNum).appendTo('#list-right-form-'+i+number+o+'');
 						$(createButton({
-							clazz:'btn btn-primary fas fa-arrow-right cart',
+							clazz:'btn btn-primary fas fa-arrow-right listcart',
 							val:'&nbsp;&nbsp;바로구매'
-						})).appendTo('#list-right-form-'+i+number+o+'');
+						})).attr('value',j.bookNum).appendTo('#list-right-form-'+i+number+o+'');
 						$(createButton({
 							clazz:'btn btn-primary far fa-heart',
 							val:'&nbsp;&nbsp;찜하기'
@@ -2536,34 +2539,48 @@ book.main={
 						list();
 					}
 				});			
-				$('.cart').on('click',function(){
+				$('.listcart').on('click',function(){
 					var doo=JSON.parse(sessionStorage.getItem('user'));
 					$(this).attr('value')
 					var bookNum = $(this).attr('value')
 					if(doo==null){
 						alert('로그인 해주세요');
 					}else{
-						$.getScript("/web/resources/js/shop.js",function(){
-	                        $('#div-list-container').attr('id','div-advertise');
-	                        alert('bookNum: '+bookNum+'');
-
-	                        shop.mall.cart({
-	                            context:x.context,
-	                            view:"/web/resources/js/view.js",
-	                            insertBook:bookNum,
-	                            insertAmount:1});
-	                    })
+						$.ajax({
+							url:x.context+'/bookInven',
+							method:'POST',
+							data:JSON.stringify({bookNum:bookNum}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{
+								if(d.inven[0].inventory == 0){
+									alert('현재 재고가 없습니다');
+								}else{
+									$.getScript("/web/resources/js/shop.js",function(){
+				                        $('#div-list-container').attr('id','div-advertise');
+				                        shop.mall.cart({
+				                            context:x.context,
+				                            view:"/web/resources/js/view.js",
+				                            insertBook:bookNum,
+				                            insertAmount:1});
+				                    })
+								}
+							},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+						});
+						
 					}
 
 				});
 			},
 			detail:x=>{
+				$('#div-body').attr('style','position: relative;bottom: 20px;');
 				$('#div-list-container').remove();
 				$('#div-advertise').remove();
 				$('#div-list-container').remove();
+				$('#detail-container').remove();
 				$(createDiv({
-					id:'detail-container',
-					clazz:'container'
+					id:'detail-container'
 				})).appendTo('#category-bar-container');
 				$(createDiv({
 					id:'detail-wrap-product'
@@ -2591,7 +2608,7 @@ book.main={
 					id:'detail-price'
 				})).appendTo('#detail-wrap-price');
 				$(createStrong({
-					val:x.price+'&nbsp;원'
+					val:Number(x.price).toLocaleString('en')+'&nbsp;원'
 				})).appendTo('#detail-price');
 				$(createDiv({
 					id:'detail-sns'
@@ -2683,7 +2700,7 @@ book.main={
 					$(DcreateSpan({
 						id:'',
 						clazz:'total-count-price',
-						val:total
+						val:Number(total).toLocaleString('en')
 					})).appendTo('#detail-wrap-total-price');
 					$(DcreateSpan({
 						id:'',
@@ -2700,7 +2717,7 @@ book.main={
 				$(DcreateSpan({
 					id:'',
 					clazz:'total-count-price',
-					val:x.price
+					val:Number(x.price).toLocaleString('en')
 				})).appendTo('#detail-wrap-total-price');
 				$(DcreateSpan({
 					id:'',
@@ -2770,21 +2787,36 @@ book.main={
 						val:'미리보기 없음'
 					})).appendTo('#detail-div-preview');
 				});
+				
 				$('.cart').click(()=>{
 					var doo=JSON.parse(sessionStorage.getItem('user'));
+					var bookNum = x.bookNum;
 					if(doo==null){
 						alert('로그인 해주세요');
 					}else{
-						$.getScript("/web/resources/js/shop.js",function(){
-	                        $('#detail-container').attr('id','div-advertise');
-	                        alert('bookNum: '+x.bookNum+', bookName: '+x.bookName);
-
-	                        shop.mall.cart({
-	                            context:x.context,
-	                            view:"/web/resources/js/view.js",
-	                            insertBook:x.bookNum,
-	                            insertAmount:$('#detail-book-count').spinner('value')});
-	                    })
+						$.ajax({
+							url:x.context+'/bookInven',
+							method:'POST',
+							data:JSON.stringify({bookNum:bookNum}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{
+								if(d.inven[0].inventory == 0){
+									alert('현재 재고가 없습니다');
+								}else{
+									$.getScript("/web/resources/js/shop.js",function(){
+				                        $('#div-list-container').attr('id','div-advertise');
+				                        $('#detail-container').attr('id','div-advertise');
+				                        shop.mall.cart({
+				                            context:x.context,
+				                            view:"/web/resources/js/view.js",
+				                            insertBook:bookNum,
+				                            insertAmount:1});
+				                    })
+								}
+							},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+						});
 					}
                 })
 			}	

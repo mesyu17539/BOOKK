@@ -55,7 +55,14 @@
 }
 .my-border-input{
 	line-height: normal;
-	width:250px;
+	width:300px;
+}
+.my-login-input{
+	line-height: normal;
+	width:300px;
+	min-height: 50px;
+	font-size: 20px;
+	font-weight: bold;
 }
 .table-profile>tr{
 	border-bottom: 1px solid #f3f4f5;
@@ -560,4 +567,28 @@ a.btn:hover {text-decoration: none;}
 .btn-top:hover {color:red;}
 .btn-menu:hover {color:red;}
 
-
+/* header */
+#logo {position: absolute; top: 5px; left: 250px;}
+#div-header-pageMenu {width: 1266px; margin: 0 auto; position: relative; height: 60px; border-bottom: 2px solid white; background: black;}
+#logo img {width: 150px; height: 50px;}
+#main-search-div {margin: 0; padding: 0; position: absolute; top: 15px; left: 450px;}
+#main-search-form {position: relative;}
+#main-search-input {position: absolute; width: 350px; min-height: 34px; box-sizing: border-box; text-align: center; font-size: 15px; font-weight: bold;}
+#main-search-btn {position:absolute; left: 350px; width: 50px; height: 34px; color: white; background: black; border: 1px solid white;}
+#shop-btn {position: absolute; right: 300px; top: 5px; color: white; font-weight: bold; font-size: 20px;}
+#shop-btn:hover {color: red;}
+#bulletin-btn {position: absolute; right: 200px; top: 5px; color: white; font-weight: bold; font-size: 20px;}
+#bulletin-btn:hover {color: red;}
+#div-header-userMenu {background: black;}
+.wrap-tnb-menu {line-height: 40px;}
+#div-member-bar {text-align: center; line-height: 50px;}
+#a-cs {position: relative;right: 100px;color: white;font-weight: bold;}
+#a-delivery-check {position: relative;right: 50px;color: white;font-weight: bold;}
+#a-cart {position: relative;color: white;font-weight: bold;}
+#a-logout {position: relative;left: 100px;color: white;font-weight: bold;}
+#a-mypage {position: relative;left: 50px;color: white;font-weight: bold;}
+#a-cs:hover {color: red;}
+#a-delivery-check:hover {color: red;}
+#a-cart:hover {color: red;}
+#a-logout:hover {color: red;}
+#a-mypage:hover {color: red;}
