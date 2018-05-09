@@ -1,7 +1,6 @@
 var user=user || {};
 user.admin={
 	login:x=>{
-		
 		$('#div-header-userMenu').html(createDiv({id:'div-member-bar',clazz:''})).attr('style','background: white;')
 		$('#div-header-pageMenu').remove();
 		$('#div-member-bar')
