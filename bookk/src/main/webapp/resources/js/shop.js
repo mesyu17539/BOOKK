@@ -859,31 +859,9 @@ orderCheck:x=>{
 						totPrice:totPrice,
 						totAmount:totAmount
 					})
-					$('.btn-detail').on('click',function(){
-						alert($(this).val());
-						$('#div-header').dialog("open");
-					});
+					
 				});
-				$( function() {
-				    $( "#dialog" ).dialog({
-				      autoOpen: false,
-				      show: {
-				        effect: "blind",
-				        duration: 1000
-				      },
-				      hide: {
-				        effect: "explode",
-				        duration: 1000
-				      }
-				    });
-				 
-				    
-				  } );
-				$('.btn-detail').on('click',function(){
-					alert($(this).val());
-					$(createDiv({id:'div-detail'})).appendTo('#div-content-2').hide()
-					.text('상세정보야~').dialog("open");
-				});
+				
 				
 			}
 		)
