@@ -90,17 +90,42 @@
     <!-- 장만호 영역  end -->
 	
 	<!-- 박상우 영역 start -->
+	<insert id="imageADD" parameterType="hashMap">
+    insert INTO image (imageRoute,imageName)
+	VALUES(
+	#{bookImg},
+	#{title})
+    </insert>
+	<insert id="bookADD" parameterType="hashMap">
+    insert INTO book (bookName, writter, publisher, publishingDate, price, imageName, genreNum,inventory) 
+	VALUES(
+	#{title},
+	#{writ},
+	#{publisher},
+	#{publishingDate},
+	#{price},
+	#{title},
+	#{genreNum},
+	#{inven})
+    </insert>
+	<select id="genreInfo" resultMap="map" parameterType="hashMap">
+    SELECT group_concat(g.genreNum) as genreNum,g.largeGenre, group_concat(g.smallGenre) as smallGenre
+	FROM genre g group by g.largeGenre
+    </select>
+    <delete id="bookDelete" parameterType="hashMap">
+    delete FROM book WHERE bookNum like #{bookID};
+    </delete>
     <select id="chartDateBook" resultMap="map" parameterType="hashMap">
     SELECT DATE_FORMAT(s.salesdate ,'%Y-%m-%d') salesdate ,sum(s.salesamount) salesamount, (SELECT g.`largeGenre` FROM genre g where g.`genreNum` like b.genreNum) largeGenre
 	FROM sellbasket s join book b on s.`bookNum` like b.`bookNum`
 	GROUP BY DATE_FORMAT(s.salesdate ,'%Y-%m-%d'), largeGenre
-	ORDER BY DATE_FORMAT(s.salesdate ,'%Y-%m-%d') DESC;
+	ORDER BY DATE_FORMAT(s.salesdate ,'%Y-%m-%d') DESC
     </select>
     <select id="chartDateBooks" resultMap="map" parameterType="hashMap">
-    SELECT b.inventory, g.largeGenre,g.smallGenre, DATE_FORMAT(b.publishingDate ,'%Y-%m-%d') publishingDate,(SELECT i.imageRoute FROM image i where i.imageName like b.imageName) imageRoute, b.bookName, b.publisher,b.price
+    SELECT b.bookNum, b.inventory, g.largeGenre,g.smallGenre, DATE_FORMAT(b.publishingDate ,'%Y-%m-%d') publishingDate,(SELECT i.imageRoute FROM image i where i.imageName like b.imageName) imageRoute, b.bookName, b.publisher,b.price
 	FROM book b, genre g
-	WHERE b.bookNum LIKE g.genreNum
-	ORDER BY DATE_FORMAT(b.publishingDate ,'%Y-%m-%d') DESC;
+	WHERE b.genreNum LIKE g.genreNum
+	ORDER BY DATE_FORMAT(b.publishingDate ,'%Y-%m-%d') DESC
     </select>
 	<insert id="addMember" parameterType="hashMap">
     INSERT INTO

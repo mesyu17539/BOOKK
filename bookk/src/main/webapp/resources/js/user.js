@@ -449,24 +449,32 @@ user.admin={
 			var dashboard;
 			function drawChart() {
 				data=new google.visualization.DataTable();
-				$.each({'이미지':'string','출판일':'date','대장르':'string','소장르':'string','책이름':'string','출판사':'string','가격':'number','재고량':'number'},(kc,vc)=>{
+				$.each({
+					'이미지':'string','출판일':'date','대장르':'string','소장르':'string','책ID':'number','책이름':'string','출판사':'string','가격':'number','재고량':'number'},(kc,vc)=>{
 					data.addColumn(vc, kc);
 				});
-//				console.log(JSON.stringify(data));
 				$.each(d.chartData,(k,v)=>{
+//				.attr('style','height:150px,width:104px')
 //					k+1번째 튜플을 지우게 한다.
+					var name=v.imageRoute.split('\\\\resources\\\\img\\\\')[1];
+					var imgRoute;
+					if(name!=null){
+						imgRoute=x.image+'/'+v.imageRoute.split('\\\\resources\\\\img\\\\')[1];
+					}else{
+						imgRoute=v.imageRoute;
+					}
 					data.addRow([
-						createImage({id:'',src:v.imageRoute,clazz:''}),
+						createChartImg({id:'',src:imgRoute,clazz:'listIMG'}),
 						new Date(v.publishingDate),
 							v.largeGenre,
 							v.smallGenre,
+							v.bookNum,
 							v.bookName,
 							v.publisher,
 							v.price,
 							v.inventory]);
 				});
 				
-//				console.log(JSON.stringify(data));
 				dashboard = new google.visualization.Dashboard(
 						document.getElementById('div-adminContent-dash'));
 				
@@ -541,17 +549,269 @@ user.admin={
 				});
 				$('#div-adminContent-chartbtn')
 				.append(createUL({id:'ul-chart-bookMg',clazz:'mylist-inline'}))
-				$.each([['서적 등록',user.admin.undefind],['서적 수정',user.admin.undefind],['서적 삭제',user.admin.undefind]],(k,v)=>{
+				$.each([
+					['서적 등록',user.admin.bookADD],
+					['서적 삭제',user.admin.bookDEL]],(k,v)=>{
 					$(createLI({id:'li-chart-bookMg-'+k,clazz:''}))
 					.appendTo('#ul-chart-bookMg')
 					.append(
 							$(createButton({id:'',clazz:'',val:v[0]}))
 							.on('click',function(e){
+								e.preventDefault();
 								v[1](x)
 							}))
 				});
 			}
 			
+		});
+	},
+	bookDEL:x=>{
+		if(confirm('책을 삭제하시겠습니까?')){
+			var p = prompt('삭제할 책 ID를 입력하세요');
+			var rp = prompt('이 책을 정말 삭제하시겠습니까? 삭제할 시 \n"삭제합니다" 라고 입력하세요');
+//			직원 번호 5자리 숫자로만 되어 있다
+			if(rp==='삭제합니다'){
+				$.ajax({
+					url:x.context+'/book/delete',
+					method:'POST',
+					data:JSON.stringify({bookID:p}),
+					dataType:'json',
+					contentType:'application/json',
+					success : s =>{
+						$('a')
+						.attr('style','color: white;');
+						$(this)
+						.attr('style','color: red;');
+						
+						$('#div-subMenu-ul')
+						.html($(createUL({id:'ul-subMenu',clazz:'mylist-inline'})).attr('style','margin: 0 auto;'));
+						
+						$('#div-adminContent')
+						.html(createDiv({id:'div-adminContent-dash',clazz:''}))
+						.append(createDiv({id:'div-adminContent-chartbtn',clazz:'text-center'}));
+						$('#div-adminContent-dash')
+						.append(createDiv({id:'div-adminContent-chart',clazz:'text-center'}))
+						.append(createDiv({id:'div-adminContent-control',clazz:'text-center'}));
+						user.admin.tableCharts(x);
+					},
+					error : ()=>{
+						alert('존재하지 않는 ID 입니다');
+					}
+				});
+			}else{
+				alert('삭제를 취소하셨습니다')
+			}
+		}
+	},
+	bookADD:x=>{
+		$.getJSON(x.context+'/genreInfo', d=>{
+			$('#div-adminContent').html(createDiv({id:'detail-container',clazz:'container'}));
+			$(createDiv({id:'detail-wrap-product'})).appendTo('#detail-container');
+			$(createDiv({id:'detail-clearfix'})).appendTo('#detail-wrap-product');
+			$(createDiv({id:'detail-left-product'})).appendTo('#detail-clearfix');
+			
+			$(createDiv({id:'',clazz:'div-img-profile'}))
+			.attr('style','width: 100%;height: 500px;margin: 0 4%;')
+			.appendTo('#detail-left-product');
+			$(createForm({id:'imgForm',clazz:''}))
+			.append($(createInput({id:'bookImg',clazz:'',type:'file'}))
+					.attr('name','file'))
+			.appendTo('.div-img-profile');
+			
+			$(createDiv({id:'detail-right-product'})).appendTo('#detail-clearfix').attr('style','top: 10px;');
+			$(createInput({id:'title',clazz:'',type:'text'}))
+			.appendTo('#detail-right-product').attr('placeholder','책 제목');
+			$(createDiv({id:'detail-wrap-price'})).appendTo('#detail-right-product');
+			$(createDiv({id:'detail-price'})).appendTo('#detail-wrap-price');
+			$(createInput({id:'price',clazz:'',type:'text'})).val(0).appendTo('#detail-price').attr('placeholder','책 가격');
+			$(createDiv({id:'detail-sns'})).appendTo('#detail-wrap-price');
+			$(createATag({val:''})).attr('class','fab fa-facebook').attr('href','https://www.facebook.com/').appendTo('#detail-sns');
+			$(createATag({val:''})).attr('class','fab fa-twitter').attr('href','https://twitter.com/').appendTo('#detail-sns');
+			$(createATag({val:''})).attr('class','fas fa-envelope-square').attr('href','https://accounts.google.com/').appendTo('#detail-sns');
+			$(createDiv({id:'detail-wrap-alert'})).appendTo('#detail-right-product');
+			$(createUL({id:'detail-ul-alert'})).appendTo('#detail-wrap-alert');
+			$(createLI({id:'detail-li-alert-1'})).appendTo('#detail-ul-alert');
+			$(createLI({id:'detail-li-alert-2'})).appendTo('#detail-ul-alert');
+			$(createHTag({size:'6',val:'배송일 : 영업일 기준 2-8일 내로 배송됩니다.'})).appendTo('#detail-li-alert-1');
+			$(createHTag({size:'6',val:'배송일 : 환불규정 : 주문 후 인쇄되므로 배송이 준비된 후에는 환불이 불가능합니다'})).attr('style','color:red;').appendTo('#detail-li-alert-2');
+			$(createDiv({id:'detail-wrap-form'})).appendTo('#detail-right-product');
+			$(createDiv({id:'detail-book-form'})).appendTo('#detail-wrap-form');
+			$(createLabel({clazz:'label',val:'도서 정보'})).appendTo('#detail-book-form');
+			$(createTable({id:'detail-table-form'})).appendTo('#detail-book-form');
+			for(var i=0;i<6;i++){
+				$(createTr({id:'detail-tr-'+i+''})).appendTo('#detail-table-form');
+			}
+			$(DcreateTh({val:'분야'})).appendTo('#detail-tr-0');
+			$(createTd({})).append(createSelect('select-genre')).appendTo('#detail-tr-0').append(createSelect('select-smallGenre'));
+			$(DcreateTh({val:'작가'})).appendTo('#detail-tr-1');
+			$(createTd({})).append($(createInput({id:'writter',clazz:'',type:'text'})).attr('placeholder','작가')).appendTo('#detail-tr-1');
+			$(DcreateTh({val:'출판형태'})).appendTo('#detail-tr-2');
+			$(DcreateTd({val:'종이책'})).appendTo('#detail-tr-2');
+			$(DcreateTh({val:'판형'})).appendTo('#detail-tr-3');
+			$(DcreateTd({val:'A5'})).appendTo('#detail-tr-3');
+			$(DcreateTh({val:'출판사'})).appendTo('#detail-tr-4');
+			$(createTd({})).append($(createInput({id:'publisher',clazz:'',type:'text'})).attr('placeholder','출판사')).appendTo('#detail-tr-4');
+			$(DcreateTh({val:'출판일'})).appendTo('#detail-tr-5');
+			$(createTd({})).append($(createInput({id:'publishingDate',clazz:'',type:'text'}))
+					.attr('placeholder','출판일')
+					).appendTo('#detail-tr-5');
+			$('#publishingDate')
+			.daterangepicker({
+				autoUpdateInput: false,
+				locale: {
+					cancelLabel: 'Clear',
+					format: 'YYMMDD'
+				},
+				singleDatePicker: true,
+				showDropdowns: true
+			}, 
+			function(start, end, label) {
+				$('#publishingDate').val(moment().format('YYYY-MM-DD'));
+			});
+			$('.daterangepicker').attr('style','display: none;position: fixed;width: 300px;left: 0;right: -40%;margin-left: auto;margin-right: auto;top: 65%;border: 1px solid #969696;background-color: #fff;');
+			$(createDiv({id:'detail-count-form'})).appendTo('#detail-wrap-form');
+			$(createDiv({id:'detail-select-count'})).appendTo('#detail-count-form');
+			$(createLabel({clazz:'label',val:'갯수 선택'})).appendTo('#detail-select-count');
+			$(createInput({type:'button',id:'detail-book-count'})).attr('value','1').appendTo('#detail-select-count');
+			$('#detail-book-count').spinner();
+			$('.ui-spinner-button ').addClass('btn-book-count');
+			var total = function(){
+				return (($('#price').val() * 1)*($('#detail-book-count').spinner("value")));
+			}
+			$('#price').on('input',function(){
+				$('#total-prices').text(total())
+			});
+			$('.btn-book-count').click(()=>{
+				$('#total-prices').text(total())
+			});
+			$(createDiv({id:'detail-wrap-total-price'})).appendTo('#detail-right-product');
+			$(DcreateSpan({id:'detail-span-total',val:'총 금액'})).appendTo('#detail-wrap-total-price');
+			$(DcreateSpan({id:'total-prices',clazz:'total-count-price',val:total()})).appendTo('#detail-wrap-total-price');
+			$(DcreateSpan({id:'',val:'원'})).appendTo('#detail-wrap-total-price');
+			$(createDiv({id:'detail-wrap-btn'})).appendTo('#detail-right-product');
+			
+			var bookkAd= function(s){
+				$.ajax({
+					url:x.context+'/book/ADD',
+					method:'POST',
+					data:JSON.stringify({
+						genreNum:parseInt($('#select-smallGenre').val()),
+						title:$('#title').val(),
+						price:$('#price').val(),
+						writ:$('#writter').val(),
+						publisher:$('#publisher').val(),
+						publishingDate:$('#publishingDate').val(),
+						bookImg:s.Imgpath,
+						inven:parseInt($('#detail-book-count').val())
+					}),
+					dataType:'json',
+					contentType:'application/json',
+					success : s =>{
+						$('a')
+						.attr('style','color: white;');
+						$(this)
+						.attr('style','color: red;');
+						
+						$('#div-subMenu-ul')
+						.html($(createUL({id:'ul-subMenu',clazz:'mylist-inline'})).attr('style','margin: 0 auto;'));
+						
+						$('#div-adminContent')
+						.html(createDiv({id:'div-adminContent-dash',clazz:''}))
+						.append(createDiv({id:'div-adminContent-chartbtn',clazz:'text-center'}));
+						$('#div-adminContent-dash')
+						.append(createDiv({id:'div-adminContent-chart',clazz:'text-center'}))
+						.append(createDiv({id:'div-adminContent-control',clazz:'text-center'}));
+						user.admin.tableCharts(x);
+					},
+					error : ()=>{
+						alert('다시 입력 하십시오');
+					}
+				});
+			}
+			var bolea=true;
+			$(createButton({clazz:'btn btn-primary fas fa-arrow-right',val:'&nbsp;&nbsp;책 등록하기'})).appendTo('#detail-wrap-btn')
+			.on('click',function(e){
+				e.preventDefault();
+				if($('#bookImg').val()===''){
+					alert('필수 선택입니다');
+					$('#bookImg').click();
+					return;
+				}
+				if($('#select-smallGenre').val()===''){
+					alert('필수입력입니다');
+					$('#select-smallGenre').focus();
+					return;
+				}
+				if($('#title').val()===''){
+					alert('필수입력입니다');
+					$('#title').focus();
+					return;
+				}
+				if($('#price').val()===''){
+					alert('필수입력입니다');
+					$('#price').focus();
+					return;
+				}
+				if($('#writter').val()===''){
+					alert('필수입력입니다');
+					$('#writter').focus();
+					return;
+				}
+				if($('#publisher').val()===''){
+					alert('필수입력입니다');
+					$('#publisher').focus();
+					return;
+				}
+				if($('#publishingDate').val()===''){
+					alert('필수입력입니다');
+					$('#publishingDate').focus();
+					return;
+				}
+				if(bolea){
+					$('#imgForm').ajaxForm({
+						url:x.context+'/book/fileupLoad',
+						method:'POST',
+						enctype:'multipart/form-data',
+						beforeSubmit:function(){
+							alert("올리는 중입니다");
+						},
+						success : s =>{
+							alert("성공");
+							bolea=false;
+							$('#bookImg').attr('display','none');
+							$('.div-img-profile').append(createImage({src:s.Imgpath}))
+							bookkAd(s);
+						},
+						error : ()=>{
+							alert('업로드 실패');
+						}
+					}).submit();
+				}else{
+					bookkAd();
+				}
+			});
+			var genreList=d.genres;
+			console.log('대장르 리스트');
+			console.log(genreList);
+			$(createOption({val:'selectPlease',txt:'--대장르를 선택해주세요--'})).appendTo('#select-genre');
+			$(createOption({val:'selectPlease',txt:'--소장르를 선택해주세요--'})).appendTo('#select-smallGenre')
+			$.each(genreList,(k,v)=>{
+				$(createOption({val:k,txt:v.largeGenre})).appendTo('#select-genre');
+			});
+			
+			$('#select-genre').change(function(){
+				var state=$('#select-genre option:selected').val();
+				$('#select-smallGenre').empty();
+				if(state==='selectPlease'){
+					$('#select-smallGenre').append(createOption({val:'selectPlease',txt:'--소장르를 선택해주세요--'}))
+				}else{
+					var smallNumList=genreList[state].genreNum.split(',')
+					var smallGenreList=genreList[state].smallGenre.split(',')
+					$.each(smallNumList,(k,v)=>{
+						$('#select-smallGenre').append(createOption({val:v,txt:smallGenreList[k]}))
+					});
+				}
+			});
 		});
 	},
 	pietableChart:x=>{

@@ -15,6 +15,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script> 
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
    	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>

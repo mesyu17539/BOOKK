@@ -1,3 +1,7 @@
+//상우
+var createChartImg=x=>{
+	return '<img id="'+x.id+'" src="'+x.src+'" class="'+x.clazz+'" style="width:104px;height:150px;">'
+}
 //정원
 var createSpanJW=x=>{
 	return '<span id="'+x.id+'" class="' +x.clazz+'" aria-hidden="true">&nbsp;'+x.val+'</span>'

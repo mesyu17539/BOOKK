@@ -65,7 +65,7 @@ app.nav=(()=>{
 			.attr('style','width:1000px;margin:0 auto; font-size:20px;  position:relative;');
 			if(sessionStorage.getItem('admin')!=null){
 				$.getScript($.javascript()+'/user.js',()=>{
-					user.admin.login({context:context,view:view});
+					user.admin.login({context:context,view:view,image:image});
 				})
 			}else{
 				if(sessionStorage.getItem('user')!=null){

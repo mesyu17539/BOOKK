@@ -13,6 +13,7 @@ public interface Mapper {
 	    public Object selectMemberById(HashMap<?, ?> param);
 	    public Object selectAdminById(HashMap<?, ?> param);
 	    public Object selectById(HashMap<?, ?> param);
+	    public List<?> genreInfo(HashMap<?, ?> param);
 		public List<?> chartDateBook(HashMap<?, ?> param);
 		public List<?> chartDateBooks(HashMap<?, ?> param);
 		public HashMap<?, ?> mallCartCount(HashMap<?, ?> map);
@@ -22,6 +23,9 @@ public interface Mapper {
 		public void malladdSalesDetail(HashMap<?,?> param);
 		public int insertBoard(HashMap<?, ?> param);
 		public void updateBoard(HashMap<?, ?> param);
+		public int imageADD(HashMap<?, ?> param);
+		public int bookADD(HashMap<?, ?> param);
+		public void bookDelete(HashMap<?, ?> param);
 		public void viewStack(HashMap<?, ?> param);
 		public void deleteBoard(HashMap<?, ?> param);
 		public List<?> boardList(HashMap<?, ?> param);

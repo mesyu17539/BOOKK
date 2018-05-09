@@ -2,7 +2,9 @@ package com.bookk.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,9 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.bookk.web.domain.FileProxy;
+import com.bookk.web.domain.Image;
 import com.bookk.web.domain.Page;
 import com.bookk.web.domain.PageAdapter;
+import com.bookk.web.enums.ENUMS;
 import com.bookk.web.mapper.Mapper;
 import com.bookk.web.service.ICountService;
 import com.bookk.web.service.IDeleteService;
@@ -40,6 +43,7 @@ public class Controller{
 	@Autowired PageAdapter adapter;
 	@Autowired Page page;
 	@Autowired ITxService tx;
+	@Autowired Image image;
 	
 	
 	
@@ -227,6 +231,71 @@ public class Controller{
 				return mapper.chartDateBooks(param);
 			}
 		}.execute((HashMap<?, ?>) map)) ;
+		return map;
+	}
+	@RequestMapping(value="/genreInfo")
+	public Map<?, ?> genreInfo(){
+		Map<String,Object> map=new HashMap<>();
+		map.put("genres", new IGetService() {
+			
+			@Override
+			public Object execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				return mapper.genreInfo(param);
+			}
+		}.execute((HashMap<?, ?>) map));
+		return map;
+	}
+	@RequestMapping(value="/book/delete")
+	public Map<?, ?> bookDelete(
+			@RequestBody HashMap<String, String> param){
+		Map<String,Object> map=new HashMap<>();
+		new IDeleteService() {
+			
+			@Override
+			public void execute(HashMap<?, ?> param) {
+				// TODO Auto-generated method stub
+				mapper.bookDelete(param);
+			}
+		}.execute(param);
+		return map;
+	}
+	@RequestMapping(value="/book/fileupLoad", method=RequestMethod.POST)
+	public Map<?, ?> bookFileupLoad(
+			MultipartHttpServletRequest request) throws Exception{
+		Map<String,Object> map=new HashMap<>();
+		String path="";
+		System.out.println("파일업로드1");
+		Iterator<String> it=request.getFileNames();
+		System.out.println("파일업로드2");
+//		MultipartFile file = request.getFile("file");
+		if(it.hasNext()) {
+			MultipartFile file = request.getFile(it.next());
+			String filename=file.getOriginalFilename();
+//			String rootPath=request.getSession().getServletContext().toString();
+			String rootPath=ENUMS.IMAGESRC.toString();
+			path=rootPath+filename;
+			System.out.println("path "+path);
+			File files=new File(path);
+			
+			file
+			.transferTo(files);
+		}
+		System.out.println("파일업로드 파일 추가");
+		map.put("Imgpath", path);
+		return map;
+	}
+	@RequestMapping(value="/book/ADD")
+	public Map<?, ?> bookADD(
+			@RequestBody HashMap<String, String> param){
+		Map<String,Object> map=new HashMap<>();
+		map.put("su", new IPostService() {
+				@Override
+				public int execute(HashMap<?, ?> param) {
+					mapper.imageADD(param);
+					return mapper.bookADD(param);
+				}
+			}.execute(param));
 		return map;
 	}
 	//박상우 end
