@@ -851,38 +851,9 @@ orderCheck:x=>{
 			}
 		)
 	});
-	$('#div-footer').html(createMultiDiv({id:'div-footer',arr:makeCount(2)}))
-	.attr('style','width:1600px;margin-top:100px;background:black;color:#777777;position: relative;top: 100px;');
-	$(createUL({id:'ul-footer'})).appendTo('#div-footer-0').append(createMultiLi({
-		id:'li-footer',
-		arr:['이용약관','개인보호정책','고객센터']}));
-	
-	$('#ul-footer').attr('style','border-bottom: 1px solid #777777;height:70%;width:70%;margin:0 auto')
-	$('#ul-footer li').attr('style','float:left;border-right: 1px solid #777777;width:120px;margin-top:10px;text-align:center');
-	$('#ul-footer li a').attr('style','color:#777777');
-	$('#div-footer-1').html(createSpan({id:'span-footer-1'})).append(createSpan({id:'span-footer-2'}))
-	.append(createSpan({id:'span-footer-3'})).append(createP({val:'주소: 서울시 마포구 신촌 비트캠프 오세요~'}))
-	.attr('style','margin: 0 auto;height:130px;width:1150px;')
-	$('#div-footer-1 span').attr('style','color:#777777;font-size:14px;position:relative;bottom:15px;right:5px;margin-right:20px;');
-	$('#div-footer-1 p').attr('style','position:relative;bottom:30px;right:5px;font-size:14px;');
-	$(createDiv({id:'div-footer-1-0'})).appendTo('#div-footer-1').html(createSpan({id:'span-footer-4'})).append(createSpan({id:'span-footer-5'}))
-	.append(createSpan({id:'span-footer-6'}))
-	$('#div-footer-1-0').attr('style','position:relative;bottom:45px;right:5px;font-size:14px;')
-	$('#div-footer-1-0 span').attr('style','margin-right:20px;');
-	$('#div-footer-1').append(createDiv({id:'div-footer-1-1'}))
-	$('#span-footer-1').text('업체명 : 주식회사 부크크');
-	$('#span-footer-2').text('대표이사 : ㅁㅁㅁ');
-	$('#span-footer-3').text('대표전화 : 000-0000-0000');
-	$('#span-footer-4').text('사업자등록번호 : 000-00-00000');
-	$('#span-footer-5').text('통신판매업신고 : 제 2018-서울신촌-0000호');
-	$('#span-footer-6').text('사업자등록정보확인');
-	$('#div-footer-1-1').text('Copyright © Bookk Co, Ltd. All rights reserved.')
 	
 },
 	orderList:x=>{
-		
-		
-		
 		$.each(x.keydate.slice(x.startRow,x.endRow),(k,v)=>{
 			
 			$('#table-orderlist').append(createTr({id:'tr-orderlist-'+k}))
