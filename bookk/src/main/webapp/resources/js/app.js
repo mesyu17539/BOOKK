@@ -22,6 +22,8 @@ app.nav=(()=>{
 			.append(createDiv({id:'div-body',clazz:''}))
 			.append(createDiv({id:'div-footer',clazz:''}));
 			
+			
+			
 
 			$(createDiv({
 	   			 id : 'div-header-userMenu',
@@ -104,7 +106,10 @@ app.nav=(()=>{
 					book.main.setContentView({image:image,context:context,view:view}); 	
 				});
 			}
+			
 		});
+		
+		
 	}
 	return {onCreate:onCreate}
 })();

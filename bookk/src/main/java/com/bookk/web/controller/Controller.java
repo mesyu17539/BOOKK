@@ -50,9 +50,10 @@ public class Controller{
 	public Object orderList(@PathVariable("date")String date
 			) {System.out.println(date);
 			HashMap<String, String> orderList = new HashMap<>();
-			orderList.put("endDate",date.split(",")[0] );
-			orderList.put("startDate",date.split(",")[1] );
+			orderList.put("startDate",date.split(",")[0] );
+			orderList.put("endDate",date.split(",")[1] );
 			orderList.put("userid",date.split(",")[2] );
+			System.out.println(orderList);
 			Object o= new IGetService() {
 				
 				@Override

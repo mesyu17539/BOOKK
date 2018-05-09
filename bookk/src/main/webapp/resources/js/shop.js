@@ -677,7 +677,6 @@ orderCheck:x=>{
 	$('.btn-term')
 	.attr('style','width:100%;height:100%; background-color: #f8f8f8;border-color: #c8c8c8;')
 	.on('click',function(){
-		
 		$('.btn-term')
 		.attr('style','width:100%;height:100%; background-color: #f8f8f8;border-color: #c8c8c8;')
 		$(this).attr('style','width:100%;height:100%;color:#fff; background-color: #c33e38;border-color: #c33e38;')
@@ -705,8 +704,7 @@ orderCheck:x=>{
 		// Seeting up default language, Korean
 		$.datepicker.setDefaults($.datepicker.regional['kr']);
 	
-		// Start Datepicker UI
-		$("#datepicker").datepicker();
+		
 	$('#input-startdate').attr('style','margin-right:10px;width:118px;height:20px').datepicker();
 	$('#input-enddate').attr('style','margin-left:10px;width:118px;height:20px').datepicker();
 	
@@ -715,8 +713,9 @@ orderCheck:x=>{
 			+'position:relative;bottom: 10px;left:20px;');
 	
 		
-		var calcDate = 
+		
 	$('.btn-term').on('click',function(){
+		
 			var calcDate = new Date();
 			if($(this).text()==='1주일'){
 				calcDate.setDate(calcDate.getDate() - 7 );
@@ -739,27 +738,29 @@ orderCheck:x=>{
 				if(day.length == 1){ 
 				  day = "0" + day; 
 				} 
-			$('#input-enddate').attr('value',year+'-'+month+'-'+day);
+			$('#input-startdate').val(year+'-'+month+'-'+day);
 			var thisYear = new Date().getFullYear(); 
 			var thisMonth = new String(new Date().getMonth() + 1 ); 
 			var today = new String(new Date().getDate()); 
+			var size = 5;
+			var page = 1;
 			if(thisMonth.length == 1){ 
 				  month = "0" + month; 
 				} 
 				if(today.length == 1){ 
 				  day = "0" + day; 
 				} 
-				$('#input-startdate').attr('value',thisYear+'-'+thisMonth+'-'+today);
+				$('#input-enddate').val(thisYear+'-'+thisMonth+'-'+today);
 	})
 	$('#btn-search').click(()=>{
 		
-		alert(se.memID)
+		
 		$.getJSON(
 				x.context+'/orderlist/'
 				+$('#input-startdate').val()+','+$('#input-enddate').val()+','+se.memID
 			,li=>{
 				var sDate = [];
-				
+				var sBook = [];
 				for(var i =0;i<li.length;i++){
 					var check = false;
 					for(var j=0;j<li.length;j++){
@@ -774,65 +775,165 @@ orderCheck:x=>{
 						continue;
 					}else{
 						sDate.push(li[i].salesdate);
-						
+						sBook.push(li[i].bookName);
 					}
 					
 					
 				}
 				sDate.reverse();
-				alert(sDate+'tr 수'+sDate.length);
-				$('#table-orderlist').remove();
-				$(createTable({id:'table-orderlist'})).appendTo('#div-content-0')
-				.attr('style','width:100%;border-collapse:collapse;margin-top:40px;');
-				$('#table-orderlist').append(createTr({id:'tr-head'}))
-				$('#tr-head').append(createMultiTh({id:'th-head',arr:makeCount(4)}));
-				var word = ['주문일','상품/옵션정보','결제 금액','상태']
-				var attr = ['152px','549px','166px','133px']
-				$('#tr-head th').each(function(i){
-					$('#th-head-'+i).text(word[i]).attr('style','width:'+attr[i]+'');
-				});
-				$('#table-orderlist tr td').attr('style','text-align:center');
-				$('#table-orderlist').append(createMultiTr({id:'tr-orderlist',arr:makeCount(sDate.length)}))
-				
-				$('#table-orderlist tr').each(function(i){
-					
-					$('#tr-orderlist-'+i).append(createMultiTd({id:'td-tr'+i+'',arr:makeCount(4)}));
-					
-				});
-				
-				var content =[];
+				var word = ['주문일','상품/옵션정보','결제 금액','상태'];
+				var att = ['152px','549px','166px','133px'];
+				var pageBlock = (sDate.length % 5 == 0) ? sDate.length / 5 : (sDate.length /5)+1;
+				var page = 1;
+				var startRow = (page*5)-5;
+				var endRow = startRow+5;
 				var keydate = new Array(sDate.length);
-				alert(keydate.length);
-				console.log(li);
+				var totPrice = new Array(sDate.length);
+				var totAmount = new Array(sDate.length);
+				$('#table-orderlist').remove();
+				$(createTable({id:'table-orderlist'})).appendTo('#div-content-1')
+				.attr('style','width:100%;border-collapse:collapse;margin-top:40px;');
+				$('#div-content-2').html(multiBtn({id:'btn-page',clazz:'btn btn-page',arr:makeCount(pageBlock)}))
+				.attr('style','text-align:center;margin-top:30px;');
+				$('#table-orderlist').append(createTr({id:'tr-head'}));
+				$('#tr-head').append(createMultiTh({id:'th-head',arr:makeCount(4)}));
+				
 				for(var i =0;i<sDate.length;i++){
+					var content =[];
+					var temp=0;
+					var temp2=0;
 					$.each(li,function(k,v){
 						
 						if(sDate[i]===v.salesdate){
 							content.push(v);
-							keydate[i] = {i:content}
+							temp += v.price*1;
+							temp2 += v.salesamount*1;
 						}
 					});
 					
+					totPrice[i] = temp;
+					totAmount[i] = temp2;
+					keydate[i] = {item:content}
 				}
-				
-				console.log(keydate);
-				$('#table-orderlist tr').each(function(i){
-					
-					$('#td-tr'+(i)+'-0').text(sDate[i]).append(createDiv({id:'div-btn-wrapper-'+i+''}));
-					$(createButton({id:'btn-'+i+'',clazz:'btn',val:'구매 상세보기'})).appendTo('#td-tr'+(i)+'-0 div').
-					attr('style','background-color:#f8f8f8;color: black;border-color: #c8c8c8;')
-					$('#td-tr'+(i)+'-1')
+				$('#tr-head th').each(function(i){
+					$('#th-head-'+i).text(word[i]).attr('style','width:'+att[i]+'');
 				});
+				$('#table-orderlist tr td').attr('style','text-align:center');
+				console.log(keydate);
+				$.each(keydate.slice(startRow,endRow),(k,v)=>{
 					
+					$('#table-orderlist').append(createTr({id:'tr-orderlist-'+k}))
+					$(createMultiTd({id:'td-tr'+k+'',arr:makeCount(4)})).appendTo('#tr-orderlist-'+k);
+					$('#td-tr'+k+'-0').text(sDate[k]).append(createDiv({id:'div-btn-wrapper-'+k+''}));
+					$(createButton({id:'btn-'+k+'',clazz:'btn btn-detail',val:'구매 상세보기'})).appendTo('#td-tr'+k+'-0 div').
+					attr('style','background-color:#f8f8f8;color: black;border-color: #c8c8c8;').attr('value',k)
+					$('#td-tr'+k+'-1').attr('style','text-align:left')
+					$(strong({id:'strong-'+k+'',val:sBook[k]+'  '+' 외'+(keydate[k].item.length-1)+'권'})).appendTo('#td-tr'+k+'-1')
+					.attr('style','position:relative;bottom: 10px;left:10px');
+					$('#td-tr'+k+'-1').append(createDiv({id:'div-option-'+k+'',clazz:'div-option'}));
+					$('#div-option-'+k+'').text('종이책/주문금액 : '+Number(totPrice[k]).toLocaleString('en')+'원/총 권수 : '+totAmount[k]+' 권');
+					$('#td-tr'+k+'-2').text(Number(totPrice[k]+2500).toLocaleString('en')+'원');
+					$('#td-tr'+k+'-3').text('배송완료');
+				});
+				$('.btn-page').on('click',function(){
+					alert($(this).text());
+					$('#table-orderlist').empty();
+					$('#table-orderlist').append(createTr({id:'tr-head'}));
+					$('#tr-head').append(createMultiTh({id:'th-head',arr:makeCount(4)}));
+					$('#tr-head th').each(function(i){
+						$('#th-head-'+i).text(word[i]).attr('style','width:'+att[i]+'');
+					});
+					$('#table-orderlist tr td').attr('style','text-align:center');
+					page = $(this).text();
+					startRow = (page*5)-5;
+					endRow = startRow+5;
+					if(endRow>sDate.length){
+						endRow = sDate.length;
+					}
+					shop.mall.orderList({
+						keydate:keydate,
+						startRow:startRow,
+						endRow:endRow,
+						sDate:sDate,
+						sBook:sBook,
+						totPrice:totPrice,
+						totAmount:totAmount
+					})
+					$('.btn-detail').on('click',function(){
+						alert($(this).val());
+						$('#div-header').dialog("open");
+					});
+				});
+				$( function() {
+				    $( "#dialog" ).dialog({
+				      autoOpen: false,
+				      show: {
+				        effect: "blind",
+				        duration: 1000
+				      },
+				      hide: {
+				        effect: "explode",
+				        duration: 1000
+				      }
+				    });
+				 
+				    
+				  } );
+				$('.btn-detail').on('click',function(){
+					alert($(this).val());
+					$(createDiv({id:'div-detail'})).appendTo('#div-content-2').hide()
+					.text('상세정보야~').dialog("open");
+				});
+				
 			}
-			
 		)
-		
-			
-		
 	});
+	$('#div-footer').html(createMultiDiv({id:'div-footer',arr:makeCount(2)}))
+	.attr('style','width:1600px;margin-top:100px;background:black;color:#777777;position: relative;top: 100px;');
+	$(createUL({id:'ul-footer'})).appendTo('#div-footer-0').append(createMultiLi({
+		id:'li-footer',
+		arr:['이용약관','개인보호정책','고객센터']}));
+	
+	$('#ul-footer').attr('style','border-bottom: 1px solid #777777;height:70%;width:70%;margin:0 auto')
+	$('#ul-footer li').attr('style','float:left;border-right: 1px solid #777777;width:120px;margin-top:10px;text-align:center');
+	$('#ul-footer li a').attr('style','color:#777777');
+	$('#div-footer-1').html(createSpan({id:'span-footer-1'})).append(createSpan({id:'span-footer-2'}))
+	.append(createSpan({id:'span-footer-3'})).append(createP({val:'주소: 서울시 마포구 신촌 비트캠프 오세요~'}))
+	.attr('style','margin: 0 auto;height:130px;width:1150px;')
+	$('#div-footer-1 span').attr('style','color:#777777;font-size:14px;position:relative;bottom:15px;right:5px;margin-right:20px;');
+	$('#div-footer-1 p').attr('style','position:relative;bottom:30px;right:5px;font-size:14px;');
+	$(createDiv({id:'div-footer-1-0'})).appendTo('#div-footer-1').html(createSpan({id:'span-footer-4'})).append(createSpan({id:'span-footer-5'}))
+	.append(createSpan({id:'span-footer-6'}))
+	$('#div-footer-1-0').attr('style','position:relative;bottom:45px;right:5px;font-size:14px;')
+	$('#div-footer-1-0 span').attr('style','margin-right:20px;');
+	$('#div-footer-1').append(createDiv({id:'div-footer-1-1'}))
+	$('#span-footer-1').text('업체명 : 주식회사 부크크');
+	$('#span-footer-2').text('대표이사 : ㅁㅁㅁ');
+	$('#span-footer-3').text('대표전화 : 000-0000-0000');
+	$('#span-footer-4').text('사업자등록번호 : 000-00-00000');
+	$('#span-footer-5').text('통신판매업신고 : 제 2018-서울신촌-0000호');
+	$('#span-footer-6').text('사업자등록정보확인');
+	$('#div-footer-1-1').text('Copyright © Bookk Co, Ltd. All rights reserved.')
+	
+},
+	orderList:x=>{
 		
-	
-	
+		
+		
+		$.each(x.keydate.slice(x.startRow,x.endRow),(k,v)=>{
+			
+			$('#table-orderlist').append(createTr({id:'tr-orderlist-'+k}))
+			$(createMultiTd({id:'td-tr'+k+'',arr:makeCount(4)})).appendTo('#tr-orderlist-'+k);
+			$('#td-tr'+k+'-0').text(x.sDate[x.startRow+k]).append(createDiv({id:'div-btn-wrapper-'+k+''}));
+			$(createButton({id:'btn-'+k+'',clazz:'btn btn-detail',val:'구매 상세보기'})).appendTo('#td-tr'+k+'-0 div').
+			attr('style','background-color:#f8f8f8;color: black;border-color: #c8c8c8;').attr('value',x.startRow+k)
+			$('#td-tr'+k+'-1').attr('style','text-align:left')
+			$(strong({id:'strong-'+k+'',val:x.sBook[x.startRow+k]+'  '+' 외'+(x.keydate[x.startRow+k].item.length-1)+'권'})).appendTo('#td-tr'+k+'-1')
+			.attr('style','position:relative;bottom: 10px;left:10px');
+			$('#td-tr'+k+'-1').append(createDiv({id:'div-option-'+k+'',clazz:'div-option'}));
+			$('#div-option-'+k+'').text('종이책/주문금액 : '+Number(x.totPrice[x.startRow+k]).toLocaleString('en')+'원/총 권수 : '+x.totAmount[x.startRow+k]+' 권');
+			$('#td-tr'+k+'-2').text(Number(x.totPrice[x.startRow+k]+2500).toLocaleString('en')+'원');
+			$('#td-tr'+k+'-3').text('배송완료');
+		});
 	}
 }

@@ -130,6 +130,13 @@ var makeCount = x=>{
 	}
 	return a;
 }
+var multiBtn = x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<button id="'+x.id+'-'+j+'" class="'+x.clazz+'">'+j+'</button>'
+	});
+	return temp;
+}
 
 // 기본
 var createFont=x=>{
