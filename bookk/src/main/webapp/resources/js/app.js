@@ -110,6 +110,7 @@ app.nav=(()=>{
 				});
 			}
 		});
+		
 	}
 	return {onCreate:onCreate}
 })();

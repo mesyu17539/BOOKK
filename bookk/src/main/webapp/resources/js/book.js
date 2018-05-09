@@ -4,7 +4,6 @@ book.main={
 	setContentView:x=>{
 		book.main.bookNav(x);
 		 book.main.bookContent(x);
-		 
 	},
 	bookContent:x=>{		
 	//DB 연결

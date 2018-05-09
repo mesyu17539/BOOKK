@@ -65,26 +65,57 @@
 		<result property="evalulike" column="evalulike"/>
 		
 	</resultMap>
+	
 	<!-- MALL -->
-    <!-- 장만호 영역  start-->
+     <!-- 장만호 영역  start-->
+    <select  id="orderList" resultType="map" parameterType="hashMap">
+    select salesdate, (price*sum(salesamount)) price,bookNum,bookName,writter, sum(salesamount) salesamount from sell
+	where mem_id like #{userid} and salesdate BETWEEN  #{startDate}  and #{endDate} group by salesdate,bookName
+    </select>
+	<select  id="insertCheck" resultType="int" parameterType="hashMap">
+		SELECT COUNT(*) AS count 
+	 FROM  orders where mem_id like #{userid} AND bookNum like #{insertBook}
+	</select>
+	
 	<select id="mallCartCount" resultType="map" parameterType="hashMap">
 	SELECT COUNT(*) AS count 
 	 FROM  CARTBASKET
 	</select>
     <select id="mallCartList" resultMap="map" parameterType="hashMap">
     SELECT s.*,(select i.`imageRoute` from image i where i.`imageName` like s.imagename) As imageRoute
-	  FROM shop s
-	 WHERE s.mem_id LIKE 'ju' 
+	  FROM shop s where s.mem_id like #{userid};
+	  
     </select>
     <delete id="deleteCartList" parameterType="hashMap">
-    	DELETE FROM orders where order_num in (${deleteNum})
+    	DELETE FROM orders where order_num in 
+    	<if test="deleteNum != null and deleteNum != '' ">
+    	(${deleteNum})
+    	</if>
+    	<if test="orderNum != null and orderNum != '' ">
+    	(${orderNum})
+    	</if>
     </delete>
+       <update id="insertAmountUpdate" parameterType="hashMap">
+        update orders set amount = amount+#{insertAmount} where mem_id = #{userid} and bookNum like #{insertBook}
+		</update>
     <update id="cartAmountUpdate" parameterType="hashMap">
         update orders set amount = #{modifyVal} where order_num = #{modifyKey}
 	</update>
+	<insert id="insertcart" parameterType="hashmap">
+	insert INTO orders (bookNum,reserv_date,amount,mem_id) VALUES(#{insertBook}, now(),#{insertAmount} ,#{userid});
+	</insert>
 	<insert id ="malladdSalesDetail" parameterType="hashMap"> 
 	INSERT INTO sellbasket (salesamount, salesdate, recipient, sell_address, requirements, `bookNum`, mem_id, recipent_num) 
-	VALUES(#{salesamount}, now(), #{recipient}, (select mem_address from member where mem_id like #{memId}), #{requirements}, #{bookNum}, #{memId}, #{recipent_num});
+	VALUES(#{salesamount}, now(), #{recipient}, 
+	<choose>
+	<when test="recipentCheck=='true'">
+		(select mem_address from member where mem_id like #{userid})
+	</when>
+	<when test="recipentCheck=='false'">
+		(SELECT MAX(ADDR_ADDRESS) FROM address)
+	</when>
+	</choose> 
+	, #{requirements}, ${bookNum}, #{userid}, #{recipientNum});
 	</insert>
 	 
     <!-- 장만호 영역  end -->

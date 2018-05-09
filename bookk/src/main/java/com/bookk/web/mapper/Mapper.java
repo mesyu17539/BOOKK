@@ -16,11 +16,18 @@ public interface Mapper {
 	    public List<?> genreInfo(HashMap<?, ?> param);
 		public List<?> chartDateBook(HashMap<?, ?> param);
 		public List<?> chartDateBooks(HashMap<?, ?> param);
+	    //장만호 영역
+	    public List<?> orderList(HashMap<?, ?> param);
+	    public int insertCheck(HashMap<?, ?> param);
+	    public void addCartList(HashMap<?, ?> map);
 		public HashMap<?, ?> mallCartCount(HashMap<?, ?> map);
 		public List<?> mallCartList(HashMap<?, ?> param);
+		public void insertcart(HashMap<?, ?> param);
 		public void deleteCartList(HashMap<?, ?> param);
 		public void cartAmountUpdate(HashMap<?, ?> map);
+		public void insertAmountUpdate(HashMap<?, ?> param);
 		public void malladdSalesDetail(HashMap<?,?> param);
+		//장만호영역 끝;
 		public int insertBoard(HashMap<?, ?> param);
 		public void updateBoard(HashMap<?, ?> param);
 		public int imageADD(HashMap<?, ?> param);

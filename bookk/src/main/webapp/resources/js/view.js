@@ -109,7 +109,7 @@ var createMultiTh = x=>{
 var createMultiATag = x=>{
 	var temp = '';
 	$.each(x.arr,(i,j)=>{
-		temp+='<a id="a-'+x.id+'-'+i+'" href="#">'+j+'</a>'
+		temp+='<a id="a-'+x.id+'-'+i+'" class="'+x.clazz+'" href="#">'+j+'</a>'
 	});
 	return temp;
 }
@@ -133,6 +133,13 @@ var makeCount = x=>{
 		a.push(i);
 	}
 	return a;
+}
+var multiBtn = x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp+='<button id="'+x.id+'-'+j+'" class="'+x.clazz+'">'+j+'</button>'
+	});
+	return temp;
 }
 
 // 기본
