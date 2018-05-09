@@ -45,7 +45,7 @@ app.nav=(()=>{
                 document.getElementById('wizcss').href=(context+'/resources/css/style.css');
                 $('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
                 $.getScript($.javascript()+'/book.js',()=>{
-                    book.main.setContentView({context:context,view:view});
+                    book.main.setContentView({context:context,view:view,image:image});
                 })
             });
             $(createButton({id:'bulletin-btn',type:'',clazz:'btn mint long',val:'게시판'})).attr('style','position: absolute; right: 200px; top: 5px; color: white; font-weight: bold; font-size: 20px; background: black;')

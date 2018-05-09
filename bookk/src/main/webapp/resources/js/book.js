@@ -2386,6 +2386,13 @@ book.main={
 				var size = 5;
 				var list=()=>{
 					$.each(x.largeList.slice(size*number-(size),size*number),(i,j)=>{
+						var name=j.imageRoute.split('\\\\resources\\\\img\\\\')[1];
+	                    var imgRoute;
+	                    if(name!=null){
+	                        imgRoute=x.image+'/'+j.imageRoute.split('\\\\resources\\\\img\\\\')[1];
+	                    }else{
+	                        imgRoute=j.imageRoute;
+	                    }
 						$(createTr({
 							id:'list-content-tr-'+i+number+o+''
 						})).appendTo('#list-content-table').attr('name','tr');
@@ -2406,7 +2413,7 @@ book.main={
 							clazz:'book-cover'
 						})).appendTo('#list-left-a-'+i+number+o+'');
 						$(createImg({
-							src:j.imageRoute
+							src:imgRoute
 						})).appendTo('#list-left-div-'+i+number+o+'');
 						$(DcreateHTag({
 							size:'3',
@@ -2684,7 +2691,7 @@ book.main={
 					type:'button',
 					id:'detail-book-count'
 				})).attr('value','1').appendTo('#detail-select-count');
-				$('#detail-book-count').spinner();
+				$('#detail-book-count').spinner({min:1});
 				$('.ui-spinner-button ').addClass('btn-book-count');
 				$('.btn-book-count').click(e=>{
 					e.preventDefault()

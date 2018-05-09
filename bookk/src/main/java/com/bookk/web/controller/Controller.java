@@ -584,7 +584,6 @@ public class Controller{
 		}.execute(param);
 		map.put("count",i);
 		map.put("largeList",o);
-		System.out.println("ㅋㅋ"+map.get("largeList"));
 		return map;
 	}
 	
@@ -652,7 +651,6 @@ public class Controller{
 		public Object bookInven(@RequestBody HashMap<String, Object> param) {
 		Map<String,Object> map = new HashMap<>();
 		param.put("bookNum",param.get("bookNum"));
-		System.out.println("북넘버 들어옵니까?" +param.get("bookNum"));
 		Object o = new IGetService() {
 			@Override
 			public Object execute(HashMap<?, ?> param) {
@@ -660,7 +658,6 @@ public class Controller{
 			}
 		}.execute(param);
 		map.put("inven",o);
-		System.out.println("재고량: "+map.get("inven"));
 		return map;
 	}
 }
