@@ -1,7 +1,6 @@
 var shop=shop || {};
 shop.mall = {cart:x=>{
 	$.getScript(x.view,()=>{
-		
 		$('#div-advertise').html(createDiv({id:'div-content',clazz:''}));
 		$('#div-content').html(createDiv({id:'div-wrap-root',clazz:'wrap-root'}));
 		$('#div-wrap-root').append(createUL({id:'ul-root',clazz:'list-inline root'}));

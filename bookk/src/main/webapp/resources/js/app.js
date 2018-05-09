@@ -22,28 +22,33 @@ app.nav=(()=>{
 			.append(createDiv({id:'div-body',clazz:''}))
 			.append(createDiv({id:'div-footer',clazz:''}));
 			
-
 			$(createDiv({
 	   			 id : 'div-header-userMenu',
 	   			 clazz : ''
-			})).appendTo('#div-header');
+			})).appendTo('#div-header').attr('style','background: black;');
 			$(createDiv({
 	   			 id : 'div-header-pageMenu',
 	   			 clazz : ''
-			})).appendTo('#div-header');
+			})).appendTo('#div-header').attr('style','width: 100%; margin: 0 auto; position: relative; height: 60px; border-bottom: 2px solid white; background: black;');
 			
 //			서점 게시판
-			$(createButton({id:'',type:'',clazz:'btn mint long',val:'서점'}))
+			$(createATag({id:'logo',val:''})).appendTo('#div-header-pageMenu').attr('style','position: absolute; top: 5px; left: 250px;');
+			$(createImg({src:'http://www.twitlogo.com/c/59b67a6a5d76956c9a5ae80ec933efcd.png'})).appendTo('#logo').attr('style','width: 150px; height: 50px;');
+			$(createDiv({id:'main-search-div'})).appendTo('#div-header-pageMenu').attr('style','margin: 0; padding: 0; position: absolute; top: 15px; left: 450px;');
+			$(createForm({id:'main-search-form'})).appendTo('#main-search-div').attr('style','position: relative;');
+			$(createInput({id:'main-search-input',type:'text'})).appendTo('#main-search-form').attr('style','position: absolute; width: 350px; min-height: 34px; box-sizing: border-box; text-align: center; font-size: 15px; font-weight: bold;');
+			$(createButton({id:'main-search-btn',val:'검색'})).appendTo('#main-search-form').attr('type','submit').attr('style','position:absolute; left: 350px; width: 50px; height: 34px; color: white; background: black; border: 1px solid white;');
+			$(createButton({id:'shop-btn',type:'',clazz:'btn mint long',val:'서점'})).attr('style','position: absolute; right: 300px; top: 5px; color: white; font-weight: bold; font-size: 20px;background: black;')
 			.appendTo('#div-header-pageMenu')
             .on('click',e=>{
                 e.preventDefault();
                 document.getElementById('wizcss').href=(context+'/resources/css/style.css');
                 $('#div-advertise').html(createDiv({id:'div-content',clazz:'container cart-div'}));
                 $.getScript($.javascript()+'/book.js',()=>{
-                    book.main.setContentView({context:context,view:view});
+                    book.main.setContentView({context:context,view:view,image:image});
                 })
             });
-            $(createButton({id:'',type:'',clazz:'btn mint long',val:'게시판'}))
+            $(createButton({id:'bulletin-btn',type:'',clazz:'btn mint long',val:'게시판'})).attr('style','position: absolute; right: 200px; top: 5px; color: white; font-weight: bold; font-size: 20px; background: black;')
             .appendTo('#div-header-pageMenu')
             .on('click',e=>{
                 e.preventDefault();
@@ -57,7 +62,7 @@ app.nav=(()=>{
 			$(createDiv({
 				id : 'wrap-tnb-menu',
 				clazz : 'wrap-tnb-menu'
-			})).appendTo('#div-header-userMenu').attr('style','border-bottom: 2px dotted #c6c6c6;line-height:40px; ');
+			})).appendTo('#div-header-userMenu').attr('style','line-height: 40px;');
 			$(createDiv({
 				id : 'tnb-menu-text-right',
 				clazz : 'tnb-menu text-right'
@@ -77,7 +82,7 @@ app.nav=(()=>{
 						id : 'a-login',
 						clazz : 'tnb-link',
 						val : '로그인'
-					})).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative;')
+					})).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative;color:white;')
 					.on('click',e=>{
 						e.preventDefault();
 						$.getScript($.javascript()+'/user.js',()=>{
@@ -87,12 +92,12 @@ app.nav=(()=>{
 					$(createSpan({
 						id : 'span-login',
 						clazz : 'division'
-					})).appendTo('#tnb-menu-text-right').attr('style','border: 2px solid green;');
+					})).appendTo('#tnb-menu-text-right').attr('style','border: 2px solid blue;');
 					$(createATag({
 						id : 'a-join',
 						clazz : 'tnb-link last',
 						val : '회원가입'
-					})).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative; ')
+					})).appendTo('#tnb-menu-text-right').attr('style','padding:0 10px; position:relative;color:white; ')
 					.on('click',e=>{
 						e.preventDefault();
 						$.getScript($.javascript()+'/user.js',()=>{

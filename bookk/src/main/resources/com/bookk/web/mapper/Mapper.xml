@@ -288,22 +288,28 @@
 		  where g.largeGenre like #{genre}
 	 </select>
 	 <select id="bookGenreLargeList" resultType="map" parameterType="hashMap">
-		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		select b.inventory, b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
 		left join genre g on b.genreNum like g.genreNum
 		where g.largeGenre like #{genre}
 		order by b.publishingDate DESC
 	 </select>
+	 <select id="bookNameLargeList" resultType="map" parameterType="hashMap">
+		select b.inventory, b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		left join genre g on b.genreNum like g.genreNum
+		where g.largeGenre like #{genre}
+		order by bookName asc
+	 </select>
 	 <select id="bookGenreSmallList" resultType="map" parameterType="hashMap">
-		select b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+		select b.inventory, b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
 		left join genre g on b.genreNum like g.genreNum
 		where g.smallGenre like #{genre}
 		order by b.publishingDate DESC
 	 </select>
-	 <select id="bookGenreNameList" resultType="map" parameterType="hashMap">
-		select b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
+	 <select id="bookNameSmallList" resultType="map" parameterType="hashMap">
+		select b.inventory, b.bookNum, b.bookName, b.writter, b.publisher, i.imageRoute, b.price, b.publisher, b.publishingDate from (book b left join image i on i.imageName like b.imageName)
 		left join genre g on b.genreNum like g.genreNum
 		where g.smallGenre like #{genre}
-		order by b.bookName ASC
+		order by b.bookName asc
 	 </select>
 	 <select id="bookDetail" resultType="map" parameterType="hashMap">
 		SELECT b.*,
@@ -313,5 +319,84 @@
     	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
         LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
    		WHERE b.bookNum LIKE #{bookNum};
+	 </select>
+	 <select id="bookMonthRanking" resultType="map" parameterType="hashMap">
+		select sum(book_count) as count, 
+		salesdate, 
+		writter,
+		bookNum,
+		b.imageName,
+		i.imageRoute
+		 from (select
+		  A.*,b.imageName,b.writter
+		  from 
+		(select 
+		sum(salesamount) as book_count, 
+		salesdate , 
+		bookNum
+		from 
+		sellbasket 
+		GROUP BY 
+		salesdate,bookNum)
+		A join book b on a.bookNum like b.bookNum) B join image i on b.imageName like i.imageName
+		where salesdate BETWEEN #{MonthStart} AND #{MonthEnd}
+		group by b.imageName
+		order by count DESC LIMIT 6
+	 </select>
+	 
+	 <select id="bookWeekRanking" resultType="map" parameterType="hashMap">
+		select sum(book_count) as count, 
+		salesdate, 
+		writter,
+		bookNum,
+		b.imageName,
+		i.imageRoute
+		 from (select
+		  A.*,b.imageName,b.writter
+		  from 
+		(select 
+		sum(salesamount) as book_count, 
+		salesdate , 
+		bookNum
+		from 
+		sellbasket 
+		GROUP BY 
+		salesdate,bookNum)
+		A join book b on a.bookNum like b.bookNum) B join image i on b.imageName like i.imageName
+		where salesdate BETWEEN #{weekStart} AND #{weekEnd}
+		group by b.imageName
+		order by count DESC LIMIT 6
+	 </select>
+	 
+	 <select id="bookAllRanking" resultType="map" parameterType="hashMap">
+			select sum(book_count) as count, 
+			salesdate , 
+			bookNum,
+			writter,
+			b.imageName,
+			i.imageRoute
+			 from (select
+			  A.*,b.imageName,b.writter
+			  from 
+			(select 
+			sum(salesamount) as book_count, 
+			salesdate ,
+			bookNum
+			from 
+			sellbasket 
+			GROUP BY 
+			salesdate,bookNum)
+			A join book b on a.bookNum like b.bookNum) B join image i on b.imageName like i.imageName
+			group by b.imageName
+			order by salesdate DESC LIMIT 6;
+	 </select>
+	 
+	 <select id="bookNewRanking" resultType="map" parameterType="hashMap">
+			select b.bookNum, b.bookName, b.writter, i.imageRoute from book b join image i ON b.imageName like i.imageName
+			order by publishingDate desc LIMIT 6;
+	 </select>
+	 
+	 <select id="bookInven" resultType="map" parameterType="hashMap">
+			select inventory from book where bookNum = #{bookNum}
 	 </select>
 </mapper>

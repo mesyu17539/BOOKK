@@ -48,8 +48,16 @@ public interface Mapper {
 		public int bookGenreLargeCount(HashMap<?, ?> param);
 		public List<?> bookGenreLargeList(HashMap<?, ?> param);
 		public List<?> bookGenreSmallList(HashMap<?, ?> param);
-		public List<?> bookGenreNameList(HashMap<?, ?> param);
 		public List<?> bookDetail(HashMap<?, ?> param);
+		public List<?> bookNameLargeList(HashMap<?, ?> param);
+		public List<?> bookNameSmallList(HashMap<?, ?> param);
+		public List<?> bookWeekRanking(HashMap<?, ?> param);
+		public List<?> bookMonthRanking(HashMap<?, ?> param);
+		public List<?> bookAllRanking(HashMap<?, ?> param);
+		public List<?> bookNewRanking(HashMap<?, ?> param);
+		public List<?> bookInven(HashMap<?, ?> param);
+		
+		
 		
 		
 }
