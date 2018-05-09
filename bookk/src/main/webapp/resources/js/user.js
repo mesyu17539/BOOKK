@@ -3,6 +3,7 @@ user.admin={
 	login:x=>{
 		$('#div-header-userMenu').html(createDiv({id:'div-member-bar',clazz:''})).attr('style','background: white;')
 		$('#div-header-pageMenu').remove();
+		$('#div-footer').remove();
 		$('#div-member-bar')
 		.attr('style','display: grid;grid-template-columns: 1000px 200px;margin: 0 auto;width:1200px;')
 		.append(createDiv({id:'div-userMenu-left',clazz:''}))
@@ -33,7 +34,7 @@ user.admin={
 	adminContent:x=>{
 		$('#div-body').html(createDiv({id:'div-admin',clazz:''}));
 		$('#div-admin')
-		.attr('style','display: grid;grid-template-columns: 200px 1000px;height:700px;margin: 0 auto;width:1200px;')
+		.attr('style','display: grid;grid-template-columns: 200px 1000px;height:770px;margin: 0 auto;width:1200px;')
 		.append(createDiv({id:'div-adminSideMenu',clazz:''}))
 		.append(createDiv({id:'div-adminContent',clazz:''}))
 		
@@ -750,6 +751,14 @@ user.admin={
 					$('#price').focus();
 					return;
 				}
+				for(var i=0;i<$('#price').val().length;i++){
+					var cha = $('#price').val().charAt(i)
+					if(cha<'0'||cha>'9'){
+						alert('숫자만 가능합니다');
+						$('#price').select();
+						return;
+					}
+				}
 				if($('#writter').val()===''){
 					alert('필수입력입니다');
 					$('#writter').focus();
@@ -1364,7 +1373,7 @@ user.member={
 		.append(createLabel({fo:'comment',val:'주민번호'})+'<br/>'
 				+createInput({id:'join-ssnB',clazz:'my-border-input',type:'text'})+'-'
 				+createSelect('join-ssnA')+'<br/>');
-
+		
 		$('#div-form-group')
 		.append(createLabel({fo:'comment',val:'주소'})+'<br/>'
 				+createInput({id:'join-postCodeAddress',clazz:'my-border-input',type:'text'}))
@@ -1460,8 +1469,9 @@ user.member={
 		
 		$('.my-border-input')
 		.attr('autofocus','autofocus');
-		
+
 		$('#join-ssnB')
+		.attr('readonly','readonly')
 		.attr('style','width:120px;')
 		.attr('placeholder','앞자리 6자리')
 		.daterangepicker({
@@ -1518,6 +1528,14 @@ user.member={
 				$('#join-ssnB').focus();
 				return;
 			}
+			for(var i=0;i<ssn.length;i++){
+				var cha = ssn.charAt(i)
+				if(cha<'0'||cha>'9'){
+					alert('숫자만 가능합니다');
+					$('#join-ssnB').select();
+					return;
+				}
+			}
 			if(ssn.length!=6){
 				alert('생년월일 6자리를 입력하세요');
 				$('#join-ssnB').select();
@@ -1527,34 +1545,37 @@ user.member={
 				alert('전화번호를 입력하세요');
 				$('#join-phoneM').focus();
 				return;
-			}if(phoneA===''){
-				alert('전화번호를 입력하세요');
-				$('#join-phoneA').focus();
-				return;
 			}
-			for(var i=0;i<ssn.length;i++){
+			for(var i=0;i<phoneM.length;i++){
 				var cha = ssn.charAt(i)
 				if(cha<'0'||cha>'9'){
 					alert('숫자만 가능합니다');
-					$('#join-ssnB').select();
-					return;
-				}
-			}
-			for(var i=0;i<phoneM.length;i++){
-				var cha = phoneM.charAt(i)
-				if(cha<'0'||cha>'9'){
-					alert('숫자로 입력하세요');
 					$('#join-phoneM').select();
 					return;
 				}
 			}
+			if(phoneM.length!=4){
+				alert('전화번호 4자리를 입력하세요');
+				$('#join-phoneM').select();
+				return;
+			}
+			if(phoneA===''){
+				alert('전화번호를 입력하세요');
+				$('#join-phoneA').focus();
+				return;
+			}
 			for(var i=0;i<phoneA.length;i++){
-				var cha = phoneA.charAt(i)
+				var cha = ssn.charAt(i)
 				if(cha<'0'||cha>'9'){
-					alert('숫자로 입력하세요');
+					alert('숫자만 가능합니다');
 					$('#join-phoneA').select();
 					return;
 				}
+			}
+			if(phoneA.length!=4){
+				alert('전화번호 4자리를 입력하세요');
+				$('#join-phoneA').select();
+				return;
 			}
 			if(postDetail===''){
 				alert('주소를 입력하세요');
