@@ -2845,6 +2845,7 @@ book.main={
 				                        $('#div-list-container').attr('id','div-advertise');
 				                        $('#detail-container').attr('id','div-advertise');
 				                        shop.mall.cart({
+				                        	image:x.image,
 				                            context:x.context,
 				                            view:"/web/resources/js/view.js",
 				                            insertBook:bookNum,

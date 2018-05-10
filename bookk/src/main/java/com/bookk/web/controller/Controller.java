@@ -53,12 +53,11 @@ public class Controller{
 	//3	
 	@RequestMapping("/orderlist/{date}")
 	public Object orderList(@PathVariable("date")String date
-			) {System.out.println(date);
+			) {
 			HashMap<String, String> orderList = new HashMap<>();
 			orderList.put("startDate",date.split(",")[0] );
 			orderList.put("endDate",date.split(",")[1] );
 			orderList.put("userid",date.split(",")[2] );
-			System.out.println(orderList);
 			Object o= new IGetService() {
 				
 				@Override
@@ -74,10 +73,8 @@ public class Controller{
 			method=RequestMethod.POST,consumes="application/json")
 	public Object cartList(
 			@RequestBody HashMap<String, Object> param) {
-		System.out.println("파람값은 무엇니냐?"+param);
 		
 		if(param.get("insertBook")!=null&&param.get("insertBook")!="") {
-			System.out.println("인서트 준비됐다");
 			tx.execute(param);
 			
 		}
@@ -85,17 +82,12 @@ public class Controller{
 		
 		
 		if(param.get("postDetail")!=null) {
-			System.out.println("여기는 왜 안타냐?");
 			mapper.deleteCartList(param);
 			
-			System.out.println("파람 값은 무엇이냐?"+param);
 			tx.execute(param);
 		}
 		//빈 배열 체크시 equals를 쓴다.
 		if(param.get("modifyKey")!=null&&!(param.get("modifyKey").equals(""))) {
-			System.out.println
-			(" orderNum:"+param.get("modifyKey")+" 수정 할 amount: "+param.get("modifyVal"));
-			System.out.println("흠냐");
 			List<String> list = new ArrayList<>();
 			List<String> list2 = new ArrayList<>();
 			for(int i =0; i<((String) param.get("modifyKey")).split(",").length;i++) {
@@ -109,7 +101,6 @@ public class Controller{
 			tx.execute(param);
 		}
 		if(param.get("deleteNum")!=null&&param.get("deleteNum")!="") {
-			System.out.println("선택한 도서 삭제 값"+param.get("deleteNum"));
 				new IDeleteService() {
 			@Override
 			public void execute(HashMap<?, ?> param) {
@@ -139,7 +130,6 @@ public class Controller{
 		Object o=null;
 		switch (param.get("type")) {
 		case "member":
-			System.out.println("mem");
 			param.put("colum1", "MEM_ID");
 			param.put("colum2", "MEM_PASS");
 			param.put("type", param.get("type"));
@@ -152,7 +142,6 @@ public class Controller{
 			}.execute(param);
 			break;
 		case "admin":
-			System.out.println("adm");
 			param.put("colum1", "ADM_ID");
 			param.put("colum2", "ADM_PASS");
 			param.put("type", param.get("type"));
@@ -167,7 +156,6 @@ public class Controller{
 		default:
 			break;
 		}
-		System.out.println("넘길 값 : "+o);
 		return o;
 	}
 	@RequestMapping(value="/{type}/myProfile")
@@ -178,7 +166,6 @@ public class Controller{
 		Object o=null;
 		switch (param.get("type")) {
 		case "member":
-			System.out.println("mem");
 			param.put("colum1", "MEM_ID");
 			param.put("colum2", "MEM_PASS");
 			param.put("type", param.get("type"));
@@ -191,7 +178,6 @@ public class Controller{
 			}.execute(param);
 			break;
 		case "admin":
-			System.out.println("adm");
 			param.put("colum1", "ADM_ID");
 			param.put("colum2", "ADM_PASS");
 			param.put("type", param.get("type"));
@@ -200,7 +186,6 @@ public class Controller{
 		default:
 			break;
 		}
-		System.out.println("넘길 값 : "+o);
 		return o;
 	}
 	@RequestMapping(value="/{type}/join")
@@ -209,7 +194,6 @@ public class Controller{
 		logger.info("welcom {}","join");
 		switch (param.get("type")) {
 		case "member":
-			System.out.println("mem");
 			param.put("colum", "id");
 			map.put("success", new IPostService() {
 				@Override @Transactional
@@ -220,7 +204,6 @@ public class Controller{
 			}.execute(param));
 			break;
 		case "admin":
-			System.out.println("adm");
 			param.put("colum", "adm_id");
 			break;
 		default:
@@ -286,9 +269,7 @@ public class Controller{
 			MultipartHttpServletRequest request) throws Exception{
 		Map<String,Object> map=new HashMap<>();
 		String path="";
-		System.out.println("파일업로드1");
 		Iterator<String> it=request.getFileNames();
-		System.out.println("파일업로드2");
 //		MultipartFile file = request.getFile("file");
 		if(it.hasNext()) {
 			MultipartFile file = request.getFile(it.next());
@@ -296,13 +277,11 @@ public class Controller{
 //			String rootPath=request.getSession().getServletContext().toString();
 			String rootPath=ENUMS.IMAGESRC.toString();
 			path=rootPath+filename;
-			System.out.println("path "+path);
 			File files=new File(path);
 			
 			file
 			.transferTo(files);
 		}
-		System.out.println("파일업로드 파일 추가");
 		map.put("Imgpath", path);
 		return map;
 	}
@@ -380,8 +359,6 @@ public class Controller{
 				}
 			}.execute((HashMap<?, ?>) map));
 			
-		 	System.out.println(map.get("list") );
-		 	System.out.println("page"+ page);
 				return map;
 		  
 	  }
@@ -431,7 +408,6 @@ public class Controller{
 			
 			break;		
 		case "contents":
-			System.out.println("content");
 			o = new ISearchService() {
 				
 				@Override
@@ -457,7 +433,6 @@ public class Controller{
 		Map<String, Object> map = new HashMap<>();
 		map.put("x", x);
 		Object o = null;
-		System.out.println("x : "+x);
 		o = new IGetService() {
 			
 			@Override
@@ -473,7 +448,6 @@ public class Controller{
 				mapper.viewStack(param);
 			}
 		}.execute((HashMap<?, ?>) map);
-	/*	System.out.println("viewStack2"+Integer.parseInt((String) map.get("viewStack")));*/
 		map.put("count",new ICountService() {
 			
 			@Override
@@ -491,9 +465,6 @@ public class Controller{
 			}
 		}.execute((HashMap<?, ?>) map));
 		map.put("o", o);
-		System.out.println("o  : "+o);
-		System.out.println(map.get("count")+": 까운트");
-		System.out.println(map.get("Clist")+"륐쓰뜨");
 		return map;
 		
 	}
@@ -502,7 +473,6 @@ public class Controller{
 	public Map<?,?> deleteComment(
 			@PathVariable("x") String x){
 		Map<String,Object> map = new HashMap<>();
-		System.out.println(x);
 		map.put("x", x);
 		new IDeleteService() {
 			
@@ -518,16 +488,11 @@ public class Controller{
 	public Map<?,?> articleWriting(
 			 @RequestBody HashMap<String, String> param){
 		Map<String, Object> map = new HashMap<>();
-		System.out.println("넘어왔나요"+param.get("select"));
-		System.out.println("넘어왔나요"+param.get("title"));
-		System.out.println("넘어왔나요"+param.get("contents"));
 		map.put("select", param.get("select"));
 		map.put("title", param.get("title"));
 		map.put("contents", param.get("contents"));
 		map.put("memID", param.get("id"));
 		
-	
-		System.out.println(param.get("id"));
 	 map.put("insertA", new IPostService() {
 			
 			@Override
@@ -536,7 +501,6 @@ public class Controller{
 				return mapper.insertBoard(param);
 			}
 		}.execute((HashMap<?, ?>) map));
-		System.out.println("담긴값 : "+ map );
 		
 		return map;
 		
@@ -547,8 +511,6 @@ public class Controller{
 			@PathVariable("x") String x,
 			@RequestBody HashMap<String, String> param){
 		Map<String, Object> map = new HashMap<>();
-		System.out.println("코멘트입성");
-		System.out.println(x+" : who");
 		map.put("x",x);
 		map.put("comment", param.get("comment"));
 		map.put("id", param.get("id"));
@@ -560,7 +522,6 @@ public class Controller{
 				return mapper.insertComment(param) ;
 			}
 		}.execute((HashMap<?, ?>) map));
-		System.out.println(map);
 		return map;
 	}
 	//-------------------------- 더보기
@@ -569,12 +530,9 @@ public class Controller{
 			@PathVariable("x") String x,
 			@RequestBody HashMap<String, String> param){
 		Map<String, Object> map = new HashMap<>();
-		System.out.println(x);
 		map.put("x", x);
 		map.put("comment", param.get("comment"));
 		map.put("id", param.get("id"));
-		System.out.println(param.get("comment"));
-		System.out.println(param.get("id"));
 		map.put("detailComment",new IPostService() {
 			
 			@Override
@@ -591,7 +549,6 @@ public class Controller{
 		
 			){
 		Map<String,Object> map = new HashMap<>();
-		System.out.println("more");
 	
 	 	
 		map.put("Dlist",new IGetService() {
@@ -603,14 +560,12 @@ public class Controller{
 			}
 		}.execute((HashMap<?, ?>) map));
 		
-		System.out.println(map);
 	return map;	
 	}
 	@RequestMapping("/CommentMore/{x}")
 	public Map<?,?> CommentMore(
 			@PathVariable("x") String x){
 		Map <String,Object> map = new HashMap<>();
-		System.out.println(x);
 		map.put("x", x);
 		map.put("count",new ICountService() {
 			
@@ -636,7 +591,6 @@ public class Controller{
 			@PathVariable("x") String x){
 		Map <String,Object> map = new HashMap<>();
 		map.put("x", x);
-		System.out.println("쿼리타나요?"+x);
 		new IDeleteService() {
 			
 			@Override
@@ -653,10 +607,7 @@ public class Controller{
 			@PathVariable("x") String x,
 			@RequestBody Map<?,?> param){
 		Map<String,Object> map = new HashMap<>();
-		System.out.println("연결 완료");
 		param.get("contents");
-		System.out.println("x : "+x);
-		System.out.println("2 : "+param.get("contents"));
 		map.put("contents", param.get("contents"));
 		map.put("x", x);
 		map.put("title", param.get("title"));
