@@ -147,12 +147,12 @@ app.nav=(()=>{
 			.attr('style','width:1000px;margin:0 auto; font-size:20px;  position:relative;');
 			if(sessionStorage.getItem('admin')!=null){
 				$.getScript($.javascript()+'/user.js',()=>{
-					user.admin.login({context:context,view:view,image:image});
+					user.admin.login({image:image,context:context,view:view});
 				})
 			}else{
 				if(sessionStorage.getItem('user')!=null){
 					$.getScript($.javascript()+'/user.js',()=>{
-						user.member.costomer({context:context,view:view});
+						user.member.costomer({image:image,context:context,view:view});
 					})
 				}else{
 					$(createATag({
@@ -163,7 +163,7 @@ app.nav=(()=>{
 					.on('click',e=>{
 						e.preventDefault();
 						$.getScript($.javascript()+'/user.js',()=>{
-							user.member.login({context:context,view:view});
+							user.member.login({image:image,context:context,view:view});
 						})
 					});
 					$(createSpan({
@@ -178,7 +178,7 @@ app.nav=(()=>{
 					.on('click',e=>{
 						e.preventDefault();
 						$.getScript($.javascript()+'/user.js',()=>{
-							user.member.join({context:context,view:view});
+							user.member.join({image:image,context:context,view:view});
 						})
 					});
 				}

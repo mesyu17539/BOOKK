@@ -2385,10 +2385,10 @@ book.main={
 				var size = 5;
 				var list=()=>{
 					$.each(x.largeList.slice(size*number-(size),size*number),(i,j)=>{
-						var name=j.imageRoute.split('\\\\resources\\\\img\\\\')[1];
+						var name=(j.imageRoute.split('\\\\resources\\\\img\\\\'))[1];
 	                    var imgRoute;
 	                    if(name!=null){
-	                        imgRoute=x.image+'/'+j.imageRoute.split('\\\\resources\\\\img\\\\')[1];
+	                        imgRoute=x.image+'/'+name;
 	                    }else{
 	                        imgRoute=j.imageRoute;
 	                    }

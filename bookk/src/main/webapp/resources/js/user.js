@@ -455,10 +455,11 @@ user.admin={
 				$.each(d.chartData,(k,v)=>{
 //				.attr('style','height:150px,width:104px')
 //					k+1번째 튜플을 지우게 한다.
-					var name=v.imageRoute.split('\\\\resources\\\\img\\\\')[1];
+					console.log(x)
+					var name=(v.imageRoute.split('\\\\resources\\\\img\\\\'))[1];
 					var imgRoute;
 					if(name!=null){
-						imgRoute=x.image+'/'+(v.imageRoute.split('\\\\resources\\\\img\\\\')[1]);
+						imgRoute=x.image+'/'+name;
 					}else{
 						imgRoute=v.imageRoute;
 					}
