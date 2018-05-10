@@ -152,16 +152,10 @@
     delete FROM book WHERE bookNum like #{bookID};
     </delete>
     <select id="chartDateBook" resultMap="map" parameterType="hashMap">
-    SELECT DATE_FORMAT(s.salesdate ,'%Y-%m-%d') salesdate ,sum(s.salesamount) salesamount, (SELECT g.`largeGenre` FROM genre g where g.`genreNum` like b.genreNum) largeGenre
-	FROM sellbasket s join book b on s.`bookNum` like b.`bookNum`
-	GROUP BY DATE_FORMAT(s.salesdate ,'%Y-%m-%d'), largeGenre
-	ORDER BY DATE_FORMAT(s.salesdate ,'%Y-%m-%d') DESC
+	select * from chartDateBook;
     </select>
     <select id="chartDateBooks" resultMap="map" parameterType="hashMap">
-    SELECT b.bookNum, b.inventory, g.largeGenre,g.smallGenre, DATE_FORMAT(b.publishingDate ,'%Y-%m-%d') publishingDate,(SELECT i.imageRoute FROM image i where i.imageName like b.imageName) imageRoute, b.bookName, b.publisher,b.price
-	FROM book b, genre g
-	WHERE b.genreNum LIKE g.genreNum
-	ORDER BY DATE_FORMAT(b.publishingDate ,'%Y-%m-%d') DESC
+	select * from chartDateTable;
     </select>
 	<insert id="addMember" parameterType="hashMap">
     INSERT INTO
@@ -174,10 +168,10 @@
     VALUES('${postDetail}','${roadAddress}','${jibunAddress}','${detailAddress}')
     </insert>
     <select id="selectMemberById" resultMap="map" parameterType="hashMap">
-    SELECT ${type}.*, ADDRESS.ADDR_POSTCODEADDRESS, ADDRESS.ADDR_ROADADDRESS, ADDRESS.ADDR_JIBUNADDRESS, ADDRESS.ADDR_DETAILADDRESS
-    FROM ${type}, ADDRESS
+    SELECT *
+    FROM memsview
     WHERE
-	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2} AND ADDRESS.ADDR_ADDRESS LIKE ${type}.MEM_ADDRESS
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2}
     </select>
     <select id="selectAdminById" resultMap="map" parameterType="hashMap">
     SELECT *
@@ -186,10 +180,10 @@
 	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2}
     </select>
     <select id="selectById" resultMap="map" parameterType="hashMap">
-    SELECT ${type}.*, ADDRESS.ADDR_POSTCODEADDRESS, ADDRESS.ADDR_ROADADDRESS, ADDRESS.ADDR_JIBUNADDRESS, ADDRESS.ADDR_DETAILADDRESS
-    FROM ${type}, ADDRESS
+    SELECT *
+    FROM memsview
     WHERE
-	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2} AND ADDRESS.ADDR_ADDRESS LIKE ${type}.MEM_ADDRESS
+	${colum1} LIKE #{data1} AND ${colum2} LIKE #{data2}
     </select>
     <!-- board -->
     <select id="boardList" resultMap="map" parameterType="hashMap">
@@ -264,26 +258,14 @@
      </select>
      <select id="detailMoreCount" resultType="int"  parameterType="hashMap">
      	select count(*) 
-     	from comments c,board b  
-     	where c.board_id like #{x} 
-     		and b.board_id like #{x}
+     	from detailCommentList
+     	where board_id = #{x}
      </select>
      <select id="detailCommentList" resultMap="map" parameterType="hashMap">
-          select  
-          c_seq,
-		 DATE_FORMAT(comment_date, '%Y-%m-%d') AS comment_date,
-		 comment_content,
-		 c.mem_id
-     	from comments c join board b 
-             where c.board_id = #{x}
-             and b.board_id = #{x}          
-     	   order by  c_seq desc
-              LIMIT 18446744073709551615 
+          select * from detailCommentList where board_id = #{x}
      </select>
      <select id="detailMore" resultMap="map" parameterType="hashMap">
-
-                
-                	select 
+	select 
 		board_id,
 		DATE_FORMAT(create_date, '%Y-%m-%d') AS create_date,
 		co_title,
@@ -436,83 +418,23 @@
 		order by b.bookName asc
 	 </select>
 	 <select id="bookDetail" resultType="map" parameterType="hashMap">
-		SELECT b.*,
-        i.imageRoute,
-		g.largeGenre,
-		g.smallGenre
-    	FROM (book b LEFT JOIN image i ON i.imageName LIKE b.imageName)
-        LEFT JOIN genre g ON b.genreNum LIKE g.genreNum
-   		WHERE b.bookNum LIKE #{bookNum};
+		select * from bookdetail WHERE bookNum Like #{bookNum}
 	 </select>
 	 <select id="bookMonthRanking" resultType="map" parameterType="hashMap">
-		select sum(book_count) as count, 
-		salesdate, 
-		writter,
-		bookNum,
-		b.imageName,
-		i.imageRoute
-		 from (select
-		  A.*,b.imageName,b.writter
-		  from 
-		(select 
-		sum(salesamount) as book_count, 
-		salesdate , 
-		bookNum
-		from 
-		sellbasket 
-		GROUP BY 
-		salesdate,bookNum)
-		A join book b on a.bookNum like b.bookNum) B join image i on b.imageName like i.imageName
+		select * from bookRanking
 		where salesdate BETWEEN #{MonthStart} AND #{MonthEnd}
-		group by b.imageName
 		order by count DESC LIMIT 6
 	 </select>
 	 
 	 <select id="bookWeekRanking" resultType="map" parameterType="hashMap">
-		select sum(book_count) as count, 
-		salesdate, 
-		writter,
-		bookNum,
-		b.imageName,
-		i.imageRoute
-		 from (select
-		  A.*,b.imageName,b.writter
-		  from 
-		(select 
-		sum(salesamount) as book_count, 
-		salesdate , 
-		bookNum
-		from 
-		sellbasket 
-		GROUP BY 
-		salesdate,bookNum)
-		A join book b on a.bookNum like b.bookNum) B join image i on b.imageName like i.imageName
+		select * from bookRanking
 		where salesdate BETWEEN #{weekStart} AND #{weekEnd}
-		group by b.imageName
 		order by count DESC LIMIT 6
 	 </select>
 	 
 	 <select id="bookAllRanking" resultType="map" parameterType="hashMap">
-			select sum(book_count) as count, 
-			salesdate , 
-			bookNum,
-			writter,
-			b.imageName,
-			i.imageRoute
-			 from (select
-			  A.*,b.imageName,b.writter
-			  from 
-			(select 
-			sum(salesamount) as book_count, 
-			salesdate ,
-			bookNum
-			from 
-			sellbasket 
-			GROUP BY 
-			salesdate,bookNum)
-			A join book b on a.bookNum like b.bookNum) B join image i on b.imageName like i.imageName
-			group by b.imageName
-			order by salesdate DESC LIMIT 6;
+		select * from bookRanking
+ 		order by count DESC LIMIT 6
 	 </select>
 	 
 	 <select id="bookNewRanking" resultType="map" parameterType="hashMap">

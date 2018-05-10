@@ -28,6 +28,9 @@ user.admin={
 		$(createImage({id:'',src:'http://www.bookk.co.kr/img/logo_blue.png',clazz:''}))
 		.attr('style','height: 31px;')
 		.appendTo('#div-userMenu-left')
+		.on('click',e=>{
+				app.init(x.context);
+			});
 		
 		user.admin.adminContent(x);
 	},
@@ -654,6 +657,7 @@ user.admin={
 			$(DcreateTh({val:'출판일'})).appendTo('#detail-tr-5');
 			$(createTd({})).append($(createInput({id:'publishingDate',clazz:'',type:'text'}))
 					.attr('placeholder','출판일')
+					.attr('readonly','readonly')
 					).appendTo('#detail-tr-5');
 			$('#publishingDate')
 			.daterangepicker({
@@ -984,6 +988,7 @@ user.member={
 			.append(createImg({id:'',alt:'',src:v,clazz:''}))
 			.appendTo('#mypage-header');			
 		});
+		
 		$('#li-headMenu-0')
 		.on('click',e=>{
 			e.preventDefault();
@@ -1073,12 +1078,9 @@ user.member={
 			$(createTd({id:'td-indu-'+k,clazz:''}))
 			.appendTo('#tr-indu-'+k);
 			$(createInput({id:'input-indu-'+k,clazz:'my-border-input',type:'text'}))
-			.appendTo('#td-indu-'+k);
+			.appendTo('#td-indu-'+k)
+			.attr('readonly','readonly');;
 		});
-		$('#input-indu-0')
-		.attr('readonly','readonly');
-		$('#input-indu-1')
-		.attr('readonly','readonly');
 		
 		$(createButton({id:'btn-phone',clazz:'lo-btn',val:'번호변경'}))
 		.appendTo('#td-indu-3');
@@ -1122,7 +1124,34 @@ user.member={
 		.attr('style','width:904px')
 		.on('click',e=>{
 			e.preventDefault();
-			alert('컨트롤에서 업뎃하고 세션 user에 다시 담기 실행 후 mypage 재실행');
+			$.ajax({
+				url:x.context+'/member/update',
+				method:'POST',
+				data:JSON.stringify({
+					id:userid,
+					pass:userpass,
+					type:type
+					}),
+				dataType:'json',
+				contentType:'application/json',
+				success : d =>{
+					if(d!==null){
+						if($('input[name=admin-check]').is(':checked')){
+							sessionStorage.setItem('admin',JSON.stringify(d));
+							user.admin.login(x);
+						}else{
+							sessionStorage.setItem('user',JSON.stringify(d));
+							user.member.costomer(x);
+						}
+						$.magnificPopup.close();
+					}else{
+						alert('로그인 실패');
+					}
+				},
+				error : ()=>{
+					alert('일치하는 정보가 없습니다');
+				}
+			});
 		});
 
 		$('#my-postCodeAddress')
@@ -1297,14 +1326,47 @@ user.member={
 		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
 		$(createATag({id:'a-delivery-check',val:'주문배송조회'})).appendTo('#div-member-bar').attr('style','position: relative;right: 50px;color: white;font-weight: bold;')
 		.on('click',()=>{
+			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
+			$.getScript($.javascript()+'/book.js',()=>{
+				book.main.bookNav(x);
 				$.getScript($.javascript()+'/shop.js',()=>{
 					shop.mall.orderCheck(x);
 				});
+			});
+				
 		});
 		$('#div-member-bar').append(createSpan({id:'division',clazz:'division'}))
 		$(createATag({id:'a-cart',val:'장바구니'})).appendTo('#div-member-bar').attr('style','position: relative;color: white;font-weight: bold;')
 		.on('click',e=>{
 			e.preventDefault();
+			
+			$('#div-footer').html(createMultiDiv({id:'div-footer',arr:makeCount(2)}))
+			.attr('style','width:1600px;margin-top:100px;background:black;color:#777777;position: absolute;');
+			$(createUL({id:'ul-footer'})).appendTo('#div-footer-0').append(createMultiLi({
+				id:'li-footer',
+				arr:['이용약관','개인보호정책','고객센터']}));
+			
+			$('#ul-footer').attr('style','border-bottom: 1px solid #777777;height:70%;width:70%;margin:0 auto')
+			$('#ul-footer li').attr('style','float:left;border-right: 1px solid #777777;width:120px;margin-top:10px;text-align:center');
+			$('#ul-footer li a').attr('style','color:#777777');
+			$('#div-footer-1').html(createSpan({id:'span-footer-1'})).append(createSpan({id:'span-footer-2'}))
+			.append(createSpan({id:'span-footer-3'})).append(createP({val:'주소: 서울시 마포구 신촌 비트캠프 오세요~'}))
+			.attr('style','margin: 0 auto;height:130px;width:1150px;')
+			$('#div-footer-1 span').attr('style','color:#777777;font-size:14px;position:relative;bottom:15px;right:5px;margin-right:20px;');
+			$('#div-footer-1 p').attr('style','position:relative;bottom:30px;right:5px;font-size:14px;');
+			$(createDiv({id:'div-footer-1-0'})).appendTo('#div-footer-1').html(createSpan({id:'span-footer-4'})).append(createSpan({id:'span-footer-5'}))
+			.append(createSpan({id:'span-footer-6'}))
+			$('#div-footer-1-0').attr('style','position:relative;bottom:45px;right:5px;font-size:14px;')
+			$('#div-footer-1-0 span').attr('style','margin-right:20px;');
+			$('#div-footer-1').append(createDiv({id:'div-footer-1-1'}))
+			$('#span-footer-1').text('업체명 : 주식회사 부크크');
+			$('#span-footer-2').text('대표이사 : ㅁㅁㅁ');
+			$('#span-footer-3').text('대표전화 : 000-0000-0000');
+			$('#span-footer-4').text('사업자등록번호 : 000-00-00000');
+			$('#span-footer-5').text('통신판매업신고 : 제 2018-서울신촌-0000호');
+			$('#span-footer-6').text('사업자등록정보확인');
+			$('#div-footer-1-1').text('Copyright © Bookk Co, Ltd. All rights reserved.')
+			
 			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
 			$.getScript($.javascript()+'/book.js',()=>{
 				book.main.bookNav(x);
@@ -1318,6 +1380,32 @@ user.member={
 		.appendTo('#div-member-bar')
 		.on('click',e=>{
 			e.preventDefault();
+			$('#div-footer').html(createMultiDiv({id:'div-footer',arr:makeCount(2)}))
+			.attr('style','width:1600px;margin-top:100px;background:black;color:#777777;position: relative;top: 100px;');
+			$(createUL({id:'ul-footer'})).appendTo('#div-footer-0').append(createMultiLi({
+				id:'li-footer',
+				arr:['이용약관','개인보호정책','고객센터']}));
+			
+			$('#ul-footer').attr('style','border-bottom: 1px solid #777777;height:70%;width:70%;margin:0 auto')
+			$('#ul-footer li').attr('style','float:left;border-right: 1px solid #777777;width:120px;margin-top:10px;text-align:center');
+			$('#ul-footer li a').attr('style','color:#777777');
+			$('#div-footer-1').html(createSpan({id:'span-footer-1'})).append(createSpan({id:'span-footer-2'}))
+			.append(createSpan({id:'span-footer-3'})).append(createP({val:'주소: 서울시 마포구 신촌 비트캠프 오세요~'}))
+			.attr('style','margin: 0 auto;height:130px;width:1150px;')
+			$('#div-footer-1 span').attr('style','color:#777777;font-size:14px;position:relative;bottom:15px;right:5px;margin-right:20px;');
+			$('#div-footer-1 p').attr('style','position:relative;bottom:30px;right:5px;font-size:14px;');
+			$(createDiv({id:'div-footer-1-0'})).appendTo('#div-footer-1').html(createSpan({id:'span-footer-4'})).append(createSpan({id:'span-footer-5'}))
+			.append(createSpan({id:'span-footer-6'}))
+			$('#div-footer-1-0').attr('style','position:relative;bottom:45px;right:5px;font-size:14px;')
+			$('#div-footer-1-0 span').attr('style','margin-right:20px;');
+			$('#div-footer-1').append(createDiv({id:'div-footer-1-1'}))
+			$('#span-footer-1').text('업체명 : 주식회사 부크크');
+			$('#span-footer-2').text('대표이사 : ㅁㅁㅁ');
+			$('#span-footer-3').text('대표전화 : 000-0000-0000');
+			$('#span-footer-4').text('사업자등록번호 : 000-00-00000');
+			$('#span-footer-5').text('통신판매업신고 : 제 2018-서울신촌-0000호');
+			$('#span-footer-6').text('사업자등록정보확인');
+			$('#div-footer-1-1').text('Copyright © Bookk Co, Ltd. All rights reserved.')
 			document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
 			$.getScript($.javascript()+'/book.js',()=>{
 				book.main.bookNav(x);   			

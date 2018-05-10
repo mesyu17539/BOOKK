@@ -59,9 +59,7 @@ shop.mall = {cart:x=>{
 								id:'div-tr'+i+'-td1-cart-list',
 								arr:makeCount(3),
 								clazz:'div-cart-list-content'}));
-							
-							
-							$(createImage({id:'',src:y[i].imageRoute,clazz:''})).appendTo('#div-tr'+i+'-td1-cart-list-0')
+							$(createImage({id:'',src:((y[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(y[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : y[i].imageRoute,clazz:''})).appendTo('#div-tr'+i+'-td1-cart-list-0')
 							.attr('style','width:80px;height:120px;margin-top:20px');
 							$('#div-tr'+i+'-td1-cart-list-0').attr('style','margin-right:30px;margin-bottom:10px;');
 							$('#div-tr'+i+'-td1-cart-list-1').append(strong({id:'strong-'+i+'',val:y[i].bookName}))
@@ -320,6 +318,7 @@ shop.mall = {cart:x=>{
 								});
 								
 								shop.mall.sell({
+									image:x.image,
 									view:x.view,
 									context:x.context,
 									val:'02 주문/결제 ',
@@ -376,7 +375,9 @@ sell:x=>{
 				$(createMultiTd({id:'td-tr'+i+'-list',arr:['','']})).appendTo('#tr-list-'+i+'');
 				$(createMultiDiv({id:'div-tr'+i+'-td0-list',arr:['',''],clazz:''}))
 				.appendTo('#td-tr'+i+'-list-0').attr('style','float:left');
-				$(createImage({id:'',src:x.y[i].imageRoute,clazz:''})).appendTo('#div-tr'+i+'-td0-list-0')
+				
+				$(createImage({id:'',src:((x.y[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(x.y[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : x.y[i].imageRoute,clazz:''})).appendTo('#div-tr'+i+'-td0-list-0')
+				
 				.attr('style','width:80px;height:120px;margin-top:10px;margin-right:30px;margin-bottom:10px;margin-left:20px;');
 				
 				

@@ -23,7 +23,7 @@ app.nav=(()=>{
 			.append(createDiv({id:'div-footer',clazz:''}));
 			
 			$('#div-footer').html(createMultiDiv({id:'div-footer',arr:makeCount(2)}))
-			.attr('style','width:1600px;margin-top:100px;background:black;color:#777777;position: relative;top: 100px;');
+			.attr('style','width:1600px;margin-top:100px;background:black;color:#777777;position: absolute;');
 			$(createUL({id:'ul-footer'})).appendTo('#div-footer-0').append(createMultiLi({
 				id:'li-footer',
 				arr:['이용약관','개인보호정책','고객센터']}));
@@ -61,7 +61,9 @@ app.nav=(()=>{
 			
 //			서점 게시판
 			$(createATag({id:'logo',val:''})).appendTo('#div-header-pageMenu').attr('style','position: absolute; top: 5px; left: 250px;');
-			$(createImg({src:'http://www.twitlogo.com/c/59b67a6a5d76956c9a5ae80ec933efcd.png'})).appendTo('#logo').attr('style','width: 150px; height: 50px;');
+			$(createImg({src:'http://www.twitlogo.com/c/59b67a6a5d76956c9a5ae80ec933efcd.png'})).appendTo('#logo').attr('style','width: 150px; height: 50px;').on('click',e=>{
+				$('#shop-btn').click();
+			});
 			$(createDiv({id:'main-search-div'})).appendTo('#div-header-pageMenu').attr('style','margin: 0; padding: 0; position: absolute; top: 15px; left: 450px;');
 			$(createForm({id:'main-search-form'})).appendTo('#main-search-div').attr('style','position: relative;');
 			$(createInput({id:'main-search-input',type:'text'})).appendTo('#main-search-form').attr('style','position: absolute; width: 350px; min-height: 34px; box-sizing: border-box; text-align: center; font-size: 15px; font-weight: bold;');
@@ -106,7 +108,7 @@ app.nav=(()=>{
             .appendTo('#div-header-pageMenu')
             .on('click',e=>{
                 e.preventDefault();
-                $('#div-footer').html('<div id="div-footer" class="col-sm-12" style="margin-top:100px;background:black;color:#777777;height: 200px;">'
+                $('#div-footer').html('<div id="div-footer" class="col-sm-12">'
     					+'	<div id="div-footer-0" class="undefined">'
     					+'		<ul id="ul-footer" class="undefined" style="border-bottom: 1px solid #777777;height:70%;width:70%;margin:0 auto">'
     					+'			<li id="li-li-footer-0" class="undefined" style="float:left;border-right: 1px solid #777777;width:120px;list-style: none;margin-top:10px;text-align:center;padding: 5px 5px;">'

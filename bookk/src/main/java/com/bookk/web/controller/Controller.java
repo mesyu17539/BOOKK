@@ -186,7 +186,7 @@ public class Controller{
 				@Override
 				public Object execute(HashMap<?, ?> param) {
 					
-					return mapper.selectMemberById(param);
+					return mapper.selectById(param);
 				}
 			}.execute(param);
 			break;
@@ -222,13 +222,6 @@ public class Controller{
 		case "admin":
 			System.out.println("adm");
 			param.put("colum", "adm_id");
-//			o=  new ISerachService() {
-//				@Override
-//				public Object excute(HashMap<?, ?> param) {
-//					// TODO Auto-generated method stub
-//					return mapper.searchAll(param);
-//				}
-//			}.excute(param);
 			break;
 		default:
 			break;

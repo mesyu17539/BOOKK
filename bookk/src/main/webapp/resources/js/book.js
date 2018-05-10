@@ -8,7 +8,6 @@ book.main={
 	bookContent:x=>{		
 	//DB 연결
 		$.getJSON(x.context+'/bookMain', d=>{
-			
 			$(createDiv({
 			id : 'img-advertise',
 			clazz : 'img-advertise'
@@ -215,7 +214,7 @@ book.main={
 			})).appendTo('#ranking-left-a');
 			$(createImg({
 				id:'ranking-left-cover-img',
-				src:d.bookNewRanking[0].imageRoute
+				src:((d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[0].imageRoute
 			})).appendTo('#ranking-left-book-cover');
 			$(createOL({
 				id:'ranking-left-ol'
@@ -236,6 +235,7 @@ book.main={
 					val:d.bookNewRanking[i-1].writter
 				})).attr('class','ranking-left-writter').appendTo('#ranking-left-li-'+i+'');
 			}
+			
 			$('#ranking-left-li-1').mouseover(()=>{
 				$('#ranking-left-a').remove();
 				$(createATag({
@@ -248,7 +248,7 @@ book.main={
 				})).appendTo('#ranking-left-a');
 				$(createImg({
 					id:'ranking-left-cover-img',
-					src:d.bookNewRanking[0].imageRoute
+					src:((d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[0].imageRoute
 				})).appendTo('#ranking-left-book-cover');
 			});
 			$('#ranking-left-li-2').mouseover(()=>{
@@ -263,7 +263,7 @@ book.main={
 				})).appendTo('#ranking-left-a');
 				$(createImg({
 					id:'ranking-left-cover-img',
-					src:d.bookNewRanking[1].imageRoute
+					src:((d.bookNewRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[1].imageRoute
 				})).appendTo('#ranking-left-book-cover');
 			});
 			$('#ranking-left-li-3').mouseover(()=>{
@@ -278,7 +278,7 @@ book.main={
 				})).appendTo('#ranking-left-a');
 				$(createImg({
 					id:'ranking-left-cover-img',
-					src:d.bookNewRanking[2].imageRoute
+					src:((d.bookNewRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[2].imageRoute
 				})).appendTo('#ranking-left-book-cover');
 			});
 			$('#ranking-left-li-4').mouseover(()=>{
@@ -293,7 +293,7 @@ book.main={
 				})).appendTo('#ranking-left-a');
 				$(createImg({
 					id:'ranking-left-cover-img',
-					src:d.bookNewRanking[3].imageRoute
+					src:((d.bookNewRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[3].imageRoute
 				})).appendTo('#ranking-left-book-cover');
 			});
 			$('#ranking-left-li-5').mouseover(()=>{
@@ -308,7 +308,7 @@ book.main={
 				})).appendTo('#ranking-left-a');
 				$(createImg({
 					id:'ranking-left-cover-img',
-					src:d.bookNewRanking[4].imageRoute
+					src:((d.bookNewRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[4].imageRoute
 				})).appendTo('#ranking-left-book-cover');
 			});
 			$('#ranking-left-li-6').mouseover(()=>{
@@ -323,7 +323,7 @@ book.main={
 				})).appendTo('#ranking-left-a');
 				$(createImg({
 					id:'ranking-left-cover-img',
-					src:d.bookNewRanking[5].imageRoute
+					src:((d.bookNewRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[5].imageRoute
 				})).appendTo('#ranking-left-book-cover');
 			});
 			$('.ranking-left-title').on('click',function(){
@@ -345,16 +345,22 @@ book.main={
 							writter:d.bookList[0].writter,
 							publisher:d.bookList[0].publisher,
 							publishingDate:d.bookList[0].publishingDate,
-							context:x.context
+							context:x.context,
+							image:x.image
 						});
 					},
 					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
 				});
 			});
-			$('#a-left-ranking-1').click(()=>{
+			$('#a-left-ranking-0').click((e)=>{
+				e.preventDefault();
+			});
+			$('#a-left-ranking-1').click((e)=>{
+				e.preventDefault();
 				alert('전자책클릭!');
 			});
-			$('#a-left-ranking-2').click(()=>{
+			$('#a-left-ranking-2').click((e)=>{
+				e.preventDefault();
 				alert('무료책클릭!');
 			});
 			$(createDiv({
@@ -449,7 +455,8 @@ book.main={
 							writter:d.bookList[0].writter,
 							publisher:d.bookList[0].publisher,
 							publishingDate:d.bookList[0].publishingDate,
-							context:x.context
+							context:x.context,
+							image:x.image
 						});
 					},
 					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -467,7 +474,7 @@ book.main={
 				})).appendTo('#ranking-right-a');
 				$(createImg({
 					id:'ranking-right-cover-img',
-					src:d.bookWeekRanking[0].imageRoute
+					src:((d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[0].imageRoute
 				})).appendTo('#ranking-right-book-cover');
 			});
 			$('#ranking-right-li-2').mouseover(()=>{
@@ -482,7 +489,7 @@ book.main={
 				})).appendTo('#ranking-right-a');
 				$(createImg({
 					id:'ranking-right-cover-img',
-					src:d.bookWeekRanking[1].imageRoute
+					src:((d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[1].imageRoute
 				})).appendTo('#ranking-right-book-cover');
 			});
 			$('#ranking-right-li-3').mouseover(()=>{
@@ -497,7 +504,7 @@ book.main={
 				})).appendTo('#ranking-right-a');
 				$(createImg({
 					id:'ranking-right-cover-img',
-					src:d.bookWeekRanking[2].imageRoute
+					src:((d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[2].imageRoute
 				})).appendTo('#ranking-right-book-cover');
 			});
 			$('#ranking-right-li-4').mouseover(()=>{
@@ -512,7 +519,7 @@ book.main={
 				})).appendTo('#ranking-right-a');
 				$(createImg({
 					id:'ranking-right-cover-img',
-					src:d.bookWeekRanking[3].imageRoute
+					src:((d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[3].imageRoute
 				})).appendTo('#ranking-right-book-cover');
 			});
 			$('#ranking-right-li-5').mouseover(()=>{
@@ -527,7 +534,7 @@ book.main={
 				})).appendTo('#ranking-right-a');
 				$(createImg({
 					id:'ranking-right-cover-img',
-					src:d.bookWeekRanking[4].imageRoute
+					src:((d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[4].imageRoute
 				})).appendTo('#ranking-right-book-cover');
 			});
 			$('#ranking-right-li-6').mouseover(()=>{
@@ -542,7 +549,7 @@ book.main={
 				})).appendTo('#ranking-right-a');
 				$(createImg({
 					id:'ranking-right-cover-img',
-					src:d.bookWeekRanking[5].imageRoute
+					src:((d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[5].imageRoute
 				})).appendTo('#ranking-right-book-cover');
 			});
 			$('#a-right-ranking-0').click(e=>{
@@ -564,7 +571,7 @@ book.main={
 				})).appendTo('#ranking-right-a');
 				$(createImg({
 					id:'ranking-right-cover-img',
-					src:d.bookWeekRanking[0].imageRoute
+					src:((d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[0].imageRoute
 				})).appendTo('#ranking-right-book-cover');
 				$(createOL({
 					id:'ranking-right-ol'
@@ -597,7 +604,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookWeekRanking[0].imageRoute
+						src:((d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[0].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-2').mouseover(()=>{
@@ -612,7 +619,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookWeekRanking[1].imageRoute
+						src:((d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[1].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-3').mouseover(()=>{
@@ -627,7 +634,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookWeekRanking[2].imageRoute
+						src:((d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[2].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-4').mouseover(()=>{
@@ -642,7 +649,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookWeekRanking[3].imageRoute
+						src:((d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[3].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-5').mouseover(()=>{
@@ -657,7 +664,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookWeekRanking[4].imageRoute
+						src:((d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[4].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-6').mouseover(()=>{
@@ -672,7 +679,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookWeekRanking[5].imageRoute
+						src:((d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[5].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('.ranking-right-title').on('click',function(){
@@ -695,7 +702,8 @@ book.main={
 								writter:d.bookList[0].writter,
 								publisher:d.bookList[0].publisher,
 								publishingDate:d.bookList[0].publishingDate,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -721,7 +729,7 @@ book.main={
 				})).appendTo('#ranking-right-a');
 				$(createImg({
 					id:'ranking-right-cover-img',
-					src:d.bookMonthRanking[0].imageRoute
+					src:((d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[0].imageRoute
 				})).appendTo('#ranking-right-book-cover');
 				$(createOL({
 					id:'ranking-right-ol'
@@ -754,7 +762,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookMonthRanking[0].imageRoute
+						src:((d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[0].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-2').mouseover(()=>{
@@ -769,7 +777,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookMonthRanking[1].imageRoute
+						src:((d.bookMonthRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[1].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-3').mouseover(()=>{
@@ -784,7 +792,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookMonthRanking[2].imageRoute
+						src:((d.bookMonthRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[2].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-4').mouseover(()=>{
@@ -799,7 +807,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookMonthRanking[3].imageRoute
+						src:((d.bookMonthRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[3].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-5').mouseover(()=>{
@@ -814,7 +822,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookMonthRanking[4].imageRoute
+						src:((d.bookMonthRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[4].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-6').mouseover(()=>{
@@ -829,7 +837,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookMonthRanking[5].imageRoute
+						src:((d.bookMonthRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[5].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('.ranking-right-title').on('click',function(){
@@ -852,7 +860,8 @@ book.main={
 								writter:d.bookList[0].writter,
 								publisher:d.bookList[0].publisher,
 								publishingDate:d.bookList[0].publishingDate,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -878,7 +887,7 @@ book.main={
 				})).appendTo('#ranking-right-a');
 				$(createImg({
 					id:'ranking-right-cover-img',
-					src:d.bookAllRanking[0].imageRoute
+					src:((d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[0].imageRoute
 				})).appendTo('#ranking-right-book-cover');
 				$(createOL({
 					id:'ranking-right-ol'
@@ -911,7 +920,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookAllRanking[0].imageRoute
+						src:((d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[0].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-2').mouseover(()=>{
@@ -926,7 +935,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookAllRanking[1].imageRoute
+						src:((d.bookAllRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[1].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-3').mouseover(()=>{
@@ -941,7 +950,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookAllRanking[2].imageRoute
+						src:((d.bookAllRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[2].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-4').mouseover(()=>{
@@ -956,7 +965,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookAllRanking[3].imageRoute
+						src:((d.bookAllRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[3].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-5').mouseover(()=>{
@@ -971,7 +980,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookAllRanking[4].imageRoute
+						src:((d.bookAllRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[4].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('#ranking-right-li-6').mouseover(()=>{
@@ -986,7 +995,7 @@ book.main={
 					})).appendTo('#ranking-right-a');
 					$(createImg({
 						id:'ranking-right-cover-img',
-						src:d.bookAllRanking[5].imageRoute
+						src:((d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[5].imageRoute
 					})).appendTo('#ranking-right-book-cover');
 				});
 				$('.ranking-right-title').on('click',function(){
@@ -1009,7 +1018,8 @@ book.main={
 								writter:d.bookList[0].writter,
 								publisher:d.bookList[0].publisher,
 								publishingDate:d.bookList[0].publishingDate,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -1056,7 +1066,7 @@ book.main={
 					clazz:'book-cover'
 				})).appendTo('#a-book-item-0-'+i+'');
 				$(createImg({
-					src:d.book1[i].imageRoute
+					src:((d.book1[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book1[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book1[i].imageRoute 
 				})).appendTo('#div-book-cover-0-'+i+'');
 				$(createDiv({
 					clazz:'book-deco'
@@ -1085,7 +1095,8 @@ book.main={
 							large:g.large,
 							count:d.count,
 							largeList:d.largeList,
-							context:x.context});
+							context:x.context,
+							image:x.image});
 						},
 					error : (x,h,m)=>{
 						alert('검색 실패 x='+x+', h='+h+', m='+m);
@@ -1105,7 +1116,8 @@ book.main={
 							large:g.large,
 							count:d.count,
 							largeList:d.largeList,
-							context:x.context});
+							context:x.context,
+							image:x.image});
 						},
 					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
 					});
@@ -1120,7 +1132,7 @@ book.main={
 					clazz:'book-cover book-cover-1'
 				})).appendTo('#a-book-item-1-'+i+'');
 				$(createImg({
-					src:d.book2[i].imageRoute
+					src:((d.book2[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book2[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book2[i].imageRoute 
 				})).appendTo('#div-book-cover-1-'+i+'');
 				$(createDiv({
 					clazz:'book-deco'
@@ -1146,7 +1158,7 @@ book.main={
 					clazz:'book-cover book-cover-2'
 				})).appendTo('#a-book-item-2-'+i+'');
 				$(createImg({
-					src:d.book3[i].imageRoute
+					src:((d.book3[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book3[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book3[i].imageRoute 
 				})).appendTo('#div-book-cover-2-'+i+'');
 				$(createDiv({
 					clazz:'book-deco'
@@ -1171,7 +1183,7 @@ book.main={
 					clazz:'book-cover book-cover-3'
 				})).appendTo('#a-book-item-3-'+i+'');
 				$(createImg({
-					src:d.book4[i].imageRoute
+					src:((d.book4[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book4[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book4[i].imageRoute 
 				})).appendTo('#div-book-cover-3-'+i+'');
 				$(createDiv({
 					clazz:'book-deco'
@@ -1197,7 +1209,7 @@ book.main={
 					clazz:'book-cover book-cover-4'
 				})).appendTo('#a-book-item-4-'+i+'');
 				$(createImg({
-					src:d.book5[i].imageRoute
+					src:((d.book5[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book5[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book5[i].imageRoute 
 				})).appendTo('#div-book-cover-4-'+i+'');
 				$(createDiv({
 					clazz:'book-deco'
@@ -1223,7 +1235,7 @@ book.main={
 					clazz:'book-cover book-cover-5'
 				})).appendTo('#a-book-item-5-'+i+'');
 				$(createImg({
-					src:d.book6[i].imageRoute
+					src:((d.book6[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book6[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book6[i].imageRoute 
 				})).appendTo('#div-book-cover-5-'+i+'');
 				$(createDiv({
 					clazz:'book-deco'
@@ -1259,7 +1271,8 @@ book.main={
 							writter:d.bookList[0].writter,
 							publisher:d.bookList[0].publisher,
 							publishingDate:d.bookList[0].publishingDate,
-							context:x.context
+							context:x.context,
+							image:x.image
 						});
 					},
 					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -1285,7 +1298,8 @@ book.main={
 							writter:d.bookList[0].writter,
 							publisher:d.bookList[0].publisher,
 							publishingDate:d.bookList[0].publishingDate,
-							context:x.context
+							context:x.context,
+							image:x.image
 						});
 					},
 					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -1311,7 +1325,8 @@ book.main={
 							writter:d.bookList[0].writter,
 							publisher:d.bookList[0].publisher,
 							publishingDate:d.bookList[0].publishingDate,
-							context:x.context
+							context:x.context,
+							image:x.image
 						});
 					},
 					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -1335,9 +1350,10 @@ book.main={
 							largeGenre:d.bookList[0].largeGenre,
 							smallGenre:d.bookList[0].smallGenre,
 							writter:d.bookList[0].writter,
-							publisher:d.bookList[0].publisher,//여기까지
+							publisher:d.bookList[0].publisher,
 							publishingDate:d.bookList[0].publishingDate,
-							context:x.context
+							context:x.context,
+							image:x.image
 						});
 					},
 					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -1363,7 +1379,8 @@ book.main={
 							writter:d.bookList[0].writter,
 							publisher:d.bookList[0].publisher,
 							publishingDate:d.bookList[0].publishingDate,
-							context:x.context
+							context:x.context,
+							image:x.image
 						});
 					},
 					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -1389,7 +1406,8 @@ book.main={
 							writter:d.bookList[0].writter,
 							publisher:d.bookList[0].publisher,
 							publishingDate:d.bookList[0].publishingDate,
-							context:x.context
+							context:x.context,
+							image:x.image
 						});
 					},
 					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -1408,7 +1426,7 @@ book.main={
 		$(createDiv({
 			id : 'category-bar',
 			clazz : 'category-bar'
-		})).appendTo('#bookk-store');
+		})).appendTo('#bookk-store').attr('style','');
 		$(createDiv({id:'floating',clazz:'floating'})).appendTo('#category-bar');
 		$(createButton({clazz:'btn-menu',val:'MENU'})).appendTo('#floating')
 		.on('click',function(e){
@@ -1422,34 +1440,17 @@ book.main={
 				$(createDiv({id:'floating-div-1'})).appendTo('#floating');
 				$(createATag({val:'장바구니'})).appendTo('#floating-div-1')
 				.on('click',function(){
-					$.getScript("/web/resources/js/shop.js",function(){
-							$('#div-list-container').attr('id','div-advertise');
-							$('#detail-container').attr('id','div-advertise');
-							shop.mall.cart({
-									context:x.context,
-									view:"/web/resources/js/view.js",
-							});
-					})
+					$('#a-cart').click();
 				});
 				$(createDiv({id:'floating-div-2'})).appendTo('#floating');
 				$(createATag({val:'My page'})).appendTo('#floating-div-2')
 				.on('click',function(){
-					$.getScript("/web/resources/js/user.js",function(){
-							$('#div-list-container').remove();
-							$('#detail-container').remove();
-							user.member.mypage({
-								context:x.context,
-								view:"/web/resources/js/view.js",
-							});
-					})
+					$('#a-mypage').click();
 				});
 				$(createDiv({id:'floating-div-3'})).appendTo('#floating');
 				$(createATag({val:'게시판'})).appendTo('#floating-div-3')
 				.on('click',function(){
-					$.getScript("/web/resources/js/bulletin.js",function(){
-							$('#bookk-store').remove();
-							bulletin.board.onCreate();
-					})
+					$('#bulletin-btn').click();
 				});
 				$(createButton({clazz:'btn-top',val:'TOP&nbsp;▲'})).attr('style','top:30px;').appendTo('#floating')
 				.click(function(){
@@ -1545,7 +1546,8 @@ book.main={
 								largeList:d.smallList,
 								large:g.large,
 								count:d.count,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{
@@ -1568,7 +1570,8 @@ book.main={
 								largeList:d.smallList,
 								large:g.large,
 								count:d.count,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{
@@ -1591,7 +1594,8 @@ book.main={
 								largeList:d.smallList,
 								large:g.large,
 								count:d.count,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{
@@ -1631,7 +1635,8 @@ book.main={
 								largeList:d.smallList,
 								large:g.large,
 								count:d.count,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{
@@ -1654,7 +1659,8 @@ book.main={
 								largeList:d.smallList,
 								large:g.large,
 								count:d.count,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{
@@ -1677,7 +1683,8 @@ book.main={
 								largeList:d.smallList,
 								large:g.large,
 								count:d.count,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{
@@ -1700,7 +1707,8 @@ book.main={
 								largeList:d.smallList,
 								large:g.large,
 								count:d.count,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{
@@ -1723,7 +1731,8 @@ book.main={
 								largeList:d.smallList,
 								large:g.large,
 								count:d.count,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{
@@ -1746,7 +1755,8 @@ book.main={
 								largeList:d.smallList,
 								large:g.large,
 								count:d.count,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{
@@ -1769,7 +1779,8 @@ book.main={
 								largeList:d.smallList,
 								large:g.large,
 								count:d.count,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{
@@ -1792,7 +1803,8 @@ book.main={
 								largeList:d.smallList,
 								large:g.large,
 								count:d.count,
-								context:x.context
+								context:x.context,
+								image:x.image
 							});
 						},
 						error : (x,h,m)=>{
@@ -1888,7 +1900,8 @@ book.main={
 							large:g.large,
 							count:d.count,
 							largeList:d.largeList,
-							context:x.context
+							context:x.context,
+							image:x.image
 						});
 					},
 					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -1908,7 +1921,8 @@ book.main={
 							large:g.large,
 							count:d.count,
 							largeList:d.largeList,
-							context:x.context
+							context:x.context,
+							image:x.image
 						});
 					},
 					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -1977,7 +1991,8 @@ book.main={
 									largeList:d.smallList,
 									count:d.count,
 									small:g.small,
-									large:g.large
+									large:g.large,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -1997,7 +2012,8 @@ book.main={
 									largeList:d.smallList,
 									count:d.count,
 									small:g.small,
-									large:g.large
+									large:g.large,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2017,7 +2033,8 @@ book.main={
 									largeList:d.smallList,
 									count:d.count,
 									small:g.small,
-									large:g.large
+									large:g.large,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2051,7 +2068,8 @@ book.main={
 									largeList:d.smallList,
 									count:d.count,
 									small:g.small,
-									large:g.large
+									large:g.large,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2071,7 +2089,8 @@ book.main={
 									largeList:d.smallList,
 									count:d.count,
 									small:g.small,
-									large:g.large
+									large:g.large,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2091,7 +2110,8 @@ book.main={
 									largeList:d.smallList,
 									count:d.count,
 									small:g.small,
-									large:g.large
+									large:g.large,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2111,7 +2131,8 @@ book.main={
 									largeList:d.smallList,
 									count:d.count,
 									small:g.small,
-									large:g.large
+									large:g.large,
+									image:x.image
 									});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2131,7 +2152,8 @@ book.main={
 									largeList:d.smallList,
 									count:d.count,
 									small:g.small,
-									large:g.large
+									large:g.large,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2151,7 +2173,8 @@ book.main={
 									largeList:d.smallList,
 									count:d.count,
 									small:g.small,
-									large:g.large
+									large:g.large,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2171,7 +2194,8 @@ book.main={
 									largeList:d.smallList,
 									count:d.count,
 									small:g.small,
-									large:g.large
+									large:g.large,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2191,7 +2215,8 @@ book.main={
 									largeList:d.smallList,
 									count:d.count,
 									small:g.small,
-									large:g.large
+									large:g.large,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2300,7 +2325,8 @@ book.main={
 									large:g.large,
 									count:d.count,
 									largeList:d.largeList,
-									context:x.context
+									context:x.context,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2346,7 +2372,8 @@ book.main={
 									large:g.large,
 									count:d.count,
 									largeList:d.largeList,
-									context:x.context
+									context:x.context,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2365,7 +2392,8 @@ book.main={
 									largeList:d.smallList,
 									large:x.large,
 									count:d.count,
-									context:x.context
+									context:x.context,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{
@@ -2384,7 +2412,7 @@ book.main={
 				var number = 1;
 				var size = 5;
 				var list=()=>{
-					$.each(x.largeList.slice(size*number-(size),size*number),(i,j)=>{
+					$.each(x.largeList.slice(size*number-(size),size*number),(i,j)=>{ 
 						var name=(j.imageRoute.split('\\\\resources\\\\img\\\\'))[1];
 	                    var imgRoute;
 	                    if(name!=null){
@@ -2493,7 +2521,8 @@ book.main={
 									writter:d.bookList[0].writter,
 									publisher:d.bookList[0].publisher,
 									publishingDate:d.bookList[0].publishingDate,
-									context:x.context
+									context:x.context,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2518,7 +2547,8 @@ book.main={
 									writter:d.bookList[0].writter,
 									publisher:d.bookList[0].publisher,
 									publishingDate:d.bookList[0].publishingDate,
-									context:x.context
+									context:x.context,
+									image:x.image
 								});
 							},
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
@@ -2581,9 +2611,9 @@ book.main={
 			},
 			detail:x=>{
 				$('#div-body').attr('style','position: relative;bottom: 20px;');
+				$('#div-footer').empty();
 				$('#div-list-container').remove();
 				$('#div-advertise').remove();
-				$('#div-list-container').remove();
 				$('#detail-container').remove();
 				$(createDiv({
 					id:'detail-container'
@@ -2597,8 +2627,9 @@ book.main={
 				$(createDiv({
 					id:'detail-left-product'
 				})).appendTo('#detail-clearfix');
+				console.log(x)
 				$(createImg({
-					src:x.imageRoute
+					src:((x.imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(x.imageRoute.split('\\\\resources\\\\img\\\\'))[1] : x.imageRoute 
 				})).appendTo('#detail-left-product');
 				$(createDiv({
 					id:'detail-right-product'
