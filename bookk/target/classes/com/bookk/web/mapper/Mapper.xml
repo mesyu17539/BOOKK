@@ -4,23 +4,26 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookk.web.mapper.Mapper">
     <resultMap type="java.util.HashMap" id="map">
+    <!-- 관리자 -->
+		<result property="admId" column="adm_id"/>
+		<result property="admPass" column="adm_pass"/>
     <!-- 회원 -->
-		<result property="memID" column="MEM_ID"/>
-		<result property="memPass" column="MEM_PASS"/>
-		<result property="memStatus" column="MEMSTATUS"/>
-		<result property="memName" column="MEM_NAME"/>
-		<result property="memNickName" column="MEM_NICKNAME"/>
-		<result property="memIntroduce" column="MEM_INTRODUCE"/>
-		<result property="memSsn" column="MEM_SSN"/>
-		<result property="memPhone" column="MEM_PHONE"/>
-		<result property="memEmail" column="MEM_EMAIL"/>
-		<result property="memAddr" column="MEM_ADDRESS"/>
+		<result property="memID" column="mem_id"/>
+		<result property="memPass" column="mem_pass"/>
+		<result property="memStatus" column="memstatus"/>
+		<result property="memName" column="mem_name"/>
+		<result property="memNickName" column="mem_nickname"/>
+		<result property="memIntroduce" column="mem_introduce"/>
+		<result property="memSsn" column="mem_ssn"/>
+		<result property="memPhone" column="mem_phone"/>
+		<result property="memEmail" column="mem_email"/>
+		<result property="memAddr" column="mem_address"/>
 	<!-- 주소 -->
-		<result property="addrAddress" column="ADDR_ADDRESS"/>
-		<result property="addrPostCode" column="ADDR_POSTCODEADDRESS"/>
-		<result property="addrRoad" column="ADDR_ROADADDRESS"/>
-		<result property="addrJibun" column="ADDR_JIBUNADDRESS"/>
-		<result property="addrDetailAddr" column="ADDR_DETAILADDRESS"/>	
+		<result property="addrAddress" column="addr_address"/>
+		<result property="addrPostCode" column="addr_postcodeaddress"/>
+		<result property="addrRoad" column="addr_roadaddress"/>
+		<result property="addrJibun" column="addr_jibunaddress"/>
+		<result property="addrDetailAddr" column="addr_detailaddress"/>	
 		<result property="admId" column="ADM_ID"/>
 		<result property="admPass" column="ADM_PASS"/>
 	<!-- 게시판 -->

@@ -1513,6 +1513,7 @@ user.member={
 			postDetail=$('#join-postCodeAddress').val();
 			phoneM=$('#join-phoneM').val();
 			phoneA=$('#join-phoneA').val();
+			name=$('#join-name').val();
 			if(id===''){
 				alert('아이디를 입력하세요');
 				$('#join-id').focus();
@@ -1521,6 +1522,11 @@ user.member={
 			if(pass===''){
 				alert('비밀번호를 입력하세요');
 				$('#join-password').focus();
+				return;
+			}
+			if(name===''){
+				alert('이름을 입력하세요');
+				$('#join-name').focus();
 				return;
 			}
 			if(ssn===''){
@@ -1589,7 +1595,7 @@ user.member={
 				data:JSON.stringify({
 					id:id,
 					pass:pass,
-					name:$('#join-name').val(),
+					name:name,
 					email:$('#join-email').val()+$('#join-url').val(),
 					phone:$('#join-phoneB').val()+'-'+phoneM+'-'+phoneA,
 					ssn:ssn+'-'+$('#join-ssnA').val(),
