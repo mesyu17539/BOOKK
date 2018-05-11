@@ -31,7 +31,7 @@
 <div id="wrapper">
 </div>
 </body>
-</html>
 <script>
 	app.init('${context}');
 </script>
+</html>

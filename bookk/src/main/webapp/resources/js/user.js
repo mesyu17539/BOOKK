@@ -1,6 +1,7 @@
 var user=user || {};
 user.admin={
 	login:x=>{
+        document.getElementById('wizcss').href=(x.context+'/resources/css/style.css');
 		$('#div-header-userMenu').html(createDiv({id:'div-member-bar',clazz:''})).attr('style','background: white;')
 		$('#div-header-pageMenu').remove();
 		$('#div-footer').remove();
