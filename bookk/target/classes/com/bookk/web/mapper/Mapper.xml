@@ -109,7 +109,7 @@
 	insert INTO orders (bookNum,reserv_date,amount,mem_id) VALUES(#{insertBook}, now(),#{insertAmount} ,#{userid});
 	</insert>
 	<insert id ="malladdSalesDetail" parameterType="hashMap"> 
-	INSERT INTO sellbasket (salesamount, salesdate, recipient, sell_address, requirements, `bookNum`, mem_id, recipent_num) 
+	INSERT INTO sellbasket (salesamount, salesdate, recipient, sell_address, requirements, bookNum, mem_id, recipient_num) 
 	VALUES(#{salesamount}, now(), #{recipient}, 
 	<choose>
 	<when test="recipentCheck=='true'">
