@@ -368,6 +368,7 @@ bulletin.jau=(()=>{
 			$(createTHJW({id:'th-articles',thList: ''}))
 				.appendTo('#tab-articles')
 				.attr('style','border-top: 2px solid #adcfdf;');
+			console.log(x.d.list)
 			$(createTRJW({list : x.d.list,clazz : ''}))
 				.appendTo('#tab-articles')
 				.attr('style', 'text-align: center;height: 60px;border-bottom:1px dotted; ');

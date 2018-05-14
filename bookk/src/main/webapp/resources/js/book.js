@@ -2737,7 +2737,8 @@ book.main={
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
 						});
 					});
-					$('.listcart').on('click',function(){
+					$('.listcart').on('click',function(e){
+						e.preventDefault();
 						var doo=JSON.parse(sessionStorage.getItem('user'));
 						$(this).attr('value')
 						var bookNum = $(this).attr('value')

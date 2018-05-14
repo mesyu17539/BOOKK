@@ -297,9 +297,9 @@
      select count(*) from comments where board_id = #{x}
      </select>
      <update id="viewStack" parameterType="hashMap">
-     UPDATE BOARD
+     UPDATE board
    			SET view_num = IFNULL(view_num, 0) + 1
- 			WHERE BOARD_ID = #{x}	
+ 			WHERE board_id = #{x}	
      </update>
      <delete id="deleteBoard" parameterType="hashMap">
      	DELETE 
