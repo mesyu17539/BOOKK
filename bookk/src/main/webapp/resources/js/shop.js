@@ -591,7 +591,8 @@ sell:x=>{
 						dataType:'json',
 						contentType:'application/json',
 						success:z=>{
-							shop.mall.orderCheck(x);
+							$('#a-delivery-check').click();
+//							shop.mall.orderCheck(x);
 						},
 						error:(y,h,m)=>{
 							alert('실패');

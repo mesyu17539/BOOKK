@@ -622,8 +622,9 @@ public class Controller{
 		return map; 
 	}
 	// book
-	@RequestMapping("/bookMain")
-	public Map<?,?> bookMain(){
+	@RequestMapping(value="/bookMain",
+			method=RequestMethod.POST,consumes="application/json")
+	public Map<?,?> bookMain(@RequestBody Map<?,?> param){
 		Map<String, Object> map = new HashMap<>();
 		map.put("1", "시/에세이");
 		Object book1 = new IGetService() {
@@ -678,9 +679,8 @@ public class Controller{
 			}
 		}.execute((HashMap<?, ?>) map);
 		map.put("book6", book6);
-		
-		map.put("weekStart", "20180428");
-		map.put("weekEnd", "20180505");
+		map.put("weekStart",param.get("weekStart"));
+		map.put("weekEnd", param.get("weekEnd"));
 		Object bookWeekRanking = new IGetService() {
 			@Override
 			public Object execute(HashMap<?, ?> param) {
@@ -689,8 +689,8 @@ public class Controller{
 		}.execute((HashMap<?, ?>) map);
 		map.put("bookWeekRanking", bookWeekRanking);
 		
-		map.put("MonthStart", "20180401");
-		map.put("MonthEnd", "20180430");
+		map.put("MonthStart", param.get("MonthStart"));
+		map.put("MonthEnd",  param.get("MonthEnd"));
 		Object bookMonthRanking = new IGetService() {
 			@Override
 			public Object execute(HashMap<?, ?> param) {
@@ -699,8 +699,8 @@ public class Controller{
 		}.execute((HashMap<?, ?>) map);
 		map.put("bookMonthRanking", bookMonthRanking);
 		
-		map.put("allStart", "20180401");
-		map.put("allEnd", "20180430");
+//		map.put("allStart", "20180401");
+//		map.put("allEnd", "20180430");
 		Object bookAllRanking = new IGetService() {
 			@Override
 			public Object execute(HashMap<?, ?> param) {
@@ -716,7 +716,8 @@ public class Controller{
 			}
 		}.execute((HashMap<?, ?>) map);
 		map.put("bookNewRanking", bookNewRanking);
-		
+		System.out.println(map.get("bookMonthRanking"));
+		System.out.println(map.get("bookWeekRanking"));
 		return map;
 		
 	}
@@ -814,6 +815,7 @@ public class Controller{
 		public Object bookDetail(@RequestBody HashMap<String, Object> param) {
 		Map<String,Object> map = new HashMap<>();
 		param.put("bookNum",param.get("bookList"));
+		
 		Object o = new IGetService() {
 			@Override
 			public Object execute(HashMap<?, ?> param) {

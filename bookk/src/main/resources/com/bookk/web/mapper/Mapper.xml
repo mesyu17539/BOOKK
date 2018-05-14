@@ -418,7 +418,7 @@
 		order by b.bookName asc
 	 </select>
 	 <select id="bookDetail" resultType="map" parameterType="hashMap">
-		select * from bookdetail WHERE bookNum Like #{bookNum}
+		select * from bookDetail WHERE bookNum Like #{bookNum}
 	 </select>
 	 <select id="bookMonthRanking" resultType="map" parameterType="hashMap">
 		select * from bookRanking

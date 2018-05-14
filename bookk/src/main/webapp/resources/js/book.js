@@ -7,1413 +7,1622 @@ book.main={
 	},
 	bookContent:x=>{		
 	//DB 연결
-		$.getJSON(x.context+'/bookMain', d=>{
-			$(createDiv({
-			id : 'img-advertise',
-			clazz : 'img-advertise'
-			})).appendTo('#div-advertise');
-			$(createDiv({
-				id : 'main-advertise',
-				clazz : 'main-advertise'
-			})).appendTo('#img-advertise').attr('style','padding:0px;margin-top:0px;margin-bottom: 0px;');
-			$(createUL({
-				id : 'wrap-main-advertise',
-				clazz : ''
-			})).appendTo('#main-advertise').attr('style','padding:0px; margin-top:0px;');
-			$(createLI({
-				id : 'main-img-advertise',
-				clazz : ''
-			})).appendTo('#wrap-main-advertise');
-			$(createATag({
-				id : 'main-img-advertise-1',
-				clazz : '',val : ''
-			})).appendTo('#main-img-advertise');
-			$(createImg({
-				alt : '',
-				src : 'http://blogfiles5.naver.net/MjAxNzEwMjlfMjI1/MDAxNTA5MjU0NzU4MjMy.Bqo0Ef7v6bVoq6tn4usEXDGTIwkT1J1fsXGxT-d3eCYg.sHR0QYGSceFWiD8_jF5NeZ1r6MSqvtqkcjvVWBsaxsQg.JPEG.sthisplusyt/Goroda_arhitektura_vsego_mira_9_30.jpg'
-			})).appendTo('#main-img-advertise-1').attr('style','height: 450px; width:100%;')
-			.click(()=>{
-				alert('봄 클릭');
-			});
-				 // 이미지 하단 버튼
-			$(createUL({
-				id : 'main-img-btn-clearfix',
-				clazz : ''
-			})).attr('style','padding:0px;margin-top:0px;margin-bottom: 0px;').appendTo('#main-advertise');
-			var temp = ['상우','두영','만호','정원'];
-			for(var i=0;i<temp.length;i++){
+		var calcDate = new Date();
+		var year = calcDate.getFullYear(); 
+		var month = new String(calcDate.getMonth() + 1 ); 
+		var day = new String(calcDate.getDate()); 
+		if(month.length == 1){ 
+			  month = "0" + month; 
+			} 
+		if(day.length == 1){ 
+		  day = "0" + day; 
+		} 
+		var thisYear = new Date().getFullYear(); 
+		var thisMonth = new String(new Date().getMonth()+1); 
+		var today = new String(new Date().getDate() -7 ); 
+	
+		if(thisMonth.length == 1){ 
+			  month =  month; 
+			} 
+			if(today.length == 1){ 
+			  day =  day; 
+			} 
+			var thisYear2 = new Date().getFullYear(); 
+			var thisMonth2 = new String(new Date().getMonth()); 
+			var today2 = new String(new Date().getDate() ); 
+		
+			if(thisMonth2.length == 1){ 
+				  month =  month; 
+				} 
+				if(today2.length == 1){ 
+				  day =  day; 
+				} 
+
+		
+		console.log(year+month+day);
+		console.log(thisYear2+thisMonth2+today2)
+		console.log(year+month+day)
+		console.log(thisYear+thisMonth+today)
+		
+		$.ajax({
+			url:x.context+'/bookMain',
+			method:'POST',
+			data:JSON.stringify({
+				weekStart:(new Date(thisYear2+'-'+thisMonth2+'-'+today2)),
+				weekEnd:(new Date(year+'-'+month+'-'+day)),
+				MonthStart:(new Date(thisYear+'-'+thisMonth+'-'+today)),
+				MonthEnd:(new Date(year+'-'+month+'-'+day))
+			}),
+			dataType:'json',
+			contentType:'application/json',
+			success:d=>{
+
+				$(createDiv({
+				id : 'img-advertise',
+				clazz : 'img-advertise'
+				})).appendTo('#div-advertise');
+				$(createDiv({
+					id : 'main-advertise',
+					clazz : 'main-advertise'
+				})).appendTo('#img-advertise').attr('style','padding:0px;margin-top:0px;margin-bottom: 0px;');
+				$(createUL({
+					id : 'wrap-main-advertise',
+					clazz : ''
+				})).appendTo('#main-advertise').attr('style','padding:0px; margin-top:0px;');
 				$(createLI({
-					id:'li-wrap-dots-'+i+''
-				})).appendTo('#main-img-btn-clearfix');
-				$(createATag({
-					id : 'a-wrap-doat-'+i+'',
-					val : ''
-				})).appendTo('#li-wrap-dots-'+i+'');
-				$(createButton({
-					id : 'btn-'+i+'',
-					clazz : 'btn',
-					val :temp[i]
-				})).appendTo('#a-wrap-doat-'+i+'');
-			}
-			$('#btn-0').click(e=>{
-				e.preventDefault();
-				$('#main-img-advertise').remove();
-				$(createLI({
-					id :'main-img-advertise'
+					id : 'main-img-advertise',
+					clazz : ''
 				})).appendTo('#wrap-main-advertise');
 				$(createATag({
-					id :'a-img-1',
-					val : ''
+					id : 'main-img-advertise-1',
+					clazz : '',val : ''
 				})).appendTo('#main-img-advertise');
 				$(createImg({
-					src :'http://kinimage.naver.net/20170816_266/1502847836577fOR57_JPEG/1502847836389.jpg'
-				})).appendTo('#a-img-1').attr('style','height: 450px; width:100%;')
+					alt : '',
+					src : 'http://blogfiles5.naver.net/MjAxNzEwMjlfMjI1/MDAxNTA5MjU0NzU4MjMy.Bqo0Ef7v6bVoq6tn4usEXDGTIwkT1J1fsXGxT-d3eCYg.sHR0QYGSceFWiD8_jF5NeZ1r6MSqvtqkcjvVWBsaxsQg.JPEG.sthisplusyt/Goroda_arhitektura_vsego_mira_9_30.jpg'
+				})).appendTo('#main-img-advertise-1').attr('style','height: 450px; width:100%;')
 				.click(()=>{
-					alert('봄 사진 클릭!');
+					alert('봄 클릭');
 				});
-			});
-			$('#btn-1').click(e=>{
-				e.preventDefault();
-				$('#main-img-advertise').remove();
-				$(createLI({
-					id : 'main-img-advertise'
-				})).appendTo('#wrap-main-advertise');
-				$(createATag({
-					id : 'a-img-2',
-					val : ''
-				})).appendTo('#main-img-advertise');
-				$(createImg({
-					src : 'http://cafefiles.naver.net/20120815_51/wltn3743_1344961625040n8zgh_JPEG/32.jpeg'
-				})).appendTo('#a-img-2').attr('style','height: 450px; width:100%;')
-				.click(()=>{
-					alert('여름 사진 클릭!');
-				});
-			});
-			$('#btn-2').click(e=>{
-				e.preventDefault();
-				$('#main-img-advertise').remove();
-				$(createLI({
-					id : 'main-img-advertise'
-				})).appendTo('#wrap-main-advertise');
-				$(createATag({
-					id : 'a-img-3',
-					val : ''
-				})).appendTo('#main-img-advertise');
-				$(createImg({
-					src : 'http://cafefiles.naver.net/20141024_221/duran011_1414101447080RxsoJ_JPEG/PicSpeed%2B-2071079421.jpg'
-				})).appendTo('#a-img-3').attr('style','height: 450px; width:100%;')
-				.click(()=>{
-					alert('가을 사진 클릭!');
-				});
-			});
-			$('#btn-3').click(e=>{
-				e.preventDefault();
-				$('#main-img-advertise').remove();
-				$(createLI({
-					id : 'main-img-advertise'
-				})).appendTo('#wrap-main-advertise');
-				$(createATag({
-					id : 'a-img-4',
-					val : ''
-				})).appendTo('#main-img-advertise');
-				$(createImg({
-					src : 'http://post.phinf.naver.net/MjAxNjEyMjhfMjUz/MDAxNDgyODkzMTQ5NTg3.huKPPgR7H7zTAqQGfv5cKJ_lfzHWBu6K-CDBVYGgE94g.GrchDz4KjXlABiHi_HUFDBYanYGJLXobf_iHr75HgZAg.JPEG/Iaj1bpuo8oXHpdZizTkVN7g_HF7E.jpg'
-				})).appendTo('#a-img-4').attr('style','height: 450px; width:100%;')
-				.click(()=>{
-					alert('겨울 사진 클릭!');
-				});
-			});
-				 
-			$(createDiv({
-				id : 'div-container-2',
-				clazz : 'nav-container'
-			})).appendTo('#div-advertise');
-			$(createDiv({
-				id : 'div-section-ad',
-				clazz : 'section-ad'
-			})).appendTo('#div-container-2');
-			var temp = ['http://www.bookk.co.kr/img/banner/banner33.png','http://www.bookk.co.kr/img/banner/banner46.png','http://www.bookk.co.kr/img/banner/banner45.png'];
-			for(var i=0; i<3; i++){
-				$(createDiv({
-					id:'div-ad-item-'+i+'',
-					clazz:'ad-item ad-'+i+''
-				})).appendTo('#div-section-ad');
-				$(createATag({
-					id:'a-ad-item-'+i+'',
-					val:''
-				})).appendTo('#div-ad-item-'+i+'');
-				$(createImg({
-					src:temp[i]
-				})).appendTo('#a-ad-item-'+i+'');
-			}
-			$('#a-ad-item-0').click(e=>{
-				e.preventDefault();
-				alert('하단 광고 이미지 1번 클릭!');
-			});
-			$('#a-ad-item-1').click(e=>{
-				e.preventDefault();
-				alert('하단 광고 이미지 2번 클릭!');
-			});
-			$('#a-ad-item-2').click(e=>{
-				e.preventDefault();
-				alert('하단 광고 이미지 3번 클릭!');
-			});
-			//랭킹
-			$(createDiv({
-				id : 'div-section-ranking',
-				clazz : 'section-ranking'
-			})).appendTo('#div-container-2');
-			$(createDiv({
-				id : 'div-left-ranking',
-				clazz : 'widget widget-ranking pull-left'
-			})).appendTo('#div-section-ranking');
-			$(createDiv({
-				id : 'div-left-ranking-header',
-				clazz : 'widget-header'
-			})).appendTo('#div-left-ranking');
-			$(createHTag({
-				size : '3',
-				clazz : 'widget-title',
-				val : '최신 책'
-			})).appendTo('#div-left-ranking-header');
-			$(createDiv({
-				id : 'div-left-ranking-content',
-				clazz : 'widget-content tab-wrapper'
-			})).appendTo('#div-left-ranking');
-			$(createUL({
-				id : 'ul-left-ranking',
-				clazz : 'nav nav-tabs-vertical',
-				role : 'tablist'
-			})).appendTo('#div-left-ranking-content');
-			var temp = ['종이책','전자책','무료책'];
-			for(var i=0;i<3;i++){
-				$(createLI({
-					id:'li-left-ranking-'+i+'',
-					clazz:'active'
-				})).appendTo('#ul-left-ranking');
-				$(createATag({
-					id:'a-left-ranking-'+i+'',
-					val:temp[i]
-				})).appendTo('#li-left-ranking-'+i+'');
-			}
-			$(createDiv({
-				id:'left-ranking-content'
-			})).appendTo('#div-left-ranking-content');
-			$(createDiv({
-				id:'ranking-left-div'
-			})).appendTo('#left-ranking-content');
-			$(createDiv({
-				id:'ranking-left-cover'
-			})).appendTo('#ranking-left-div');
-			$(createATag({
-				id:'ranking-left-a',val:''
-			})).appendTo('#ranking-left-cover');
-			$(createDiv({
-				id:'ranking-left-book-cover',
-				clazz:'book-cover'
-			})).appendTo('#ranking-left-a');
-			$(createImg({
-				id:'ranking-left-cover-img',
-				src:((d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[0].imageRoute
-			})).appendTo('#ranking-left-book-cover');
-			$(createOL({
-				id:'ranking-left-ol'
-			})).appendTo('#ranking-left-div');
-			for(var i=1;i<=6;i++){
-				$(createLI({
-					id:'ranking-left-li-'+i+''
-				})).appendTo('#ranking-left-ol');
-				$(DcreateSpan({
-					clazz:'index',
-					val:i
-				})).appendTo('#ranking-left-li-'+i+'');
-				$(createATag({
-					id:'a-a-'+i+'',
-					val:d.bookNewRanking[i-1].bookName
-				})).attr('class','ranking-left-title').attr('value',d.bookNewRanking[i-1].bookNum).appendTo('#ranking-left-li-'+i+'');
-				$(createATag({
-					val:d.bookNewRanking[i-1].writter
-				})).attr('class','ranking-left-writter').appendTo('#ranking-left-li-'+i+'');
-			}
-			
-			$('#ranking-left-li-1').mouseover(()=>{
-				$('#ranking-left-a').remove();
-				$(createATag({
-					id:'ranking-left-a',
-					val:''
-				})).appendTo('#ranking-left-cover')
-				$(createDiv({
-					id:'ranking-left-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-left-a');
-				$(createImg({
-					id:'ranking-left-cover-img',
-					src:((d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[0].imageRoute
-				})).appendTo('#ranking-left-book-cover');
-			});
-			$('#ranking-left-li-2').mouseover(()=>{
-				$('#ranking-left-a').remove();
-				$(createATag({
-					id:'ranking-left-a',
-					val:''
-				})).appendTo('#ranking-left-cover');
-				$(createDiv({
-					id:'ranking-left-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-left-a');
-				$(createImg({
-					id:'ranking-left-cover-img',
-					src:((d.bookNewRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[1].imageRoute
-				})).appendTo('#ranking-left-book-cover');
-			});
-			$('#ranking-left-li-3').mouseover(()=>{
-				$('#ranking-left-a').remove();
-				$(createATag({
-					id:'ranking-left-a',
-					val:''
-				})).appendTo('#ranking-left-cover');
-				$(createDiv({
-					id:'ranking-left-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-left-a');
-				$(createImg({
-					id:'ranking-left-cover-img',
-					src:((d.bookNewRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[2].imageRoute
-				})).appendTo('#ranking-left-book-cover');
-			});
-			$('#ranking-left-li-4').mouseover(()=>{
-				$('#ranking-left-a').remove();
-				$(createATag({
-					id:'ranking-left-a',
-					val:''
-				})).appendTo('#ranking-left-cover');
-				$(createDiv({
-					id:'ranking-left-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-left-a');
-				$(createImg({
-					id:'ranking-left-cover-img',
-					src:((d.bookNewRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[3].imageRoute
-				})).appendTo('#ranking-left-book-cover');
-			});
-			$('#ranking-left-li-5').mouseover(()=>{
-				$('#ranking-left-a').remove();
-				$(createATag({
-					id:'ranking-left-a',
-					val:''
-				})).appendTo('#ranking-left-cover');
-				$(createDiv({
-					id:'ranking-left-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-left-a');
-				$(createImg({
-					id:'ranking-left-cover-img',
-					src:((d.bookNewRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[4].imageRoute
-				})).appendTo('#ranking-left-book-cover');
-			});
-			$('#ranking-left-li-6').mouseover(()=>{
-				$('#ranking-left-a').remove();
-				$(createATag({
-					id:'ranking-left-a',
-					val:''
-				})).appendTo('#ranking-left-cover');
-				$(createDiv({
-					id:'ranking-left-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-left-a');
-				$(createImg({
-					id:'ranking-left-cover-img',
-					src:((d.bookNewRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[5].imageRoute
-				})).appendTo('#ranking-left-book-cover');
-			});
-			$('.ranking-left-title').on('click',function(){
-				var bookList = $(this).attr('value');
-				$.ajax({
-					url:x.context+'/bookDetail',
-					method:'POST',
-					data:JSON.stringify({bookList:bookList}),
-					dataType:'json',
-					contentType:'application/json',
-					success:d=>{
-						book.main.detail({
-							bookNum:d.bookList[0].bookNum,
-							imageRoute:d.bookList[0].imageRoute,
-							bookName:d.bookList[0].bookName,
-							price:d.bookList[0].price,
-							largeGenre:d.bookList[0].largeGenre,
-							smallGenre:d.bookList[0].smallGenre,
-							writter:d.bookList[0].writter,
-							publisher:d.bookList[0].publisher,
-							publishingDate:d.bookList[0].publishingDate,
-							context:x.context,
-							image:x.image
-						});
-					},
-					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
-				});
-			});
-			$('#a-left-ranking-0').click((e)=>{
-				e.preventDefault();
-			});
-			$('#a-left-ranking-1').click((e)=>{
-				e.preventDefault();
-				alert('전자책클릭!');
-			});
-			$('#a-left-ranking-2').click((e)=>{
-				e.preventDefault();
-				alert('무료책클릭!');
-			});
-			$(createDiv({
-				id : 'div-right-ranking',
-				clazz : 'widget widget-ranking pull-right'
-			})).appendTo('#div-section-ranking');
-			$(createDiv({
-				id : 'div-right-ranking-header',
-				clazz : 'widget-header'
-			})).appendTo('#div-right-ranking');
-			$(createHTag({
-				size : '3',
-				clazz : 'widget-title',
-				val : '부크크 차트'
-			})).appendTo('#div-right-ranking-header');
-			$(createDiv({
-				id : 'div-right-ranking-content',
-				clazz : 'widget-content tab-wrapper'
-			})).appendTo('#div-right-ranking');
-			$(createUL({
-				id : 'ul-right-ranking',
-				clazz : 'nav nav-tabs-vertical'
-			})).appendTo('#div-right-ranking-content');
-			var temp = ['주간','월간','전체'];
-			for(var i=0;i<3;i++){
-				$(createLI({
-					id:'li-right-ranking-'+i+'',
-					clazz:'active'
-				})).appendTo('#ul-right-ranking');
-				$(createATag({
-					id:'a-right-ranking-'+i+'',
-					val:temp[i]
-				})).appendTo('#li-right-ranking-'+i+'');
-			}
-			$(createDiv({
-				id:'right-ranking-content'
-			})).appendTo('#div-right-ranking-content');
-			$(createDiv({
-				id:'ranking-right-div'
-			})).appendTo('#right-ranking-content');
-			$(createDiv({
-				id:'ranking-right-cover'
-			})).appendTo('#ranking-right-div');
-			$(createATag({
-				id:'ranking-right-a',
-				val:''
-			})).appendTo('#ranking-right-cover');
-			$(createDiv({
-				id:'ranking-right-book-cover',
-				clazz:'book-cover'
-			})).appendTo('#ranking-right-a');
-			$(createImg({
-				id:'ranking-right-cover-img',
-				src:d.bookWeekRanking[0].imageRoute
-			})).appendTo('#ranking-right-book-cover');
-			$(createOL({
-				id:'ranking-right-ol'
-			})).appendTo('#ranking-right-div');
-			for(var i=1;i<=6;i++){
-				$(createLI({
-					id:'ranking-right-li-'+i+''
-				})).appendTo('#ranking-right-ol');
-				$(DcreateSpan({
-					clazz:'index',
-					val:i
-				})).appendTo('#ranking-right-li-'+i+'');
-				$(createATag({
-					id:'a-a-'+i+'',
-					val:d.bookWeekRanking[i-1].imageName
-				})).attr('class','ranking-right-title').attr('value',d.bookWeekRanking[i-1].bookNum).appendTo('#ranking-right-li-'+i+'');
-				$(createATag({
-					val:d.bookWeekRanking[i-1].writter
-				})).attr('class','ranking-right-writter').appendTo('#ranking-right-li-'+i+'');
-			}
-			$('.ranking-right-title').on('click',function(){
-				var bookList = $(this).attr('value');
-				$.ajax({
-					url:x.context+'/bookDetail',
-					method:'POST',
-					data:JSON.stringify({bookList:bookList}),
-					dataType:'json',
-					contentType:'application/json',
-					success:d=>{
-						console.log(d.bookList[0].bookName);
-						book.main.detail({
-							bookNum:d.bookList[0].bookNum,
-							imageRoute:d.bookList[0].imageRoute,
-							bookName:d.bookList[0].bookName,
-							price:d.bookList[0].price,
-							largeGenre:d.bookList[0].largeGenre,
-							smallGenre:d.bookList[0].smallGenre,
-							writter:d.bookList[0].writter,
-							publisher:d.bookList[0].publisher,
-							publishingDate:d.bookList[0].publishingDate,
-							context:x.context,
-							image:x.image
-						});
-					},
-					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
-				});
-			});
-			$('#ranking-right-li-1').mouseover(()=>{
-				$('#ranking-right-a').remove();
-				$(createATag({
-					id:'ranking-right-a',
-					val:''
-				})).appendTo('#ranking-right-cover');
-				$(createDiv({
-					id:'ranking-right-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-right-a');
-				$(createImg({
-					id:'ranking-right-cover-img',
-					src:((d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[0].imageRoute
-				})).appendTo('#ranking-right-book-cover');
-			});
-			$('#ranking-right-li-2').mouseover(()=>{
-				$('#ranking-right-a').remove();
-				$(createATag({
-					id:'ranking-right-a',
-					val:''
-				})).appendTo('#ranking-right-cover');
-				$(createDiv({
-					id:'ranking-right-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-right-a');
-				$(createImg({
-					id:'ranking-right-cover-img',
-					src:((d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[1].imageRoute
-				})).appendTo('#ranking-right-book-cover');
-			});
-			$('#ranking-right-li-3').mouseover(()=>{
-				$('#ranking-right-a').remove();
-				$(createATag({
-					id:'ranking-right-a',
-					val:''
-				})).appendTo('#ranking-right-cover');
-				$(createDiv({
-					id:'ranking-right-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-right-a');
-				$(createImg({
-					id:'ranking-right-cover-img',
-					src:((d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[2].imageRoute
-				})).appendTo('#ranking-right-book-cover');
-			});
-			$('#ranking-right-li-4').mouseover(()=>{
-				$('#ranking-right-a').remove();
-				$(createATag({
-					id:'ranking-right-a',
-					val:''
-				})).appendTo('#ranking-right-cover');
-				$(createDiv({
-					id:'ranking-right-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-right-a');
-				$(createImg({
-					id:'ranking-right-cover-img',
-					src:((d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[3].imageRoute
-				})).appendTo('#ranking-right-book-cover');
-			});
-			$('#ranking-right-li-5').mouseover(()=>{
-				$('#ranking-right-a').remove();
-				$(createATag({
-					id:'ranking-right-a',
-					val:''
-				})).appendTo('#ranking-right-cover');
-				$(createDiv({
-					id:'ranking-right-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-right-a');
-				$(createImg({
-					id:'ranking-right-cover-img',
-					src:((d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[4].imageRoute
-				})).appendTo('#ranking-right-book-cover');
-			});
-			$('#ranking-right-li-6').mouseover(()=>{
-				$('#ranking-right-a').remove();
-				$(createATag({
-					id:'ranking-right-a',
-					val:''
-				})).appendTo('#ranking-right-cover');
-				$(createDiv({
-					id:'ranking-right-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-right-a');
-				$(createImg({
-					id:'ranking-right-cover-img',
-					src:((d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[5].imageRoute
-				})).appendTo('#ranking-right-book-cover');
-			});
-			$('#a-right-ranking-0').click(e=>{
-				e.preventDefault();
-				$('#ranking-right-div').remove();
-				$(createDiv({
-					id:'ranking-right-div'
-				})).appendTo('#right-ranking-content');
-				$(createDiv({
-					id:'ranking-right-cover'
-				})).appendTo('#ranking-right-div');
-				$(createATag({
-					id:'ranking-right-a',
-					val:''
-				})).appendTo('#ranking-right-cover');
-				$(createDiv({
-					id:'ranking-right-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-right-a');
-				$(createImg({
-					id:'ranking-right-cover-img',
-					src:((d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[0].imageRoute
-				})).appendTo('#ranking-right-book-cover');
-				$(createOL({
-					id:'ranking-right-ol'
-				})).appendTo('#ranking-right-div');
-				for(var i=1;i<=6;i++){
+					 // 이미지 하단 버튼
+				$(createUL({
+					id : 'main-img-btn-clearfix',
+					clazz : ''
+				})).attr('style','padding:0px;margin-top:0px;margin-bottom: 0px;').appendTo('#main-advertise');
+				var temp = ['상우','두영','만호','정원'];
+				for(var i=0;i<temp.length;i++){
 					$(createLI({
-						id:'ranking-right-li-'+i+''
-					})).appendTo('#ranking-right-ol');
-					$(DcreateSpan({
-						clazz:'index',
-						val:i
-					})).appendTo('#ranking-right-li-'+i+'');
+						id:'li-wrap-dots-'+i+''
+					})).appendTo('#main-img-btn-clearfix');
 					$(createATag({
-						id:'a-a-'+i+'',
-						val:d.bookWeekRanking[i-1].imageName
-					})).attr('class','ranking-right-title').attr('value',d.bookWeekRanking[i-1].bookNum).appendTo('#ranking-right-li-'+i+'');
-					$(createATag({
-						val:d.bookWeekRanking[i-1].writter
-					})).attr('class','ranking-right-writter').appendTo('#ranking-right-li-'+i+'');
+						id : 'a-wrap-doat-'+i+'',
+						val : ''
+					})).appendTo('#li-wrap-dots-'+i+'');
+					$(createButton({
+						id : 'btn-'+i+'',
+						clazz : 'btn',
+						val :temp[i]
+					})).appendTo('#a-wrap-doat-'+i+'');
 				}
-				$('#ranking-right-li-1').mouseover(()=>{
-					$('#ranking-right-a').remove();
+				$('#btn-0').click(e=>{
+					e.preventDefault();
+					$('#main-img-advertise').remove();
+					$(createLI({
+						id :'main-img-advertise'
+					})).appendTo('#wrap-main-advertise');
 					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
+						id :'a-img-1',
+						val : ''
+					})).appendTo('#main-img-advertise');
 					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[0].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-2').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[1].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-3').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[2].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-4').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[3].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-5').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[4].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-6').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[5].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('.ranking-right-title').on('click',function(){
-					var bookList = $(this).attr('value');
-					$.ajax({
-						url:x.context+'/bookDetail',
-						method:'POST',
-						data:JSON.stringify({bookList:bookList}),
-						dataType:'json',
-						contentType:'application/json',
-						success:d=>{
-							console.log(d.bookList[0].bookName);
-							book.main.detail({
-								bookNum:d.bookList[0].bookNum,
-								imageRoute:d.bookList[0].imageRoute,
-								bookName:d.bookList[0].bookName,
-								price:d.bookList[0].price,
-								largeGenre:d.bookList[0].largeGenre,
-								smallGenre:d.bookList[0].smallGenre,
-								writter:d.bookList[0].writter,
-								publisher:d.bookList[0].publisher,
-								publishingDate:d.bookList[0].publishingDate,
-								context:x.context,
-								image:x.image
-							});
-						},
-						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+						src :'http://kinimage.naver.net/20170816_266/1502847836577fOR57_JPEG/1502847836389.jpg'
+					})).appendTo('#a-img-1').attr('style','height: 450px; width:100%;')
+					.click(()=>{
+						alert('봄 사진 클릭!');
 					});
 				});
-			});
-			$('#a-right-ranking-1').click(e=>{
-				e.preventDefault();
-				$('#ranking-right-div').remove();
-				$(createDiv({
-					id:'ranking-right-div'
-				})).appendTo('#right-ranking-content');
-				$(createDiv({
-					id:'ranking-right-cover'
-				})).appendTo('#ranking-right-div');
-				$(createATag({
-					id:'ranking-right-a',
-					val:''
-				})).appendTo('#ranking-right-cover');
-				$(createDiv({
-					id:'ranking-right-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-right-a');
-				$(createImg({
-					id:'ranking-right-cover-img',
-					src:((d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[0].imageRoute
-				})).appendTo('#ranking-right-book-cover');
-				$(createOL({
-					id:'ranking-right-ol'
-				})).appendTo('#ranking-right-div');
-				for(var i=1;i<=6;i++){
+				$('#btn-1').click(e=>{
+					e.preventDefault();
+					$('#main-img-advertise').remove();
 					$(createLI({
-						id:'ranking-right-li-'+i+''
-					})).appendTo('#ranking-right-ol');
-					$(DcreateSpan({
-						clazz:'index',
-						val:i
-					})).appendTo('#ranking-right-li-'+i+'');
+						id : 'main-img-advertise'
+					})).appendTo('#wrap-main-advertise');
 					$(createATag({
-						id:'a-a-'+i+'',
-						val:d.bookMonthRanking[i-1].imageName
-					})).attr('class','ranking-right-title').attr('value',d.bookMonthRanking[i-1].bookNum).appendTo('#ranking-right-li-'+i+'');
-					$(createATag({
-						val:d.bookMonthRanking[i-1].writter
-					})).attr('class','ranking-right-writter').appendTo('#ranking-right-li-'+i+'');
-				}
-				$('#ranking-right-li-1').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
+						id : 'a-img-2',
+						val : ''
+					})).appendTo('#main-img-advertise');
 					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[0].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-2').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookMonthRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[1].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-3').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookMonthRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[2].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-4').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookMonthRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[3].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-5').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookMonthRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[4].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-6').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookMonthRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[5].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('.ranking-right-title').on('click',function(){
-					var bookList = $(this).attr('value');
-					$.ajax({
-						url:x.context+'/bookDetail',
-						method:'POST',
-						data:JSON.stringify({bookList:bookList}),
-						dataType:'json',
-						contentType:'application/json',
-						success:d=>{
-							console.log(d.bookList[0].bookName);
-							book.main.detail({
-								bookNum:d.bookList[0].bookNum,
-								imageRoute:d.bookList[0].imageRoute,
-								bookName:d.bookList[0].bookName,
-								price:d.bookList[0].price,
-								largeGenre:d.bookList[0].largeGenre,
-								smallGenre:d.bookList[0].smallGenre,
-								writter:d.bookList[0].writter,
-								publisher:d.bookList[0].publisher,
-								publishingDate:d.bookList[0].publishingDate,
-								context:x.context,
-								image:x.image
-							});
-						},
-						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+						src : 'http://cafefiles.naver.net/20120815_51/wltn3743_1344961625040n8zgh_JPEG/32.jpeg'
+					})).appendTo('#a-img-2').attr('style','height: 450px; width:100%;')
+					.click(()=>{
+						alert('여름 사진 클릭!');
 					});
 				});
-			});
-			$('#a-right-ranking-2').click(e=>{
-				e.preventDefault();
-				$('#ranking-right-div').remove();
-				$(createDiv({
-					id:'ranking-right-div'
-				})).appendTo('#right-ranking-content');
-				$(createDiv({
-					id:'ranking-right-cover'
-				})).appendTo('#ranking-right-div');
-				$(createATag({
-					id:'ranking-right-a',
-					val:''
-				})).appendTo('#ranking-right-cover');
-				$(createDiv({
-					id:'ranking-right-book-cover',
-					clazz:'book-cover'
-				})).appendTo('#ranking-right-a');
-				$(createImg({
-					id:'ranking-right-cover-img',
-					src:((d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[0].imageRoute
-				})).appendTo('#ranking-right-book-cover');
-				$(createOL({
-					id:'ranking-right-ol'
-				})).appendTo('#ranking-right-div');
-				for(var i=1;i<=6;i++){
+				$('#btn-2').click(e=>{
+					e.preventDefault();
+					$('#main-img-advertise').remove();
 					$(createLI({
-						id:'ranking-right-li-'+i+''
-					})).appendTo('#ranking-right-ol');
-					$(DcreateSpan({
-						clazz:'index',
-						val:i
-					})).appendTo('#ranking-right-li-'+i+'');
+						id : 'main-img-advertise'
+					})).appendTo('#wrap-main-advertise');
 					$(createATag({
-						id:'a-a-'+i+'',
-						val:d.bookAllRanking[i-1].imageName
-					})).attr('class','ranking-right-title').attr('value',d.bookAllRanking[i-1].bookNum).appendTo('#ranking-right-li-'+i+'');
-					$(createATag({
-						val:d.bookAllRanking[i-1].writter
-					})).attr('class','ranking-right-writter').appendTo('#ranking-right-li-'+i+'');
-				}
-				$('#ranking-right-li-1').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
+						id : 'a-img-3',
+						val : ''
+					})).appendTo('#main-img-advertise');
 					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[0].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-2').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookAllRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[1].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-3').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookAllRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[2].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-4').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookAllRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[3].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-5').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookAllRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[4].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('#ranking-right-li-6').mouseover(()=>{
-					$('#ranking-right-a').remove();
-					$(createATag({
-						id:'ranking-right-a',
-						val:''
-					})).appendTo('#ranking-right-cover');
-					$(createDiv({
-						id:'ranking-right-book-cover',
-						clazz:'book-cover'
-					})).appendTo('#ranking-right-a');
-					$(createImg({
-						id:'ranking-right-cover-img',
-						src:((d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[5].imageRoute
-					})).appendTo('#ranking-right-book-cover');
-				});
-				$('.ranking-right-title').on('click',function(){
-					var bookList = $(this).attr('value');
-					$.ajax({
-						url:x.context+'/bookDetail',
-						method:'POST',
-						data:JSON.stringify({bookList:bookList}),
-						dataType:'json',
-						contentType:'application/json',
-						success:d=>{
-							console.log(d.bookList[0].bookName);
-							book.main.detail({
-								bookNum:d.bookList[0].bookNum,
-								imageRoute:d.bookList[0].imageRoute,
-								bookName:d.bookList[0].bookName,
-								price:d.bookList[0].price,
-								largeGenre:d.bookList[0].largeGenre,
-								smallGenre:d.bookList[0].smallGenre,
-								writter:d.bookList[0].writter,
-								publisher:d.bookList[0].publisher,
-								publishingDate:d.bookList[0].publishingDate,
-								context:x.context,
-								image:x.image
-							});
-						},
-						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+						src : 'http://cafefiles.naver.net/20141024_221/duran011_1414101447080RxsoJ_JPEG/PicSpeed%2B-2071079421.jpg'
+					})).appendTo('#a-img-3').attr('style','height: 450px; width:100%;')
+					.click(()=>{
+						alert('가을 사진 클릭!');
 					});
 				});
-			});
-			//시 에세이
-			$(createDiv({
-				id:'div-section-category',
-				clazz:'section-category'
-			})).appendTo('#div-container-2');
-			$(createDiv({
-				id:'div-section-category-1'
-			})).appendTo('#div-section-category');
-			var temp = ['시/에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타']
-			for(var i= 0; i<6; i++){
+				$('#btn-3').click(e=>{
+					e.preventDefault();
+					$('#main-img-advertise').remove();
+					$(createLI({
+						id : 'main-img-advertise'
+					})).appendTo('#wrap-main-advertise');
+					$(createATag({
+						id : 'a-img-4',
+						val : ''
+					})).appendTo('#main-img-advertise');
+					$(createImg({
+						src : 'http://post.phinf.naver.net/MjAxNjEyMjhfMjUz/MDAxNDgyODkzMTQ5NTg3.huKPPgR7H7zTAqQGfv5cKJ_lfzHWBu6K-CDBVYGgE94g.GrchDz4KjXlABiHi_HUFDBYanYGJLXobf_iHr75HgZAg.JPEG/Iaj1bpuo8oXHpdZizTkVN7g_HF7E.jpg'
+					})).appendTo('#a-img-4').attr('style','height: 450px; width:100%;')
+					.click(()=>{
+						alert('겨울 사진 클릭!');
+					});
+				});
+					 
 				$(createDiv({
-					id:'div-book-header-'+i+'',
-					clazz:'widget-header'
-				})).appendTo('#div-section-category-1');
+					id : 'div-container-2',
+					clazz : 'nav-container'
+				})).appendTo('#div-advertise');
+				$(createDiv({
+					id : 'div-section-ad',
+					clazz : 'section-ad'
+				})).appendTo('#div-container-2');
+				var temp = ['http://www.bookk.co.kr/img/banner/banner33.png','http://www.bookk.co.kr/img/banner/banner46.png','http://www.bookk.co.kr/img/banner/banner45.png'];
+				for(var i=0; i<3; i++){
+					$(createDiv({
+						id:'div-ad-item-'+i+'',
+						clazz:'ad-item ad-'+i+''
+					})).appendTo('#div-section-ad');
+					$(createATag({
+						id:'a-ad-item-'+i+'',
+						val:''
+					})).appendTo('#div-ad-item-'+i+'');
+					$(createImg({
+						src:temp[i]
+					})).appendTo('#a-ad-item-'+i+'');
+				}
+				$('#a-ad-item-0').click(e=>{
+					e.preventDefault();
+					alert('하단 광고 이미지 1번 클릭!');
+				});
+				$('#a-ad-item-1').click(e=>{
+					e.preventDefault();
+					alert('하단 광고 이미지 2번 클릭!');
+				});
+				$('#a-ad-item-2').click(e=>{
+					e.preventDefault();
+					alert('하단 광고 이미지 3번 클릭!');
+				});
+				//랭킹
+				$(createDiv({
+					id : 'div-section-ranking',
+					clazz : 'section-ranking'
+				})).appendTo('#div-container-2');
+				$(createDiv({
+					id : 'div-left-ranking',
+					clazz : 'widget widget-ranking pull-left'
+				})).appendTo('#div-section-ranking');
+				$(createDiv({
+					id : 'div-left-ranking-header',
+					clazz : 'widget-header'
+				})).appendTo('#div-left-ranking');
 				$(createHTag({
-					size:'3',
-					clazz:'widget-title',
-					val:temp[i]
-				})).appendTo('#div-book-header-'+i+'');
+					size : '3',
+					clazz : 'widget-title',
+					val : '최신 책'
+				})).appendTo('#div-left-ranking-header');
+				$(createDiv({
+					id : 'div-left-ranking-content',
+					clazz : 'widget-content tab-wrapper'
+				})).appendTo('#div-left-ranking');
+				$(createUL({
+					id : 'ul-left-ranking',
+					clazz : 'nav nav-tabs-vertical',
+					role : 'tablist'
+				})).appendTo('#div-left-ranking-content');
+				var temp = ['종이책','전자책','무료책'];
+				for(var i=0;i<3;i++){
+					$(createLI({
+						id:'li-left-ranking-'+i+'',
+						clazz:'active'
+					})).appendTo('#ul-left-ranking');
+					$(createATag({
+						id:'a-left-ranking-'+i+'',
+						val:temp[i]
+					})).appendTo('#li-left-ranking-'+i+'');
+				}
+				$(createDiv({
+					id:'left-ranking-content'
+				})).appendTo('#div-left-ranking-content');
+				$(createDiv({
+					id:'ranking-left-div'
+				})).appendTo('#left-ranking-content');
+				$(createDiv({
+					id:'ranking-left-cover'
+				})).appendTo('#ranking-left-div');
 				$(createATag({
-					id:'a-move-list-'+i+'',
-					val:'더보기'
-				})).appendTo('#div-book-header-'+i+'').attr('class','more');
+					id:'ranking-left-a',val:''
+				})).appendTo('#ranking-left-cover');
 				$(createDiv({
-					id:'div-category-list-'+i+'',
-					clazz:'widget-content book-list clearfix'
-				})).appendTo('#div-section-category-1');
-				$(createDiv({
-					id:'div-book-item-'+i+'',
-					clazz:'book-item'
-				})).appendTo('#div-category-list-'+i+'');
-				$(createATag({
-					id:'a-book-item-0-'+i+'',
-					val:''
-				})).appendTo('#div-book-item-0').attr('class','a-book-cover a-book-cover-0').attr('value',d.book1[i].bookNum);
-				$(createDiv({
-					id:'div-book-cover-0-'+i+'',
+					id:'ranking-left-book-cover',
 					clazz:'book-cover'
-				})).appendTo('#a-book-item-0-'+i+'');
-				$(createImg({
-					src:((d.book1[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book1[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book1[i].imageRoute 
-				})).appendTo('#div-book-cover-0-'+i+'');
-				$(createDiv({
-					clazz:'book-deco'
-				})).appendTo('#div-book-cover-0-'+i+'');
-				$(createDivVal({
-					id:'div-book-name-0-'+i+'',
-					clazz:'book-title book-title-0',
-					val:d.book1[i].bookName
-				})).appendTo('#a-book-item-0-'+i+'');
-				$(createDivVal({
-					id:'div-book-writter-0-'+i+'',
-					clazz:'book-author',val:d.book1[i].writter
-				})).appendTo('#a-book-item-0-'+i+''); 
-			}
-			//메인페이지 더보기 클릭
-			$('#a-move-list-0').click(()=>{
-				var g = {large:$('#store-category-0').text()};
-				$.ajax({
-					url:x.context+'/bookGenreLargeList',
-					method:'POST',
-					data:JSON.stringify({large:g.large}),
-					dataType:'json',
-					contentType:'application/json',
-					success:d=>{
-						book.main.list({
-							large:g.large,
-							count:d.count,
-							largeList:d.largeList,
-							context:x.context,
-							image:x.image});
-						},
-					error : (x,h,m)=>{
-						alert('검색 실패 x='+x+', h='+h+', m='+m);
-						}
+				})).appendTo('#ranking-left-a');
+				if((d.bookNewRanking).length!=0){
+					$(createImg({
+						id:'ranking-left-cover-img',
+						src:((d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[0].imageRoute
+					})).appendTo('#ranking-left-book-cover');
+				}
+				$(createOL({
+					id:'ranking-left-ol'
+				})).appendTo('#ranking-left-div');
+				for(var i=1;i<=6;i++){
+					$(createLI({
+						id:'ranking-left-li-'+i+''
+					})).appendTo('#ranking-left-ol');
+					$(DcreateSpan({
+						clazz:'index',
+						val:i
+					})).appendTo('#ranking-left-li-'+i+'');
+
+					if((d.bookNewRanking).length!=0){
+						$(createATag({
+							id:'a-a-'+i+'',
+							val:d.bookNewRanking[i-1].bookName
+						})).attr('class','ranking-left-title').attr('value',d.bookNewRanking[i-1].bookNum).appendTo('#ranking-left-li-'+i+'');
+						$(createATag({
+							val:d.bookNewRanking[i-1].writter
+						})).attr('class','ranking-left-writter').appendTo('#ranking-left-li-'+i+'');
+					}
+
+				}
+				
+				$('#ranking-left-li-1').mouseover(()=>{
+					$('#ranking-left-a').remove();
+					$(createATag({
+						id:'ranking-left-a',
+						val:''
+					})).appendTo('#ranking-left-cover')
+					$(createDiv({
+						id:'ranking-left-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-left-a');
+
+					if((d.bookNewRanking).length!=0){
+						$(createImg({
+							id:'ranking-left-cover-img',
+							src:((d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[0].imageRoute
+						})).appendTo('#ranking-left-book-cover');
+					}
 				});
-			});
-			$('#a-move-list-1').click(()=>{
-				var g = {large:$('#store-category-1').text()};
-				$.ajax({
-					url:x.context+'/bookGenreLargeList',
-					method:'POST',
-					data:JSON.stringify({large:g.large}),
-					dataType:'json',
-					contentType:'application/json',
-					success:d=>{
-						book.main.list({
-							large:g.large,
-							count:d.count,
-							largeList:d.largeList,
-							context:x.context,
-							image:x.image});
+				$('#ranking-left-li-2').mouseover(()=>{
+					$('#ranking-left-a').remove();
+					$(createATag({
+						id:'ranking-left-a',
+						val:''
+					})).appendTo('#ranking-left-cover');
+					$(createDiv({
+						id:'ranking-left-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-left-a');
+
+					if((d.bookNewRanking).length!=0){
+						$(createImg({
+							id:'ranking-left-cover-img',
+							src:((d.bookNewRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[1].imageRoute
+						})).appendTo('#ranking-left-book-cover');
+					}
+				});
+				$('#ranking-left-li-3').mouseover(()=>{
+					$('#ranking-left-a').remove();
+					$(createATag({
+						id:'ranking-left-a',
+						val:''
+					})).appendTo('#ranking-left-cover');
+					$(createDiv({
+						id:'ranking-left-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-left-a');
+
+					if((d.bookNewRanking).length!=0){
+						$(createImg({
+							id:'ranking-left-cover-img',
+							src:((d.bookNewRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[2].imageRoute
+						})).appendTo('#ranking-left-book-cover');
+					}
+				});
+				$('#ranking-left-li-4').mouseover(()=>{
+					$('#ranking-left-a').remove();
+					$(createATag({
+						id:'ranking-left-a',
+						val:''
+					})).appendTo('#ranking-left-cover');
+					$(createDiv({
+						id:'ranking-left-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-left-a');
+
+					if((d.bookNewRanking).length!=0){
+						$(createImg({
+							id:'ranking-left-cover-img',
+							src:((d.bookNewRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[3].imageRoute
+						})).appendTo('#ranking-left-book-cover');
+					}
+				});
+				$('#ranking-left-li-5').mouseover(()=>{
+					$('#ranking-left-a').remove();
+					$(createATag({
+						id:'ranking-left-a',
+						val:''
+					})).appendTo('#ranking-left-cover');
+					$(createDiv({
+						id:'ranking-left-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-left-a');
+
+					if((d.bookNewRanking).length!=0){
+						$(createImg({
+							id:'ranking-left-cover-img',
+							src:((d.bookNewRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[4].imageRoute
+						})).appendTo('#ranking-left-book-cover');
+					}
+				});
+				$('#ranking-left-li-6').mouseover(()=>{
+					$('#ranking-left-a').remove();
+					$(createATag({
+						id:'ranking-left-a',
+						val:''
+					})).appendTo('#ranking-left-cover');
+					$(createDiv({
+						id:'ranking-left-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-left-a');
+
+					if((d.bookNewRanking).length!=0){
+						$(createImg({
+							id:'ranking-left-cover-img',
+							src:((d.bookNewRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookNewRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookNewRanking[5].imageRoute
+						})).appendTo('#ranking-left-book-cover');
+					}
+				});
+				$('.ranking-left-title').on('click',function(){
+					var bookList = $(this).attr('value');
+					$.ajax({
+						url:x.context+'/bookDetail',
+						method:'POST',
+						data:JSON.stringify({bookList:bookList}),
+						dataType:'json',
+						contentType:'application/json',
+						success:d=>{
+							book.main.detail({
+								bookNum:d.bookList[0].bookNum,
+								imageRoute:d.bookList[0].imageRoute,
+								bookName:d.bookList[0].bookName,
+								price:d.bookList[0].price,
+								largeGenre:d.bookList[0].largeGenre,
+								smallGenre:d.bookList[0].smallGenre,
+								writter:d.bookList[0].writter,
+								publisher:d.bookList[0].publisher,
+								publishingDate:d.bookList[0].publishingDate,
+								context:x.context,
+								image:x.image
+							});
 						},
-					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
 					});
-			});
-			for(var i=0;i<6;i++){ 
+				});
+				$('#a-left-ranking-0').click((e)=>{
+					e.preventDefault();
+				});
+				$('#a-left-ranking-1').click((e)=>{
+					e.preventDefault();
+					alert('전자책클릭!');
+				});
+				$('#a-left-ranking-2').click((e)=>{
+					e.preventDefault();
+					alert('무료책클릭!');
+				});
+				$(createDiv({
+					id : 'div-right-ranking',
+					clazz : 'widget widget-ranking pull-right'
+				})).appendTo('#div-section-ranking');
+				$(createDiv({
+					id : 'div-right-ranking-header',
+					clazz : 'widget-header'
+				})).appendTo('#div-right-ranking');
+				$(createHTag({
+					size : '3',
+					clazz : 'widget-title',
+					val : '부크크 차트'
+				})).appendTo('#div-right-ranking-header');
+				$(createDiv({
+					id : 'div-right-ranking-content',
+					clazz : 'widget-content tab-wrapper'
+				})).appendTo('#div-right-ranking');
+				$(createUL({
+					id : 'ul-right-ranking',
+					clazz : 'nav nav-tabs-vertical'
+				})).appendTo('#div-right-ranking-content');
+				var temp = ['주간','월간','전체'];
+				for(var i=0;i<3;i++){
+					$(createLI({
+						id:'li-right-ranking-'+i+'',
+						clazz:'active'
+					})).appendTo('#ul-right-ranking');
+					$(createATag({
+						id:'a-right-ranking-'+i+'',
+						val:temp[i]
+					})).appendTo('#li-right-ranking-'+i+'');
+				}
+				$(createDiv({
+					id:'right-ranking-content'
+				})).appendTo('#div-right-ranking-content');
+				$(createDiv({
+					id:'ranking-right-div'
+				})).appendTo('#right-ranking-content');
+				$(createDiv({
+					id:'ranking-right-cover'
+				})).appendTo('#ranking-right-div');
 				$(createATag({
-					id:'a-book-item-1-'+i+'',
+					id:'ranking-right-a',
 					val:''
-				})).appendTo('#div-book-item-1').attr('class','a-book-cover a-book-cover-1').attr('value',d.book2[i].bookNum);
+				})).appendTo('#ranking-right-cover');
 				$(createDiv({
-					id:'div-book-cover-1-'+i+'',
-					clazz:'book-cover book-cover-1'
-				})).appendTo('#a-book-item-1-'+i+'');
-				$(createImg({
-					src:((d.book2[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book2[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book2[i].imageRoute 
-				})).appendTo('#div-book-cover-1-'+i+'');
-				$(createDiv({
-					clazz:'book-deco'
-				})).appendTo('#div-book-cover-1-'+i+'');
-				$(createDivVal({
-					id:'div-book-name-1-'+i+'',
-					clazz:'book-title',
-					val:d.book2[i].bookName
-				})).appendTo('#a-book-item-1-'+i+'');
-				$(createDivVal({
-					id:'div-book-writter-1-'+i+'',
-					clazz:'book-author',
-					val:d.book2[i].writter
-				})).appendTo('#a-book-item-1-'+i+''); 
-			}
-			for(var i=0;i<6;i++){
-				$(createATag({
-					id:'a-book-item-2-'+i+'',
-					val:''
-				})).appendTo('#div-book-item-2').attr('class','a-book-cover a-book-cover-2').attr('value',d.book3[i].bookNum);
-				$(createDiv({
-					id:'div-book-cover-2-'+i+'',
-					clazz:'book-cover book-cover-2'
-				})).appendTo('#a-book-item-2-'+i+'');
-				$(createImg({
-					src:((d.book3[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book3[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book3[i].imageRoute 
-				})).appendTo('#div-book-cover-2-'+i+'');
-				$(createDiv({
-					clazz:'book-deco'
-				})).appendTo('#div-book-cover-2-'+i+'');
-				$(createDivVal({
-					id:'div-book-name-2-'+i+'',
-					clazz:'book-title',
-					val:d.book3[i].bookName
-				})).appendTo('#a-book-item-2-'+i+'');
-				$(createDivVal({
-					id:'div-book-writter-2-'+i+'',
-					clazz:'book-author',val:d.book3[i].writter
-				})).appendTo('#a-book-item-2-'+i+''); 
-			}
-			for(var i=0;i<6;i++){
-				$(createATag({
-					id:'a-book-item-3-'+i+'',
-					val:''
-				})).appendTo('#div-book-item-3').attr('class','a-book-cover a-book-cover-3').attr('value',d.book4[i].bookNum);
-				$(createDiv({
-					id:'div-book-cover-3-'+i+'',
-					clazz:'book-cover book-cover-3'
-				})).appendTo('#a-book-item-3-'+i+'');
-				$(createImg({
-					src:((d.book4[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book4[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book4[i].imageRoute 
-				})).appendTo('#div-book-cover-3-'+i+'');
-				$(createDiv({
-					clazz:'book-deco'
-				})).appendTo('#div-book-cover-3-'+i+'');
-				$(createDivVal({
-					id:'div-book-name-3-'+i+'',
-					clazz:'book-title',
-					val:d.book4[i].bookName
-				})).appendTo('#a-book-item-3-'+i+'');
-				$(createDivVal({
-					id:'div-book-writter-3-'+i+'',
-					clazz:'book-author',
-					val:d.book4[i].writter
-				})).appendTo('#a-book-item-3-'+i+''); 
-			}
-			for(var i=0;i<6;i++){
-				$(createATag({
-					id:'a-book-item-4-'+i+'',
-					val:''
-				})).appendTo('#div-book-item-4').attr('class','a-book-cover a-book-cover-4').attr('value',d.book5[i].bookNum);
-				$(createDiv({
-					id:'div-book-cover-4-'+i+'',
-					clazz:'book-cover book-cover-4'
-				})).appendTo('#a-book-item-4-'+i+'');
-				$(createImg({
-					src:((d.book5[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book5[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book5[i].imageRoute 
-				})).appendTo('#div-book-cover-4-'+i+'');
-				$(createDiv({
-					clazz:'book-deco'
-				})).appendTo('#div-book-cover-4-'+i+'');
-				$(createDivVal({
-					id:'div-book-name-4-'+i+'',
-					clazz:'book-title',
-					val:d.book5[i].bookName
-				})).appendTo('#a-book-item-4-'+i+'');
-				$(createDivVal({
-					id:'div-book-writter-4-'+i+'',
-					clazz:'book-author',
-					val:d.book5[i].writter
-				})).appendTo('#a-book-item-4-'+i+''); 
-			}
-			for(var i=0;i<6;i++){
-				$(createATag({
-					id:'a-book-item-5-'+i+'',
-					val:''
-				})).appendTo('#div-book-item-5').attr('class','a-book-cover a-book-cover-5').attr('value',d.book6[i].bookNum);
-				$(createDiv({
-					id:'div-book-cover-5-'+i+'',
-					clazz:'book-cover book-cover-5'
-				})).appendTo('#a-book-item-5-'+i+'');
-				$(createImg({
-					src:((d.book6[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book6[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book6[i].imageRoute 
-				})).appendTo('#div-book-cover-5-'+i+'');
-				$(createDiv({
-					clazz:'book-deco'
-				})).appendTo('#div-book-cover-5-'+i+'');
-				$(createDivVal({
-					id:'div-book-name-5-'+i+'',
-					clazz:'book-title',
-					val:d.book6[i].bookName
-				})).appendTo('#a-book-item-5-'+i+'');
-				$(createDivVal({
-					id:'div-book-writter-5-'+i+'',
-					clazz:'book-author',
-					val:d.book6[i].writter
-				})).appendTo('#a-book-item-5-'+i+''); 
-			}
-			$('.a-book-cover-0').on('click',function(){
-				$('#div-advertise').remove();
-				var bookList = $(this).attr('value');
-				$.ajax({
-					url:x.context+'/bookDetail',
-					method:'POST',
-					data:JSON.stringify({bookList:bookList}),
-					dataType:'json',
-					contentType:'application/json',
-					success:d=>{
-						book.main.detail({
-							bookNum:d.bookList[0].bookNum,
-							imageRoute:d.bookList[0].imageRoute,
-							bookName:d.bookList[0].bookName,
-							price:d.bookList[0].price,
-							largeGenre:d.bookList[0].largeGenre,
-							smallGenre:d.bookList[0].smallGenre,
-							writter:d.bookList[0].writter,
-							publisher:d.bookList[0].publisher,
-							publishingDate:d.bookList[0].publishingDate,
-							context:x.context,
-							image:x.image
-						});
-					},
-					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					id:'ranking-right-book-cover',
+					clazz:'book-cover'
+				})).appendTo('#ranking-right-a');
+
+				console.log(d.bookWeekRanking)
+				if((d.bookWeekRanking).length!=0){
+					$(createImg({
+						id:'ranking-right-cover-img',
+						src:d.bookWeekRanking[0].imageRoute
+					})).appendTo('#ranking-right-book-cover');
+				}
+				$(createOL({
+					id:'ranking-right-ol'
+				})).appendTo('#ranking-right-div');
+				for(var i=1;i<=6;i++){
+					$(createLI({
+						id:'ranking-right-li-'+i+''
+					})).appendTo('#ranking-right-ol');
+					$(DcreateSpan({
+						clazz:'index',
+						val:i
+					})).appendTo('#ranking-right-li-'+i+'');
+
+					if((d.bookWeekRanking).length!=0){
+						$(createATag({
+							id:'a-a-'+i+'',
+							val:d.bookWeekRanking[i-1].imageName
+						})).attr('class','ranking-right-title').attr('value',d.bookWeekRanking[i-1].bookNum).appendTo('#ranking-right-li-'+i+'');
+						$(createATag({
+							val:d.bookWeekRanking[i-1].writter
+						})).attr('class','ranking-right-writter').appendTo('#ranking-right-li-'+i+'');
+					}
+				}
+				$('.ranking-right-title').on('click',function(){
+					var bookList = $(this).attr('value');
+					$.ajax({
+						url:x.context+'/bookDetail',
+						method:'POST',
+						data:JSON.stringify({bookList:bookList}),
+						dataType:'json',
+						contentType:'application/json',
+						success:d=>{
+							console.log(d.bookList[0].bookName);
+							book.main.detail({
+								bookNum:d.bookList[0].bookNum,
+								imageRoute:d.bookList[0].imageRoute,
+								bookName:d.bookList[0].bookName,
+								price:d.bookList[0].price,
+								largeGenre:d.bookList[0].largeGenre,
+								smallGenre:d.bookList[0].smallGenre,
+								writter:d.bookList[0].writter,
+								publisher:d.bookList[0].publisher,
+								publishingDate:d.bookList[0].publishingDate,
+								context:x.context,
+								image:x.image
+							});
+						},
+						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					});
 				});
-			}); 
-			$('.a-book-cover-1').on('click',function(){
-				$('#div-advertise').remove();
-				var bookList = $(this).attr('value');
-				$.ajax({
-					url:x.context+'/bookDetail',
-					method:'POST',
-					data:JSON.stringify({bookList:bookList}),
-					dataType:'json',
-					contentType:'application/json',
-					success:d=>{
-						book.main.detail({
-							bookNum:d.bookList[0].bookNum,
-							imageRoute:d.bookList[0].imageRoute,
-							bookName:d.bookList[0].bookName,
-							price:d.bookList[0].price,
-							largeGenre:d.bookList[0].largeGenre,
-							smallGenre:d.bookList[0].smallGenre,
-							writter:d.bookList[0].writter,
-							publisher:d.bookList[0].publisher,
-							publishingDate:d.bookList[0].publishingDate,
-							context:x.context,
-							image:x.image
-						});
-					},
-					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+				$('#ranking-right-li-1').mouseover(()=>{
+					$('#ranking-right-a').remove();
+					$(createATag({
+						id:'ranking-right-a',
+						val:''
+					})).appendTo('#ranking-right-cover');
+					$(createDiv({
+						id:'ranking-right-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-right-a');
+
+					if((d.bookWeekRanking).length!=0){
+						$(createImg({
+							id:'ranking-right-cover-img',
+							src:((d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[0].imageRoute
+						})).appendTo('#ranking-right-book-cover');
+					}
 				});
+				$('#ranking-right-li-2').mouseover(()=>{
+					$('#ranking-right-a').remove();
+					$(createATag({
+						id:'ranking-right-a',
+						val:''
+					})).appendTo('#ranking-right-cover');
+					$(createDiv({
+						id:'ranking-right-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-right-a');
+
+					if((d.bookWeekRanking).length!=0){
+						$(createImg({
+							id:'ranking-right-cover-img',
+							src:((d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[1].imageRoute
+						})).appendTo('#ranking-right-book-cover');
+					}
+				});
+				$('#ranking-right-li-3').mouseover(()=>{
+					$('#ranking-right-a').remove();
+					$(createATag({
+						id:'ranking-right-a',
+						val:''
+					})).appendTo('#ranking-right-cover');
+					$(createDiv({
+						id:'ranking-right-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-right-a');
+
+					if((d.bookWeekRanking).length!=0){
+						$(createImg({
+							id:'ranking-right-cover-img',
+							src:((d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[2].imageRoute
+						})).appendTo('#ranking-right-book-cover');
+					}
+				});
+				$('#ranking-right-li-4').mouseover(()=>{
+					$('#ranking-right-a').remove();
+					$(createATag({
+						id:'ranking-right-a',
+						val:''
+					})).appendTo('#ranking-right-cover');
+					$(createDiv({
+						id:'ranking-right-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-right-a');
+
+					if((d.bookWeekRanking).length!=0){
+						$(createImg({
+							id:'ranking-right-cover-img',
+							src:((d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[3].imageRoute
+						})).appendTo('#ranking-right-book-cover');
+					}
+				});
+				$('#ranking-right-li-5').mouseover(()=>{
+					$('#ranking-right-a').remove();
+					$(createATag({
+						id:'ranking-right-a',
+						val:''
+					})).appendTo('#ranking-right-cover');
+					$(createDiv({
+						id:'ranking-right-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-right-a');
+
+					if((d.bookWeekRanking).length!=0){
+						$(createImg({
+							id:'ranking-right-cover-img',
+							src:((d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[4].imageRoute
+						})).appendTo('#ranking-right-book-cover');
+					}
+				});
+				$('#ranking-right-li-6').mouseover(()=>{
+					$('#ranking-right-a').remove();
+					$(createATag({
+						id:'ranking-right-a',
+						val:''
+					})).appendTo('#ranking-right-cover');
+					$(createDiv({
+						id:'ranking-right-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-right-a');
+
+					if((d.bookWeekRanking).length!=0){
+						$(createImg({
+							id:'ranking-right-cover-img',
+							src:((d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[5].imageRoute
+						})).appendTo('#ranking-right-book-cover');
+					}
+				});
+				$('#a-right-ranking-0').click(e=>{
+					e.preventDefault();
+					$('#ranking-right-div').remove();
+					$(createDiv({
+						id:'ranking-right-div'
+					})).appendTo('#right-ranking-content');
+					$(createDiv({
+						id:'ranking-right-cover'
+					})).appendTo('#ranking-right-div');
+					$(createATag({
+						id:'ranking-right-a',
+						val:''
+					})).appendTo('#ranking-right-cover');
+					$(createDiv({
+						id:'ranking-right-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-right-a');
+
+					if((d.bookWeekRanking).length!=0){
+						$(createImg({
+							id:'ranking-right-cover-img',
+							src:((d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[0].imageRoute
+						})).appendTo('#ranking-right-book-cover');
+					}
+					$(createOL({
+						id:'ranking-right-ol'
+					})).appendTo('#ranking-right-div');
+					for(var i=1;i<=6;i++){
+						$(createLI({
+							id:'ranking-right-li-'+i+''
+						})).appendTo('#ranking-right-ol');
+						$(DcreateSpan({
+							clazz:'index',
+							val:i
+						})).appendTo('#ranking-right-li-'+i+'');
+
+						if((d.bookWeekRanking).length!=0){
+							$(createATag({
+								id:'a-a-'+i+'',
+								val:d.bookWeekRanking[i-1].imageName
+							})).attr('class','ranking-right-title').attr('value',d.bookWeekRanking[i-1].bookNum).appendTo('#ranking-right-li-'+i+'');
+							$(createATag({
+								val:d.bookWeekRanking[i-1].writter
+							})).attr('class','ranking-right-writter').appendTo('#ranking-right-li-'+i+'');
+						}
+					}
+					$('#ranking-right-li-1').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookWeekRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[0].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-2').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookWeekRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[1].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-3').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookWeekRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[2].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-4').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookWeekRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[3].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-5').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookWeekRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[4].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-6').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookWeekRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookWeekRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookWeekRanking[5].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('.ranking-right-title').on('click',function(){
+						var bookList = $(this).attr('value');
+						$.ajax({
+							url:x.context+'/bookDetail',
+							method:'POST',
+							data:JSON.stringify({bookList:bookList}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{
+								console.log(d.bookList[0].bookName);
+								book.main.detail({
+									bookNum:d.bookList[0].bookNum,
+									imageRoute:d.bookList[0].imageRoute,
+									bookName:d.bookList[0].bookName,
+									price:d.bookList[0].price,
+									largeGenre:d.bookList[0].largeGenre,
+									smallGenre:d.bookList[0].smallGenre,
+									writter:d.bookList[0].writter,
+									publisher:d.bookList[0].publisher,
+									publishingDate:d.bookList[0].publishingDate,
+									context:x.context,
+									image:x.image
+								});
+							},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+						});
+					});
+				});
+				$('#a-right-ranking-1').click(e=>{
+					e.preventDefault();
+					$('#ranking-right-div').remove();
+					$(createDiv({
+						id:'ranking-right-div'
+					})).appendTo('#right-ranking-content');
+					$(createDiv({
+						id:'ranking-right-cover'
+					})).appendTo('#ranking-right-div');
+					$(createATag({
+						id:'ranking-right-a',
+						val:''
+					})).appendTo('#ranking-right-cover');
+					$(createDiv({
+						id:'ranking-right-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-right-a');
+
+					if((d.bookWeekRanking).length!=0){
+						$(createImg({
+							id:'ranking-right-cover-img',
+							src:((d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[0].imageRoute
+						})).appendTo('#ranking-right-book-cover');
+					}
+					$(createOL({
+						id:'ranking-right-ol'
+					})).appendTo('#ranking-right-div');
+					for(var i=1;i<=6;i++){
+						$(createLI({
+							id:'ranking-right-li-'+i+''
+						})).appendTo('#ranking-right-ol');
+						$(DcreateSpan({
+							clazz:'index',
+							val:i
+						})).appendTo('#ranking-right-li-'+i+'');
+
+						if((d.bookMonthRanking).length!=0){
+							$(createATag({
+								id:'a-a-'+i+'',
+								val:d.bookMonthRanking[i-1].imageName
+							})).attr('class','ranking-right-title').attr('value',d.bookMonthRanking[i-1].bookNum).appendTo('#ranking-right-li-'+i+'');
+							$(createATag({
+								val:d.bookMonthRanking[i-1].writter
+							})).attr('class','ranking-right-writter').appendTo('#ranking-right-li-'+i+'');
+						}
+					}
+					$('#ranking-right-li-1').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookMonthRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[0].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-2').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookWeekRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookMonthRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[1].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-3').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookMonthRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookMonthRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[2].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-4').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookMonthRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookMonthRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[3].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-5').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookMonthRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookMonthRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[4].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-6').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookMonthRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookMonthRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookMonthRanking[5].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookMonthRanking[5].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('.ranking-right-title').on('click',function(){
+						var bookList = $(this).attr('value');
+						
+						$.ajax({
+							url:x.context+'/bookDetail',
+							method:'POST',
+							data:JSON.stringify({bookList:bookList}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{
+								console.log(d.bookList[0].bookName);
+								book.main.detail({
+									bookNum:d.bookList[0].bookNum,
+									imageRoute:d.bookList[0].imageRoute,
+									bookName:d.bookList[0].bookName,
+									price:d.bookList[0].price,
+									largeGenre:d.bookList[0].largeGenre,
+									smallGenre:d.bookList[0].smallGenre,
+									writter:d.bookList[0].writter,
+									publisher:d.bookList[0].publisher,
+									publishingDate:d.bookList[0].publishingDate,
+									context:x.context,
+									image:x.image
+								});
+							},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+						});
+					});
+				});
+				$('#a-right-ranking-2').click(e=>{
+					e.preventDefault();
+					$('#ranking-right-div').remove();
+					$(createDiv({
+						id:'ranking-right-div'
+					})).appendTo('#right-ranking-content');
+					$(createDiv({
+						id:'ranking-right-cover'
+					})).appendTo('#ranking-right-div');
+					$(createATag({
+						id:'ranking-right-a',
+						val:''
+					})).appendTo('#ranking-right-cover');
+					$(createDiv({
+						id:'ranking-right-book-cover',
+						clazz:'book-cover'
+					})).appendTo('#ranking-right-a');
+
+					if((d.bookAllRanking).length!=0){
+						$(createImg({
+							id:'ranking-right-cover-img',
+							src:((d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[0].imageRoute
+						})).appendTo('#ranking-right-book-cover');
+					}
+					$(createOL({
+						id:'ranking-right-ol'
+					})).appendTo('#ranking-right-div');
+					for(var i=1;i<=6;i++){
+						$(createLI({
+							id:'ranking-right-li-'+i+''
+						})).appendTo('#ranking-right-ol');
+						$(DcreateSpan({
+							clazz:'index',
+							val:i
+						})).appendTo('#ranking-right-li-'+i+'');
+
+						if((d.bookAllRanking).length!=0){
+							$(createATag({
+								id:'a-a-'+i+'',
+								val:d.bookAllRanking[i-1].imageName
+							})).attr('class','ranking-right-title').attr('value',d.bookAllRanking[i-1].bookNum).appendTo('#ranking-right-li-'+i+'');
+							$(createATag({
+								val:d.bookAllRanking[i-1].writter
+							})).attr('class','ranking-right-writter').appendTo('#ranking-right-li-'+i+'');
+						}
+					}
+					$('#ranking-right-li-1').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookAllRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[0].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-2').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookAllRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookAllRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[1].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[1].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-3').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookAllRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookAllRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[2].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[2].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-4').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+
+						if((d.bookAllRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookAllRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[3].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[3].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-5').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+						if((d.bookAllRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookAllRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[4].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[4].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('#ranking-right-li-6').mouseover(()=>{
+						$('#ranking-right-a').remove();
+						$(createATag({
+							id:'ranking-right-a',
+							val:''
+						})).appendTo('#ranking-right-cover');
+						$(createDiv({
+							id:'ranking-right-book-cover',
+							clazz:'book-cover'
+						})).appendTo('#ranking-right-a');
+						if((d.bookAllRanking).length!=0){
+							$(createImg({
+								id:'ranking-right-cover-img',
+								src:((d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.bookAllRanking[0].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.bookAllRanking[5].imageRoute
+							})).appendTo('#ranking-right-book-cover');
+						}
+					});
+					$('.ranking-right-title').on('click',function(){
+						var bookList = $(this).attr('value');
+						$.ajax({
+							url:x.context+'/bookDetail',
+							method:'POST',
+							data:JSON.stringify({bookList:bookList}),
+							dataType:'json',
+							contentType:'application/json',
+							success:d=>{
+								console.log(d.bookList[0].bookName);
+								book.main.detail({
+									bookNum:d.bookList[0].bookNum,
+									imageRoute:d.bookList[0].imageRoute,
+									bookName:d.bookList[0].bookName,
+									price:d.bookList[0].price,
+									largeGenre:d.bookList[0].largeGenre,
+									smallGenre:d.bookList[0].smallGenre,
+									writter:d.bookList[0].writter,
+									publisher:d.bookList[0].publisher,
+									publishingDate:d.bookList[0].publishingDate,
+									context:x.context,
+									image:x.image
+								});
+							},
+							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+						});
+					});
+				});
+				//시 에세이
+				$(createDiv({
+					id:'div-section-category',
+					clazz:'section-category'
+				})).appendTo('#div-container-2');
+				$(createDiv({
+					id:'div-section-category-1'
+				})).appendTo('#div-section-category');
+				var temp = ['시/에세이','소설','전기/회고록','경영/경제/자기계발','인문사회','기타']
+				for(var i= 0; i<6; i++){
+					$(createDiv({
+						id:'div-book-header-'+i+'',
+						clazz:'widget-header'
+					})).appendTo('#div-section-category-1');
+					$(createHTag({
+						size:'3',
+						clazz:'widget-title',
+						val:temp[i]
+					})).appendTo('#div-book-header-'+i+'');
+					$(createATag({
+						id:'a-move-list-'+i+'',
+						val:'더보기'
+					})).appendTo('#div-book-header-'+i+'').attr('class','more');
+					$(createDiv({
+						id:'div-category-list-'+i+'',
+						clazz:'widget-content book-list clearfix'
+					})).appendTo('#div-section-category-1');
+					$(createDiv({
+						id:'div-book-item-'+i+'',
+						clazz:'book-item'
+					})).appendTo('#div-category-list-'+i+'');
+					$(createATag({
+						id:'a-book-item-0-'+i+'',
+						val:''
+					})).appendTo('#div-book-item-0').attr('class','a-book-cover a-book-cover-0').attr('value',d.book1[i].bookNum);
+					$(createDiv({
+						id:'div-book-cover-0-'+i+'',
+						clazz:'book-cover'
+					})).appendTo('#a-book-item-0-'+i+'');
+
+					if((d.book1).length!=0){
+						$(createImg({
+							src:((d.book1[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book1[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book1[i].imageRoute 
+						})).appendTo('#div-book-cover-0-'+i+'');
+					}
+					$(createDiv({
+						clazz:'book-deco'
+					})).appendTo('#div-book-cover-0-'+i+'');
+
+					if((d.book1).length!=0){
+						$(createDivVal({
+							id:'div-book-name-0-'+i+'',
+							clazz:'book-title book-title-0',
+							val:d.book1[i].bookName
+						})).appendTo('#a-book-item-0-'+i+'');
+						$(createDivVal({
+							id:'div-book-writter-0-'+i+'',
+							clazz:'book-author',val:d.book1[i].writter
+						})).appendTo('#a-book-item-0-'+i+''); 
+					}
+				}
+				//메인페이지 더보기 클릭
+				$('#a-move-list-0').click(()=>{
+					var g = {large:$('#store-category-0').text()};
+					$.ajax({
+						url:x.context+'/bookGenreLargeList',
+						method:'POST',
+						data:JSON.stringify({large:g.large}),
+						dataType:'json',
+						contentType:'application/json',
+						success:d=>{
+							book.main.list({
+								large:g.large,
+								count:d.count,
+								largeList:d.largeList,
+								context:x.context,
+								image:x.image});
+							},
+						error : (x,h,m)=>{
+							alert('검색 실패 x='+x+', h='+h+', m='+m);
+							}
+					});
+				});
+				$('#a-move-list-1').click(()=>{
+					var g = {large:$('#store-category-1').text()};
+					$.ajax({
+						url:x.context+'/bookGenreLargeList',
+						method:'POST',
+						data:JSON.stringify({large:g.large}),
+						dataType:'json',
+						contentType:'application/json',
+						success:d=>{
+							book.main.list({
+								large:g.large,
+								count:d.count,
+								largeList:d.largeList,
+								context:x.context,
+								image:x.image});
+							},
+						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+						});
+				});
+				for(var i=0;i<6;i++){ 
+					$(createATag({
+						id:'a-book-item-1-'+i+'',
+						val:''
+					})).appendTo('#div-book-item-1').attr('class','a-book-cover a-book-cover-1').attr('value',d.book2[i].bookNum);
+					$(createDiv({
+						id:'div-book-cover-1-'+i+'',
+						clazz:'book-cover book-cover-1'
+					})).appendTo('#a-book-item-1-'+i+'');
+
+					if((d.book2).length!=0){
+						$(createImg({
+							src:((d.book2[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book2[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book2[i].imageRoute 
+						})).appendTo('#div-book-cover-1-'+i+'');
+					}
+					$(createDiv({
+						clazz:'book-deco'
+					})).appendTo('#div-book-cover-1-'+i+'');
+
+					if((d.book2).length!=0){
+						$(createDivVal({
+							id:'div-book-name-1-'+i+'',
+							clazz:'book-title',
+							val:d.book2[i].bookName
+						})).appendTo('#a-book-item-1-'+i+'');
+						$(createDivVal({
+							id:'div-book-writter-1-'+i+'',
+							clazz:'book-author',
+							val:d.book2[i].writter
+						})).appendTo('#a-book-item-1-'+i+''); 
+					}
+				}
+				for(var i=0;i<6;i++){
+
+					if((d.book3).length!=0){
+						$(createATag({
+							id:'a-book-item-2-'+i+'',
+							val:''
+						})).appendTo('#div-book-item-2').attr('class','a-book-cover a-book-cover-2').attr('value',d.book3[i].bookNum);
+					}
+					$(createDiv({
+						id:'div-book-cover-2-'+i+'',
+						clazz:'book-cover book-cover-2'
+					})).appendTo('#a-book-item-2-'+i+'');
+
+					if((d.book3).length!=0){
+						$(createImg({
+							src:((d.book3[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book3[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book3[i].imageRoute 
+						})).appendTo('#div-book-cover-2-'+i+'');
+					}
+					$(createDiv({
+						clazz:'book-deco'
+					})).appendTo('#div-book-cover-2-'+i+'');
+
+					if((d.book3).length!=0){
+						$(createDivVal({
+							id:'div-book-name-2-'+i+'',
+							clazz:'book-title',
+							val:d.book3[i].bookName
+						})).appendTo('#a-book-item-2-'+i+'');
+						$(createDivVal({
+							id:'div-book-writter-2-'+i+'',
+							clazz:'book-author',val:d.book3[i].writter
+						})).appendTo('#a-book-item-2-'+i+''); 
+					}
+				}
+				for(var i=0;i<6;i++){
+					$(createATag({
+						id:'a-book-item-3-'+i+'',
+						val:''
+					})).appendTo('#div-book-item-3').attr('class','a-book-cover a-book-cover-3').attr('value',d.book4[i].bookNum);
+					$(createDiv({
+						id:'div-book-cover-3-'+i+'',
+						clazz:'book-cover book-cover-3'
+					})).appendTo('#a-book-item-3-'+i+'');
+
+					if((d.book4).length!=0){
+						$(createImg({
+							src:((d.book4[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book4[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book4[i].imageRoute 
+						})).appendTo('#div-book-cover-3-'+i+'');
+					}
+					$(createDiv({
+						clazz:'book-deco'
+					})).appendTo('#div-book-cover-3-'+i+'');
+
+					if((d.book4).length!=0){
+						$(createDivVal({
+							id:'div-book-name-3-'+i+'',
+							clazz:'book-title',
+							val:d.book4[i].bookName
+						})).appendTo('#a-book-item-3-'+i+'');
+						$(createDivVal({
+							id:'div-book-writter-3-'+i+'',
+							clazz:'book-author',
+							val:d.book4[i].writter
+						})).appendTo('#a-book-item-3-'+i+''); 
+					}
+				}
+				for(var i=0;i<6;i++){
+					$(createATag({
+						id:'a-book-item-4-'+i+'',
+						val:''
+					})).appendTo('#div-book-item-4').attr('class','a-book-cover a-book-cover-4').attr('value',d.book5[i].bookNum);
+					$(createDiv({
+						id:'div-book-cover-4-'+i+'',
+						clazz:'book-cover book-cover-4'
+					})).appendTo('#a-book-item-4-'+i+'');
+
+					if((d.book5).length!=0){
+						$(createImg({
+							src:((d.book5[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book5[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book5[i].imageRoute 
+						})).appendTo('#div-book-cover-4-'+i+'');
+					}
+					$(createDiv({
+						clazz:'book-deco'
+					})).appendTo('#div-book-cover-4-'+i+'');
+
+					if((d.book5).length!=0){
+						$(createDivVal({
+							id:'div-book-name-4-'+i+'',
+							clazz:'book-title',
+							val:d.book5[i].bookName
+						})).appendTo('#a-book-item-4-'+i+'');
+						$(createDivVal({
+							id:'div-book-writter-4-'+i+'',
+							clazz:'book-author',
+							val:d.book5[i].writter
+						})).appendTo('#a-book-item-4-'+i+''); 
+					}
+				}
+				for(var i=0;i<6;i++){
+					$(createATag({
+						id:'a-book-item-5-'+i+'',
+						val:''
+					})).appendTo('#div-book-item-5').attr('class','a-book-cover a-book-cover-5').attr('value',d.book6[i].bookNum);
+					$(createDiv({
+						id:'div-book-cover-5-'+i+'',
+						clazz:'book-cover book-cover-5'
+					})).appendTo('#a-book-item-5-'+i+'');
+
+					if((d.book6).length!=0){
+						$(createImg({
+							src:((d.book6[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] != null) ? x.image+'/'+(d.book6[i].imageRoute.split('\\\\resources\\\\img\\\\'))[1] : d.book6[i].imageRoute 
+						})).appendTo('#div-book-cover-5-'+i+'');
+					}
+					$(createDiv({
+						clazz:'book-deco'
+					})).appendTo('#div-book-cover-5-'+i+'');
+					$(createDivVal({
+						id:'div-book-name-5-'+i+'',
+						clazz:'book-title',
+						val:d.book6[i].bookName
+					})).appendTo('#a-book-item-5-'+i+'');
+					$(createDivVal({
+						id:'div-book-writter-5-'+i+'',
+						clazz:'book-author',
+						val:d.book6[i].writter
+					})).appendTo('#a-book-item-5-'+i+''); 
+				}
+				$('.a-book-cover-0').on('click',function(){
+					$('#div-advertise').remove();
+					var bookList = $(this).attr('value');
+					$.ajax({
+						url:x.context+'/bookDetail',
+						method:'POST',
+						data:JSON.stringify({bookList:bookList}),
+						dataType:'json',
+						contentType:'application/json',
+						success:d=>{
+							book.main.detail({
+								bookNum:d.bookList[0].bookNum,
+								imageRoute:d.bookList[0].imageRoute,
+								bookName:d.bookList[0].bookName,
+								price:d.bookList[0].price,
+								largeGenre:d.bookList[0].largeGenre,
+								smallGenre:d.bookList[0].smallGenre,
+								writter:d.bookList[0].writter,
+								publisher:d.bookList[0].publisher,
+								publishingDate:d.bookList[0].publishingDate,
+								context:x.context,
+								image:x.image
+							});
+						},
+						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					});
+				}); 
+				$('.a-book-cover-1').on('click',function(){
+					$('#div-advertise').remove();
+					var bookList = $(this).attr('value');
+					$.ajax({
+						url:x.context+'/bookDetail',
+						method:'POST',
+						data:JSON.stringify({bookList:bookList}),
+						dataType:'json',
+						contentType:'application/json',
+						success:d=>{
+							book.main.detail({
+								bookNum:d.bookList[0].bookNum,
+								imageRoute:d.bookList[0].imageRoute,
+								bookName:d.bookList[0].bookName,
+								price:d.bookList[0].price,
+								largeGenre:d.bookList[0].largeGenre,
+								smallGenre:d.bookList[0].smallGenre,
+								writter:d.bookList[0].writter,
+								publisher:d.bookList[0].publisher,
+								publishingDate:d.bookList[0].publishingDate,
+								context:x.context,
+								image:x.image
+							});
+						},
+						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					});
+				});
+				$('.a-book-cover-2').on('click',function(){
+					$('#div-advertise').remove();
+					var bookList = $(this).attr('value');
+					$.ajax({
+						url:x.context+'/bookDetail',
+						method:'POST',
+						data:JSON.stringify({bookList:bookList}),
+						dataType:'json',
+						contentType:'application/json',
+						success:d=>{
+							book.main.detail({
+								bookNum:d.bookList[0].bookNum,
+								imageRoute:d.bookList[0].imageRoute,
+								bookName:d.bookList[0].bookName,
+								price:d.bookList[0].price,
+								largeGenre:d.bookList[0].largeGenre,
+								smallGenre:d.bookList[0].smallGenre,
+								writter:d.bookList[0].writter,
+								publisher:d.bookList[0].publisher,
+								publishingDate:d.bookList[0].publishingDate,
+								context:x.context,
+								image:x.image
+							});
+						},
+						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					});
+				});	 
+				$('.a-book-cover-3').on('click',function(){
+					$('#div-advertise').remove();
+					var bookList = $(this).attr('value');
+					$.ajax({
+						url:x.context+'/bookDetail',
+						method:'POST',
+						data:JSON.stringify({bookList:bookList}),
+						dataType:'json',
+						contentType:'application/json',
+						success:d=>{
+							book.main.detail({
+								bookNum:d.bookList[0].bookNum,
+								imageRoute:d.bookList[0].imageRoute,
+								bookName:d.bookList[0].bookName,
+								price:d.bookList[0].price,
+								largeGenre:d.bookList[0].largeGenre,
+								smallGenre:d.bookList[0].smallGenre,
+								writter:d.bookList[0].writter,
+								publisher:d.bookList[0].publisher,
+								publishingDate:d.bookList[0].publishingDate,
+								context:x.context,
+								image:x.image
+							});
+						},
+						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					});
+				});
+				$('.a-book-cover-4').on('click',function(){
+					$('#div-advertise').remove();
+					var bookList = $(this).attr('value');
+					$.ajax({
+						url:x.context+'/bookDetail',
+						method:'POST',
+						data:JSON.stringify({bookList:bookList}),
+						dataType:'json',
+						contentType:'application/json',
+						success:d=>{
+							book.main.detail({
+								bookNum:d.bookList[0].bookNum,
+								imageRoute:d.bookList[0].imageRoute,
+								bookName:d.bookList[0].bookName,
+								price:d.bookList[0].price,
+								largeGenre:d.bookList[0].largeGenre,
+								smallGenre:d.bookList[0].smallGenre,
+								writter:d.bookList[0].writter,
+								publisher:d.bookList[0].publisher,
+								publishingDate:d.bookList[0].publishingDate,
+								context:x.context,
+								image:x.image
+							});
+						},
+						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					});
+				});
+				$('.a-book-cover-5').on('click',function(){
+					$('#div-advertise').remove();
+					var bookList = $(this).attr('value');
+					$.ajax({
+						url:x.context+'/bookDetail',
+						method:'POST',
+						data:JSON.stringify({bookList:bookList}),
+						dataType:'json',
+						contentType:'application/json',
+						success:d=>{
+							book.main.detail({
+								bookNum:d.bookList[0].bookNum,
+								imageRoute:d.bookList[0].imageRoute,
+								bookName:d.bookList[0].bookName,
+								price:d.bookList[0].price,
+								largeGenre:d.bookList[0].largeGenre,
+								smallGenre:d.bookList[0].smallGenre,
+								writter:d.bookList[0].writter,
+								publisher:d.bookList[0].publisher,
+								publishingDate:d.bookList[0].publishingDate,
+								context:x.context,
+								image:x.image
+							});
+						},
+						error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+					});
+				});
+			
+			}
 			});
-			$('.a-book-cover-2').on('click',function(){
-				$('#div-advertise').remove();
-				var bookList = $(this).attr('value');
-				$.ajax({
-					url:x.context+'/bookDetail',
-					method:'POST',
-					data:JSON.stringify({bookList:bookList}),
-					dataType:'json',
-					contentType:'application/json',
-					success:d=>{
-						book.main.detail({
-							bookNum:d.bookList[0].bookNum,
-							imageRoute:d.bookList[0].imageRoute,
-							bookName:d.bookList[0].bookName,
-							price:d.bookList[0].price,
-							largeGenre:d.bookList[0].largeGenre,
-							smallGenre:d.bookList[0].smallGenre,
-							writter:d.bookList[0].writter,
-							publisher:d.bookList[0].publisher,
-							publishingDate:d.bookList[0].publishingDate,
-							context:x.context,
-							image:x.image
-						});
-					},
-					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
-				});
-			});	 
-			$('.a-book-cover-3').on('click',function(){
-				$('#div-advertise').remove();
-				var bookList = $(this).attr('value');
-				$.ajax({
-					url:x.context+'/bookDetail',
-					method:'POST',
-					data:JSON.stringify({bookList:bookList}),
-					dataType:'json',
-					contentType:'application/json',
-					success:d=>{
-						book.main.detail({
-							bookNum:d.bookList[0].bookNum,
-							imageRoute:d.bookList[0].imageRoute,
-							bookName:d.bookList[0].bookName,
-							price:d.bookList[0].price,
-							largeGenre:d.bookList[0].largeGenre,
-							smallGenre:d.bookList[0].smallGenre,
-							writter:d.bookList[0].writter,
-							publisher:d.bookList[0].publisher,
-							publishingDate:d.bookList[0].publishingDate,
-							context:x.context,
-							image:x.image
-						});
-					},
-					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
-				});
-			});
-			$('.a-book-cover-4').on('click',function(){
-				$('#div-advertise').remove();
-				var bookList = $(this).attr('value');
-				$.ajax({
-					url:x.context+'/bookDetail',
-					method:'POST',
-					data:JSON.stringify({bookList:bookList}),
-					dataType:'json',
-					contentType:'application/json',
-					success:d=>{
-						book.main.detail({
-							bookNum:d.bookList[0].bookNum,
-							imageRoute:d.bookList[0].imageRoute,
-							bookName:d.bookList[0].bookName,
-							price:d.bookList[0].price,
-							largeGenre:d.bookList[0].largeGenre,
-							smallGenre:d.bookList[0].smallGenre,
-							writter:d.bookList[0].writter,
-							publisher:d.bookList[0].publisher,
-							publishingDate:d.bookList[0].publishingDate,
-							context:x.context,
-							image:x.image
-						});
-					},
-					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
-				});
-			});
-			$('.a-book-cover-5').on('click',function(){
-				$('#div-advertise').remove();
-				var bookList = $(this).attr('value');
-				$.ajax({
-					url:x.context+'/bookDetail',
-					method:'POST',
-					data:JSON.stringify({bookList:bookList}),
-					dataType:'json',
-					contentType:'application/json',
-					success:d=>{
-						book.main.detail({
-							bookNum:d.bookList[0].bookNum,
-							imageRoute:d.bookList[0].imageRoute,
-							bookName:d.bookList[0].bookName,
-							price:d.bookList[0].price,
-							largeGenre:d.bookList[0].largeGenre,
-							smallGenre:d.bookList[0].smallGenre,
-							writter:d.bookList[0].writter,
-							publisher:d.bookList[0].publisher,
-							publishingDate:d.bookList[0].publishingDate,
-							context:x.context,
-							image:x.image
-						});
-					},
-					error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
-				});
-			});
-		});
+				
+//		$.getJSON(x.context+'/bookMain', d=>{});
 	},
 	// 책 네비
 	bookNav:x=>{
@@ -2528,6 +2737,39 @@ book.main={
 							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
 						});
 					});
+					$('.listcart').on('click',function(){
+						var doo=JSON.parse(sessionStorage.getItem('user'));
+						$(this).attr('value')
+						var bookNum = $(this).attr('value')
+						if(doo==null){
+							alert('로그인 해주세요');
+						}else{
+							$.ajax({
+								url:x.context+'/bookInven',
+								method:'POST',
+								data:JSON.stringify({bookNum:bookNum}),
+								dataType:'json',
+								contentType:'application/json',
+								success:d=>{
+									if(d.inven[0].inventory == 0){
+										alert('현재 재고가 없습니다');
+									}else{
+										$.getScript("/web/resources/js/shop.js",function(){
+					                        $('#div-list-container').attr('id','div-advertise');
+					                        shop.mall.cart({
+					                            context:x.context,
+					                            view:"/web/resources/js/view.js",
+					                            insertBook:bookNum,
+					                            insertAmount:1});
+					                    })
+									}
+								},
+								error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
+							});
+							
+						}
+
+					});
 					$('.move-detail').on('click',function(){
 						var bookList = $(this).attr('value');
 						$.ajax({
@@ -2575,39 +2817,7 @@ book.main={
 						list();
 					}
 				});			
-				$('.listcart').on('click',function(){
-					var doo=JSON.parse(sessionStorage.getItem('user'));
-					$(this).attr('value')
-					var bookNum = $(this).attr('value')
-					if(doo==null){
-						alert('로그인 해주세요');
-					}else{
-						$.ajax({
-							url:x.context+'/bookInven',
-							method:'POST',
-							data:JSON.stringify({bookNum:bookNum}),
-							dataType:'json',
-							contentType:'application/json',
-							success:d=>{
-								if(d.inven[0].inventory == 0){
-									alert('현재 재고가 없습니다');
-								}else{
-									$.getScript("/web/resources/js/shop.js",function(){
-				                        $('#div-list-container').attr('id','div-advertise');
-				                        shop.mall.cart({
-				                            context:x.context,
-				                            view:"/web/resources/js/view.js",
-				                            insertBook:bookNum,
-				                            insertAmount:1});
-				                    })
-								}
-							},
-							error : (x,h,m)=>{alert('검색 실패 x='+x+', h='+h+', m='+m);}
-						});
-						
-					}
-
-				});
+				
 			},
 			detail:x=>{
 				$('#div-body').attr('style','position: relative;bottom: 20px;');
