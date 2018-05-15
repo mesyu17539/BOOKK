@@ -120,7 +120,6 @@ user.admin={
 			var cbooleans;
 			var rbooleans;
 			$.each(d.chartData,(k,v)=>{
-				console.log('테스팅 리스트');
 				if(chartList.cols.length==0){
 					chartList.cols.push(v.largeGenre)
 					collen=chartList.cols.length;
@@ -166,9 +165,6 @@ user.admin={
 					}
 				}				
 			});
-			
-			console.log(chartList);
-			console.log(d.chartData);
 			
 			google.charts.load('current', {packages: ['corechart', 'controls', 'table']});
 			google.charts.setOnLoadCallback(drawChart);
@@ -266,7 +262,6 @@ user.admin={
 			var cbooleans;
 			var rbooleans;
 			$.each(d.chartData,(k,v)=>{
-				console.log('테스팅 리스트');
 				if(chartList.cols.length==0){
 					chartList.cols.push(v.largeGenre)
 					collen=chartList.cols.length;
@@ -312,10 +307,7 @@ user.admin={
 					}
 				}				
 			});
-			
-			console.log(chartList);
-			console.log(d.chartData);
-			
+	
 		google.charts.load('current', {packages: ['corechart', 'controls', 'table']});
 		google.charts.setOnLoadCallback(drawChart);
 		var data;
@@ -401,7 +393,6 @@ user.admin={
 	tableCharts:x=>{
 		var chartList={'cols':[],'rows':[]};
 		$.getJSON(x.context+'/chartData/books', d=>{
-			console.log(d.chartData);
 			var rowlen;
 			var collen;
 			var cbooleans;
@@ -459,7 +450,6 @@ user.admin={
 				$.each(d.chartData,(k,v)=>{
 //				.attr('style','height:150px,width:104px')
 //					k+1번째 튜플을 지우게 한다.
-					console.log(x)
 					var name=(v.imageRoute.split('\\\\resources\\\\img\\\\'))[1];
 					var imgRoute;
 					if(name!=null){
@@ -542,9 +532,6 @@ user.admin={
 									return;
 								}
 								view = new google.visualization.DataView(data);
-								console.log()
-								console.log(selected)
-								console.log(nonselected)
 								view.setRows(selected);
 								view.hideRows(nonselected);
 								dashboard.draw(view);
@@ -789,7 +776,6 @@ user.admin={
 							alert("올리는 중입니다");
 						},
 						success : s =>{
-							alert("성공");
 							bolea=false;
 							$('#bookImg').attr('display','none');
 							$('.div-img-profile').append(createImage({src:s.Imgpath}))
@@ -804,8 +790,6 @@ user.admin={
 				}
 			});
 			var genreList=d.genres;
-			console.log('대장르 리스트');
-			console.log(genreList);
 			$(createOption({val:'selectPlease',txt:'--대장르를 선택해주세요--'})).appendTo('#select-genre');
 			$(createOption({val:'selectPlease',txt:'--소장르를 선택해주세요--'})).appendTo('#select-smallGenre')
 			$.each(genreList,(k,v)=>{
@@ -830,7 +814,6 @@ user.admin={
 	pietableChart:x=>{
 		var chartList={'cols':[],'rows':[]};
 		$.getJSON(x.context+'/chartData/books', d=>{
-			console.log(d.chartData);
 			var rowlen;
 			var collen;
 			var cbooleans;
@@ -884,13 +867,11 @@ user.admin={
 				$.each({'책이름':'string','재고량':'number'},(kc,vc)=>{
 					data.addColumn(vc, kc);
 				});
-//				console.log(JSON.stringify(data));
 				$.each(d.chartData,(k,v)=>{
 //					k+1번째 튜플을 지우게 한다.
 					data.addRow([v.bookName,v.inventory]);
 				});
 				
-//				console.log(JSON.stringify(data));
 				dashboard = new google.visualization.Dashboard(
 						document.getElementById('div-adminContent-dash'));
 				
@@ -951,9 +932,6 @@ user.admin={
 									return;
 								}
 								view = new google.visualization.DataView(data);
-								console.log()
-								console.log(selected)
-								console.log(nonselected)
 								view.setRows(selected);
 								view.hideRows(nonselected);
 								dashboard.draw(view);
@@ -1469,7 +1447,6 @@ user.member={
 				+createInput({id:'join-postCodeAddress',clazz:'my-border-input',type:'text'}))
 		.append($(createButton({id:'join-btn-address',clazz:'lo-btn',val:'우편번호 찾기'}))
 				.on('click',function(){
-					alert('작동함')
 					  
         new daum.Postcode({
             oncomplete: function(data) {
@@ -1699,7 +1676,6 @@ user.member={
 				contentType:'application/json',
 				success : d =>{
 					if(d.success===1){
-						alert('가입 성공');
 						$.magnificPopup.close();
 						user.member.login(x);
 					}else{

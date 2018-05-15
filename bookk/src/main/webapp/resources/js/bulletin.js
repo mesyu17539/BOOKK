@@ -704,7 +704,8 @@ bulletin.jau=(()=>{
 										$(createButton({id:'',clazz:'',val:'삭제'}))
 											.appendTo('#div-aa-'+i)
 											.attr('style','position:relative;bottom:130px;left:650px; border-radius:10px;')
-											.on('click',()=>{
+											.on('click',(e)=>{
+												e.preventDefault();
 												$.ajax({
 													url:context+'/deleteComment/'+j.c_seq,
 													dataType:'json',
@@ -731,7 +732,8 @@ bulletin.jau=(()=>{
 								$(createButton({id:'button-comment',clazz:'btn btn-danger',val:'등록하기'}))
 								.appendTo('#form-comment')
 								.attr('style','margin-left:123px;')
-								.on('click',function(){
+								.on('click',function(e){
+									e.preventDefault();
 									if(ub!=null){
 									$.ajax({
 										url:context+'/articleComment/'+x,
@@ -743,9 +745,7 @@ bulletin.jau=(()=>{
 										dataType:'json',
 										contentType:'application/json',
 										success: y =>{
-											alert('성공');
 											articleDetail(x);
-										
 										},
 									});
 									}else{

@@ -2745,6 +2745,7 @@ book.main={
 						if(doo==null){
 							alert('로그인 해주세요');
 						}else{
+							
 							$.ajax({
 								url:x.context+'/bookInven',
 								method:'POST',
@@ -2755,11 +2756,11 @@ book.main={
 									if(d.inven[0].inventory == 0){
 										alert('현재 재고가 없습니다');
 									}else{
-										$.getScript("/web/resources/js/shop.js",function(){
+										$.getScript(x.context+'/resources/js/shop.js',function(){
 					                        $('#div-list-container').attr('id','div-advertise');
 					                        shop.mall.cart({
 					                            context:x.context,
-					                            view:"/web/resources/js/view.js",
+					                            view:x.context+'/resources/js/view.js',
 					                            insertBook:bookNum,
 					                            insertAmount:1});
 					                    })
@@ -3052,13 +3053,13 @@ book.main={
 								if(d.inven[0].inventory == 0){
 									alert('현재 재고가 없습니다');
 								}else{
-									$.getScript("/web/resources/js/shop.js",function(){
+									$.getScript(x.context+'/resources/js/shop.js',function(){
 				                        $('#div-list-container').attr('id','div-advertise');
 				                        $('#detail-container').attr('id','div-advertise');
 				                        shop.mall.cart({
 				                        	image:x.image,
 				                            context:x.context,
-				                            view:"/web/resources/js/view.js",
+				                            view:x.context+'/resources/js/view.js',
 				                            insertBook:bookNum,
 				                            insertAmount:1});
 				                    })
